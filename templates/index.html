@@ -1,0 +1,1246 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-content">
+        <a href="#home" class="logo">Shlok Bam</a>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-content">
+        <h1>Hi, I'm <span class="highlight">Shlok Bam</span></h1>
+        <p class="typing-text">Aspiring Full Stack Developer | Tech Explorer | Problem Solver</p>
+        <div class="hero-description">
+            <p>I build elegant solutions to complex problems using modern technologies.</p>
+        </div>
+        <div class="cta-buttons">
+            <a href="/download-resume" class="btn btn-primary">
+                <i class="fas fa-download"></i> Download Resume
+            </a>
+            <a href="#about" class="btn btn-secondary">
+                <i class="fas fa-user"></i> Know More
+            </a>
+            <a href="#contact" class="btn btn-outline">
+                <i class="fas fa-envelope"></i> Let's Talk
+            </a>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <div class="mouse">
+            <div class="wheel"></div>
+        </div>
+        <div class="arrow">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="about-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>About Me</h2>
+            <div class="title-underline"></div>
+        </div>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="static/images/profile.jpg" alt="Shlok Bam">
+            </div>
+            <div class="about-text">
+                <p class="lead">I'm a passionate Computer Science student and aspiring Full Stack Developer, dedicated to creating elegant solutions to complex problems.</p>
+                <p>My journey in technology began with my first programming class, and since then, I've been deeply immersed in the world of software development. I specialize in building modern web applications and am constantly exploring new technologies to enhance my skills.</p>
+                <div class="about-details">
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <div>
+                            <h4>Experience</h4>
+                            <p>2+ Years of<br>Software Development</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-project-diagram"></i>
+                        <div>
+                            <h4>Projects</h4>
+                            <p>10+ Completed<br>Web Applications</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div>
+                            <h4>Academic</h4>
+                            <p>3.8 GPA<br>Dean's List</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="skills-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>My Skills</h2>
+            <div class="title-underline"></div>
+        </div>
+        <div class="skills-content">
+            <!-- First Row: Languages -->
+            <div class="skills-category">
+                <h3><i class="fas fa-laptop-code"></i> Languages</h3>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <i class="fab fa-python"></i>
+                        <h4>Python</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-java"></i>
+                        <h4>Java</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-js"></i>
+                        <h4>JavaScript</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-code"></i>
+                        <h4>C++</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-code"></i>
+                        <h4>TypeScript</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-code"></i>
+                        <h4>PHP</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-code"></i>
+                        <h4>Go</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- First Row: Frontend -->
+            <div class="skills-category">
+                <h3><i class="fas fa-code"></i> Frontend</h3>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <i class="fab fa-html5"></i>
+                        <h4>HTML5</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-css3-alt"></i>
+                        <h4>CSS3</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-react"></i>
+                        <h4>React</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-vuejs"></i>
+                        <h4>Vue.js</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-bootstrap"></i>
+                        <h4>Bootstrap</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-sass"></i>
+                        <h4>SASS</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-angular"></i>
+                        <h4>Angular</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Row: Backend -->
+            <div class="skills-category">
+                <h3><i class="fas fa-server"></i> Backend</h3>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <i class="fab fa-node-js"></i>
+                        <h4>Node.js</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-server"></i>
+                        <h4>Express</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-fire"></i>
+                        <h4>Django</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-server"></i>
+                        <h4>Flask</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-server"></i>
+                        <h4>Spring</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-server"></i>
+                        <h4>REST</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-server"></i>
+                        <h4>GraphQL</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Row: Data & Cloud -->
+            <div class="skills-category">
+                <h3><i class="fas fa-database"></i> Data & Cloud</h3>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <i class="fas fa-database"></i>
+                        <h4>SQL</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-server"></i>
+                        <h4>MongoDB</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-aws"></i>
+                        <h4>AWS</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-cloud"></i>
+                        <h4>Firebase</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-database"></i>
+                        <h4>PostgreSQL</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-database"></i>
+                        <h4>Redis</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-database"></i>
+                        <h4>Elasticsearch</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third Row: Tools & Others (Full Width) -->
+            <div class="skills-category">
+                <h3><i class="fas fa-tools"></i> Tools & Others</h3>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <i class="fab fa-git-alt"></i>
+                        <h4>Git</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-terminal"></i>
+                        <h4>Linux</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-docker"></i>
+                        <h4>Docker</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-microchip"></i>
+                        <h4>DSA</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-robot"></i>
+                        <h4>ML</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Security</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-network-wired"></i>
+                        <h4>Networking</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="projects-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Projects</h2>
+            <div class="title-underline"></div>
+        </div>
+        <div class="projects-filter">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-th-large"></i> All
+            </button>
+            <button class="filter-btn" data-filter="web">
+                <i class="fas fa-globe"></i> Web Dev
+            </button>
+            <button class="filter-btn" data-filter="ai">
+                <i class="fas fa-brain"></i> AI/ML
+            </button>
+            <button class="filter-btn" data-filter="mobile">
+                <i class="fas fa-mobile-alt"></i> Mobile
+            </button>
+            <button class="filter-btn" data-filter="academic">
+                <i class="fas fa-graduation-cap"></i> Academic
+            </button>
+        </div>
+        <div class="projects-grid">
+            <!-- Web Development Project 1 -->
+            <div class="project-card" data-category="web">
+                <div class="project-image">
+                    <img src="static/images/projects/ecommerce.jpg" alt="E-Commerce Platform">
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="project-github" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>E-Commerce Platform</h3>
+                    <p>A full-stack e-commerce platform with real-time inventory management, secure payment processing, and admin dashboard.</p>
+                    <div class="project-tech">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>MongoDB</span>
+                        <span>Stripe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI/ML Project -->
+            <div class="project-card" data-category="ai">
+                <div class="project-image">
+                    <img src="static/images/projects/ai-chat.jpg" alt="AI Chat Assistant">
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="project-github" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>AI Chat Assistant</h3>
+                    <p>An intelligent chatbot using GPT-3 for natural language processing, capable of handling customer queries and providing personalized responses.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>GPT-3</span>
+                        <span>FastAPI</span>
+                        <span>Docker</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile App Project -->
+            <div class="project-card" data-category="mobile">
+                <div class="project-image">
+                    <img src="static/images/projects/fitness-app.jpg" alt="Fitness Tracker">
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="project-github" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Fitness Tracker App</h3>
+                    <p>A cross-platform mobile app for tracking workouts, nutrition, and health metrics with data visualization and progress tracking.</p>
+                    <div class="project-tech">
+                        <span>React Native</span>
+                        <span>Firebase</span>
+                        <span>Redux</span>
+                        <span>Charts.js</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Project -->
+            <div class="project-card" data-category="academic">
+                <div class="project-image">
+                    <img src="static/images/projects/compiler.jpg" alt="Compiler Design">
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="project-github" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Compiler Design</h3>
+                    <p>Implemented a compiler for a custom programming language, including lexical analysis, parsing, and code generation phases.</p>
+                    <div class="project-tech">
+                        <span>Java</span>
+                        <span>ANTLR</span>
+                        <span>LLVM</span>
+                        <span>JUnit</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Development Project 2 -->
+            <div class="project-card" data-category="web">
+                <div class="project-image">
+                    <img src="static/images/projects/social-media.jpg" alt="Social Media Dashboard">
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="project-github" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Social Media Dashboard</h3>
+                    <p>A real-time social media analytics dashboard with data visualization, user engagement metrics, and content scheduling.</p>
+                    <div class="project-tech">
+                        <span>Vue.js</span>
+                        <span>Django</span>
+                        <span>PostgreSQL</span>
+                        <span>D3.js</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI/ML Project 2 -->
+            <div class="project-card" data-category="ai">
+                <div class="project-image">
+                    <img src="static/images/projects/image-recognition.jpg" alt="Image Recognition">
+                    <div class="project-overlay">
+                        <div class="project-links">
+                            <a href="#" class="project-github" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Image Recognition System</h3>
+                    <p>Developed a CNN-based image recognition system for object detection and classification with 95% accuracy.</p>
+                    <div class="project-tech">
+                        <span>TensorFlow</span>
+                        <span>OpenCV</span>
+                        <span>Python</span>
+                        <span>Flask</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section id="experience" class="experience-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-title">
+                <h2>Experience</h2>
+                <div class="title-underline"></div>
+            </div>
+        </div>
+        
+        <!-- Experience Tabs -->
+        <div class="experience-tabs">
+            <button class="tab-btn active" data-tab="education">
+                <i class="fas fa-graduation-cap"></i>
+                Education
+            </button>
+            <button class="tab-btn" data-tab="club">
+                <i class="fas fa-users"></i>
+                Club Experience
+            </button>
+            <button class="tab-btn" data-tab="professional">
+                <i class="fas fa-briefcase"></i>
+                Professional Experience
+            </button>
+        </div>
+
+        <!-- Education Timeline -->
+        <div class="timeline-container active" id="education">
+            <div class="timeline">
+                <!-- Current Education -->
+                <div class="timeline-item" data-tags="academic,technical">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2021 - Present</div>
+                        <div class="timeline-tags">
+                            <span class="tag academic">Academic</span>
+                            <span class="tag technical">Technical</span>
+                        </div>
+                        <h3>Bachelor of Technology in Computer Science</h3>
+                        <h4>VIT Pune</h4>
+                        <ul class="achievements">
+                            <li>Currently pursuing BTech in Computer Science</li>
+                            <li>Active member of multiple technical clubs</li>
+                            <li>Participating in various coding competitions and hackathons</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Previous Education -->
+                <div class="timeline-item" data-tags="academic">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2019 - 2021</div>
+                        <div class="timeline-tags">
+                            <span class="tag academic">Academic</span>
+                        </div>
+                        <h3>Higher Secondary Education</h3>
+                        <h4>12th Grade</h4>
+                        <ul class="achievements">
+                            <li>Completed 12th grade with focus on Computer Science</li>
+                            <li>Participated in various technical competitions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-tags="academic">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2018 - 2019</div>
+                        <div class="timeline-tags">
+                            <span class="tag academic">Academic</span>
+                        </div>
+                        <h3>Secondary Education</h3>
+                        <h4>11th Grade</h4>
+                        <ul class="achievements">
+                            <li>Completed 11th grade with focus on Computer Science</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-tags="academic">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2008 - 2018</div>
+                        <div class="timeline-tags">
+                            <span class="tag academic">Academic</span>
+                        </div>
+                        <h3>Primary & Secondary Education</h3>
+                        <h4>1st to 10th Grade</h4>
+                        <ul class="achievements">
+                            <li>Completed primary and secondary education</li>
+                            <li>Developed interest in technology and programming</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Club Experience Timeline -->
+        <div class="timeline-container" id="club">
+            <div class="timeline">
+                <!-- Club Experience - Third Year -->
+                <div class="timeline-item" data-tags="leadership,technical">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023 - Present</div>
+                        <div class="timeline-tags">
+                            <span class="tag leadership">Leadership</span>
+                            <span class="tag technical">Technical</span>
+                        </div>
+                        <h3>Club Leadership</h3>
+                        <h4>Technical Club President</h4>
+                        <ul class="achievements">
+                            <li>Leading and managing club activities and events</li>
+                            <li>Organizing workshops and technical sessions</li>
+                            <li>Mentoring junior members and coordinating with faculty</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Club Experience - Second Year -->
+                <div class="timeline-item" data-tags="technical,event">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022 - 2023</div>
+                        <div class="timeline-tags">
+                            <span class="tag technical">Technical</span>
+                            <span class="tag event">Event Organization</span>
+                        </div>
+                        <h3>Club Experience</h3>
+                        <h4>Technical Club Promotion & New Roles</h4>
+                        <ul class="achievements">
+                            <li>Promoted to senior position in existing club</li>
+                            <li>Joined two new technical clubs</li>
+                            <li>Organized multiple technical events and workshops</li>
+                            <li>Mentored junior members in various projects</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Club Experience - First Year -->
+                <div class="timeline-item" data-tags="technical">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2021 - 2022</div>
+                        <div class="timeline-tags">
+                            <span class="tag technical">Technical</span>
+                        </div>
+                        <h3>Club Experience</h3>
+                        <h4>Technical Club Member</h4>
+                        <ul class="achievements">
+                            <li>Active member of two technical clubs</li>
+                            <li>Participated in various technical workshops</li>
+                            <li>Contributed to club projects and events</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Experience Timeline -->
+        <div class="timeline-container" id="professional">
+            <div class="timeline">
+                <!-- Internship Experience -->
+                <div class="timeline-item" data-tags="internship">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023</div>
+                        <div class="timeline-tags">
+                            <span class="tag internship">Internship</span>
+                        </div>
+                        <h3>Internship Experience</h3>
+                        <h4>Herbs Magic</h4>
+                        <ul class="achievements">
+                            <li>Completed internship at Herbs Magic</li>
+                            <li>Gained practical experience in software development</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Additional Opportunity -->
+                <div class="timeline-item" data-tags="opportunity">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023</div>
+                        <div class="timeline-tags">
+                            <span class="tag opportunity">Opportunity</span>
+                        </div>
+                        <h3>Professional Opportunity</h3>
+                        <h4>Qualitas Global</h4>
+                        <ul class="achievements">
+                            <li>Selected for Data Annotation role</li>
+                            <li>Could not proceed due to academic schedule</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Certifications Section -->
+<section id="certifications" class="certifications-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Certifications & Courses</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="certifications-filter">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-th-large"></i> All
+            </button>
+            <button class="filter-btn" data-filter="technical">
+                <i class="fas fa-code"></i> Technical
+            </button>
+            <button class="filter-btn" data-filter="soft-skills">
+                <i class="fas fa-users"></i> Soft Skills
+            </button>
+        </div>
+
+        <div class="certifications-grid">
+            <!-- Technical Certifications -->
+            <div class="certification-card" data-category="technical">
+                <div class="certification-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="certification-content">
+                    <h3>Full Stack Web Development</h3>
+                    <p class="platform">Udemy</p>
+                    <p class="date">Completed: October 2023</p>
+                    <p class="description">Comprehensive course covering modern web development stack including React, Node.js, and MongoDB.</p>
+                    <div class="certification-tags">
+                        <span class="tag">Web Development</span>
+                        <span class="tag">Full Stack</span>
+                    </div>
+                    <a href="#" class="certificate-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> View Certificate
+                    </a>
+                </div>
+            </div>
+
+            <!-- Technical Certifications -->
+            <div class="certification-card" data-category="technical">
+                <div class="certification-icon">
+                    <i class="fab fa-aws"></i>
+                </div>
+                <div class="certification-content">
+                    <h3>AWS Cloud Practitioner</h3>
+                    <p class="platform">Amazon Web Services</p>
+                    <p class="date">Completed: August 2023</p>
+                    <p class="description">Understanding of AWS cloud concepts, services, security, architecture, and pricing.</p>
+                    <div class="certification-tags">
+                        <span class="tag">Cloud Computing</span>
+                        <span class="tag">AWS</span>
+                    </div>
+                    <a href="#" class="certificate-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> View Certificate
+                    </a>
+                </div>
+            </div>
+
+            <!-- Technical Certifications -->
+            <div class="certification-card" data-category="technical">
+                <div class="certification-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="certification-content">
+                    <h3>Machine Learning Specialization</h3>
+                    <p class="platform">Coursera</p>
+                    <p class="date">Completed: December 2023</p>
+                    <p class="description">Comprehensive course covering supervised and unsupervised learning, neural networks, and deep learning.</p>
+                    <div class="certification-tags">
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">Deep Learning</span>
+                    </div>
+                    <a href="#" class="certificate-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> View Certificate
+                    </a>
+                </div>
+            </div>
+
+            <!-- Soft Skills Certifications -->
+            <div class="certification-card" data-category="soft-skills">
+                <div class="certification-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="certification-content">
+                    <h3>Leadership & Team Management</h3>
+                    <p class="platform">LinkedIn Learning</p>
+                    <p class="date">Completed: November 2023</p>
+                    <p class="description">Advanced course on leadership principles, team dynamics, and effective management strategies.</p>
+                    <div class="certification-tags">
+                        <span class="tag">Leadership</span>
+                        <span class="tag">Management</span>
+                    </div>
+                    <a href="#" class="certificate-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> View Certificate
+                    </a>
+                </div>
+            </div>
+
+            <!-- Soft Skills Certifications -->
+            <div class="certification-card" data-category="soft-skills">
+                <div class="certification-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="certification-content">
+                    <h3>Effective Communication</h3>
+                    <p class="platform">Coursera</p>
+                    <p class="date">Completed: September 2023</p>
+                    <p class="description">Mastering professional communication, presentation skills, and effective workplace interactions.</p>
+                    <div class="certification-tags">
+                        <span class="tag">Communication</span>
+                        <span class="tag">Presentation</span>
+                    </div>
+                    <a href="#" class="certificate-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> View Certificate
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Hackathons Section -->
+<section id="hackathons" class="hackathons-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Hackathons & Competitions</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="hackathons-grid">
+            <!-- Hackathon 1 -->
+            <div class="hackathon-card">
+                <div class="hackathon-date">
+                    <span class="month">DEC</span>
+                    <span class="year">2023</span>
+                </div>
+                <div class="hackathon-content">
+                    <h3>HackMIT 2023</h3>
+                    <p class="role">Team Lead & Developer</p>
+                    <p class="description">AI-powered education platform with personalized learning paths.</p>
+                    <div class="achievement">
+                        <i class="fas fa-trophy"></i>
+                        <span>2nd Place Overall</span>
+                    </div>
+                    <div class="hackathon-tech">
+                        <span>Python</span>
+                        <span>TensorFlow</span>
+                        <span>React</span>
+                    </div>
+                    <div class="hackathon-links">
+                        <a href="#" class="certificate-link" target="_blank">
+                            <i class="fas fa-certificate"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coding Competition -->
+            <div class="hackathon-card">
+                <div class="hackathon-date">
+                    <span class="month">OCT</span>
+                    <span class="year">2023</span>
+                </div>
+                <div class="hackathon-content">
+                    <h3>Google Code Jam</h3>
+                    <p class="role">Participant</p>
+                    <p class="description">Competed in Google's annual coding competition.</p>
+                    <div class="achievement">
+                        <i class="fas fa-medal"></i>
+                        <span>Qualified for Round 2</span>
+                    </div>
+                    <div class="hackathon-tech">
+                        <span>Algorithms</span>
+                        <span>Data Structures</span>
+                    </div>
+                    <div class="hackathon-links">
+                        <a href="#" class="certificate-link" target="_blank">
+                            <i class="fas fa-certificate"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hackathon 2 -->
+            <div class="hackathon-card">
+                <div class="hackathon-date">
+                    <span class="month">JUN</span>
+                    <span class="year">2023</span>
+                </div>
+                <div class="hackathon-content">
+                    <h3>HackHarvard 2023</h3>
+                    <p class="role">Full Stack Developer</p>
+                    <p class="description">Blockchain-based document verification system.</p>
+                    <div class="achievement">
+                        <i class="fas fa-award"></i>
+                        <span>Best Use of Blockchain</span>
+                    </div>
+                    <div class="hackathon-tech">
+                        <span>Solidity</span>
+                        <span>Web3.js</span>
+                        <span>React</span>
+                    </div>
+                    <div class="hackathon-links">
+                        <a href="#" class="certificate-link" target="_blank">
+                            <i class="fas fa-certificate"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Memories Section -->
+<section id="memories" class="memories-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Gallery</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="memories-container">
+            <div class="memory-grid">
+                <!-- Memory Item 1 -->
+                <div class="memory-item">
+                    <div class="memory-image">
+                        <img src="static/images/memories/memory1.jpg" alt="Memory 1">
+                        <div class="memory-overlay">
+                            <div class="memory-content">
+                                <h3>Summer Adventure</h3>
+                                <p class="memory-date">August 2023</p>
+                                <p class="memory-description">Exploring new places and creating unforgettable moments</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Item 2 -->
+                <div class="memory-item">
+                    <div class="memory-image">
+                        <img src="static/images/memories/memory2.jpg" alt="Memory 2">
+                        <div class="memory-overlay">
+                            <div class="memory-content">
+                                <h3>Tech Conference</h3>
+                                <p class="memory-date">June 2023</p>
+                                <p class="memory-description">Learning and networking with industry experts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Item 3 -->
+                <div class="memory-item">
+                    <div class="memory-image">
+                        <img src="static/images/memories/memory3.jpg" alt="Memory 3">
+                        <div class="memory-overlay">
+                            <div class="memory-content">
+                                <h3>Team Building</h3>
+                                <p class="memory-date">April 2023</p>
+                                <p class="memory-description">Strengthening bonds with amazing colleagues</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Item 4 -->
+                <div class="memory-item">
+                    <div class="memory-image">
+                        <img src="static/images/memories/memory4.jpg" alt="Memory 4">
+                        <div class="memory-overlay">
+                            <div class="memory-content">
+                                <h3>Project Launch</h3>
+                                <p class="memory-date">February 2023</p>
+                                <p class="memory-description">Celebrating the success of our latest project</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Item 5 -->
+                <div class="memory-item">
+                    <div class="memory-image">
+                        <img src="static/images/memories/memory5.jpg" alt="Memory 5">
+                        <div class="memory-overlay">
+                            <div class="memory-content">
+                                <h3>Hackathon Win</h3>
+                                <p class="memory-date">December 2022</p>
+                                <p class="memory-description">Winning first place in the annual hackathon</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Item 6 -->
+                <div class="memory-item">
+                    <div class="memory-image">
+                        <img src="static/images/memories/memory6.jpg" alt="Memory 6">
+                        <div class="memory-overlay">
+                            <div class="memory-content">
+                                <h3>Graduation Day</h3>
+                                <p class="memory-date">May 2022</p>
+                                <p class="memory-description">A milestone achievement with friends and family</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memory Modal -->
+    <div class="memory-modal" id="memoryModal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img src="" alt="Memory Image">
+                </div>
+                <div class="modal-info">
+                    <h3></h3>
+                    <p class="modal-date"></p>
+                    <p class="modal-description"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Get In Touch</h2>
+            <div class="title-underline"></div>
+        </div>
+        <div class="contact-content">
+            <div class="contact-column">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:shlokbam@gmail.com">shlokbam@gmail.com</a>
+                </div>
+            </div>
+            <div class="contact-column">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:+91XXXXXXXXXX">+91-XXXXXXXXXX</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 
