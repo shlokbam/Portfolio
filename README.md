@@ -1,148 +1,133 @@
-# Modern Portfolio Website
+# Personal Portfolio Website
 
-A modern, responsive portfolio website showcasing skills, projects, and experience. Built with Flask, featuring a clean design, smooth animations, and interactive elements.
+A modern, responsive portfolio website built with Flask, showcasing my skills, projects, and experiences.
 
-## 🌟 Features
+## Features
 
-- **Modern Design**
-  - Clean and professional layout
-  - Smooth animations and transitions
-  - Dark/Light mode support
-  - Responsive design for all devices
+- 🌓 Dark/Light Mode Toggle
+- 📱 Fully Responsive Design
+- 🎨 Modern UI with Smooth Animations
+- 📊 Interactive Skills Section
+- 🚀 Project Showcase with Filtering
+- 📚 Experience Timeline
+- 🏆 Certifications & Courses Display
+- 🏅 Hackathons & Competitions Section
+- 📬 Contact Form
+- 📄 Resume Download
+- 📜 Certificate Viewing System
 
-- **Interactive Sections**
-  - Dynamic typing effect in hero section
-  - Interactive skill cards with proficiency indicators
-  - Project filtering system
-  - Experience timeline with tabs
-  - Gallery with modal view
-  - Memory/Gallery section with hover effects
+## Tech Stack
 
-- **Content Sections**
-  - Hero section with call-to-action buttons
-  - About section with personal details
-  - Skills showcase with categories
-  - Projects portfolio with filtering
-  - Experience timeline (Education, Club, Professional)
-  - Certifications & Courses
-  - Hackathons & Competitions
-  - Gallery/Memories
-  - Contact information
+- **Backend**: Python (Flask)
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Icons**: Font Awesome
+- **Animations**: Custom CSS
+- **Responsive Design**: Custom CSS Grid & Flexbox
 
-- **Technical Features**
-  - SEO optimized
-  - Fast loading times
-  - Smooth scrolling
-  - Responsive navigation
-  - Cross-browser compatibility
-
-## 🛠️ Tech Stack
-
-- **Backend**
-  - Flask 3.0.0
-  - Python 3.x
-  - Werkzeug 3.0.1
-  - Jinja2 3.1.2
-
-- **Frontend**
-  - HTML5
-  - CSS3 (Custom with CSS Variables)
-  - JavaScript (Vanilla)
-  - Font Awesome Icons
-
-## 📦 Project Structure
+## Project Structure
 
 ```
 portfolio/
 ├── static/
 │   ├── css/
-│   │   └── style.css      # Main stylesheet
+│   │   └── style.css
 │   ├── js/
-│   │   └── main.js        # JavaScript functionality
-│   └── images/            # Project images and assets
+│   │   └── script.js
+│   ├── images/
+│   │   ├── about/
+│   │   └── projects/
+│   └── certificates/
+│       ├── clubs/
+│       ├── hackathons/
+│       └── certifications/
 ├── templates/
-│   ├── base.html          # Base template
-│   └── index.html         # Main content
-├── app.py                 # Flask application
-└── requirements.txt       # Python dependencies
+│   ├── base.html
+│   └── index.html
+├── app.py
+└── README.md
 ```
 
-## 🚀 Getting Started
+## Sections
 
-1. **Clone the repository**
+1. **Hero Section**
+   - Introduction
+   - Quick Links
+   - Scroll Indicator
+
+2. **About Section**
+   - Personal Information
+   - Key Achievements
+   - Profile Image
+
+3. **Skills Section**
+   - Languages
+   - Frontend
+   - Backend
+   - Data & Cloud
+   - Tools & Others
+
+4. **Projects Section**
+   - Filterable Project Cards
+   - Project Details
+   - GitHub Links
+
+5. **Experience Section**
+   - Education Timeline
+   - Club Experience
+   - Professional Experience
+
+6. **Certifications Section**
+   - Technical Certifications
+   - Soft Skills Certifications
+   - Certificate Links
+
+7. **Hackathons Section**
+   - Competition Details
+   - Achievements
+   - Media Gallery
+
+8. **Contact Section**
+   - Email
+   - Phone
+   - Social Links
+
+## Setup & Installation
+
+1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/portfolio.git
-   cd portfolio
    ```
 
-2. **Set up virtual environment**
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   ```
-
-3. **Install dependencies**
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Run the application**
+3. Run the application:
    ```bash
    python app.py
    ```
 
-5. **Access the website**
-   Open `http://localhost:5000` in your browser
+4. Visit `http://localhost:5000` in your browser
 
-## 🎨 Customization
+## Customization
 
-1. **Personal Information**
-   - Update content in `templates/index.html`
-   - Modify profile image in `static/images/`
-   - Update project images and descriptions
+- Update personal information in `templates/index.html`
+- Modify styles in `static/css/style.css`
+- Add/remove projects in the projects section
+- Update certificates in the `static/certificates` directory
+- Customize colors and themes in CSS variables
 
-2. **Styling**
-   - Customize colors in CSS variables
-   - Modify layouts in `static/css/style.css`
-   - Adjust animations and transitions
+## Contributing
 
-3. **Content**
-   - Add/remove sections as needed
-   - Update skills and proficiency levels
-   - Modify project categories and filters
+Feel free to fork this repository and customize it for your own use. If you find any bugs or have suggestions for improvements, please open an issue or submit a pull request.
 
-## 📱 Responsive Design
+## License
 
-The website is fully responsive with breakpoints at:
-- Desktop: 1200px
-- Tablet: 768px
-- Mobile: 480px
+This project is open source and available under the [MIT License](LICENSE).
 
-## 🌓 Dark Mode
+## Contact
 
-- Toggle between light and dark themes
-- Custom color schemes for both modes
-- Smooth transition between themes
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Contact
-
-Shlok Bam - shlokbam@gmail.com
-Project Link: [https://github.com/yourusername/portfolio](https://github.com/yourusername/portfolio)
-
-## 🙏 Acknowledgments
-
-- Font Awesome for icons
-- Google Fonts for typography
-- Unsplash for stock images 
+For any queries or suggestions, feel free to reach out:
+- Email: shlokbam19103@gmail.com
+- Phone: +91-7974670370 
