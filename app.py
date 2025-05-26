@@ -11,14 +11,6 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-secret-key-here')
 def index():
     return render_template('index.html')
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-@app.route('/projects')
-def projects():
-    return render_template('projects.html')
-
 @app.route('/contact', methods=['POST'])
 def contact():
     try:
@@ -52,6 +44,26 @@ def download_resume():
         )
     except Exception as e:
         return jsonify({'success': False, 'message': 'Resume not found'}), 404
+
+@app.route('/certifications/<path:filename>')
+def view_certificate(filename):
+    try:
+        return send_file(
+            f'static/certificates/certifications/{filename}',
+            mimetype='application/pdf'
+        )
+    except Exception as e:
+        return jsonify({'success': False, 'message': 'Certificate not found'}), 404
+
+@app.route('/hackathons/<path:filename>')
+def view_hackathon_certificate(filename):
+    try:
+        return send_file(
+            f'static/certificates/hackathons/{filename}',
+            mimetype='application/pdf'
+        )
+    except Exception as e:
+        return jsonify({'success': False, 'message': 'Certificate not found'}), 404
 
 if __name__ == '__main__':
     app.run(debug=True) 

@@ -2646,4 +2646,60 @@ section {
     .modal-description {
         font-size: 1rem;
     }
+}
+
+/* Certificate Button Styles */
+.cert-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    margin-left: 8px;
+    font-size: 0.8rem;
+    color: #2196F3;
+    background: rgba(33, 150, 243, 0.1);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    min-width: 28px;
+    height: 28px;
+}
+
+.cert-btn:hover {
+    background: rgba(33, 150, 243, 0.2);
+    transform: translateY(-1px);
+}
+
+.cert-btn i {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* For the full certificate button */
+.certificate-links {
+    margin-top: 8px;
+}
+
+.certificate-links .cert-btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+/* Ensure list items don't break with certificate buttons */
+.achievements li {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+/* Add subtle animation for certificate icons */
+.cert-btn i {
+    transition: transform 0.3s ease;
+}
+
+.cert-btn:hover i {
+    transform: scale(1.1);
 } 
