@@ -329,6 +329,11 @@ function initProjectFilters() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
 
+    // Show all projects on initial load
+    projectCards.forEach(card => {
+        card.style.display = 'block';
+    });
+
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Remove active class from all buttons

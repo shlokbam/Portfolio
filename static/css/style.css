@@ -550,14 +550,17 @@ section {
 }
 
 .project-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
     padding: 1rem 1.5rem;
     background: var(--card-bg);
     border-top: 1px solid var(--border-color);
-    display: flex;
-    justify-content: flex-end;
 }
 
-.project-github {
+.project-github,
+.project-demo {
     color: var(--text-color);
     text-decoration: none;
     display: flex;
@@ -567,8 +570,32 @@ section {
     font-size: 0.9rem;
 }
 
-.project-github:hover {
+.project-github:hover,
+.project-demo:hover {
     color: var(--primary-color);
+}
+
+.project-github i,
+.project-demo i {
+    font-size: 1rem;
+}
+
+[data-theme="dark"] .project-github,
+[data-theme="dark"] .project-demo {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .project-github:hover,
+[data-theme="dark"] .project-demo:hover {
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .project-links {
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 1rem;
+    }
 }
 
 /* Dark Mode Styles for Project Links */
