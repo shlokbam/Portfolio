@@ -51,10 +51,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initSkillBars();
     initProjectFilters();
     initCertificationFiltering();
+    initAchievementsFiltering();   // ⭐ ADDED
     initContactForm();
     initTypingEffect();
     initExperienceTabs();
 });
+
 
 // Scroll animations for elements
 function initScrollAnimations() {
@@ -378,3 +380,37 @@ function initCertificationFiltering() {
         });
     });
 } 
+
+// Achievements filtering
+function initAchievementsFiltering() {
+    // Limit to the Achievements section only
+    const achievementsSection = document.querySelector('#achievements');
+    if (!achievementsSection) return;
+
+    const filterButtons = achievementsSection.querySelectorAll('.filter-btn');
+    const achievementCards = achievementsSection.querySelectorAll('.hackathon-card');
+
+    if (!filterButtons.length || !achievementCards.length) return;
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+
+            // Active button highlight
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const filter = button.getAttribute('data-filter');
+
+            achievementCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+
+                if (filter === 'all' || category === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+        });
+    });
+}
