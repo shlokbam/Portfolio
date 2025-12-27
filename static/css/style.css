@@ -2644,3 +2644,325 @@ section {
         height: 160px;
     }
 } 
+
+/* ================= COMMUNITY & LEADERSHIP SECTION ================= */
+
+.community-section {
+    padding: var(--section-padding);
+    background: var(--background);
+}
+
+.community-grid {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* Card */
+.community-card {
+    background: var(--card-bg, #ffffff);
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.community-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+}
+
+/* Header strip */
+.community-header {
+    padding: .9rem 1.4rem;
+    background: linear-gradient(135deg, #4f46e5, #2563eb);
+    color: white;
+    font-weight: 600;
+    font-size: .95rem;
+}
+
+/* Image grid */
+.community-media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: .5rem;
+    padding: .8rem;
+}
+
+.community-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Content */
+.community-content {
+    padding: 1.3rem 1.5rem;
+}
+
+.community-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: .3rem;
+    color: var(--text-color);
+}
+
+.community-role {
+    color: #2563eb;
+    font-weight: 600;
+    margin-bottom: .3rem;
+}
+
+.community-year {
+    color: var(--light-text);
+    font-size: .9rem;
+    margin-bottom: .9rem;
+}
+
+/* Description */
+.community-content p {
+    color: var(--light-text);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Tags */
+.community-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin-bottom: .6rem;
+}
+
+.community-tag {
+    padding: .28rem .75rem;
+    border-radius: 50px;
+    font-size: .78rem;
+    background: rgba(37, 99, 235, 0.12);
+    color: #2563eb;
+    font-weight: 500;
+}
+
+/* Link Button */
+.community-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .45rem .9rem;
+    border-radius: 50px;
+    background: rgba(37, 99, 235, .12);
+    border: 1px solid rgba(37, 99, 235, .25);
+    color: #2563eb;
+    font-size: .85rem;
+    text-decoration: none;
+    transition: .25s ease;
+}
+
+.community-links a:hover {
+    transform: translateY(-2px);
+    background: rgba(37, 99, 235, .18);
+}
+
+/* -------- DARK MODE -------- */
+[data-theme="dark"] .community-card {
+    background: #18181b;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+[data-theme="dark"] .community-content p {
+    color: #d4d4d8;
+}
+
+[data-theme="dark"] .community-tag {
+    background: rgba(59,130,246,0.25);
+    color: #93c5fd;
+}
+
+/* Slider Container */
+.community-slider {
+    position: relative;
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+    border-radius: 14px;
+    margin-top: .8rem;
+}
+
+/* Image Track */
+.community-slides {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform .5s ease-in-out;
+}
+
+/* Images */
+.community-slides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Arrows */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: rgba(0,0,0,0.45);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s ease;
+}
+
+.slider-btn:hover {
+    background: rgba(0,0,0,0.7);
+}
+
+/* Left & Right Positions */
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* Dark mode already fits :) */
+
+@media (max-width: 768px) {
+    .slider-btn {
+        height: 30px;
+        width: 30px;
+    }
+}
+
+/* ================= COMMUNITY & LEADERSHIP ================= */
+
+.community-section {
+    padding: var(--section-padding);
+    background: var(--background);
+}
+
+.community-grid {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* Card */
+.community-card {
+    background: var(--card-bg, #ffffff);
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: .25s ease;
+}
+
+.community-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.12);
+}
+
+/* Header */
+.community-header {
+    padding: .9rem 1.4rem;
+    background: linear-gradient(135deg, #4f46e5, #2563eb);
+    color: white;
+    font-weight: 600;
+    font-size: .95rem;
+}
+
+/* Image */
+.community-media img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+}
+
+/* Content */
+.community-content {
+    padding: 1.3rem 1.5rem;
+}
+
+.community-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: .3rem;
+    color: var(--text-color);
+}
+
+.community-role {
+    color: #2563eb;
+    font-weight: 600;
+    margin-bottom: .3rem;
+}
+
+.community-year {
+    color: var(--light-text);
+    font-size: .9rem;
+    margin-bottom: 1rem;
+}
+
+.community-content p {
+    color: var(--light-text);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Tags */
+.community-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin-bottom: .8rem;
+}
+
+.community-tag {
+    padding: .28rem .75rem;
+    border-radius: 50px;
+    font-size: .78rem;
+    background: rgba(37,99,235,.12);
+    color: #2563eb;
+    font-weight: 500;
+}
+
+/* Links */
+.community-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .45rem .9rem;
+    border-radius: 50px;
+    background: rgba(37,99,235,.12);
+    border: 1px solid rgba(37,99,235,.25);
+    color: #2563eb;
+    text-decoration: none;
+    font-size: .85rem;
+    transition: .25s ease;
+}
+
+.community-links a:hover {
+    transform: translateY(-2px);
+}
+
+/* -------- DARK MODE -------- */
+[data-theme="dark"] .community-card {
+    background: #18181b;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+[data-theme="dark"] .community-content p {
+    color: #d4d4d8;
+}
+
+[data-theme="dark"] .community-tag {
+    background: rgba(59,130,246,0.25);
+    color: #93c5fd;
+}
