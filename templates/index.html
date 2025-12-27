@@ -393,6 +393,7 @@
             <h2>Projects</h2>
             <div class="title-underline"></div>
         </div>
+
         <div class="projects-filter">
             <button class="filter-btn active" data-filter="all">
                 <i class="fas fa-th-large"></i> All
@@ -403,8 +404,38 @@
             <button class="filter-btn" data-filter="ai">
                 <i class="fas fa-brain"></i> AI/ML
             </button>
+            <button class="filter-btn" data-filter="cloud">
+                <i class="fas fa-cloud"></i> Cloud
+            </button>
         </div>
+
         <div class="projects-grid">
+
+
+            <!-- Cloud Project -->
+            <div class="project-card" data-category="cloud">
+                <div class="project-info">
+                    <h3>AutoVault – Cloud File Storage</h3>
+                    <p>A secure cloud-based file storage system with time-limited file access, automated expiry notifications, and intelligent cleanup using serverless AWS services.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Flask</span>
+                        <span>AWS Lambda</span>
+                        <span>S3</span>
+                        <span>RDS PostgreSQL</span>
+                        <span>SES</span>
+                        <span>EventBridge</span>
+                    </div>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/shlokbam/AutoVault" class="project-github" target="_blank">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                    <a href="https://Autovault.onrender.com" class="project-demo" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                </div>
+            </div>
 
             <!-- Mobile App Project -->
             <div class="project-card" data-category="ai">
@@ -449,6 +480,7 @@
                     </a>
                 </div>
             </div>
+            
             <!-- Web Development Project 1 -->
             <div class="project-card" data-category="web">
                 <div class="project-info">
