@@ -13,32 +13,58 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-secret-key-here')
 _stats_cache = {'data': None, 'fetched_at': 0}
 CACHE_TTL = 2 * 60 * 60  # 2 hours in seconds
 
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (compatible; portfolio-stats/1.0)',
+    'Accept': 'application/json',
+}
+
 def _fetch_leetcode(username='shlokbam05'):
+    """Use LeetCode's own GraphQL endpoint directly — no proxy needed."""
+    query = """
+    query getUserStats($username: String!) {
+      matchedUser(username: $username) {
+        username
+        profile { ranking }
+        submitStatsGlobal {
+          acSubmissionNum {
+            difficulty
+            count
+          }
+        }
+      }
+    }
+    """
     try:
-        solved = requests.get(
-            f'https://alfa-leetcode-api.0x10.tech/{username}/solved',
-            timeout=8
-        ).json()
-        profile = requests.get(
-            f'https://alfa-leetcode-api.0x10.tech/userProfile/{username}',
-            timeout=8
-        ).json()
+        resp = requests.post(
+            'https://leetcode.com/graphql',
+            json={'query': query, 'variables': {'username': username}},
+            headers={**HEADERS, 'Content-Type': 'application/json',
+                     'Referer': 'https://leetcode.com'},
+            timeout=10
+        )
+        data = resp.json()
+        user = data['data']['matchedUser']
+        stats = {s['difficulty']: s['count']
+                 for s in user['submitStatsGlobal']['acSubmissionNum']}
         return {
-            'total':   solved.get('solvedProblem',  0),
-            'easy':    solved.get('easySolved',     0),
-            'medium':  solved.get('mediumSolved',   0),
-            'hard':    solved.get('hardSolved',     0),
-            'ranking': profile.get('ranking',       'N/A'),
+            'total':   stats.get('All',    0),
+            'easy':    stats.get('Easy',   0),
+            'medium':  stats.get('Medium', 0),
+            'hard':    stats.get('Hard',   0),
+            'ranking': user['profile'].get('ranking', 'N/A'),
         }
     except Exception:
         return None
 
 def _fetch_codeforces(handle='shlokbam'):
+    """Official Codeforces public API."""
     try:
-        data = requests.get(
+        resp = requests.get(
             f'https://codeforces.com/api/user.info?handles={handle}',
-            timeout=8
-        ).json()
+            headers=HEADERS,
+            timeout=10
+        )
+        data = resp.json()
         if data.get('status') != 'OK':
             return None
         u = data['result'][0]
@@ -51,18 +77,30 @@ def _fetch_codeforces(handle='shlokbam'):
         return None
 
 def _fetch_codechef(handle='shlokbam'):
-    try:
-        data = requests.get(
-            f'https://codechef-api.vercel.app/handle/{handle}',
-            timeout=8
-        ).json()
-        return {
-            'rating':     data.get('currentRating', data.get('rating',       'N/A')),
-            'stars':      data.get('stars',                                   'N/A'),
-            'globalRank': data.get('globalRank',    data.get('global_rank',  'N/A')),
-        }
-    except Exception:
-        return None
+    """CodeChef unofficial scraper — fallback to None gracefully."""
+    endpoints = [
+        f'https://codechef-api.vercel.app/handle/{handle}',
+        f'https://codechef-api.netlify.app/.netlify/functions/rating?handle={handle}',
+    ]
+    for url in endpoints:
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=8)
+            if resp.status_code != 200:
+                continue
+            data = resp.json()
+            rating = (data.get('currentRating')
+                      or data.get('rating')
+                      or data.get('highestRating'))
+            if rating:
+                return {
+                    'rating':     str(rating),
+                    'stars':      data.get('stars', 'N/A'),
+                    'globalRank': data.get('globalRank',
+                                  data.get('global_rank', 'N/A')),
+                }
+        except Exception:
+            continue
+    return None
 
 @app.route('/api/stats')
 def api_stats():
@@ -84,6 +122,20 @@ def api_stats():
     _stats_cache['fetched_at'] = now
 
     return jsonify({'success': True, 'data': data, 'cached': False})
+
+@app.route('/api/stats/debug')
+def api_stats_debug():
+    """Hit this URL on Render to see raw API responses for debugging."""
+    import traceback
+    results = {}
+    for name, fn in [('leetcode', _fetch_leetcode),
+                     ('codeforces', _fetch_codeforces),
+                     ('codechef', _fetch_codechef)]:
+        try:
+            results[name] = {'data': fn(), 'error': None}
+        except Exception as e:
+            results[name] = {'data': None, 'error': traceback.format_exc()}
+    return jsonify(results)
 
 @app.route('/')
 def index():
