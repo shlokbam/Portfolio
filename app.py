@@ -1,11 +1,89 @@
 from flask import Flask, render_template, request, jsonify, send_file
 import os
+import time
+import requests
 from datetime import datetime
 
 app = Flask(__name__)
 
 # Configuration
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-secret-key-here')
+
+# ── In-memory cache ──────────────────────────────────────────────────────────
+_stats_cache = {'data': None, 'fetched_at': 0}
+CACHE_TTL = 2 * 60 * 60  # 2 hours in seconds
+
+def _fetch_leetcode(username='shlokbam05'):
+    try:
+        solved = requests.get(
+            f'https://alfa-leetcode-api.0x10.tech/{username}/solved',
+            timeout=8
+        ).json()
+        profile = requests.get(
+            f'https://alfa-leetcode-api.0x10.tech/userProfile/{username}',
+            timeout=8
+        ).json()
+        return {
+            'total':   solved.get('solvedProblem',  0),
+            'easy':    solved.get('easySolved',     0),
+            'medium':  solved.get('mediumSolved',   0),
+            'hard':    solved.get('hardSolved',     0),
+            'ranking': profile.get('ranking',       'N/A'),
+        }
+    except Exception:
+        return None
+
+def _fetch_codeforces(handle='shlokbam'):
+    try:
+        data = requests.get(
+            f'https://codeforces.com/api/user.info?handles={handle}',
+            timeout=8
+        ).json()
+        if data.get('status') != 'OK':
+            return None
+        u = data['result'][0]
+        return {
+            'rating':    u.get('rating',    'Unrated'),
+            'maxRating': u.get('maxRating', 'N/A'),
+            'rank':      u.get('rank',      'N/A').title(),
+        }
+    except Exception:
+        return None
+
+def _fetch_codechef(handle='shlokbam'):
+    try:
+        data = requests.get(
+            f'https://codechef-api.vercel.app/handle/{handle}',
+            timeout=8
+        ).json()
+        return {
+            'rating':     data.get('currentRating', data.get('rating',       'N/A')),
+            'stars':      data.get('stars',                                   'N/A'),
+            'globalRank': data.get('globalRank',    data.get('global_rank',  'N/A')),
+        }
+    except Exception:
+        return None
+
+@app.route('/api/stats')
+def api_stats():
+    now = time.time()
+    # Return cached data if still fresh
+    if _stats_cache['data'] and (now - _stats_cache['fetched_at']) < CACHE_TTL:
+        return jsonify({'success': True, 'data': _stats_cache['data'],
+                        'cached': True})
+
+    # Fetch all three in sequence (Render free tier — avoid thread issues)
+    data = {
+        'leetcode':   _fetch_leetcode(),
+        'codeforces': _fetch_codeforces(),
+        'codechef':   _fetch_codechef(),
+        'fetched_at': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),
+    }
+
+    _stats_cache['data']       = data
+    _stats_cache['fetched_at'] = now
+
+    return jsonify({'success': True, 'data': data, 'cached': False})
 
 @app.route('/')
 def index():
@@ -67,4 +145,4 @@ def view_hackathon_certificate(filename):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))
-    app.run(host='0.0.0.0', port=port) 
+    app.run(host='0.0.0.0', port=port)

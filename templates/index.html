@@ -4,32 +4,149 @@
 <!-- Hero Section -->
 <section id="home" class="hero">
     <div class="hero-pattern"></div>
-    <div class="hero-content">
-        <h1>Hi, I'm <span class="highlight">Shlok Bam</span></h1>
-        <p class="typing-text">Passionate Learner | Tech Explorer | Solution Seeker</p>
-        <div class="hero-description">
-            <p>I'm eager to apply my skills and creativity to solve real-world challenges.</p>
+
+    <div class="hero-3col">
+
+        <!-- LEFT — Articles -->
+        <div class="hero-side hero-side-left">
+            <div class="hero-side-label"><i class="fas fa-pen-nib"></i> Articles</div>
+            <a href="https://shlokbam.hashnode.dev/i-built-a-full-devops-ci-cd-pipeline-from-scratch-here-s-everything-that-went-wrong"
+               class="hero-cube article-cube" target="_blank">
+                <div class="cube-platform hashnode-bg">
+                    <i class="fas fa-pen-nib"></i>
+                    <span>Hashnode</span>
+                </div>
+                <div class="cube-body">
+                    <p class="cube-title">I Built a Full DevOps CI/CD Pipeline from Scratch — Here's Everything That Went Wrong</p>
+                    <span class="cube-meta">Mar 2026 · DevOps</span>
+                </div>
+            </a>
+            <div class="hero-side-more">
+                <a href="#articles">View all <i class="fas fa-arrow-right"></i></a>
+            </div>
         </div>
-        <div class="cta-buttons">
-            <a href="/static/Resume/Shlok_Bam_VIT.pdf" class="btn btn-primary">
-                <i class="fas fa-download"></i> Download Resume
-            </a>
-            <a href="#about" class="btn btn-secondary">
-                <i class="fas fa-user"></i> Know More
-            </a>
-            <a href="#contact" class="btn btn-outline">
-                <i class="fas fa-envelope"></i> Let's Talk
-            </a>
+
+        <!-- CENTER — Hero content -->
+        <div class="hero-content">
+            <h1>Hi, I'm <span class="highlight">Shlok Bam</span></h1>
+            <p class="typing-text">Passionate Learner | Tech Explorer </p>
+            <div class="hero-description">
+                <p>I'm eager to apply my skills and creativity to solve real-world challenges.</p>
+            </div>
+            <div class="cta-buttons">
+                <a href="/static/Resume/Shlok_Bam_VIT.pdf" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+                <a href="#about" class="btn btn-secondary">
+                    <i class="fas fa-user"></i> Know More
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <i class="fas fa-envelope"></i> Let's Talk
+                </a>
+            </div>
+        </div>
+
+        <!-- RIGHT — Coding Profiles -->
+        <div class="hero-side hero-side-right">
+            <div class="hero-side-label"><i class="fas fa-trophy"></i> Coding Profiles</div>
+
+            <!-- LeetCode -->
+            <div class="hero-cube profile-cube" id="hLeetcode">
+                <div class="cube-platform leetcode-bg">
+                    <i class="fas fa-code"></i>
+                    <span>LeetCode</span>
+                    <span class="cube-spinner" id="hLcSpin"><i class="fas fa-spinner fa-spin"></i></span>
+                </div>
+                <div class="cube-body">
+                    <div class="cube-stats">
+                        <div class="cs-item">
+                            <span class="cs-val" id="hLcTotal">—</span>
+                            <span class="cs-lbl">Solved</span>
+                        </div>
+                        <div class="cs-item easy">
+                            <span class="cs-val" id="hLcEasy">—</span>
+                            <span class="cs-lbl">Easy</span>
+                        </div>
+                        <div class="cs-item medium">
+                            <span class="cs-val" id="hLcMed">—</span>
+                            <span class="cs-lbl">Med</span>
+                        </div>
+                        <div class="cs-item hard">
+                            <span class="cs-val" id="hLcHard">—</span>
+                            <span class="cs-lbl">Hard</span>
+                        </div>
+                    </div>
+                    <a href="https://leetcode.com/u/shlokbam05/" target="_blank" class="cube-link">Profile <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Codeforces -->
+            <div class="hero-cube profile-cube" id="hCf">
+                <div class="cube-platform codeforces-bg">
+                    <i class="fas fa-fire"></i>
+                    <span>Codeforces</span>
+                    <span class="cube-spinner" id="hCfSpin"><i class="fas fa-spinner fa-spin"></i></span>
+                </div>
+                <div class="cube-body">
+                    <div class="cube-stats">
+                        <div class="cs-item">
+                            <span class="cs-val" id="hCfRating">—</span>
+                            <span class="cs-lbl">Rating</span>
+                        </div>
+                        <div class="cs-item">
+                            <span class="cs-val" id="hCfMax">—</span>
+                            <span class="cs-lbl">Max</span>
+                        </div>
+                        <div class="cs-item" style="flex:2">
+                            <span class="cs-val" id="hCfRank" style="font-size:0.7rem">—</span>
+                            <span class="cs-lbl">Rank</span>
+                        </div>
+                    </div>
+                    <a href="https://codeforces.com/profile/shlokbam" target="_blank" class="cube-link">Profile <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- CodeChef -->
+            <div class="hero-cube profile-cube" id="hCc">
+                <div class="cube-platform codechef-bg">
+                    <i class="fas fa-utensils"></i>
+                    <span>CodeChef</span>
+                    <span class="cube-spinner" id="hCcSpin"><i class="fas fa-spinner fa-spin"></i></span>
+                </div>
+                <div class="cube-body">
+                    <div class="cube-stats">
+                        <div class="cs-item">
+                            <span class="cs-val" id="hCcRating">—</span>
+                            <span class="cs-lbl">Rating</span>
+                        </div>
+                        <div class="cs-item">
+                            <span class="cs-val" id="hCcStars">—</span>
+                            <span class="cs-lbl">Stars</span>
+                        </div>
+                    </div>
+                    <a href="https://www.codechef.com/users/shlokbam" target="_blank" class="cube-link">Profile <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- TUF -->
+            <div class="hero-cube profile-cube tuf-static">
+                <div class="cube-platform tuf-bg">
+                    <i class="fas fa-layer-group"></i>
+                    <span>TakeUForward</span>
+                </div>
+                <div class="cube-body">
+                    <p class="cube-tuf-text">A2Z DSA Sheet</p>
+                    <a href="https://takeuforward.org/profile/shlokbam05" target="_blank" class="cube-link">Profile <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
         </div>
     </div>
+
     <div class="scroll-indicator">
-        <div class="mouse">
-            <div class="wheel"></div>
-        </div>
+        <div class="mouse"><div class="wheel"></div></div>
         <div class="arrow">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
     </div>
 </section>
@@ -1355,61 +1472,6 @@
     </div>
 </section>
 
-
-<!-- Articles Section -->
-<section id="articles" class="articles-section">
-    <div class="container">
-        <div class="section-title">
-            <h2>Articles & Writings</h2>
-            <div class="title-underline"></div>
-            <p class="section-subtitle">Sharing what I learn — through real projects and honest writeups</p>
-        </div>
-
-        <div class="articles-filter">
-            <button class="article-filter-btn active" data-filter="all">
-                <i class="fas fa-th-large"></i> All
-            </button>
-            <button class="article-filter-btn" data-filter="devops">
-                <i class="fas fa-infinity"></i> DevOps
-            </button>
-            <button class="article-filter-btn" data-filter="cloud">
-                <i class="fas fa-cloud"></i> Cloud
-            </button>
-            <button class="article-filter-btn" data-filter="ai">
-                <i class="fas fa-brain"></i> AI/ML
-            </button>
-            <button class="article-filter-btn" data-filter="web">
-                <i class="fas fa-globe"></i> Web Dev
-            </button>
-        </div>
-
-        <div class="articles-grid-new">
-
-            <!-- Article 1 -->
-            <article class="article-card-new" data-category="devops">
-                <div class="article-card-left">
-                    <div class="article-platform-badge hashnode">
-                        <i class="fas fa-pen-nib"></i>
-                        <span>Hashnode</span>
-                    </div>
-                    <div class="article-category-tag devops-tag">DevOps</div>
-                </div>
-                <div class="article-card-body">
-                    <h3>I Built a Full DevOps CI/CD Pipeline from Scratch — Here's Everything That Went Wrong</h3>
-                    <p>A hands-on walkthrough of building a complete CI/CD pipeline using Docker, Jenkins, Terraform & AWS EC2 — including the real problems faced (disk full, port conflicts, Jenkins timeouts) and exactly how each one was fixed.</p>
-                    <div class="article-meta-row">
-                        <span class="article-date"><i class="far fa-calendar-alt"></i> March 2026</span>
-                        <span class="article-read-time"><i class="far fa-clock"></i> 10 min read</span>
-                    </div>
-                    <a href="https://shlokbam.hashnode.dev/i-built-a-full-devops-ci-cd-pipeline-from-scratch-here-s-everything-that-went-wrong" class="article-read-btn" target="_blank">
-                        Read Article <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-        </div>
-    </div>
-</section>
 
 <!-- Contact Section -->
 <section id="contact" class="contact-section">

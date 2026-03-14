@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initProjectFilters();
     initCertificationFiltering();
     initAchievementsFiltering();   // ⭐ ADDED
-    initArticleFiltering();
     initContactForm();
     initTypingEffect();
     initExperienceTabs();
@@ -416,27 +415,60 @@ function initAchievementsFiltering() {
     });
 }
 
-// Articles filtering
-function initArticleFiltering() {
-    const filterButtons = document.querySelectorAll('.article-filter-btn');
-    const articleCards = document.querySelectorAll('.article-card-new');
+// ================= HERO STATS (from /api/stats) =================
 
-    if (!filterButtons.length || !articleCards.length) return;
+function initHeroStats() {
+    // Only run if the hero cubes are present
+    if (!document.getElementById('hLcTotal')) return;
 
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+    fetch('/api/stats')
+        .then(r => r.json())
+        .then(json => {
+            if (!json.success) return;
+            const d = json.data;
 
-            const filter = button.getAttribute('data-filter');
+            // LeetCode
+            if (d.leetcode) {
+                document.getElementById('hLcTotal').textContent = d.leetcode.total   ?? '—';
+                document.getElementById('hLcEasy').textContent  = d.leetcode.easy    ?? '—';
+                document.getElementById('hLcMed').textContent   = d.leetcode.medium  ?? '—';
+                document.getElementById('hLcHard').textContent  = d.leetcode.hard    ?? '—';
+            } else {
+                document.getElementById('hLcTotal').textContent = 'N/A';
+            }
+            hideCubeSpin('hLcSpin');
 
-            articleCards.forEach(card => {
-                if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
+            // Codeforces
+            if (d.codeforces) {
+                document.getElementById('hCfRating').textContent = d.codeforces.rating    ?? '—';
+                document.getElementById('hCfMax').textContent    = d.codeforces.maxRating ?? '—';
+                document.getElementById('hCfRank').textContent   = d.codeforces.rank      ?? '—';
+            } else {
+                document.getElementById('hCfRating').textContent = 'N/A';
+            }
+            hideCubeSpin('hCfSpin');
+
+            // CodeChef
+            if (d.codechef) {
+                document.getElementById('hCcRating').textContent = d.codechef.rating     ?? '—';
+                document.getElementById('hCcStars').textContent  = d.codechef.stars      ?? '—';
+            } else {
+                document.getElementById('hCcRating').textContent = 'N/A';
+            }
+            hideCubeSpin('hCcSpin');
+        })
+        .catch(() => {
+            ['hLcSpin','hCfSpin','hCcSpin'].forEach(hideCubeSpin);
+            ['hLcTotal','hCfRating','hCcRating'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = '—';
             });
         });
-    });
 }
+
+function hideCubeSpin(id) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', initHeroStats);
