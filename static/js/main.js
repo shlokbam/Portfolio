@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initProjectFilters();
     initCertificationFiltering();
     initAchievementsFiltering();   // ⭐ ADDED
+    initArticleFiltering();
     initContactForm();
     initTypingEffect();
     initExperienceTabs();
@@ -411,6 +412,31 @@ function initAchievementsFiltering() {
                 }
             });
 
+        });
+    });
+}
+
+// Articles filtering
+function initArticleFiltering() {
+    const filterButtons = document.querySelectorAll('.article-filter-btn');
+    const articleCards = document.querySelectorAll('.article-card-new');
+
+    if (!filterButtons.length || !articleCards.length) return;
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const filter = button.getAttribute('data-filter');
+
+            articleCards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         });
     });
 }
