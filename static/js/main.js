@@ -1,61 +1,90 @@
 // Initialize navbar
 function initNavbar() {
-    const navbar = document.querySelector('.navbar');
+    const navbar   = document.querySelector('.navbar');
+    const menuBtn  = document.getElementById('mobileMenuBtn');
+    const navList  = document.getElementById('navLinks');
+    const backdrop = document.getElementById('navBackdrop');
     const navLinks = document.querySelectorAll('.nav-links a');
-    
-    // Add scroll event listener for navbar background
+
+    // Safety: always reset body scroll on load
+    document.body.style.overflow = '';
+
+    // Navbar background on scroll
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Add click event listeners for mobile menu
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', () => {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
-        });
+    function openMenu() {
+        navList.classList.add('active');
+        menuBtn.classList.add('open');
+        if (backdrop) backdrop.classList.add('active');
+        document.body.style.overflow = 'hidden';
     }
 
-    // Add active class to current section link
+    function closeMenu() {
+        navList.classList.remove('active');
+        menuBtn.classList.remove('open');
+        if (backdrop) backdrop.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (menuBtn && navList) {
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navList.classList.contains('active') ? closeMenu() : openMenu();
+        });
+
+        // Close when any nav link clicked
+        navList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close on backdrop click
+        if (backdrop) backdrop.addEventListener('click', closeMenu);
+    }
+
+    // Highlight active nav link on scroll
     window.addEventListener('scroll', () => {
         let current = '';
-        const sections = document.querySelectorAll('section');
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (window.scrollY >= (sectionTop - 200)) {
+        document.querySelectorAll('section[id]').forEach(section => {
+            if (window.scrollY >= section.offsetTop - 200) {
                 current = section.getAttribute('id');
             }
         });
-
         navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').substring(1) === current) {
-                link.classList.add('active');
-            }
+            link.classList.toggle(
+                'active',
+                link.getAttribute('href').substring(1) === current
+            );
         });
     });
 }
 
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all components
     initNavbar();
     initScrollAnimations();
     initSkillBars();
     initProjectFilters();
     initCertificationFiltering();
-    initAchievementsFiltering();   // ⭐ ADDED
+    initAchievementsFiltering();
     initContactForm();
     initTypingEffect();
     initExperienceTabs();
+    initScrollToTop();
 });
+
+// Scroll to top button
+function initScrollToTop() {
+    const btn = document.getElementById('scrollTopBtn');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+    });
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
 
 
 // Scroll animations for elements
@@ -472,3 +501,82 @@ function hideCubeSpin(id) {
 }
 
 document.addEventListener('DOMContentLoaded', initHeroStats);
+// ── Mobile: show only top 3 cards, View All toggle ──────────
+function initMobileCardLimit() {
+    // Only apply on mobile
+    if (window.innerWidth > 900) return;
+
+    const configs = [
+        {
+            gridSelector:   '.projects-grid',
+            cardSelector:   '.project-card',
+            wrapSelector:   '.projects-section',
+        },
+        {
+            gridSelector:   '.certifications-grid',
+            cardSelector:   '.certification-card',
+            wrapSelector:   '.certifications-section',
+        },
+    ];
+
+    configs.forEach(({ gridSelector, cardSelector, wrapSelector }) => {
+        const grid  = document.querySelector(gridSelector);
+        const wrap  = document.querySelector(wrapSelector);
+        if (!grid || !wrap) return;
+
+        const cards = Array.from(grid.querySelectorAll(cardSelector));
+        if (cards.length <= 3) return;
+
+        // Hide cards beyond first 3
+        cards.forEach((card, i) => {
+            if (i >= 3) card.classList.add('mobile-hidden');
+        });
+
+        // Create button
+        const btn = document.createElement('button');
+        btn.className = 'mobile-view-all-btn';
+        btn.innerHTML = `View All (${cards.length}) <i class="fas fa-chevron-down"></i>`;
+
+        let expanded = false;
+        btn.addEventListener('click', () => {
+            expanded = !expanded;
+            cards.forEach((card, i) => {
+                if (i >= 3) {
+                    card.classList.toggle('mobile-hidden', !expanded);
+                }
+            });
+            btn.classList.toggle('expanded', expanded);
+            btn.innerHTML = expanded
+                ? `Show Less <i class="fas fa-chevron-down"></i>`
+                : `View All (${cards.length}) <i class="fas fa-chevron-down"></i>`;
+
+            // Scroll back to grid top if collapsing
+            if (!expanded) {
+                grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        // Insert button after the grid
+        grid.insertAdjacentElement('afterend', btn);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initMobileCardLimit);
+
+// Re-run on resize crossing breakpoint
+let _wasMobile = window.innerWidth <= 900;
+window.addEventListener('resize', () => {
+    const isMobile = window.innerWidth <= 900;
+    if (isMobile !== _wasMobile) {
+        _wasMobile = isMobile;
+        // Remove all mobile-hidden classes and buttons on desktop
+        if (!isMobile) {
+            document.querySelectorAll('.mobile-hidden').forEach(el => el.classList.remove('mobile-hidden'));
+            document.querySelectorAll('.mobile-view-all-btn').forEach(el => el.remove());
+        } else {
+            // Re-init on switch back to mobile
+            document.querySelectorAll('.mobile-view-all-btn').forEach(el => el.remove());
+            initMobileCardLimit();
+        }
+    }
+});
