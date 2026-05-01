@@ -3210,8 +3210,9 @@ section {
 /* Stats grid inside cube */
 .cube-stats {
     display: flex;
-    gap: 0.35rem;
-    margin-bottom: 0.5rem;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+    justify-content: space-between;
 }
 
 .cs-item {
@@ -3220,15 +3221,18 @@ section {
     flex-direction: column;
     align-items: center;
     background: var(--section-bg);
-    border-radius: 7px;
-    padding: 0.3rem 0.2rem;
+    border-radius: 8px;
+    padding: 0.6rem 0.3rem;
+    min-width: 0;
 }
 
 .cs-val {
-    font-size: 0.88rem;
-    font-weight: 700;
+    font-size: 1.15rem; /* Increased from 0.95 */
+    font-weight: 800;
     color: var(--text-color);
-    line-height: 1.2;
+    line-height: 1.1;
+    width: 100%;
+    text-align: center;
 }
 
 .cs-item.easy   .cs-val { color: #00b8a3; }
@@ -3236,10 +3240,13 @@ section {
 .cs-item.hard   .cs-val { color: #ff375f; }
 
 .cs-lbl {
-    font-size: 0.6rem;
+    font-size: 0.62rem; /* Increased from 0.55 */
     color: var(--light-text);
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
+    margin-top: 0.2rem;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
 .cube-link {
@@ -3446,4 +3453,80 @@ section {
 /* Hide button on desktop completely */
 @media (min-width: 901px) {
     .mobile-view-all-btn { display: none !important; }
+}
+
+/* View All Projects Bar - Premium Theme */
+.view-all-projects-bar {
+    margin: 2.5rem auto 0;
+    max-width: 250px; /* Reduced from 600px */
+    background: rgba(37, 99, 235, 0.05);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    border-radius: 50px;
+    padding: 0.7rem 1.5rem; /* Reduced padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+[data-theme="dark"] .view-all-projects-bar {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.view-all-projects-bar:hover {
+    background: rgba(37, 99, 235, 0.1);
+    border-color: var(--primary-color);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.bar-text {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+.bar-icon {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.view-all-projects-bar.active .bar-icon {
+    transform: rotate(180deg);
+}
+
+/* Hidden project cards */
+.project-card.hidden-project {
+    display: none !important;
+}
+
+.project-card.show-project {
+    display: flex !important;
+    animation: projectFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes projectFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Ensuring project cards have a consistent base for animation */
+.project-card {
+    will-change: transform, opacity;
 }

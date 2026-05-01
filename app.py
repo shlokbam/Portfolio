@@ -32,6 +32,10 @@ def _fetch_leetcode(username='shlokbam05'):
           }
         }
       }
+      userContestRanking(username: $username) {
+        rating
+        globalRanking
+      }
     }
     """
     try:
@@ -42,65 +46,61 @@ def _fetch_leetcode(username='shlokbam05'):
                      'Referer': 'https://leetcode.com'},
             timeout=10
         )
-        data = resp.json()
-        user = data['data']['matchedUser']
+        data = resp.json()['data']
+        user = data['matchedUser']
         stats = {s['difficulty']: s['count']
                  for s in user['submitStatsGlobal']['acSubmissionNum']}
+        
+        contest = data.get('userContestRanking')
         return {
             'total':   stats.get('All',    0),
             'easy':    stats.get('Easy',   0),
             'medium':  stats.get('Medium', 0),
             'hard':    stats.get('Hard',   0),
             'ranking': user['profile'].get('ranking', 'N/A'),
+            'contestRating': round(contest.get('rating', 0)) if contest else 'N/A',
+            'contestRanking': contest.get('globalRanking', 'N/A') if contest else 'N/A'
         }
     except Exception:
         return None
 
-def _fetch_codeforces(handle='shlokbam'):
-    """Official Codeforces public API."""
-    try:
-        resp = requests.get(
-            f'https://codeforces.com/api/user.info?handles={handle}',
-            headers=HEADERS,
-            timeout=10
-        )
-        data = resp.json()
-        if data.get('status') != 'OK':
-            return None
-        u = data['result'][0]
-        return {
-            'rating':    u.get('rating',    'Unrated'),
-            'maxRating': u.get('maxRating', 'N/A'),
-            'rank':      u.get('rank',      'N/A').title(),
-        }
-    except Exception:
-        return None
+# Removed Codeforces fetcher as requested
 
+import re
 def _fetch_codechef(handle='shlokbam'):
-    """CodeChef unofficial scraper — fallback to None gracefully."""
-    endpoints = [
-        f'https://codechef-api.vercel.app/handle/{handle}',
-        f'https://codechef-api.netlify.app/.netlify/functions/rating?handle={handle}',
-    ]
-    for url in endpoints:
-        try:
-            resp = requests.get(url, headers=HEADERS, timeout=8)
-            if resp.status_code != 200:
-                continue
-            data = resp.json()
-            rating = (data.get('currentRating')
-                      or data.get('rating')
-                      or data.get('highestRating'))
-            if rating:
-                return {
-                    'rating':     str(rating),
-                    'stars':      data.get('stars', 'N/A'),
-                    'globalRank': data.get('globalRank',
-                                  data.get('global_rank', 'N/A')),
-                }
-        except Exception:
-            continue
-    return None
+    """CodeChef direct scraper — fallback since unofficial APIs are unreliable."""
+    try:
+        url = f'https://www.codechef.com/users/{handle}'
+        resp = requests.get(url, headers=HEADERS, timeout=10)
+        if resp.status_code != 200:
+            return None
+        
+        html = resp.text
+        # Rating - using DOTALL and looking for first occurrence in rating-header
+        rating_match = re.search(r'rating-number">[\s\n]*(\d+)[\s\n]*<', html)
+        rating = rating_match.group(1) if rating_match else 'N/A'
+        
+        # Stars
+        stars_match = re.search(r'rating-star">([\s\S]*?)</div>', html)
+        stars = len(re.findall(r'★', stars_match.group(1))) if stars_match else 'N/A'
+        
+        # Global Rank - look for "Global Rank" following the strong tag
+        # Using [\s\S]*? to skip over closing tags like </a>
+        rank_match = re.search(r'<strong>\s*(\d+)\s*</strong>[\s\S]*?Global Rank', html)
+        rank = rank_match.group(1) if rank_match else 'N/A'
+        
+        # Highest Rating
+        highest_match = re.search(r'\(Highest Rating (\d+)\)', html)
+        highest = highest_match.group(1) if highest_match else 'N/A'
+        
+        return {
+            'rating': rating,
+            'stars': f'{stars}★' if stars != 'N/A' else 'N/A',
+            'globalRank': rank,
+            'highestRating': highest
+        }
+    except Exception:
+        return None
 
 @app.route('/api/stats')
 def api_stats():
@@ -110,10 +110,9 @@ def api_stats():
         return jsonify({'success': True, 'data': _stats_cache['data'],
                         'cached': True})
 
-    # Fetch all three in sequence (Render free tier — avoid thread issues)
+    # Fetch LeetCode and CodeChef
     data = {
         'leetcode':   _fetch_leetcode(),
-        'codeforces': _fetch_codeforces(),
         'codechef':   _fetch_codechef(),
         'fetched_at': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),
     }
@@ -129,7 +128,6 @@ def api_stats_debug():
     import traceback
     results = {}
     for name, fn in [('leetcode', _fetch_leetcode),
-                     ('codeforces', _fetch_codeforces),
                      ('codechef', _fetch_codechef)]:
         try:
             results[name] = {'data': fn(), 'error': None}
