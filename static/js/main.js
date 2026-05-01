@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initSkillBars();
     initProjectFilters();
+    initProjectViewAll();
     initCertificationFiltering();
     initAchievementsFiltering();
     initContactForm();
@@ -373,17 +374,73 @@ function initProjectFilters() {
             button.classList.add('active');
 
             const filterValue = button.getAttribute('data-filter');
+            const viewAllBar = document.getElementById('viewAllProjectsBar');
 
             projectCards.forEach(card => {
                 const category = card.getAttribute('data-category');
-                if (filterValue === 'all' || category === filterValue) {
-                    card.style.display = 'block';
+                const isMatch = filterValue === 'all' || category.includes(filterValue);
+                
+                if (isMatch) {
+                    card.style.display = 'flex';
+                    card.classList.remove('filtered-out');
                 } else {
                     card.style.display = 'none';
+                    card.classList.add('filtered-out');
                 }
             });
+
+            // Re-apply view all logic after filtering
+            if (window.initProjectViewAll) {
+                window.initProjectViewAll(true); // reset
+            }
         });
     });
+}
+
+function initProjectViewAll(isReset = false) {
+    const grid = document.getElementById('projectsGrid');
+    const bar = document.getElementById('viewAllProjectsBar');
+    if (!grid || !bar) return;
+
+    const cards = Array.from(grid.querySelectorAll('.project-card:not(.filtered-out)'));
+    const limit = 3;
+
+    if (isReset) {
+        bar.classList.remove('active');
+        bar.querySelector('.bar-text').textContent = 'All Projects';
+    }
+
+    const isExpanded = bar.classList.contains('active');
+
+    cards.forEach((card, i) => {
+        if (i >= limit && !isExpanded) {
+            card.classList.add('hidden-project');
+            card.classList.remove('show-project');
+        } else {
+            card.classList.remove('hidden-project');
+            if (i >= limit) card.classList.add('show-project');
+        }
+    });
+
+    if (cards.length <= limit) {
+        bar.style.display = 'none';
+    } else {
+        bar.style.display = 'flex';
+    }
+
+    if (!isReset) {
+        bar.onclick = () => {
+            const nowExpanded = !bar.classList.contains('active');
+            bar.classList.toggle('active');
+            bar.querySelector('.bar-text').textContent = nowExpanded ? 'Show Less' : 'All Projects';
+            
+            initProjectViewAll(true); // Re-run logic with new expanded state
+
+            if (!nowExpanded) {
+                grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        };
+    }
 }
 
 function initCertificationFiltering() {
@@ -459,36 +516,26 @@ function initHeroStats() {
             // LeetCode
             if (d.leetcode) {
                 document.getElementById('hLcTotal').textContent = d.leetcode.total   ?? '—';
-                document.getElementById('hLcEasy').textContent  = d.leetcode.easy    ?? '—';
-                document.getElementById('hLcMed').textContent   = d.leetcode.medium  ?? '—';
-                document.getElementById('hLcHard').textContent  = d.leetcode.hard    ?? '—';
+                document.getElementById('hLcRating').textContent  = d.leetcode.contestRating ?? '—';
+                document.getElementById('hLcRanking').textContent = d.leetcode.contestRanking ?? '—';
             } else {
                 document.getElementById('hLcTotal').textContent = 'N/A';
             }
             hideCubeSpin('hLcSpin');
 
-            // Codeforces
-            if (d.codeforces) {
-                document.getElementById('hCfRating').textContent = d.codeforces.rating    ?? '—';
-                document.getElementById('hCfMax').textContent    = d.codeforces.maxRating ?? '—';
-                document.getElementById('hCfRank').textContent   = d.codeforces.rank      ?? '—';
-            } else {
-                document.getElementById('hCfRating').textContent = 'N/A';
-            }
-            hideCubeSpin('hCfSpin');
-
             // CodeChef
             if (d.codechef) {
                 document.getElementById('hCcRating').textContent = d.codechef.rating     ?? '—';
                 document.getElementById('hCcStars').textContent  = d.codechef.stars      ?? '—';
+                document.getElementById('hCcRank').textContent   = d.codechef.globalRank ?? '—';
             } else {
                 document.getElementById('hCcRating').textContent = 'N/A';
             }
             hideCubeSpin('hCcSpin');
         })
         .catch(() => {
-            ['hLcSpin','hCfSpin','hCcSpin'].forEach(hideCubeSpin);
-            ['hLcTotal','hCfRating','hCcRating'].forEach(id => {
+            ['hLcSpin','hCcSpin'].forEach(hideCubeSpin);
+            ['hLcTotal','hLcRating','hCcRating'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.textContent = '—';
             });
@@ -507,11 +554,6 @@ function initMobileCardLimit() {
     if (window.innerWidth > 900) return;
 
     const configs = [
-        {
-            gridSelector:   '.projects-grid',
-            cardSelector:   '.project-card',
-            wrapSelector:   '.projects-section',
-        },
         {
             gridSelector:   '.certifications-grid',
             cardSelector:   '.certification-card',
