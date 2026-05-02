@@ -377,7 +377,7 @@ function initProjectFilters() {
             const viewAllBar = document.getElementById('viewAllProjectsBar');
 
             projectCards.forEach(card => {
-                const category = card.getAttribute('data-category');
+                const category = card.getAttribute('data-category') || '';
                 const isMatch = filterValue === 'all' || category.includes(filterValue);
                 
                 if (isMatch) {
@@ -390,8 +390,8 @@ function initProjectFilters() {
             });
 
             // Re-apply view all logic after filtering
-            if (window.initProjectViewAll) {
-                window.initProjectViewAll(true); // reset
+            if (initProjectViewAll) {
+                initProjectViewAll(true); // reset
             }
         });
     });
@@ -428,20 +428,22 @@ function initProjectViewAll(isReset = false) {
         bar.style.display = 'flex';
     }
 
-    if (!isReset) {
+    if (!isReset && !bar.dataset.initialized) {
         bar.onclick = () => {
             const nowExpanded = !bar.classList.contains('active');
             bar.classList.toggle('active');
             bar.querySelector('.bar-text').textContent = nowExpanded ? 'Show Less' : 'All Projects';
             
-            initProjectViewAll(true); // Re-run logic with new expanded state
+            initProjectViewAll(); // Re-run logic to update visibility (defaults to isReset=false)
 
             if (!nowExpanded) {
                 grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         };
+        bar.dataset.initialized = "true";
     }
 }
+window.initProjectViewAll = initProjectViewAll;
 
 function initCertificationFiltering() {
     const filterButtons = document.querySelectorAll('.certifications-filter .filter-btn');
