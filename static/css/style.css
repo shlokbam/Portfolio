@@ -553,6 +553,7 @@ section {
     margin: 0 auto;
 }
 
+
 .skill-card {
     background: white;
     padding: 2rem;
@@ -1149,10 +1150,6 @@ section {
     transform: translateY(-5px);
 }
 
-/* Make Tools & Others span full width */
-.skills-category:last-child {
-    grid-column: 1 / -1;
-}
 
 .skills-category h3 {
     font-size: 1.5rem;
