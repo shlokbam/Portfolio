@@ -1,8 +1,8 @@
 // Initialize navbar
 function initNavbar() {
-    const navbar   = document.querySelector('.navbar');
-    const menuBtn  = document.getElementById('mobileMenuBtn');
-    const navList  = document.getElementById('navLinks');
+    const navbar = document.querySelector('.navbar');
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const navList = document.getElementById('navLinks');
     const backdrop = document.getElementById('navBackdrop');
     const navLinks = document.querySelectorAll('.nav-links a');
 
@@ -61,7 +61,7 @@ function initNavbar() {
 }
 
 // Wait for the DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initNavbar();
     initScrollAnimations();
     initSkillBars();
@@ -91,7 +91,7 @@ function initScrollToTop() {
 // Scroll animations for elements
 function initScrollAnimations() {
     const elements = document.querySelectorAll('.fade-in');
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -110,7 +110,7 @@ function initScrollAnimations() {
 // Animate skill bars
 function initSkillBars() {
     const skillBars = document.querySelectorAll('.progress-bar');
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -133,11 +133,11 @@ function initContactForm() {
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const formData = new FormData(form);
             const submitButton = form.querySelector('button[type="submit"]');
             const originalText = submitButton.innerHTML;
-            
+
             try {
                 submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                 submitButton.disabled = true;
@@ -156,7 +156,7 @@ function initContactForm() {
                 });
 
                 const data = await response.json();
-                
+
                 if (data.success) {
                     showNotification(data.message, 'success');
                     form.reset();
@@ -179,7 +179,7 @@ function initTypingEffect() {
     if (typingText) {
         const text = typingText.textContent;
         typingText.textContent = '';
-        
+
         let i = 0;
         const typeWriter = () => {
             if (i < text.length) {
@@ -188,7 +188,7 @@ function initTypingEffect() {
                 setTimeout(typeWriter, 100);
             }
         };
-        
+
         typeWriter();
     }
 }
@@ -201,14 +201,14 @@ function showNotification(message, type = 'success') {
         <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
         <span>${message}</span>
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     // Trigger animation
     setTimeout(() => {
         notification.classList.add('show');
     }, 100);
-    
+
     // Remove notification after 3 seconds
     setTimeout(() => {
         notification.classList.remove('show');
@@ -233,7 +233,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // Update active navigation link based on scroll position
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
     const sections = document.querySelectorAll('section[id]');
     const scrollPosition = window.scrollY + 100; // Offset for better accuracy
 
@@ -241,7 +241,7 @@ window.addEventListener('scroll', function() {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
         const sectionId = section.getAttribute('id');
-        
+
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
@@ -254,7 +254,7 @@ window.addEventListener('scroll', function() {
 });
 
 // Initialize active state on page load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const currentSection = window.location.hash || '#home';
     document.querySelectorAll('.nav-links a').forEach(link => {
         if (link.getAttribute('href') === currentSection) {
@@ -287,11 +287,11 @@ document.querySelectorAll('section').forEach(section => {
 // Animation on scroll
 const animateOnScroll = () => {
     const elements = document.querySelectorAll('.fade-in');
-    
+
     elements.forEach(element => {
         const elementTop = element.getBoundingClientRect().top;
         const elementBottom = element.getBoundingClientRect().bottom;
-        
+
         if (elementTop < window.innerHeight && elementBottom > 0) {
             element.classList.add('visible');
         }
@@ -321,11 +321,11 @@ function initExperienceTabs() {
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
             const tabId = button.getAttribute('data-tab');
-            
+
             // Update active tab
             tabButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-            
+
             // Show selected timeline
             timelineContainers.forEach(container => {
                 container.classList.remove('active');
@@ -379,7 +379,7 @@ function initProjectFilters() {
             projectCards.forEach(card => {
                 const category = card.getAttribute('data-category') || '';
                 const isMatch = filterValue === 'all' || category.includes(filterValue);
-                
+
                 if (isMatch) {
                     card.style.display = 'flex';
                     card.classList.remove('filtered-out');
@@ -433,7 +433,7 @@ function initProjectViewAll(isReset = false) {
             const nowExpanded = !bar.classList.contains('active');
             bar.classList.toggle('active');
             bar.querySelector('.bar-text').textContent = nowExpanded ? 'Show Less' : 'All Projects';
-            
+
             initProjectViewAll(); // Re-run logic to update visibility (defaults to isReset=false)
 
             if (!nowExpanded) {
@@ -467,7 +467,7 @@ function initCertificationFiltering() {
             });
         });
     });
-} 
+}
 
 // Achievements filtering
 function initAchievementsFiltering() {
@@ -517,8 +517,8 @@ function initHeroStats() {
 
             // LeetCode
             if (d.leetcode) {
-                document.getElementById('hLcTotal').textContent = d.leetcode.total   ?? '—';
-                document.getElementById('hLcRating').textContent  = d.leetcode.contestRating ?? '—';
+                document.getElementById('hLcTotal').textContent = d.leetcode.total ?? '—';
+                document.getElementById('hLcRating').textContent = d.leetcode.contestRating ?? '—';
                 document.getElementById('hLcRanking').textContent = d.leetcode.contestRanking ?? '—';
             } else {
                 document.getElementById('hLcTotal').textContent = 'N/A';
@@ -527,17 +527,17 @@ function initHeroStats() {
 
             // CodeChef
             if (d.codechef) {
-                document.getElementById('hCcRating').textContent = d.codechef.rating     ?? '—';
-                document.getElementById('hCcStars').textContent  = d.codechef.stars      ?? '—';
-                document.getElementById('hCcRank').textContent   = d.codechef.globalRank ?? '—';
+                document.getElementById('hCcRating').textContent = d.codechef.rating ?? '—';
+                document.getElementById('hCcStars').textContent = d.codechef.stars ?? '—';
+                document.getElementById('hCcRank').textContent = d.codechef.globalRank ?? '—';
             } else {
                 document.getElementById('hCcRating').textContent = 'N/A';
             }
             hideCubeSpin('hCcSpin');
         })
         .catch(() => {
-            ['hLcSpin','hCcSpin'].forEach(hideCubeSpin);
-            ['hLcTotal','hLcRating','hCcRating'].forEach(id => {
+            ['hLcSpin', 'hCcSpin'].forEach(hideCubeSpin);
+            ['hLcTotal', 'hLcRating', 'hCcRating'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.textContent = '—';
             });
@@ -557,15 +557,15 @@ function initMobileCardLimit() {
 
     const configs = [
         {
-            gridSelector:   '.certifications-grid',
-            cardSelector:   '.certification-card',
-            wrapSelector:   '.certifications-section',
+            gridSelector: '.certifications-grid',
+            cardSelector: '.certification-card',
+            wrapSelector: '.certifications-section',
         },
     ];
 
     configs.forEach(({ gridSelector, cardSelector, wrapSelector }) => {
-        const grid  = document.querySelector(gridSelector);
-        const wrap  = document.querySelector(wrapSelector);
+        const grid = document.querySelector(gridSelector);
+        const wrap = document.querySelector(wrapSelector);
         if (!grid || !wrap) return;
 
         const cards = Array.from(grid.querySelectorAll(cardSelector));
