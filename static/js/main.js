@@ -363,7 +363,7 @@ function initProjectFilters() {
 
     // Show all projects on initial load
     projectCards.forEach(card => {
-        card.style.display = 'block';
+        card.style.display = 'flex';
     });
 
     filterButtons.forEach(button => {
