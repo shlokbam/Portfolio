@@ -657,6 +657,7 @@ section {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     padding: 1rem;
+    align-items: stretch !important;
 }
 
 .project-card {
@@ -677,7 +678,9 @@ section {
 
 .project-info {
     padding: 1.5rem;
-    flex-grow: 1;
+    flex-grow: 1 !important;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-info h3 {
@@ -711,7 +714,7 @@ section {
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
-    margin-top: 1.5rem;
+    margin-top: auto !important;
     padding: 1rem 1.5rem;
     background: var(--card-bg);
     border-top: 1px solid var(--border-color);
