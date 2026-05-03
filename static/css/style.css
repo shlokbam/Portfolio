@@ -752,10 +752,15 @@ section {
 }
 
 @media (max-width: 768px) {
+    section {
+        padding: 4rem 0 !important; /* Consistent reduced padding for all sections on mobile */
+    }
+    
     .project-links {
         flex-direction: row;
-        justify-content: flex-end;
-        gap: 1rem;
+        justify-content: center !important; /* Centered for better mobile balance */
+        gap: 1.5rem;
+        padding: 1.2rem 1.5rem;
     }
 }
 
