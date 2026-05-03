@@ -80,9 +80,9 @@ def _fetch_codechef(handle='shlokbam'):
         rating_match = re.search(r'rating-number">[\s\n]*(\d+)[\s\n]*<', html)
         rating = rating_match.group(1) if rating_match else 'N/A'
         
-        # Stars
+        # Stars - matches both literal ★ and HTML entity &#9733;
         stars_match = re.search(r'rating-star">([\s\S]*?)</div>', html)
-        stars = len(re.findall(r'★', stars_match.group(1))) if stars_match else 'N/A'
+        stars = len(re.findall(r'★|&#9733;', stars_match.group(1))) if stars_match else 'N/A'
         
         # Global Rank - look for "Global Rank" following the strong tag
         # Using [\s\S]*? to skip over closing tags like </a>
