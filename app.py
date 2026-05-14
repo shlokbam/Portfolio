@@ -102,6 +102,27 @@ def _fetch_codechef(handle='shlokbam'):
     except Exception:
         return None
 
+def _fetch_github(username='shlokbam'):
+    """Fetch GitHub stats: repos, followers, and total contributions."""
+    try:
+        # Repos & Followers from API
+        api_resp = requests.get(f'https://api.github.com/users/{username}', headers=HEADERS, timeout=10)
+        user_data = api_resp.json()
+        
+        # Contributions from scraping the contributions page (HTML, so use default UA only)
+        cont_resp = requests.get(f'https://github.com/users/{username}/contributions', 
+                                 headers={'User-Agent': HEADERS['User-Agent']}, timeout=10)
+        cont_match = re.search(r'([0-9,]+)\s+contributions', cont_resp.text)
+        contributions = cont_match.group(1) if cont_match else '—'
+        
+        return {
+            'repos': user_data.get('public_repos', '—'),
+            'followers': user_data.get('followers', '—'),
+            'contributions': contributions
+        }
+    except Exception:
+        return None
+
 @app.route('/api/stats')
 def api_stats():
     now = time.time()
@@ -110,10 +131,11 @@ def api_stats():
         return jsonify({'success': True, 'data': _stats_cache['data'],
                         'cached': True})
 
-    # Fetch LeetCode and CodeChef
+    # Fetch all stats
     data = {
         'leetcode':   _fetch_leetcode(),
         'codechef':   _fetch_codechef(),
+        'github':     _fetch_github(),
         'fetched_at': datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC'),
     }
 

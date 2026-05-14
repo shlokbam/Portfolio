@@ -534,10 +534,19 @@ function initHeroStats() {
                 document.getElementById('hCcRating').textContent = 'N/A';
             }
             hideCubeSpin('hCcSpin');
+
+            // GitHub
+            if (d.github) {
+                document.getElementById('hGhCont').textContent = d.github.contributions ?? '—';
+                document.getElementById('hGhRepos').textContent = d.github.repos ?? '—';
+            } else {
+                document.getElementById('hGhCont').textContent = 'N/A';
+            }
+            hideCubeSpin('hGhSpin');
         })
         .catch(() => {
-            ['hLcSpin', 'hCcSpin'].forEach(hideCubeSpin);
-            ['hLcTotal', 'hLcRating', 'hCcRating'].forEach(id => {
+            ['hLcSpin', 'hCcSpin', 'hGhSpin'].forEach(hideCubeSpin);
+            ['hLcTotal', 'hLcRating', 'hCcRating', 'hGhCont'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.textContent = '—';
             });
