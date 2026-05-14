@@ -22,7 +22,7 @@ body {
     --gradient-start: #4f46e5;
     --gradient-end: #2563eb;
     --container-width: 1200px;
-    --section-padding: 6rem 2rem;
+    --section-padding: 3.5rem 2rem;
     --card-bg: #f3f4f6;
     --border-color: #e5e7eb;
     --success-color: #10B981;
@@ -570,12 +570,12 @@ body {
 
 /* Sections */
 section {
-    padding: 5rem 2rem;
+    padding: var(--section-padding);
 }
 
 .section-title {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
     position: relative;
 }
 
@@ -1327,7 +1327,7 @@ section {
 
 /* Experience Section Styles */
 .experience-section {
-    padding: 6rem 0;
+    padding: 3.5rem 0;
     background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-color-light) 100%);
     position: relative;
     overflow: hidden;
@@ -1810,7 +1810,7 @@ section {
 
 @media (max-width: 480px) {
     .experience-section {
-        padding: 4rem 0;
+        padding: 3rem 0;
     }
 
     .tab-btn {
@@ -1837,7 +1837,7 @@ section {
 
 /* Contact Section Styles */
 .contact-section {
-    padding: 3rem 0;
+    padding: 2.5rem 0;
     background-color: var(--bg-color);
 }
 
@@ -2138,10 +2138,26 @@ section {
 }
 
 .hackathon-header {
-    padding: 1rem;
+    padding: 1.25rem 1.5rem;
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
     color: white;
     position: relative;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hackathon-header h3,
+.hackathon-header p {
+    padding-right: 70px;
+    margin: 0;
+}
+
+.hackathon-header h3 {
+    font-size: 1.15rem;
+    line-height: 1.4;
+    font-weight: 600;
 }
 
 .hackathon-date {
