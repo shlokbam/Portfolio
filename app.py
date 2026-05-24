@@ -208,6 +208,8 @@ def api_stats_debug():
 def index():
     return render_template('index.html')
 
+import json
+
 @app.route('/contact', methods=['POST'])
 def contact():
     try:
@@ -221,11 +223,50 @@ def contact():
         if not all([name, email, subject, message]):
             return jsonify({'success': False, 'message': 'All fields are required'}), 400
         
-        # Here you can add code to store the message in a database or file
-        # For now, we'll just return success
+        # 1. Log message to local JSON database on server
+        message_log = {
+            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'name': name,
+            'email': email,
+            'subject': subject,
+            'message': message,
+            'ip': request.remote_addr
+        }
+        
+        log_file = 'messages.json'
+        messages = []
+        if os.path.exists(log_file):
+            try:
+                with open(log_file, 'r') as f:
+                    messages = json.load(f)
+            except Exception:
+                messages = []
+        messages.append(message_log)
+        with open(log_file, 'w') as f:
+            json.dump(messages, f, indent=4)
+            
+        # 2. Forward to Shlok's email via Web3Forms (Secure Server-side)
+        access_key = os.environ.get('WEB3FORMS_ACCESS_KEY')
+        if access_key:
+            payload = {
+                'access_key': access_key,
+                'name': name,
+                'email': email,
+                'subject': f"Portfolio Contact: {subject}",
+                'message': f"You received a new message from your portfolio contact form:\n\n"
+                           f"Name: {name}\n"
+                           f"Email: {email}\n"
+                           f"Subject: {subject}\n\n"
+                           f"Message:\n{message}"
+            }
+            try:
+                requests.post('https://api.web3forms.com/submit', json=payload, timeout=8)
+            except Exception as e:
+                print(f"Email forwarding error: {e}")
+        
         return jsonify({
             'success': True, 
-            'message': 'Message received! I will get back to you soon.'
+            'message': 'Message received successfully! I will get back to you soon.'
         })
             
     except Exception as e:
