@@ -4,6 +4,15 @@ import time
 import requests
 from datetime import datetime
 
+# Load environment variables from .env if present
+if os.path.exists('.env'):
+    with open('.env') as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#') and '=' in line:
+                key, val = line.split('=', 1)
+                os.environ[key.strip()] = val.strip()
+
 app = Flask(__name__)
 
 # Configuration
@@ -289,6 +298,92 @@ def check_availability():
                 results[url] = "offline"
                 
     return jsonify({'success': True, 'statuses': results})
+
+_chat_stats = {'questions_answered': 247}
+
+@app.route('/api/chat/stats', methods=['GET'])
+def chat_stats():
+    """Returns the total number of chat questions answered."""
+    return jsonify({'success': True, 'count': _chat_stats['questions_answered']})
+
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    """Handles chatbot conversations powered by Groq Llama-3."""
+    data = request.json or {}
+    user_message = data.get('message', '').strip()
+    if not user_message:
+        return jsonify({'success': False, 'message': 'Message is empty'}), 400
+
+    api_key = os.environ.get('GROQ_API_KEY')
+    if not api_key:
+        return jsonify({
+            'success': True,
+            'reply': "I'm sorry, my API key is currently not configured. Please contact Shlok directly at shlokbam19103@gmail.com!"
+        })
+
+    system_prompt = (
+        "CRITICAL RULE: You are Shlok Bam's AI Portfolio Assistant. You MUST ONLY answer questions directly about Shlok Bam, his career, VIT Pune education, projects, skills, and portfolio. "
+        "Under NO circumstances are you allowed to write general programming code, solve math equations, explain general computer science algorithms (unless directly related to Shlok's projects), write essays, or perform any general assistant tasks. "
+        "If a user asks you to write code (e.g., 'Write a python script to check if a string is a palindrome', 'Write a function for...', 'Solve this coding problem...'), you MUST absolutely decline and state: 'I am only programmed to assist with questions about Shlok Bam\'s career, experience, and portfolio. I cannot write code or solve general programming problems for you. However, I can tell you about Shlok\'s amazing RAG PDF project or other engineering work!'\n\n"
+        "You are Shlok Bam's AI Portfolio Assistant, a highly professional, polite, and enthusiastic representative. "
+        "Your goal is to answer recruiters and visitors about Shlok's career, education, projects, skills, and leadership. "
+        "Keep your answers professional, concise, and structured (use bullet points where appropriate).\n\n"
+        "Here are Shlok's details:\n"
+        "- Name: Shlok Bam\n"
+        "- Role: Information Technology Student, Programmer, and Full-Stack Developer\n"
+        "- Contact: Email: shlokbam19103@gmail.com | Phone: +91-7974670370 | GitHub: https://github.com/shlokbam | LinkedIn: https://www.linkedin.com/in/shlokbam/\n"
+        "- Location: Pune, India\n\n"
+        "EDUCATION:\n"
+        "- Vishwakarma Institute of Technology (VIT), Pune: Bachelor of Technology (B.Tech) in Information Technology (IT) (2023 - Present)\n"
+        "- Academic Score: 8.97 CGPA (up to 5th Semester)\n"
+        "- High School: Primary & Secondary Education completed (2010 - 2022) with a strong foundation in math and science.\n\n"
+        "LEADERSHIP & EXPERIENCE:\n"
+        "- ITSA (Information Technology Students Association) - Founding Chairperson (2024 - Present): Led tech committees, hosted AI tool sessions, anchored Edge'24 technical flagship event, mentored 100+ first-year students in soft skills, public speaking, and tech.\n"
+        "- abhivriddhi Management Head & EDGE'24 Event Anchor: Hosting and stage coordination for flagship events.\n\n"
+        "KEY SKILLS:\n"
+        "- Programming Languages: Python, JavaScript, HTML, CSS, C++\n"
+        "- Web Frameworks & Libraries: Flask, React, Vue.js, TailwindCSS\n"
+        "- AI & Machine Learning: Generative AI, RAG (Retrieval-Augmented Generation), LLMs, Computer Vision, OpenCV\n"
+        "- Cloud & DevOps: Docker, CI/CD pipelines, Git, Cloud integration, Linux\n\n"
+        "16+ KEY PROJECTS:\n"
+        "1. Generative AI RAG PDF Hub: A full Generative AI RAG pipeline where recruiters can upload PDFs and ask questions. Deployed at: https://generativeai-rag.streamlit.app/\n"
+        "2. AI Surveillance Poaching Detection: AI surveillance system using Computer Vision to detect poachers and send instant email alerts.\n"
+        "3. AI-powered Mock Interview Platform: Interactive portal automating job interview questions and scoring using Vue/React.\n"
+        "4. Full DevOps CI/CD Pipeline: Complete automated DevOps pipeline built from scratch to deploy high-availability apps.\n"
+        "5. Predictive Maintenance App (HX97): Uses ML/AI models to predict machinery failures before they happen. Deployed at: https://predictive-maintenance-hx97.onrender.com/\n"
+        "6. Multi-Constraint Genetic Algorithm: Specialized constraint solver using evolutionary computation. Deployed at: https://genetic-algorithm-multi-constraint.onrender.com/\n"
+        "7. Inventory Management System: Fully-featured responsive store inventory database system. Deployed at: https://ims-frontend-udaw.onrender.com/login\n\n"
+        "RULES FOR THE CHATBOT:\n"
+        "1. Be extremely helpful and positive about Shlok's qualities (quick learner, proactive leader, great communicator).\n"
+        "2. If asked about contact info, provide his email (shlokbam19103@gmail.com) and phone (+91-7974670370) clearly.\n"
+        "3. Only answer questions related to Shlok's resume, academic record, projects, skills, and portfolio. If someone asks unrelated questions (e.g. 'How do I cook pasta?' or 'Write a python script to reverse a string' or 'Write a palindrome function'), politely decline: 'I am only programmed to assist with questions about Shlok Bam\'s career, experience, and portfolio. I cannot write code or solve general programming problems for you. However, I can tell you about Shlok\'s amazing RAG PDF project or other engineering work!' and direct them back to Shlok's work."
+    )
+
+    try:
+        url = "https://api.groq.com/openai/v1/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "model": "llama-3.1-8b-instant",
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_message}
+            ],
+            "temperature": 0.5,
+            "max_tokens": 800
+        }
+        resp = requests.post(url, json=payload, headers=headers, timeout=10)
+        resp_data = resp.json()
+        _chat_stats['questions_answered'] += 1
+        reply = resp_data['choices'][0]['message']['content'].strip()
+        return jsonify({'success': True, 'reply': reply, 'count': _chat_stats['questions_answered']})
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'reply': "I'm sorry, I ran into a small error trying to connect to the brain. Please try asking again in a moment, or reach out to Shlok directly!"
+        }), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))

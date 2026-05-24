@@ -1773,4 +1773,43 @@
         </div>
     </div>
 </section>
+
+<!-- Floating Resume AI Chatbot Widget -->
+<div class="resume-chat-widget" id="resumeChatWidget">
+    <button class="chat-toggle-btn" id="chatToggleBtn" title="Ask Shlok's AI Assistant" aria-label="Ask Shlok's AI Assistant">
+        <i class="fas fa-robot"></i>
+        <span class="chat-notification-pulse"></span>
+    </button>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <div class="chat-header-info">
+                <div class="chat-avatar">SB</div>
+                <div>
+                    <h4>Shlok's AI Assistant</h4>
+                    <span class="chat-status"><span class="status-dot"></span> Online &bull; <span id="chatCounter">—</span> queries answered</span>
+                </div>
+            </div>
+            <button class="chat-close-btn" id="chatCloseBtn" aria-label="Close Chat" title="Close Chat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="message bot">
+                Hi there! 👋 I am Shlok's AI representative. Ask me anything about his technical projects, VIT Pune academic record, leadership experience, or how to contact him!
+            </div>
+            <div class="chat-suggestions" id="chatSuggestions">
+                <button class="suggestion-btn" data-query="What is Shlok's CGPA?">What is Shlok's CGPA?</button>
+                <button class="suggestion-btn" data-query="Tell me about Shlok's projects">Tell me about his projects</button>
+                <button class="suggestion-btn" data-query="What is Shlok's leadership experience?">What is Shlok's leadership?</button>
+                <button class="suggestion-btn" data-query="How can I contact Shlok?">How can I contact Shlok?</button>
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Ask a question about Shlok..." autocomplete="off">
+            <button id="chatSendBtn" aria-label="Send Message" title="Send Message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
 {% endblock %}

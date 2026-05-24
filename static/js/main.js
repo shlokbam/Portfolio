@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initScrollToTop();
     initProjectAvailability();
     initProfileFlip();
+    initResumeChatbot();
 });
 
 // Scroll to top button
@@ -344,12 +345,51 @@ function initExperienceTabs() {
         showTimelineItems(firstContainer);
     }
 
-    // Theme toggle
-    themeToggle.addEventListener('click', () => {
+    // Theme toggle with modern circular ripple View Transition
+    themeToggle.addEventListener('click', (e) => {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
+
+        // Graceful fallback for browsers that do not support View Transitions API
+        if (!document.startViewTransition) {
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            return;
+        }
+
+        // Get coordinates of the theme toggle button to center the circular ripple
+        const rect = themeToggle.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+
+        // Calculate diagonal distance to the furthest corner of the viewport
+        const endRadius = Math.hypot(
+            Math.max(x, window.innerWidth - x),
+            Math.max(y, window.innerHeight - y)
+        );
+
+        const transition = document.startViewTransition(() => {
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        transition.ready.then(() => {
+            const clipPath = [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${endRadius}px at ${x}px ${y}px)`
+            ];
+
+            document.documentElement.animate(
+                {
+                    clipPath: clipPath
+                },
+                {
+                    duration: 650, // smooth transition speed
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                    pseudoElement: '::view-transition-new(root)'
+                }
+            );
+        });
     });
 
     // Initialize theme from localStorage
@@ -828,4 +868,191 @@ function initProfileFlip() {
             }
         });
     });
+}
+
+// Floating Resume AI Chatbot Widget Logic
+function initResumeChatbot() {
+    const chatToggleBtn = document.getElementById('chatToggleBtn');
+    const chatCloseBtn = document.getElementById('chatCloseBtn');
+    const chatWindow = document.getElementById('chatWindow');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+    const chatBody = document.getElementById('chatBody');
+    const chatSuggestions = document.getElementById('chatSuggestions');
+    const pulseDot = chatToggleBtn ? chatToggleBtn.querySelector('.chat-notification-pulse') : null;
+    const chatCounter = document.getElementById('chatCounter');
+
+    if (!chatToggleBtn || !chatWindow || !chatInput || !chatSendBtn || !chatBody) return;
+
+    // Fetch initial chat query stats
+    if (chatCounter) {
+        fetch('/api/chat/stats')
+            .then(res => res.json())
+            .then(data => {
+                if (data.success && data.count !== undefined) {
+                    animateCounter(chatCounter, data.count);
+                }
+            })
+            .catch(err => console.error('Error fetching chat stats:', err));
+    }
+
+    function animateCounter(element, targetValue) {
+        let start = 0;
+        const duration = 1200; // 1.2 second animation
+        const startTime = performance.now();
+
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeProgress = 1 - Math.pow(1 - progress, 3); // ease out cubic
+            const currentValue = Math.floor(easeProgress * targetValue);
+            
+            element.textContent = currentValue;
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            }
+        }
+        requestAnimationFrame(update);
+    }
+
+    // Toggle Chat Window
+    chatToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        chatWindow.classList.toggle('active');
+        // Hide notification pulse on first interaction
+        if (pulseDot) {
+            pulseDot.style.display = 'none';
+        }
+        if (chatWindow.classList.contains('active')) {
+            chatInput.focus();
+        }
+    });
+
+    // Close Chat Window
+    chatCloseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        chatWindow.classList.remove('active');
+    });
+
+    // Close chat if clicked outside the widget
+    document.addEventListener('click', (e) => {
+        if (!chatWindow.contains(e.target) && !chatToggleBtn.contains(e.target)) {
+            chatWindow.classList.remove('active');
+        }
+    });
+
+    // Suggestion chip triggers
+    if (chatSuggestions) {
+        chatSuggestions.addEventListener('click', (e) => {
+            const btn = e.target.closest('.suggestion-btn');
+            if (btn) {
+                const query = btn.dataset.query;
+                if (query) {
+                    sendChatMessage(query);
+                    // Hide suggestions after the first tap to clean up UI
+                    chatSuggestions.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    // Enter Key Send trigger
+    chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const message = chatInput.value.trim();
+            if (message) {
+                sendChatMessage(message);
+            }
+        }
+    });
+
+    // Send Button trigger
+    chatSendBtn.addEventListener('click', () => {
+        const message = chatInput.value.trim();
+        if (message) {
+            sendChatMessage(message);
+        }
+    });
+
+    // Send chat message core function
+    function sendChatMessage(text) {
+        // 1. Add user bubble
+        appendMessageBubble(text, 'user');
+        chatInput.value = '';
+
+        // 2. Add typing indicator
+        const typingIndicator = appendTypingIndicator();
+        scrollToBottom();
+
+        // 3. Dispatch POST request to API
+        fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: text })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('API network response error');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Remove typing indicator
+            if (typingIndicator) typingIndicator.remove();
+
+            if (data.success && data.reply) {
+                appendMessageBubble(data.reply, 'bot');
+                if (data.count !== undefined && chatCounter) {
+                    chatCounter.textContent = data.count;
+                }
+            } else {
+                appendMessageBubble("I'm sorry, I'm having trouble processing your query right now. Please try again in a moment!", 'bot');
+            }
+            scrollToBottom();
+        })
+        .catch(err => {
+            console.error('Chat error:', err);
+            if (typingIndicator) typingIndicator.remove();
+            appendMessageBubble("I ran into a connection issue reaching my AI core. Please check your internet or retry soon!", 'bot');
+            scrollToBottom();
+        });
+    }
+
+    // Helper: Append User or Bot bubble
+    function appendMessageBubble(text, sender) {
+        const bubble = document.createElement('div');
+        bubble.className = `message ${sender}`;
+        
+        // Support simple markdown bullet points or newlines from LLM
+        const formattedText = text
+            .replace(/\n/g, '<br>')
+            .replace(/\*\s/g, '• ') // bullets
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // bolding
+            
+        bubble.innerHTML = formattedText;
+        chatBody.appendChild(bubble);
+    }
+
+    // Helper: Append Bouncing Typing Dots
+    function appendTypingIndicator() {
+        const indicator = document.createElement('div');
+        indicator.className = 'message bot typing-indicator-container';
+        indicator.innerHTML = `
+            <div class="typing-indicator">
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+            </div>
+        `;
+        chatBody.appendChild(indicator);
+        return indicator;
+    }
+
+    // Helper: Scroll body to end
+    function scrollToBottom() {
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
 }
