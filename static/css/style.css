@@ -3990,7 +3990,7 @@ section {
     padding: 0.2rem;
     margin-left: auto; /* Push to the absolute right side of headers */
     opacity: 0.85;
-    transition: opacity 0.2s, transform 0.2s;
+    transition: opacity 0.2s, transform 0.2s, color 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3999,6 +3999,32 @@ section {
 .cube-toggle-btn:hover {
     opacity: 1;
     transform: scale(1.15);
+}
+
+/* Actions container grouping Profile and Toggle button */
+.cube-front .cube-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cube-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+}
+
+.cube-body .cube-toggle-btn {
+    color: var(--primary-color);
+    margin-left: 0;
+    opacity: 0.85;
+}
+
+.cube-body .cube-toggle-btn:hover {
+    color: var(--secondary-color, #1e40af);
 }
 
 
