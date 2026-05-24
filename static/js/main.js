@@ -130,27 +130,48 @@ function initContactForm() {
                 submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                 submitButton.disabled = true;
 
-                const response = await fetch('/contact', {
+                // 1. Submit directly to Web3Forms client-side (bypasses server-side IP blocks on Free tier)
+                const web3Response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify({
+                        access_key: formData.get('access_key'),
                         name: formData.get('name'),
                         email: formData.get('email'),
-                        subject: formData.get('subject'),
+                        subject: `Portfolio Contact: ${formData.get('subject')}`,
                         message: formData.get('message')
                     })
                 });
 
-                const data = await response.json();
+                const web3Data = await web3Response.json();
 
-                if (data.success) {
-                    showNotification(data.message, 'success');
-                    form.reset();
-                } else {
-                    throw new Error(data.message);
+                if (!web3Data.success) {
+                    throw new Error(web3Data.message || 'Email delivery failed.');
                 }
+
+                // 2. Silently log the message to local server database in the background
+                try {
+                    await fetch('/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            name: formData.get('name'),
+                            email: formData.get('email'),
+                            subject: formData.get('subject'),
+                            message: formData.get('message')
+                        })
+                    });
+                } catch (backupError) {
+                    console.warn('Local log backup skipped:', backupError);
+                }
+
+                showNotification('Message received successfully! I will get back to you soon.', 'success');
+                form.reset();
             } catch (error) {
                 showNotification(error.message || 'Failed to send message. Please try again.', 'error');
             } finally {

@@ -428,4 +428,5 @@ def chat():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))
+    # Loaded environment variables and starting the Flask development server
     app.run(host='0.0.0.0', port=port, debug=True)
