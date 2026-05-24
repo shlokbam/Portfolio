@@ -78,79 +78,148 @@
             <div class="hero-side-label"><i class="fas fa-trophy"></i> Coding Profiles</div>
 
             <!-- LeetCode -->
-            <div class="hero-cube profile-cube" id="hLeetcode">
-                <div class="cube-platform leetcode-bg">
-                    <i class="fas fa-code"></i>
-                    <span>LeetCode</span>
-                    <span class="cube-spinner" id="hLcSpin"><i class="fas fa-spinner fa-spin"></i></span>
-                </div>
-                <div class="cube-body">
-                    <div class="cube-stats">
-                        <div class="cs-item">
-                            <span class="cs-val" id="hLcTotal">—</span>
-                            <span class="cs-lbl">Solved</span>
+            <div class="hero-cube profile-cube flip-container" id="hLeetcode">
+                <div class="cube-inner">
+                    <!-- FRONT SIDE -->
+                    <div class="cube-front">
+                        <div class="cube-platform leetcode-bg">
+                            <i class="fas fa-code"></i>
+                            <span>LeetCode</span>
+                            <span class="cube-spinner" id="hLcSpin"><i class="fas fa-spinner fa-spin"></i></span>
+                            <button class="cube-toggle-btn" title="View Chart" aria-label="View Chart">
+                                <i class="fas fa-chart-pie"></i>
+                            </button>
                         </div>
-                        <div class="cs-item rating">
-                            <span class="cs-val" id="hLcRating">—</span>
-                            <span class="cs-lbl">Contest Rating</span>
-                        </div>
-                        <div class="cs-item ranking">
-                            <span class="cs-val" id="hLcRanking">—</span>
-                            <span class="cs-lbl">Global Rank</span>
+                        <div class="cube-body">
+                            <div class="cube-stats">
+                                <div class="cs-item">
+                                    <span class="cs-val" id="hLcTotal">—</span>
+                                    <span class="cs-lbl">Solved</span>
+                                </div>
+                                <div class="cs-item rating">
+                                    <span class="cs-val" id="hLcRating">—</span>
+                                    <span class="cs-lbl">Contest Rating</span>
+                                </div>
+                                <div class="cs-item ranking">
+                                    <span class="cs-val" id="hLcRanking">—</span>
+                                    <span class="cs-lbl">Global Rank</span>
+                                </div>
+                            </div>
+                            <a href="https://leetcode.com/u/shlokbam05/" target="_blank" class="cube-link">Profile <i
+                                    class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
-                    <a href="https://leetcode.com/u/shlokbam05/" target="_blank" class="cube-link">Profile <i
-                            class="fas fa-arrow-right"></i></a>
+                    <!-- BACK SIDE -->
+                    <div class="cube-back">
+                        <div class="cube-platform leetcode-bg">
+                            <i class="fas fa-chart-line"></i>
+                            <span>LeetCode Rating History</span>
+                            <button class="cube-toggle-btn" title="View Stats" aria-label="View Stats">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+                        <div class="cube-body-chart">
+                            <div class="chart-wrapper">
+                                <canvas id="leetcodeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- CodeChef -->
-            <div class="hero-cube profile-cube" id="hCc">
-                <div class="cube-platform codechef-bg">
-                    <i class="fas fa-utensils"></i>
-                    <span>CodeChef</span>
-                    <span class="cube-spinner" id="hCcSpin"><i class="fas fa-spinner fa-spin"></i></span>
-                </div>
-                <div class="cube-body">
-                    <div class="cube-stats">
-                        <div class="cs-item">
-                            <span class="cs-val" id="hCcRating">—</span>
-                            <span class="cs-lbl">Contest Rating</span>
+            <div class="hero-cube profile-cube flip-container" id="hCc">
+                <div class="cube-inner">
+                    <!-- FRONT SIDE -->
+                    <div class="cube-front">
+                        <div class="cube-platform codechef-bg">
+                            <i class="fas fa-utensils"></i>
+                            <span>CodeChef</span>
+                            <span class="cube-spinner" id="hCcSpin"><i class="fas fa-spinner fa-spin"></i></span>
+                            <button class="cube-toggle-btn" title="View Chart" aria-label="View Chart">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
                         </div>
-                        <div class="cs-item">
-                            <span class="cs-val" id="hCcStars">—</span>
-                            <span class="cs-lbl">Stars</span>
-                        </div>
-                        <div class="cs-item">
-                            <span class="cs-val" id="hCcRank">—</span>
-                            <span class="cs-lbl">Global Rank</span>
+                        <div class="cube-body">
+                            <div class="cube-stats">
+                                <div class="cs-item">
+                                    <span class="cs-val" id="hCcRating">—</span>
+                                    <span class="cs-lbl">Contest Rating</span>
+                                </div>
+                                <div class="cs-item">
+                                    <span class="cs-val" id="hCcStars">—</span>
+                                    <span class="cs-lbl">Stars</span>
+                                </div>
+                                <div class="cs-item">
+                                    <span class="cs-val" id="hCcRank">—</span>
+                                    <span class="cs-lbl">Global Rank</span>
+                                </div>
+                            </div>
+                            <a href="https://www.codechef.com/users/shlokbam" target="_blank" class="cube-link">Profile <i
+                                    class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
-                    <a href="https://www.codechef.com/users/shlokbam" target="_blank" class="cube-link">Profile <i
-                            class="fas fa-arrow-right"></i></a>
+                    <!-- BACK SIDE -->
+                    <div class="cube-back">
+                        <div class="cube-platform codechef-bg">
+                            <i class="fas fa-chart-line"></i>
+                            <span>CodeChef Rating History</span>
+                            <button class="cube-toggle-btn" title="View Stats" aria-label="View Stats">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+                        <div class="cube-body-chart">
+                            <div class="chart-wrapper">
+                                <canvas id="codechefChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- GitHub -->
-            <div class="hero-cube profile-cube" id="hGithub">
-                <div class="cube-platform github-bg">
-                    <i class="fab fa-github"></i>
-                    <span>GitHub</span>
-                    <span class="cube-spinner" id="hGhSpin"><i class="fas fa-spinner fa-spin"></i></span>
-                </div>
-                <div class="cube-body">
-                    <div class="cube-stats">
-                        <div class="cs-item">
-                            <span class="cs-val" id="hGhCont">—</span>
-                            <span class="cs-lbl">Contributions</span>
+            <div class="hero-cube profile-cube flip-container" id="hGithub">
+                <div class="cube-inner">
+                    <!-- FRONT SIDE -->
+                    <div class="cube-front">
+                        <div class="cube-platform github-bg">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                            <span class="cube-spinner" id="hGhSpin"><i class="fas fa-spinner fa-spin"></i></span>
+                            <button class="cube-toggle-btn" title="View Chart" aria-label="View Chart">
+                                <i class="fas fa-chart-bar"></i>
+                            </button>
                         </div>
-                        <div class="cs-item">
-                            <span class="cs-val" id="hGhRepos">—</span>
-                            <span class="cs-lbl">Repositories</span>
+                        <div class="cube-body">
+                            <div class="cube-stats">
+                                <div class="cs-item">
+                                    <span class="cs-val" id="hGhCont">—</span>
+                                    <span class="cs-lbl">Contributions</span>
+                                </div>
+                                <div class="cs-item">
+                                    <span class="cs-val" id="hGhRepos">—</span>
+                                    <span class="cs-lbl">Repositories</span>
+                                </div>
+                            </div>
+                            <a href="https://github.com/shlokbam" target="_blank" class="cube-link">Profile <i
+                                    class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
-                    <a href="https://github.com/shlokbam" target="_blank" class="cube-link">Profile <i
-                            class="fas fa-arrow-right"></i></a>
+                    <!-- BACK SIDE -->
+                    <div class="cube-back">
+                        <div class="cube-platform github-bg">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>GitHub Metrics</span>
+                            <button class="cube-toggle-btn" title="View Stats" aria-label="View Stats">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+                        <div class="cube-body-chart">
+                            <div class="chart-wrapper">
+                                <canvas id="githubChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -602,7 +671,7 @@
             <!-- 1. MockVue -->
             <div class="project-card" data-category="web, ai">
                 <div class="project-info">
-                    <h3>MockVue</h3>
+                    <h3>MockVue <span class="status-badge checking" data-status-url="https://mock-vue.vercel.app/"><span class="status-dot"></span><span class="status-text">Checking</span></span></h3>
                     <p>Interactive mock interview platform featuring AI-powered feedback, real-time code execution, and
                         performance analytics for technical interview preparation.</p>
                     <div class="project-tech">
@@ -625,7 +694,7 @@
             <!-- RAG PDF Hub -->
             <div class="project-card" data-category="web, ai">
                 <div class="project-info">
-                    <h3>RAG PDF Hub</h3>
+                    <h3>RAG PDF Hub <span class="status-badge checking" data-status-url="https://generativeai-rag.streamlit.app/"><span class="status-dot"></span><span class="status-text">Checking</span></span></h3>
                     <p>Advanced Retrieval-Augmented Generation system querying multiple PDF documents. Features dynamic session caching, recursive character chunking, MMR reranking, and query expansion with structured citations.</p>
                     <div class="project-tech">
                         <span>LangChain</span>
@@ -648,7 +717,7 @@
             <!-- 2. Genetic Algorithm -->
             <div class="project-card" data-category="ai">
                 <div class="project-info">
-                    <h3>Genetic Algorithm — Seating Arrangement</h3>
+                    <h3>Genetic Algorithm — Seating Arrangement <span class="status-badge checking" data-status-url="https://genetic-algorithm-multi-constraint.onrender.com/"><span class="status-dot"></span><span class="status-text">Checking</span></span></h3>
                     <p>Optimization engine solving complex seating constraints using genetic algorithms. Handles
                         parameters like proximity, role-based grouping, and capacity.</p>
                     <div class="project-tech">
@@ -671,7 +740,7 @@
             <!-- 3. Predictive Maintenance -->
             <div class="project-card" data-category="ai">
                 <div class="project-info">
-                    <h3>Predictive Maintenance System</h3>
+                    <h3>Predictive Maintenance System <span class="status-badge checking" data-status-url="https://predictive-maintenance-hx97.onrender.com/"><span class="status-dot"></span><span class="status-text">Checking</span></span></h3>
                     <p>ML system for predicting equipment failure by analyzing sensor data. Features interactive
                         visualizations and health monitoring dashboards.</p>
                     <div class="project-tech">
@@ -693,7 +762,7 @@
             <!-- 4. Inventory Management System -->
             <div class="project-card" data-category="web">
                 <div class="project-info">
-                    <h3>Inventory Management System</h3>
+                    <h3>Inventory Management System <span class="status-badge checking" data-status-url="https://ims-frontend-udaw.onrender.com/login"><span class="status-dot"></span><span class="status-text">Checking</span></span></h3>
                     <p>Full-stack inventory solution with real-time stock tracking, automated alerts, and comprehensive
                         reporting. Designed for mission-critical business operations.</p>
                     <div class="project-tech">

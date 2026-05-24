@@ -19,7 +19,7 @@ HEADERS = {
 }
 
 def _fetch_leetcode(username='shlokbam05'):
-    """Use LeetCode's own GraphQL endpoint directly — no proxy needed."""
+    """Fetch LeetCode stats and contest rating history using consolidated GraphQL."""
     query = """
     query getUserStats($username: String!) {
       matchedUser(username: $username) {
@@ -35,6 +35,13 @@ def _fetch_leetcode(username='shlokbam05'):
       userContestRanking(username: $username) {
         rating
         globalRanking
+      }
+      userContestRankingHistory(username: $username) {
+        attended
+        rating
+        contest {
+          title
+        }
       }
     }
     """
@@ -52,6 +59,11 @@ def _fetch_leetcode(username='shlokbam05'):
                  for s in user['submitStatsGlobal']['acSubmissionNum']}
         
         contest = data.get('userContestRanking')
+        history_raw = data.get('userContestRankingHistory', [])
+        
+        # Filter and parse rating history for attended contests
+        history = [round(h['rating']) for h in history_raw if h.get('attended')]
+        
         return {
             'total':   stats.get('All',    0),
             'easy':    stats.get('Easy',   0),
@@ -59,7 +71,8 @@ def _fetch_leetcode(username='shlokbam05'):
             'hard':    stats.get('Hard',   0),
             'ranking': user['profile'].get('ranking', 'N/A'),
             'contestRating': round(contest.get('rating', 0)) if contest else 'N/A',
-            'contestRanking': contest.get('globalRanking', 'N/A') if contest else 'N/A'
+            'contestRanking': contest.get('globalRanking', 'N/A') if contest else 'N/A',
+            'ratingHistory': history
         }
     except Exception:
         return None
@@ -68,7 +81,7 @@ def _fetch_leetcode(username='shlokbam05'):
 
 import re
 def _fetch_codechef(handle='shlokbam'):
-    """CodeChef direct scraper — fallback since unofficial APIs are unreliable."""
+    """CodeChef direct scraper — fetches user statistics and embedded rating history JSON."""
     try:
         url = f'https://www.codechef.com/users/{handle}'
         resp = requests.get(url, headers=HEADERS, timeout=10)
@@ -85,7 +98,6 @@ def _fetch_codechef(handle='shlokbam'):
         stars = len(re.findall(r'★|&#9733;', stars_match.group(1))) if stars_match else 'N/A'
         
         # Global Rank - look for "Global Rank" following the strong tag
-        # Using [\s\S]*? to skip over closing tags like </a>
         rank_match = re.search(r'<strong>\s*(\d+)\s*</strong>[\s\S]*?Global Rank', html)
         rank = rank_match.group(1) if rank_match else 'N/A'
         
@@ -93,32 +105,58 @@ def _fetch_codechef(handle='shlokbam'):
         highest_match = re.search(r'\(Highest Rating (\d+)\)', html)
         highest = highest_match.group(1) if highest_match else 'N/A'
         
+        # Parse embedded ratings Highcharts JSON array
+        history = []
+        history_match = re.search(r'var all_rating\s*=\s*(.*?);', html)
+        if history_match:
+            try:
+                import json
+                ratings = json.loads(history_match.group(1))
+                history = [int(r.get('rating', 0)) for r in ratings]
+            except Exception:
+                pass
+        
         return {
             'rating': rating,
             'stars': f'{stars}★' if stars != 'N/A' else 'N/A',
             'globalRank': rank,
-            'highestRating': highest
+            'highestRating': highest,
+            'ratingHistory': history
         }
     except Exception:
         return None
 
 def _fetch_github(username='shlokbam'):
-    """Fetch GitHub stats: repos, followers, and total contributions."""
+    """Fetch GitHub stats and extract the last 15 days of daily contribution history."""
     try:
         # Repos & Followers from API
         api_resp = requests.get(f'https://api.github.com/users/{username}', headers=HEADERS, timeout=10)
         user_data = api_resp.json()
         
-        # Contributions from scraping the contributions page (HTML, so use default UA only)
+        # Contributions scraping
         cont_resp = requests.get(f'https://github.com/users/{username}/contributions', 
                                  headers={'User-Agent': HEADERS['User-Agent']}, timeout=10)
-        cont_match = re.search(r'([0-9,]+)\s+contributions', cont_resp.text)
+        html = cont_resp.text
+        cont_match = re.search(r'([0-9,]+)\s+contributions', html)
         contributions = cont_match.group(1) if cont_match else '—'
+        
+        # Parse contribution numbers from tooltips
+        matches = re.findall(r'(\d+|No)\s+contributions?\s+on\s+[A-Za-z]+\s+\d+', html)
+        history = []
+        for val in matches:
+            if val == 'No':
+                history.append(0)
+            else:
+                history.append(int(val))
+                
+        # Slice the last 15 days
+        recent_history = history[-15:] if len(history) >= 15 else history
         
         return {
             'repos': user_data.get('public_repos', '—'),
             'followers': user_data.get('followers', '—'),
-            'contributions': contributions
+            'contributions': contributions,
+            'contributionHistory': recent_history
         }
     except Exception:
         return None
@@ -214,6 +252,43 @@ def view_hackathon_certificate(filename):
         )
     except Exception as e:
         return jsonify({'success': False, 'message': 'Certificate not found'}), 404
+
+@app.route('/api/availability')
+def check_availability():
+    """Concurrently checks live project URLs and returns their online/offline state."""
+    urls = [
+        "https://mock-vue.vercel.app/",
+        "https://generativeai-rag.streamlit.app/",
+        "https://genetic-algorithm-multi-constraint.onrender.com/",
+        "https://predictive-maintenance-hx97.onrender.com/",
+        "https://ims-frontend-udaw.onrender.com/login"
+    ]
+    import concurrent.futures
+    
+    def check_url(url):
+        try:
+            # Send a HEAD request first (efficient)
+            resp = requests.head(url, headers=HEADERS, timeout=4)
+            # If status code is 405 (Method Not Allowed) or other failure, fallback to GET
+            if resp.status_code >= 400:
+                resp = requests.get(url, headers=HEADERS, timeout=4)
+            # A status code < 500 implies the host is active and responding
+            return url, resp.status_code < 500
+        except Exception:
+            return url, False
+
+    results = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        future_to_url = {executor.submit(check_url, url): url for url in urls}
+        for future in concurrent.futures.as_completed(future_to_url):
+            url = future_to_url[future]
+            try:
+                url, status = future.result()
+                results[url] = "online" if status else "offline"
+            except Exception:
+                results[url] = "offline"
+                
+    return jsonify({'success': True, 'statuses': results})
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))

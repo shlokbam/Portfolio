@@ -58,6 +58,8 @@ document.addEventListener('DOMContentLoaded', function () {
     initTypingEffect();
     initExperienceTabs();
     initScrollToTop();
+    initProjectAvailability();
+    initProfileFlip();
 });
 
 // Scroll to top button
@@ -519,6 +521,53 @@ function initHeroStats() {
                 document.getElementById('hLcTotal').textContent = d.leetcode.total ?? '—';
                 document.getElementById('hLcRating').textContent = d.leetcode.contestRating ?? '—';
                 document.getElementById('hLcRanking').textContent = d.leetcode.contestRanking ?? '—';
+                
+                // Initialize LeetCode Rating History Line Chart
+                const history = d.leetcode.ratingHistory || [];
+                const ctxLc = document.getElementById('leetcodeChart');
+                if (ctxLc && history.length > 0) {
+                    new Chart(ctxLc.getContext('2d'), {
+                        type: 'line',
+                        data: {
+                            labels: history.map((_, index) => `Contest ${index + 1}`),
+                            datasets: [{
+                                label: 'Rating',
+                                data: history,
+                                borderColor: '#FFA116',
+                                backgroundColor: 'rgba(255, 161, 22, 0.12)',
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.35,
+                                pointRadius: 2,
+                                pointBackgroundColor: '#FFA116'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    enabled: true,
+                                    callbacks: {
+                                        title: () => 'LeetCode Contest',
+                                        label: (context) => ` Rating: ${context.raw}`
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: { display: false },
+                                y: {
+                                    grid: { display: false },
+                                    ticks: {
+                                        color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#cbd5e1' : '#475569',
+                                        font: { size: 8, weight: 'bold' }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
             } else {
                 document.getElementById('hLcTotal').textContent = 'N/A';
             }
@@ -529,6 +578,53 @@ function initHeroStats() {
                 document.getElementById('hCcRating').textContent = d.codechef.rating ?? '—';
                 document.getElementById('hCcStars').textContent = d.codechef.stars ?? '—';
                 document.getElementById('hCcRank').textContent = d.codechef.globalRank ?? '—';
+                
+                // Initialize CodeChef Rating History Line Chart
+                const ccHistory = d.codechef.ratingHistory || [];
+                const ctxCc = document.getElementById('codechefChart');
+                if (ctxCc && ccHistory.length > 0) {
+                    new Chart(ctxCc.getContext('2d'), {
+                        type: 'line',
+                        data: {
+                            labels: ccHistory.map((_, index) => `Contest ${index + 1}`),
+                            datasets: [{
+                                label: 'Rating',
+                                data: ccHistory,
+                                borderColor: '#8d6e63',
+                                backgroundColor: 'rgba(141, 110, 99, 0.12)',
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.35,
+                                pointRadius: 2,
+                                pointBackgroundColor: '#8d6e63'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    enabled: true,
+                                    callbacks: {
+                                        title: () => 'CodeChef Contest',
+                                        label: (context) => ` Rating: ${context.raw}`
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: { display: false },
+                                y: {
+                                    grid: { display: false },
+                                    ticks: {
+                                        color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#cbd5e1' : '#475569',
+                                        font: { size: 8, weight: 'bold' }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
             } else {
                 document.getElementById('hCcRating').textContent = 'N/A';
             }
@@ -538,6 +634,53 @@ function initHeroStats() {
             if (d.github) {
                 document.getElementById('hGhCont').textContent = d.github.contributions ?? '—';
                 document.getElementById('hGhRepos').textContent = d.github.repos ?? '—';
+                
+                // Initialize GitHub Contribution Sparkline Chart
+                const ghHistory = d.github.contributionHistory || [];
+                const ctxGh = document.getElementById('githubChart');
+                if (ctxGh && ghHistory.length > 0) {
+                    new Chart(ctxGh.getContext('2d'), {
+                        type: 'line',
+                        data: {
+                            labels: ghHistory.map((_, i) => `Day ${i + 1}`),
+                            datasets: [{
+                                label: 'Contributions',
+                                data: ghHistory,
+                                borderColor: '#10b981',
+                                backgroundColor: 'rgba(16, 185, 129, 0.12)',
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.38,
+                                pointRadius: 2,
+                                pointBackgroundColor: '#10b981'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    enabled: true,
+                                    callbacks: {
+                                        title: () => 'Recent Activity',
+                                        label: (context) => ` Contributions: ${context.raw}`
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: { display: false },
+                                y: {
+                                    grid: { display: false },
+                                    ticks: {
+                                        color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#cbd5e1' : '#475569',
+                                        font: { size: 8, weight: 'bold' }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
             } else {
                 document.getElementById('hGhCont').textContent = 'N/A';
             }
@@ -632,3 +775,57 @@ window.addEventListener('resize', () => {
         }
     }
 });
+
+// Deployed project availability monitor
+function initProjectAvailability() {
+    const badges = document.querySelectorAll('.status-badge');
+    if (badges.length === 0) return;
+
+    fetch('/api/availability')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success || !data.statuses) {
+                throw new Error("Invalid availability data");
+            }
+            badges.forEach(badge => {
+                const url = badge.getAttribute('data-status-url');
+                const status = data.statuses[url] || 'offline';
+                
+                // Transition to final state class
+                badge.classList.remove('checking');
+                badge.classList.add(status);
+                
+                // Update badge text label
+                const label = badge.querySelector('.status-text');
+                if (label) {
+                    label.textContent = status;
+                }
+            });
+        })
+        .catch(err => {
+            console.error("Failed to check project availability:", err);
+            badges.forEach(badge => {
+                badge.classList.remove('checking');
+                badge.classList.add('offline');
+                const label = badge.querySelector('.status-text');
+                if (label) {
+                    label.textContent = 'offline';
+                }
+            });
+        });
+}
+
+// Flip profile cubes (LeetCode & GitHub)
+function initProfileFlip() {
+    const toggleButtons = document.querySelectorAll('.cube-toggle-btn');
+    toggleButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const container = btn.closest('.flip-container');
+            if (container) {
+                container.classList.toggle('flipped');
+            }
+        });
+    });
+}
