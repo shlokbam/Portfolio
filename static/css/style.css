@@ -4626,5 +4626,63 @@ section {
     view-transition-name: root;
 }
 
+/* Featured / Industry Sponsored Project Card Styling */
+.project-card.featured {
+    border: 1.5px solid rgba(245, 158, 11, 0.3);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.03);
+}
+
+.project-card.featured:hover {
+    border-color: rgba(245, 158, 11, 0.6);
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.08);
+}
+
+[data-theme="dark"] .project-card.featured {
+    border: 1.5px solid rgba(245, 158, 11, 0.2);
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.02);
+}
+
+[data-theme="dark"] .project-card.featured:hover {
+    border-color: rgba(245, 158, 11, 0.5);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.06);
+}
+
+/* Sponsored Tag Badge */
+.sponsored-badge {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(245, 158, 11, 0.08);
+    color: #d97706;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    z-index: 5;
+    transition: all 0.3s ease;
+}
+
+.project-card.featured:hover .sponsored-badge {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.35);
+}
+
+[data-theme="dark"] .sponsored-badge {
+    background: rgba(245, 158, 11, 0.12);
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.25);
+}
+
+[data-theme="dark"] .project-card.featured:hover .sponsored-badge {
+    background: rgba(245, 158, 11, 0.18);
+    border-color: rgba(245, 158, 11, 0.4);
+}
+
 
 
