@@ -386,7 +386,7 @@ def chat():
         "KEY SKILLS:\n"
         "- Programming Languages: Python, JavaScript, HTML, CSS, C++\n"
         "- Web Frameworks & Libraries: Flask, React, Vue.js, TailwindCSS\n"
-        "- AI & Machine Learning: Generative AI, RAG (Retrieval-Augmented Generation), LLMs, Computer Vision, OpenCV\n"
+        "- AI & Machine Learning: Generative AI, LangChain, RAG (Retrieval-Augmented Generation), LLMs, Vector DBs, Gemini API, Computer Vision, OpenCV\n"
         "- Cloud & DevOps: Docker, CI/CD pipelines, Git, Cloud integration, Linux\n\n"
         "17+ KEY PROJECTS:\n"
         "1. Eagle LMS (Industry Sponsored): Enterprise-grade Learning Management System featuring a FastAPI backend, dual-role React dashboards, and a premium React Native mobile app with secure watermarking. Code: https://github.com/shlokbam/lms\n"
