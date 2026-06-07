@@ -1047,14 +1047,106 @@ function initResumeChatbot() {
         const bubble = document.createElement('div');
         bubble.className = `message ${sender}`;
         
-        // Support simple markdown bullet points or newlines from LLM
-        const formattedText = text
-            .replace(/\n/g, '<br>')
-            .replace(/\*\s/g, '• ') // bullets
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // bolding
-            
-        bubble.innerHTML = formattedText;
+        if (sender === 'user') {
+            bubble.textContent = text;
+        } else {
+            bubble.innerHTML = formatMarkdown(text);
+        }
+        
         chatBody.appendChild(bubble);
+    }
+
+    // Custom helper to render markdown inside bot messages
+    function formatMarkdown(text) {
+        if (!text) return "";
+
+        // Escape HTML tags to prevent XSS issues while keeping formatting clean
+        let escaped = text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+
+        // 1. Inline code: `code` -> <code>code</code>
+        escaped = escaped.replace(/`([^`]+)`/g, "<code>$1</code>");
+
+        // 2. Bold text: **text** -> <strong>text</strong>
+        escaped = escaped.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+
+        // 3. Links: [text](url) -> unescape and make clickable
+        escaped = escaped.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, p1, p2) => {
+            let url = p2.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer">${p1}</a>`;
+        });
+
+        // 4. Multi-line list & paragraph parser
+        const lines = escaped.split("\n");
+        let result = [];
+        let inList = false;
+        let listType = ""; // "ul" or "ol"
+        let inParagraph = false;
+
+        for (let line of lines) {
+            let trimmed = line.trim();
+            
+            // Check list prefixes
+            let bulletMatch = /^(?:-|\*|•)\s+(.*)/.exec(trimmed);
+            let numberedMatch = /^\d+\.\s+(.*)/.exec(trimmed);
+
+            if (bulletMatch) {
+                if (inParagraph) {
+                    result.push("</p>");
+                    inParagraph = false;
+                }
+                if (!inList || listType !== "ul") {
+                    if (inList) result.push(`</${listType}>`);
+                    result.push("<ul>");
+                    inList = true;
+                    listType = "ul";
+                }
+                result.push(`<li>${bulletMatch[1]}</li>`);
+            } else if (numberedMatch) {
+                if (inParagraph) {
+                    result.push("</p>");
+                    inParagraph = false;
+                }
+                if (!inList || listType !== "ol") {
+                    if (inList) result.push(`</${listType}>`);
+                    result.push("<ol>");
+                    inList = true;
+                    listType = "ol";
+                }
+                result.push(`<li>${numberedMatch[1]}</li>`);
+            } else {
+                if (inList) {
+                    result.push(`</${listType}>`);
+                    inList = false;
+                    listType = "";
+                }
+                if (trimmed.length > 0) {
+                    if (!inParagraph) {
+                        result.push("<p>");
+                        inParagraph = true;
+                        result.push(line);
+                    } else {
+                        result.push("<br>" + line);
+                    }
+                } else {
+                    if (inParagraph) {
+                        result.push("</p>");
+                        inParagraph = false;
+                    }
+                }
+            }
+        }
+        
+        if (inList) {
+            result.push(`</${listType}>`);
+        }
+        if (inParagraph) {
+            result.push("</p>");
+        }
+
+        return result.join("");
     }
 
     // Helper: Append Bouncing Typing Dots

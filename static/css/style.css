@@ -4688,5 +4688,57 @@ section {
     border-color: rgba(245, 158, 11, 0.4);
 }
 
+/* Chatbot Message Markdown Styles */
+.message p {
+    margin: 0 0 0.5rem;
+}
+
+.message p:last-child {
+    margin-bottom: 0;
+}
+
+.message ul, .message ol {
+    padding-left: 1.1rem;
+    margin: 0.4rem 0;
+}
+
+.message li {
+    margin-bottom: 0.25rem;
+}
+
+.message li:last-child {
+    margin-bottom: 0;
+}
+
+.message a {
+    color: var(--primary-color);
+    text-decoration: underline;
+    font-weight: 500;
+    word-break: break-all;
+    transition: opacity 0.2s ease;
+}
+
+.message a:hover {
+    opacity: 0.8;
+}
+
+[data-theme="dark"] .message a {
+    color: #60a5fa;
+}
+
+.message code {
+    background: rgba(0, 0, 0, 0.05);
+    color: #dc2626;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    font-family: monospace, monospace;
+    font-size: 0.82rem;
+}
+
+[data-theme="dark"] .message code {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fca5a5;
+}
+
 
 
