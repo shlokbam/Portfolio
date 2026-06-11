@@ -380,7 +380,7 @@ def chat():
         "- Academic Score: 9.01 CGPA (up to 6th Semester)\n"
         "- High School: Primary & Secondary Education completed (2010 - 2022) with a strong foundation in math and science.\n\n"
         "LEADERSHIP & EXPERIENCE:\n"
-        "- PharmaACE Innovations LLP - Incoming Analytics Intern (June 2026 - July 2026): Selected for a 2-month Analytics Internship in Hinjewadi, Pune, focusing on business intelligence and data modeling.\n"
+        "- PharmaACE Innovations - Analytics Intern (June 2026 - Present): Building a healthcare provider matching system using NLP, semantic search, fuzzy matching, and machine learning to improve NPI identification accuracy. Designed a scheduled ETL pipeline to download, process, and index NPPES registry data (~7M+ records) on AWS using EC2, S3, Lambda, and RDS.\n"
         "- ITSA (Information Technology Students Association) - Club Chairperson / Founding Chairperson (2024 - Present): Led tech committees, hosted AI tool sessions, mentored 100+ first-year students in soft skills, public speaking, and tech.\n"
         "- Abhivriddhi (Operations Head 2024 - 2025, Technical Coordinator 2023 - 2024): Anchored EDGE'24 flagship technical event, coordinated stage hosting and administrative logistics.\n"
         "- The Catalyst (Chief Administrative 2024 - 2025) & Computer Society of India (CSI Web Development Coordinator 2024 - 2025).\n\n"
