@@ -277,8 +277,7 @@ def download_resume():
     try:
         return send_file(
             'static/Resume/Shlok_Bam_VIT.pdf',
-            as_attachment=True,
-            download_name='Shlok_Bam_Resume.pdf'
+            mimetype='application/pdf'
         )
     except Exception as e:
         return jsonify({'success': False, 'message': 'Resume not found'}), 404
