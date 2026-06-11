@@ -276,7 +276,7 @@ def contact():
 def download_resume():
     try:
         return send_file(
-            'static/resume.pdf',
+            'static/Resume/Shlok_Bam_VIT.pdf',
             as_attachment=True,
             download_name='Shlok_Bam_Resume.pdf'
         )
@@ -377,7 +377,7 @@ def chat():
         "- Location: Pune, India\n\n"
         "EDUCATION:\n"
         "- Vishwakarma Institute of Technology (VIT), Pune: Bachelor of Technology (B.Tech) in Information Technology (IT) (2023 - Present)\n"
-        "- Academic Score: 8.97 CGPA (up to 5th Semester)\n"
+        "- Academic Score: 9.01 CGPA (up to 6th Semester)\n"
         "- High School: Primary & Secondary Education completed (2010 - 2022) with a strong foundation in math and science.\n\n"
         "LEADERSHIP & EXPERIENCE:\n"
         "- PharmaACE Innovations LLP - Incoming Analytics Intern (June 2026 - July 2026): Selected for a 2-month Analytics Internship in Hinjewadi, Pune, focusing on business intelligence and data modeling.\n"
