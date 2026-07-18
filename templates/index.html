@@ -272,7 +272,7 @@
                         <i class="fas fa-project-diagram"></i>
                         <div>
                             <h4>Projects</h4>
-                            <p>16+ Projects Completed</p>
+                            <p>17+ Projects Completed</p>
                         </div>
                     </div>
                     <div class="detail-item">
@@ -527,6 +527,17 @@
                 <h3><i class="fas fa-infinity"></i> DevOps</h3>
                 <div class="skills-grid">
                     <div class="skill-card">
+                        <i class="fab fa-docker"></i>
+                        <h4>Docker</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
                         <i class="fab fa-jenkins"></i>
                         <h4>Jenkins</h4>
                         <div class="skill-level">
@@ -589,6 +600,28 @@
                         </div>
                     </div>
                     <div class="skill-card">
+                        <i class="fas fa-sitemap"></i>
+                        <h4>LangGraph</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-binoculars"></i>
+                        <h4>LangSmith</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
                         <i class="fas fa-search-plus"></i>
                         <h4>RAG</h4>
                         <div class="skill-level">
@@ -622,6 +655,17 @@
                         </div>
                     </div>
                     <div class="skill-card">
+                        <i class="fas fa-wind"></i>
+                        <h4>Mistral AI</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
                         <i class="fas fa-database"></i>
                         <h4>Vector DBs</h4>
                         <div class="skill-level">
@@ -630,6 +674,17 @@
                             <span class="dot filled"></span>
                             <span class="dot filled"></span>
                             <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-network-wired"></i>
+                        <h4>MCP</h4>
+                        <div class="skill-level">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
                         </div>
                     </div>
                 </div>
@@ -736,18 +791,46 @@
 
         <div class="projects-grid" id="projectsGrid">
 
+            <!-- DailyDiff -->
+            <div class="project-card featured" data-category="web, ai">
+                <div class="project-info">
+                    <h3>DailyDiff — Autonomous Tech Curation <span class="status-badge checking"
+                            data-status-url="https://daily-diff-pi.vercel.app/"><span
+                                class="status-dot"></span><span class="status-text">Checking</span></span></h3>
+                    <p>An autonomous multi-agent research and editorial curation platform for developers. Scours the web (GitHub, Hacker News, Dev.to) using a LangGraph/LangChain pipeline to curate developer tools, simplify jargon (ELI5), and send thrice-weekly responsive briefings via Brevo/Resend SMTP APIs. Built-in automatic Mistral-to-Gemini fail-safe fallback logic.</p>
+                    <div class="project-tech">
+                        <span>React</span>
+                        <span>Vite</span>
+                        <span>FastAPI</span>
+                        <span>LangGraph</span>
+                        <span>Mistral AI</span>
+                        <span>Gemini API</span>
+                        <span>PostgreSQL</span>
+                    </div>
+                </div>
+                <div class="project-links">
+                    <a href="https://daily-diff-pi.vercel.app/" class="project-demo" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                    <a href="https://github.com/shlokbam/DailyDiff" class="project-github" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                </div>
+            </div>
+
             <!-- Eagle LMS (Learning Management System) - Industry Sponsored -->
-            <div class="project-card featured" data-category="web">
+            <div class="project-card" data-category="web">
                 <div class="project-info">
                     <h3>Eagle LMS <span class="sponsored-badge"><i class="fas fa-award"></i> Sponsored</span></h3>
-                    <p>Enterprise-grade Learning Management System designed for high-performance training. Features a
-                        FastAPI backend, dual-role web dashboards (Trainer/Trainee), and a premium mobile experience
-                        with secure watermarking.</p>
+                    <p>Enterprise-grade Learning Management System designed for high-performance enterprise training. Features a FastAPI backend, dual-role web dashboards (Trainer/Trainee), a premium React Native mobile experience with secure watermarking, and an automated DevOps delivery pipeline.</p>
                     <div class="project-tech">
                         <span>FastAPI</span>
                         <span>React</span>
                         <span>React Native</span>
                         <span>Expo</span>
+                        <span>Docker</span>
+                        <span>Terraform</span>
+                        <span>Jenkins</span>
                     </div>
                 </div>
                 <div class="project-links">
@@ -758,21 +841,21 @@
                 </div>
             </div>
 
-            <!-- Multi-Agent AI Research System -->
+            <!-- ResearchOS — Multi-Agent Research Suite -->
             <div class="project-card" data-category="web, ai">
                 <div class="project-info">
-                    <h3>Multi-Agent AI Research System <span class="status-badge checking"
+                    <h3>ResearchOS — Multi-Agent Research Suite <span class="status-badge checking"
                             data-status-url="https://multi-agent-ai-research-system-six.vercel.app/"><span
                                 class="status-dot"></span><span class="status-text">Checking</span></span></h3>
-                    <p>A sophisticated collaborative AI research platform driven by an orchestra of specialized agents.
-                        Automates multi-perspective academic literature retrieval, information synthesis, and structured
-                        report compilation with automated fact-checking.</p>
+                    <p>Professional-grade multi-agent scientific synthesis suite (ResearchOS). Employs a collaborative swarm of specialized LangChain agents powered by Mistral AI to scrape web sources, synthesize structured reports, audit factuality, and index documents into Pinecone and ChromaDB vector databases.</p>
                     <div class="project-tech">
                         <span>React</span>
                         <span>Python</span>
                         <span>LangChain</span>
-                        <span>CrewAI</span>
+                        <span>Mistral AI</span>
                         <span>Gemini API</span>
+                        <span>ChromaDB</span>
+                        <span>Pinecone</span>
                     </div>
                 </div>
                 <div class="project-links">
