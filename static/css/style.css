@@ -672,7 +672,7 @@ section {
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) !important;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -3996,7 +3996,7 @@ section {
 
 .project-card.show-project {
     display: flex !important;
-    animation: projectFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: projectFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes projectFadeIn {
