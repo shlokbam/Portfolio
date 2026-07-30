@@ -61,6 +61,9 @@ document.addEventListener('DOMContentLoaded', function () {
     initProjectAvailability();
     initProfileFlip();
     initResumeChatbot();
+    initHeroCanvas();
+    initProjectArchitectureExplorer();
+    registerServiceWorker();
 });
 
 // Scroll to top button
@@ -78,6 +81,9 @@ function initScrollToTop() {
 
 // Scroll animations for elements
 function initScrollAnimations() {
+    if (CSS.supports('animation-timeline', 'view()')) {
+        return;
+    }
     const elements = document.querySelectorAll('.fade-in');
 
     const observer = new IntersectionObserver((entries) => {
@@ -304,11 +310,16 @@ const observer = new IntersectionObserver((entries, observer) => {
 
 document.querySelectorAll('section').forEach(section => {
     section.classList.add('fade-in');
-    observer.observe(section);
+    if (!CSS.supports('animation-timeline', 'view()')) {
+        observer.observe(section);
+    }
 });
 
 // Animation on scroll
 const animateOnScroll = () => {
+    if (CSS.supports('animation-timeline', 'view()')) {
+        return;
+    }
     const elements = document.querySelectorAll('.fade-in');
 
     elements.forEach(element => {
@@ -321,8 +332,10 @@ const animateOnScroll = () => {
     });
 };
 
-window.addEventListener('scroll', animateOnScroll);
-window.addEventListener('load', animateOnScroll);
+if (!CSS.supports('animation-timeline', 'view()')) {
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+}
 
 // Experience Tabs
 function initExperienceTabs() {
@@ -1167,5 +1180,289 @@ function initResumeChatbot() {
     // Helper: Scroll body to end
     function scrollToBottom() {
         chatBody.scrollTop = chatBody.scrollHeight;
+    }
+}
+
+// ── Hero Canvas Particles ───────────────────────────────────────────────────
+function initHeroCanvas() {
+    const canvas = document.getElementById('hero-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+    let isHeroVisible = true;
+
+    // Interactive mouse state
+    const mouse = {
+        x: null,
+        y: null,
+        radius: 120
+    };
+
+    // Listeners for mouse interaction
+    window.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+
+    window.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    // Handle resizing
+    function resizeCanvas() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Dynamic color setup based on theme
+    function getThemeColors() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        return {
+            particleColor: isDark ? 'rgba(59, 130, 246, 0.4)' : 'rgba(37, 99, 235, 0.2)',
+            lineColor: isDark ? 'rgba(59, 130, 246, 0.08)' : 'rgba(37, 99, 235, 0.04)',
+            hoverColor: isDark ? 'rgba(16, 185, 129, 0.6)' : 'rgba(16, 185, 129, 0.3)'
+        };
+    }
+
+    // Particle class definition
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = (Math.random() - 0.5) * 0.4;
+            this.baseSize = Math.random() * 2 + 1.5;
+            this.size = this.baseSize;
+        }
+
+        update() {
+            // Screen boundaries
+            if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+            if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Mouse interaction
+            if (mouse.x !== null && mouse.y !== null) {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.hypot(dx, dy);
+                if (distance < mouse.radius) {
+                    const force = (mouse.radius - distance) / mouse.radius;
+                    // Attract particles slightly
+                    this.x -= dx * force * 0.02;
+                    this.y -= dy * force * 0.02;
+                    this.size = this.baseSize * (1 + force * 1.2);
+                } else {
+                    if (this.size > this.baseSize) {
+                        this.size -= 0.05;
+                    }
+                }
+            } else {
+                if (this.size > this.baseSize) {
+                    this.size -= 0.05;
+                }
+            }
+        }
+
+        draw(colors) {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = mouse.x !== null && mouse.y !== null && Math.hypot(mouse.x - this.x, mouse.y - this.y) < mouse.radius
+                ? colors.hoverColor
+                : colors.particleColor;
+            ctx.fill();
+        }
+    }
+
+    // Populate particles list
+    const particles = [];
+    const particleCount = Math.min(65, Math.floor((canvas.width * canvas.height) / 18000));
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
+
+    // Render loop
+    function animate() {
+        if (!isHeroVisible) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const colors = getThemeColors();
+
+        // Update and draw particles
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw(colors);
+        }
+
+        // Draw connecting lines
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.hypot(dx, dy);
+
+                if (dist < 110) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = colors.lineColor;
+                    ctx.lineWidth = (110 - dist) / 110 * 0.75;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        animationFrameId = requestAnimationFrame(animate);
+    }
+
+    // Optimization: Pause animation loop when scrolled out of view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isHeroVisible = entry.isIntersecting;
+            if (isHeroVisible) {
+                cancelAnimationFrame(animationFrameId);
+                animate();
+            } else {
+                cancelAnimationFrame(animationFrameId);
+            }
+        });
+    }, { threshold: 0.05 });
+
+    const heroSection = document.getElementById('home');
+    if (heroSection) {
+        observer.observe(heroSection);
+    } else {
+        animate();
+    }
+}
+
+// ── Interactive Architecture Explorer ────────────────────────────────────────
+function initProjectArchitectureExplorer() {
+    const toggleBtns = document.querySelectorAll('.project-arch-btn');
+
+    // Mapped node detail descriptions for DailyDiff and ResearchOS
+    const nodeDetails = {
+        dailydiff: {
+            cron: {
+                title: "Cron Trigger",
+                desc: "Autonomous scheduler that runs the multi-agent pipeline 3 times a week (Mon, Wed, Fri) to collect, process, and broadcast developer tools."
+            },
+            langgraph: {
+                title: "LangGraph Coordinator",
+                desc: "State Graph engine coordinating multi-agent loops, state modifications, validation checkpoints, and overall routing of processed summaries."
+            },
+            scraper: {
+                title: "Scraping & Discovery Agent",
+                desc: "Autonomous scraping agent scouring Dev.to, GitHub Trending repositories, and Hacker News API to discover trending technical utilities."
+            },
+            mistral: {
+                title: "Mistral/Gemini Curation Agent",
+                desc: "AI curation engine that parses complex developer tools, generates simplified ELI5 explanations, details use cases, and styles outputs into structured markdown."
+            },
+            delivery: {
+                title: "Brevo Email Dispatch",
+                desc: "Delivery integration utilizing SMTP and transactional email APIs to distribute beautiful HTML briefings directly to your subscriber email list."
+            }
+        },
+        researchos: {
+            query: {
+                title: "User Query Input",
+                desc: "Recruiters and researchers enter a custom research prompt (e.g., 'Latest breakthroughs in multi-agent orchestration') in the portal UI."
+            },
+            langchain: {
+                title: "LangChain Supervisor",
+                desc: "LangChain orchestrator that breaks down queries, plans research execution phases, delegates tasks to agents, and collates findings."
+            },
+            search: {
+                title: "Research & Web Scraper Agent",
+                desc: "Agent that executes queries on academic search indexes (ArXiv/Google Scholar) and scrapes document text bodies for analysis."
+            },
+            factcheck: {
+                title: "Fact-Checker Agent",
+                desc: "AI auditor agent that systematically evaluates generated summaries against retrieved sources to guarantee 100% citation accuracy and prevent hallucinations."
+            },
+            vectordb: {
+                title: "ChromaDB & Pinecone Vector Store",
+                desc: "Vector databases caching synthesized documents and embedding semantic metadata vectors to support responsive RAG (Retrieval-Augmented Generation) queries."
+            }
+        }
+    };
+
+    // Setup explorer toggle buttons
+    toggleBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = btn.getAttribute('data-target');
+            const explorer = document.getElementById(targetId);
+            if (!explorer) return;
+
+            const isShown = explorer.style.display !== 'none';
+            
+            // Toggle visual state
+            explorer.style.display = isShown ? 'none' : 'flex';
+            btn.classList.toggle('active', !isShown);
+
+            // Trigger window resize event to let charts or canvas adjust if necessary
+            window.dispatchEvent(new Event('resize'));
+        });
+    });
+
+    // Setup node click event listeners
+    const explorers = document.querySelectorAll('.project-arch-explorer');
+    explorers.forEach(explorer => {
+        const projectId = explorer.id.replace('arch-', ''); // dailydiff or researchos
+        const nodes = explorer.querySelectorAll('.arch-node');
+        const detailsTitle = explorer.querySelector('.details-title');
+        const detailsDesc = explorer.querySelector('.details-desc');
+
+        if (!projectId || !nodes.length || !detailsTitle || !detailsDesc) return;
+
+        nodes.forEach(node => {
+            node.addEventListener('click', () => {
+                const nodeKey = node.getAttribute('data-node');
+                const projectData = nodeDetails[projectId];
+                if (!projectData || !projectData[nodeKey]) return;
+
+                // Deactivate all nodes in this explorer
+                nodes.forEach(n => n.classList.remove('active'));
+
+                // Activate clicked node
+                node.classList.add('active');
+
+                // Update detail texts with transition
+                detailsTitle.style.opacity = '0';
+                detailsDesc.style.opacity = '0';
+
+                setTimeout(() => {
+                    detailsTitle.textContent = projectData[nodeKey].title;
+                    detailsDesc.textContent = projectData[nodeKey].desc;
+                    detailsTitle.style.opacity = '1';
+                    detailsDesc.style.opacity = '1';
+                }, 150);
+            });
+        });
+    });
+}
+
+// ── Register PWA Service Worker ──────────────────────────────────────────────
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(reg => {
+                    console.log('[PWA] Service Worker registered with scope:', reg.scope);
+                })
+                .catch(err => {
+                    console.warn('[PWA] Service Worker registration failed:', err);
+                });
+        });
     }
 }

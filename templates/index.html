@@ -4,6 +4,7 @@
 <!-- Hero Section -->
 <section id="home" class="hero">
     <div class="hero-pattern"></div>
+    <canvas id="hero-canvas"></canvas>
 
     <div class="hero-3col">
 
@@ -815,6 +816,42 @@
                     <a href="https://github.com/shlokbam/DailyDiff" class="project-github" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-github"></i> View Code
                     </a>
+                    <button class="project-arch-btn" data-target="arch-dailydiff">
+                        <i class="fas fa-sitemap"></i> Architecture
+                    </button>
+                </div>
+                <!-- DailyDiff Architecture Explorer -->
+                <div class="project-arch-explorer" id="arch-dailydiff" style="display: none;">
+                    <div class="arch-flow">
+                        <div class="arch-node active" data-node="cron">
+                            <div class="node-icon"><i class="fas fa-clock"></i></div>
+                            <span class="node-name">Cron Trigger</span>
+                        </div>
+                        <div class="arch-connector"><i class="fas fa-chevron-right"></i></div>
+                        <div class="arch-node" data-node="langgraph">
+                            <div class="node-icon"><i class="fas fa-sitemap"></i></div>
+                            <span class="node-name">LangGraph</span>
+                        </div>
+                        <div class="arch-connector"><i class="fas fa-chevron-right"></i></div>
+                        <div class="arch-node" data-node="scraper">
+                            <div class="node-icon"><i class="fas fa-spider"></i></div>
+                            <span class="node-name">Search Agent</span>
+                        </div>
+                        <div class="arch-connector"><i class="fas fa-chevron-right"></i></div>
+                        <div class="arch-node" data-node="mistral">
+                            <div class="node-icon"><i class="fas fa-brain"></i></div>
+                            <span class="node-name">Mistral ELI5</span>
+                        </div>
+                        <div class="arch-connector"><i class="fas fa-chevron-right"></i></div>
+                        <div class="arch-node" data-node="delivery">
+                            <div class="node-icon"><i class="fas fa-paper-plane"></i></div>
+                            <span class="node-name">Brevo Email</span>
+                        </div>
+                    </div>
+                    <div class="arch-details">
+                        <h4 class="details-title">Cron Trigger</h4>
+                        <p class="details-desc">Autonomous schedule that triggers the workflow 3 times a week (Mon, Wed, Fri) to fetch new tools.</p>
+                    </div>
                 </div>
             </div>
 
@@ -867,6 +904,42 @@
                         target="_blank">
                         <i class="fab fa-github"></i> View Code
                     </a>
+                    <button class="project-arch-btn" data-target="arch-researchos">
+                        <i class="fas fa-sitemap"></i> Architecture
+                    </button>
+                </div>
+                <!-- ResearchOS Architecture Explorer -->
+                <div class="project-arch-explorer" id="arch-researchos" style="display: none;">
+                    <div class="arch-flow">
+                        <div class="arch-node active" data-node="query">
+                            <div class="node-icon"><i class="fas fa-keyboard"></i></div>
+                            <span class="node-name">User Query</span>
+                        </div>
+                        <div class="arch-connector"><i class="fas fa-chevron-right"></i></div>
+                        <div class="arch-node" data-node="langchain">
+                            <div class="node-icon"><i class="fas fa-link"></i></div>
+                            <span class="node-name">LangChain Coordinator</span>
+                        </div>
+                        <div class="arch-connector"><i class="fas fa-chevron-right"></i></div>
+                        <div class="arch-node" data-node="search">
+                            <div class="node-icon"><i class="fas fa-globe"></i></div>
+                            <span class="node-name">Web Scraper</span>
+                        </div>
+                        <div class="arch-connector"><i class="fas fa-chevron-right"></i></div>
+                        <div class="arch-node" data-node="factcheck">
+                            <div class="node-icon"><i class="fas fa-shield-alt"></i></div>
+                            <span class="node-name">Fact Checker</span>
+                        </div>
+                        <div class="arch-connector"><i class="fas fa-chevron-right"></i></div>
+                        <div class="arch-node" data-node="vectordb">
+                            <div class="node-icon"><i class="fas fa-database"></i></div>
+                            <span class="node-name">Chroma / Pinecone</span>
+                        </div>
+                    </div>
+                    <div class="arch-details">
+                        <h4 class="details-title">User Query</h4>
+                        <p class="details-desc">Visitor inputs a topic or research question in the ResearchOS query portal.</p>
+                    </div>
                 </div>
             </div>
 

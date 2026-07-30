@@ -22,6 +22,9 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-secret-key-here')
 _stats_cache = {'data': None, 'fetched_at': 0}
 CACHE_TTL = 2 * 60 * 60  # 2 hours in seconds
 
+_availability_cache = {'data': None, 'fetched_at': 0}
+AVAILABILITY_CACHE_TTL = 10 * 60  # 10 minutes in seconds
+
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (compatible; portfolio-stats/1.0)',
     'Accept': 'application/json',
@@ -304,7 +307,11 @@ def view_hackathon_certificate(filename):
 
 @app.route('/api/availability')
 def check_availability():
-    """Concurrently checks live project URLs and returns their online/offline state."""
+    """Concurrently checks live project URLs and returns their online/offline state, with caching."""
+    now = time.time()
+    if _availability_cache['data'] and (now - _availability_cache['fetched_at']) < AVAILABILITY_CACHE_TTL:
+        return jsonify({'success': True, 'statuses': _availability_cache['data'], 'cached': True})
+
     urls = [
         "https://daily-diff-pi.vercel.app/",
         "https://multi-agent-ai-research-system-six.vercel.app/",
@@ -339,7 +346,29 @@ def check_availability():
             except Exception:
                 results[url] = "offline"
                 
-    return jsonify({'success': True, 'statuses': results})
+    _availability_cache['data'] = results
+    _availability_cache['fetched_at'] = now
+    return jsonify({'success': True, 'statuses': results, 'cached': False})
+
+@app.route('/service-worker.js')
+def service_worker():
+    try:
+        return send_file(
+            'service-worker.js',
+            mimetype='application/javascript'
+        )
+    except Exception as e:
+        return jsonify({'success': False, 'message': 'Service worker not found'}), 404
+
+@app.route('/manifest.json')
+def manifest():
+    try:
+        return send_file(
+            'manifest.json',
+            mimetype='application/json'
+        )
+    except Exception as e:
+        return jsonify({'success': False, 'message': 'Manifest not found'}), 404
 
 _chat_stats = {'questions_answered': 247}
 
