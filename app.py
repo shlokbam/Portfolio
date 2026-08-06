@@ -409,7 +409,7 @@ def chat():
         "- Academic Score: 9.01 CGPA (up to 6th Semester)\n"
         "- High School: Primary & Secondary Education completed (2010 - 2022) with a strong foundation in math and science.\n\n"
         "LEADERSHIP & EXPERIENCE:\n"
-        "- PharmaACE Innovations - Analytics Intern (June 2026 - Present): Developed an AI-powered Business Analysis Copilot converting unstructured business inputs into structured BRDs. Engineered a multi-stage LangChain pipeline for context discovery, assumption inference, and confidence scoring. Built compliance-conscious document automation with source traceability and enterprise Excel/Word template generation.\n"
+        "- PharmaACE Innovations - Intern (June 2026 - Present): Engineering Agentic AI systems and multi-stage orchestration pipelines. Designing and implementing retrieval-augmented generation (RAG) pipelines, robust data processing, and prompt engineering components.\n"
         "- ITSA (Information Technology Students Association) - Club Chairperson / Founding Chairperson (2024 - Present): Led tech committees, hosted AI tool sessions, mentored 100+ first-year students in soft skills, public speaking, and tech.\n"
         "- Abhivriddhi (Operations Head 2024 - 2025, Technical Coordinator 2023 - 2024): Anchored EDGE'24 flagship technical event, coordinated stage hosting and administrative logistics.\n"
         "- The Catalyst (Chief Administrative 2024 - 2025) & Computer Society of India (CSI Web Development Coordinator 2024 - 2025).\n\n"
