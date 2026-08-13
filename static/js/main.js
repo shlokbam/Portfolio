@@ -1091,6 +1091,46 @@ function initResumeChatbot() {
             return `<a href="${url}" target="_blank" rel="noopener noreferrer">${p1}</a>`;
         });
 
+        // 3.5. Linkify raw URLs, Emails, and Phone Numbers (ignoring existing tags & code blocks)
+        escaped = escaped.replace(/(<a\b[^>]*>[\s\S]*?<\/a>)|(<code>[\s\S]*?<\/code>)|((https?:\/\/|www\.)[^\s<]+)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})|((?:\+?\d{1,3}[-.\s]?)?\d{10}\b)/gi, (match, p1, p2, p3, p4, p5, p6) => {
+            if (p1 || p2) {
+                return match;
+            }
+            if (p3) {
+                let url = match;
+                let trailing = "";
+                const trailingPunctRegex = /[.,;:?!]+$/;
+                let matchPunct = url.match(trailingPunctRegex);
+                if (matchPunct) {
+                    trailing = matchPunct[0] + trailing;
+                    url = url.substring(0, url.length - matchPunct[0].length);
+                }
+                while (url.endsWith(')') || url.endsWith(']')) {
+                    const lastChar = url[url.length - 1];
+                    const openChar = lastChar === ')' ? '(' : '[';
+                    const openCount = (url.split(openChar).length - 1);
+                    const closeCount = (url.split(lastChar).length - 1);
+                    if (closeCount > openCount) {
+                        trailing = lastChar + trailing;
+                        url = url.substring(0, url.length - 1);
+                    } else {
+                        break;
+                    }
+                }
+                let href = url.startsWith('http') ? url : 'https://' + url;
+                href = href.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+                return `<a href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>${trailing}`;
+            }
+            if (p5) {
+                return `<a href="mailto:${p5}">${p5}</a>`;
+            }
+            if (p6) {
+                const cleanPhone = p6.replace(/[^\d+]/g, '');
+                return `<a href="tel:${cleanPhone}">${p6}</a>`;
+            }
+            return match;
+        });
+
         // 4. Multi-line list & paragraph parser
         const lines = escaped.split("\n");
         let result = [];
