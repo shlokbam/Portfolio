@@ -3452,8 +3452,8 @@ section {
     opacity: 0.85;
 }
 
-.hashnode-bg {
-    background: linear-gradient(135deg, #2962ff, #1a47cc);
+.journal-bg, .hashnode-bg {
+    background: linear-gradient(135deg, #6366f1, #3b82f6);
 }
 
 .leetcode-bg {
