@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shlok Bam — AI &amp; Full-Stack Engineer</title>
+    <meta name="description" content="Shlok Bam — AI & full-stack engineer building agentic AI systems, RAG pipelines and the products around them. B.Tech IT at VIT Pune, intern at PharmaACE Innovations, co-inventor on three patents." />
+    <meta name="theme-color" content="#0B0B0A" />
+    <meta property="og:title" content="Shlok Bam — AI & Full-Stack Engineer" />
+    <meta property="og:description" content="Agentic AI systems, RAG pipelines and the products around them." />
+    <meta property="og:image" content="/static/images/about/profile.png" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet" />
+    <script>
+      // Before first paint: pick the saved theme and flag browsers without scroll-driven animations.
+      (function () {
+        var d = document.documentElement, t = 'dark';
+        try { t = localStorage.getItem('sb-theme') || 'dark'; } catch (e) {}
+        d.dataset.theme = t;
+        d.style.background = t === 'light' ? '#F2EFE7' : '#0B0B0A';
+        if (!(window.CSS && CSS.supports && CSS.supports('animation-timeline: view()'))) d.classList.add('no-sda');
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

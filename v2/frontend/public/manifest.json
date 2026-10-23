@@ -1,0 +1,10 @@
+{
+  "name": "Shlok Bam — Portfolio",
+  "short_name": "Shlok Bam",
+  "description": "AI & full-stack engineer — agentic AI, RAG and full-stack products.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0A",
+  "theme_color": "#0B0B0A",
+  "icons": [{ "src": "/favicon.ico", "sizes": "48x48", "type": "image/x-icon" }]
+}

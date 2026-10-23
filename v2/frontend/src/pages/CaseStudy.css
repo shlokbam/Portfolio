@@ -1,0 +1,87 @@
+.pg-casestudy .sb{font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;position:relative}
+.pg-casestudy .sb *{box-sizing:border-box}
+.pg-casestudy .sb ::selection{background:var(--accent);color:var(--onaccent)}
+.pg-casestudy .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.pg-casestudy .disp{font-stretch:112%;font-weight:900;text-transform:uppercase;letter-spacing:-.045em;line-height:.84}
+.pg-casestudy .serif{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em}
+.pg-casestudy .sig{font-family:'Mrs Saint Delafield',cursive;font-weight:400;letter-spacing:0;text-transform:none}
+.pg-casestudy .wrap{max-width:1440px;margin:0 auto;padding:0 64px 0 128px}
+.pg-casestudy .dots{background-image:radial-gradient(circle,var(--dot) 1px,transparent 1.5px);background-size:24px 24px}
+.pg-casestudy .curtain{position:fixed;left:0;right:0;top:0;height:100%;z-index:150;background:var(--accent);color:var(--onaccent);pointer-events:none;display:flex;align-items:center;justify-content:center;animation:casestudy-lift .6s cubic-bezier(.76,0,.24,1) .12s forwards}
+.pg-casestudy .curtain::after{content:"";position:absolute;left:-10%;right:-10%;top:calc(100% - 2px);height:140px;background:var(--accent);border-radius:0 0 50% 50%}
+.pg-casestudy .curtain .ct{animation:casestudy-ctout .2s ease forwards}
+@keyframes casestudy-lift{to{transform:translateY(calc(-100% - 160px))}}
+@keyframes casestudy-ctout{to{opacity:0;transform:translateY(-20px)}}
+.pg-casestudy .vtab{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:60;writing-mode:vertical-rl;background:var(--text);color:var(--bg);border:none;padding:30px 14px;border-radius:0 22px 22px 0;cursor:pointer;display:flex;align-items:center;gap:14px;transition:padding .4s cubic-bezier(.16,1,.3,1),background-color .3s,color .3s}
+.pg-casestudy .vtab:hover{padding:30px 20px;background:var(--accent);color:var(--onaccent)}
+.pg-casestudy .vtab .vdot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.pg-casestudy .vtab:hover .vdot{background:var(--onaccent)}
+.pg-casestudy .menu{position:fixed;inset:0;z-index:120;background:var(--bg);overflow:auto;animation:casestudy-menuin .6s cubic-bezier(.76,0,.24,1) forwards}
+@keyframes casestudy-menuin{from{clip-path:circle(0% at 0% 50%)}to{clip-path:circle(150% at 0% 50%)}}
+.pg-casestudy .mlink{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:baseline;gap:20px;padding:10px 0;border-bottom:1px solid var(--line);opacity:0;transform:translateY(20px);animation:casestudy-mitem .5s cubic-bezier(.16,1,.3,1) forwards;animation-delay:calc(var(--i) * 40ms + .2s)}
+@keyframes casestudy-mitem{to{opacity:1;transform:none}}
+.pg-casestudy .mlink .mname{transition:transform .45s cubic-bezier(.16,1,.3,1),color .3s}
+.pg-casestudy .mlink:hover .mname{transform:translateX(18px);color:var(--accent)}
+.pg-casestudy .mlink .mdesc{color:var(--muted)}
+.pg-casestudy .mask{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+@keyframes casestudy-rise{to{transform:translateY(0)}}
+.pg-casestudy .ltr{display:inline-block;transform:translateY(112%);animation:casestudy-rise .8s cubic-bezier(.16,1,.3,1) forwards;animation-delay:calc(var(--i) * 25ms + .4s)}
+.pg-casestudy .fade{opacity:0;animation:casestudy-fadeup .7s cubic-bezier(.16,1,.3,1) forwards;animation-delay:var(--d,.6s)}
+@keyframes casestudy-fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.pg-casestudy .rule{height:1px;background:var(--text);transform-origin:left;transform:scaleX(0);animation:casestudy-pbar .9s cubic-bezier(.76,0,.24,1) .6s forwards}
+@keyframes casestudy-pbar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.pg-casestudy .pulse{position:relative}
+.pg-casestudy .pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid currentColor;animation:casestudy-ring 2.4s ease-out infinite}
+@keyframes casestudy-ring{from{transform:scale(.6);opacity:1}to{transform:scale(1.9);opacity:0}}
+.pg-casestudy .ul{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .45s cubic-bezier(.16,1,.3,1)}
+.pg-casestudy .ul:hover{background-size:100% 1px}
+.pg-casestudy .pill{transition:background-color .3s,color .3s,border-color .3s,transform .35s cubic-bezier(.16,1,.3,1)}
+.pg-casestudy .pill:hover{transform:translateY(-2px)}
+.pg-casestudy .next{position:relative;isolation:isolate;display:block;overflow:hidden;transition:color .45s}
+.pg-casestudy .next::before{content:"";position:absolute;inset:0;background:var(--accent);transform:translateY(101%);transition:transform .6s cubic-bezier(.76,0,.24,1);z-index:-1}
+.pg-casestudy .next:hover::before{transform:none}
+.pg-casestudy .next:hover{color:var(--onaccent)}
+.pg-casestudy .next:hover .nmuted{color:var(--onaccent)}
+.pg-casestudy .next .nt,.pg-casestudy .next .narr{transition:transform .6s cubic-bezier(.76,0,.24,1)}
+.pg-casestudy .next:hover .nt{transform:translateX(24px)}
+.pg-casestudy .next:hover .narr{transform:rotate(-45deg)}
+.pg-casestudy .chatpanel{animation:casestudy-pop .4s cubic-bezier(.16,1,.3,1)}
+@keyframes casestudy-pop{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+.pg-casestudy input:focus,.pg-casestudy textarea:focus{outline:none;border-color:var(--accent)!important}
+.pg-casestudy .sb :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.pg-casestudy .prog{opacity:0}
+.pg-casestudy .flow path{animation:casestudy-dash 1.1s linear infinite}
+@keyframes casestudy-dash{to{stroke-dashoffset:-12}}
+.pg-casestudy .node{transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.pg-casestudy .node:hover{transform:translateY(-3px);border-color:var(--accent)!important}
+.pg-casestudy .tl{display:block;overflow:hidden;white-space:nowrap;width:0;animation:casestudy-type .55s steps(36,end) forwards;animation-delay:calc(var(--i) * .5s + .9s)}
+@keyframes casestudy-type{to{width:var(--w)}}
+.pg-casestudy .agent{transition:transform .45s cubic-bezier(.16,1,.3,1),border-color .3s}
+.pg-casestudy .agent:hover{transform:translateY(-4px);border-color:var(--accent)}
+.pg-casestudy .g-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.pg-casestudy .g-agents{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.pg-casestudy .g-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:start}
+.pg-casestudy .g-menu{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:64px;align-items:end}
+@supports (animation-timeline: view()){.pg-casestudy .rv{animation:casestudy-rvk linear both;animation-timeline:view();animation-range:entry 0% entry 45%}
+@keyframes casestudy-rvk{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+.pg-casestudy .prog{opacity:1;animation:casestudy-progk linear both;animation-timeline:scroll(root);transform-origin:left}
+@keyframes casestudy-progk{from{transform:scaleX(0)}to{transform:scaleX(1)}}}
+@media (max-width:1100px){.pg-casestudy .vtab{display:none}
+.pg-casestudy .wrap{padding:0 40px}
+.pg-casestudy .hide-lg{display:none!important}
+.pg-casestudy .g-meta,.pg-casestudy .g-agents{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.pg-casestudy .wrap{padding:0 20px}
+.pg-casestudy .hide-sm{display:none!important}
+.pg-casestudy .g-menu,.pg-casestudy .g-split,.pg-casestudy .g-agents{grid-template-columns:minmax(0,1fr);gap:24px}}
+@media (prefers-reduced-motion:reduce){.pg-casestudy .sb *,.pg-casestudy .sb *::before,.pg-casestudy .sb *::after{animation:none!important;transition:none!important}
+.pg-casestudy .ltr{transform:none}
+.pg-casestudy .fade,.pg-casestudy .mlink{opacity:1;transform:none}
+.pg-casestudy .rule{transform:none}
+.pg-casestudy .curtain{display:none}
+.pg-casestudy .tl{width:auto}}
+.pg-casestudy .still *,.pg-casestudy .still *::before,.pg-casestudy .still *::after{animation:none!important;transition:none!important}
+.pg-casestudy .still .ltr{transform:none}
+.pg-casestudy .still .fade,.pg-casestudy .still .mlink{opacity:1;transform:none}
+.pg-casestudy .still .rule{transform:none}
+.pg-casestudy .still .curtain{display:none}
+.pg-casestudy .still .tl{width:auto}

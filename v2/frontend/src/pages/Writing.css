@@ -1,0 +1,88 @@
+.pg-writing .sb{font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;position:relative}
+.pg-writing .sb *{box-sizing:border-box}
+.pg-writing .sb ::selection{background:var(--accent);color:var(--onaccent)}
+.pg-writing .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.pg-writing .disp{font-stretch:112%;font-weight:900;text-transform:uppercase;letter-spacing:-.045em;line-height:.84}
+.pg-writing .serif{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em}
+.pg-writing .sig{font-family:'Mrs Saint Delafield',cursive;font-weight:400;letter-spacing:0;text-transform:none}
+.pg-writing .wrap{max-width:1440px;margin:0 auto;padding:0 64px 0 128px}
+.pg-writing .dots{background-image:radial-gradient(circle,var(--dot) 1px,transparent 1.5px);background-size:24px 24px}
+.pg-writing .curtain{position:fixed;left:0;right:0;top:0;height:100%;z-index:150;background:var(--accent);color:var(--onaccent);pointer-events:none;display:flex;align-items:center;justify-content:center;animation:writing-lift .6s cubic-bezier(.76,0,.24,1) .12s forwards}
+.pg-writing .curtain::after{content:"";position:absolute;left:-10%;right:-10%;top:calc(100% - 2px);height:140px;background:var(--accent);border-radius:0 0 50% 50%}
+.pg-writing .curtain .ct{animation:writing-ctout .2s ease forwards}
+@keyframes writing-lift{to{transform:translateY(calc(-100% - 160px))}}
+@keyframes writing-ctout{to{opacity:0;transform:translateY(-20px)}}
+.pg-writing .vtab{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:60;writing-mode:vertical-rl;background:var(--text);color:var(--bg);border:none;padding:30px 14px;border-radius:0 22px 22px 0;cursor:pointer;display:flex;align-items:center;gap:14px;transition:padding .4s cubic-bezier(.16,1,.3,1),background-color .3s,color .3s}
+.pg-writing .vtab:hover{padding:30px 20px;background:var(--accent);color:var(--onaccent)}
+.pg-writing .vtab .vdot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.pg-writing .vtab:hover .vdot{background:var(--onaccent)}
+.pg-writing .menu{position:fixed;inset:0;z-index:120;background:var(--bg);overflow:auto;animation:writing-menuin .6s cubic-bezier(.76,0,.24,1) forwards}
+@keyframes writing-menuin{from{clip-path:circle(0% at 0% 50%)}to{clip-path:circle(150% at 0% 50%)}}
+.pg-writing .mlink{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:baseline;gap:20px;padding:10px 0;border-bottom:1px solid var(--line);opacity:0;transform:translateY(20px);animation:writing-mitem .5s cubic-bezier(.16,1,.3,1) forwards;animation-delay:calc(var(--i) * 40ms + .2s)}
+@keyframes writing-mitem{to{opacity:1;transform:none}}
+.pg-writing .mlink .mname{transition:transform .45s cubic-bezier(.16,1,.3,1),color .3s}
+.pg-writing .mlink:hover .mname{transform:translateX(18px);color:var(--accent)}
+.pg-writing .mlink .mdesc{color:var(--muted)}
+.pg-writing .mask{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+@keyframes writing-rise{to{transform:translateY(0)}}
+.pg-writing .ltr{display:inline-block;transform:translateY(112%);animation:writing-rise .8s cubic-bezier(.16,1,.3,1) forwards;animation-delay:calc(var(--i) * 30ms + .4s)}
+.pg-writing .fade{opacity:0;animation:writing-fadeup .7s cubic-bezier(.16,1,.3,1) forwards;animation-delay:var(--d,.6s)}
+@keyframes writing-fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.pg-writing .rule{height:1px;background:var(--text);transform-origin:left;transform:scaleX(0);animation:writing-pbar .9s cubic-bezier(.76,0,.24,1) .6s forwards}
+@keyframes writing-pbar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.pg-writing .pulse{position:relative}
+.pg-writing .pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid currentColor;animation:writing-ring 2.4s ease-out infinite}
+@keyframes writing-ring{from{transform:scale(.6);opacity:1}to{transform:scale(1.9);opacity:0}}
+.pg-writing .ul{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .45s cubic-bezier(.16,1,.3,1)}
+.pg-writing .ul:hover{background-size:100% 1px}
+.pg-writing .pill{transition:background-color .3s,color .3s,border-color .3s,transform .35s cubic-bezier(.16,1,.3,1)}
+.pg-writing .pill:hover{transform:translateY(-2px)}
+.pg-writing .btn{height:54px;padding:0 24px;border-radius:999px;display:inline-flex;align-items:center;gap:12px;transition:transform .35s cubic-bezier(.16,1,.3,1),background-color .3s,color .3s}
+.pg-writing .btn:hover{transform:translateY(-2px)}
+.pg-writing .btn .arr{transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.pg-writing .btn:hover .arr{transform:translateX(4px)}
+.pg-writing .next{position:relative;isolation:isolate;display:block;overflow:hidden;transition:color .45s}
+.pg-writing .next::before{content:"";position:absolute;inset:0;background:var(--accent);transform:translateY(101%);transition:transform .6s cubic-bezier(.76,0,.24,1);z-index:-1}
+.pg-writing .next:hover::before{transform:none}
+.pg-writing .next:hover{color:var(--onaccent)}
+.pg-writing .next:hover .nmuted{color:var(--onaccent)}
+.pg-writing .next .nt,.pg-writing .next .narr{transition:transform .6s cubic-bezier(.76,0,.24,1)}
+.pg-writing .next:hover .nt{transform:translateX(24px)}
+.pg-writing .next:hover .narr{transform:rotate(-45deg)}
+.pg-writing .chatpanel{animation:writing-pop .4s cubic-bezier(.16,1,.3,1)}
+@keyframes writing-pop{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+.pg-writing input:focus,.pg-writing textarea:focus{outline:none;border-color:var(--accent)!important}
+.pg-writing .sb :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.pg-writing .prog{opacity:0}
+.pg-writing .entry{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:180px minmax(0,1fr) 96px;gap:32px;align-items:center;padding:40px 0;border-bottom:1px solid var(--line)}
+.pg-writing .entry .ebg{position:absolute;inset:0;background:var(--surface);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.76,0,.24,1);z-index:-1}
+.pg-writing .entry:hover .ebg{transform:scaleX(1)}
+.pg-writing .entry .enum{color:transparent;-webkit-text-stroke:1.5px var(--muted);transition:-webkit-text-stroke-color .4s,color .4s}
+.pg-writing .entry:hover .enum{color:var(--accent);-webkit-text-stroke-color:var(--accent)}
+.pg-writing .entry .etitle{transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.pg-writing .entry:hover .etitle{transform:translateX(12px)}
+.pg-writing .entry .ecircle{transition:transform .6s cubic-bezier(.76,0,.24,1),background-color .3s,color .3s,border-color .3s}
+.pg-writing .entry:hover .ecircle{transform:rotate(-45deg);background:var(--accent);color:var(--onaccent);border-color:var(--accent)}
+.pg-writing .g-menu{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:64px;align-items:end}
+@supports (animation-timeline: view()){.pg-writing .rv{animation:writing-rvk linear both;animation-timeline:view();animation-range:entry 0% entry 45%}
+@keyframes writing-rvk{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+.pg-writing .prog{opacity:1;animation:writing-progk linear both;animation-timeline:scroll(root);transform-origin:left}
+@keyframes writing-progk{from{transform:scaleX(0)}to{transform:scaleX(1)}}}
+@media (max-width:1100px){.pg-writing .vtab{display:none}
+.pg-writing .wrap{padding:0 40px}
+.pg-writing .hide-lg{display:none!important}
+.pg-writing .entry{grid-template-columns:110px minmax(0,1fr) 80px}}
+@media (max-width:700px){.pg-writing .wrap{padding:0 20px}
+.pg-writing .hide-sm{display:none!important}
+.pg-writing .g-menu{grid-template-columns:minmax(0,1fr);gap:24px}
+.pg-writing .entry{grid-template-columns:minmax(0,1fr);gap:14px}}
+@media (prefers-reduced-motion:reduce){.pg-writing .sb *,.pg-writing .sb *::before,.pg-writing .sb *::after{animation:none!important;transition:none!important}
+.pg-writing .ltr{transform:none}
+.pg-writing .fade,.pg-writing .mlink{opacity:1;transform:none}
+.pg-writing .rule{transform:none}
+.pg-writing .curtain{display:none}}
+.pg-writing .still *,.pg-writing .still *::before,.pg-writing .still *::after{animation:none!important;transition:none!important}
+.pg-writing .still .ltr{transform:none}
+.pg-writing .still .fade,.pg-writing .still .mlink{opacity:1;transform:none}
+.pg-writing .still .rule{transform:none}
+.pg-writing .still .curtain{display:none}

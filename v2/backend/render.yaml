@@ -1,0 +1,19 @@
+# Render Blueprint for the v2 API. In the Render dashboard you can also create a
+# Web Service manually with Root Directory = v2/backend and the commands below.
+services:
+  - type: web
+    name: shlokbam-portfolio-api
+    runtime: python
+    rootDir: v2/backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: GROQ_API_KEY
+        sync: false
+      - key: WEB3FORMS_ACCESS_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: http://localhost:5173
