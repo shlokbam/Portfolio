@@ -1,15 +1,15 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
 import { css } from '../lib/css'
-import { file } from '../lib/links'
+import { file, opt } from '../lib/links'
 import './Recognition.css'
 
 export default function Recognition() {
   const title = 'RECOGNITION'.split('').map((ch, i) => ({ ch, style: '--i: ' + i }))
   const patents = [
-    { office: 'CIPC · Republic of South Africa', date: 'Granted 25 / 02 / 2026', status: 'Granted', short: 'Granted', ring: 'Patent granted · CIPC ZA · 2026 · ', title: 'A Comprehensive Wildlife Protection System Using YOLO', desc: 'A multi-layered conservation and anti-poaching system that uses YOLO-based computer vision to detect human intruders, recognise animal species and dispatch automated real-time alerts.', appno: 'App. No. 2025/04189', cta: 'Register sheet', img: '/static/Patent/Grant_acknowledgement.png', href: file('/static/Patent/Grant acknowledgement.pdf'), alt: 'Official patent register sheet' },
-    { office: 'CIPC · Republic of South Africa', date: 'Lodged 21 / 05 / 2026', status: 'Filed', short: 'Filed', ring: 'Patent filed · CIPC ZA · 2026 · ', title: 'An Intelligent Fruit and Vegetable Identification and Quality Classification System', desc: 'Automated agricultural quality control using digital image processing and machine learning to identify produce, evaluate freshness, detect surface defects and grade quality in real time.', appno: 'App. No. 2026/05473', cta: 'Lodging receipt', img: '/static/Patent/Receipt_05473.png', href: file('/static/Patent/Receipt 05473.pdf'), alt: 'Patent lodging receipt' },
-    { office: 'IPO · Government of India', date: 'Published U/S 11A · 03 / 10 / 2025', status: 'Published', short: 'Published', ring: 'Patent published · IPO India · 2025 · ', title: 'Next-Generation TKPH Tire Health Management System', desc: 'A predictive tyre-health framework for heavy machinery that combines AI-based TKPH analytics, blockchain-secured maintenance records and digital-twin lifecycle monitoring.', appno: 'Indian Patent Office', cta: 'Application', img: '/static/Patent/Patent.png', href: '/static/Patent/Patent.png', alt: 'Published patent application' }
+    { office: 'CIPC · Republic of South Africa', date: 'Granted 25 / 02 / 2026', status: 'Granted', short: 'Granted', ring: 'Patent granted · CIPC ZA · 2026 · ', title: 'A Comprehensive Wildlife Protection System Using YOLO', desc: 'A multi-layered conservation and anti-poaching system that uses YOLO-based computer vision to detect human intruders, recognise animal species and dispatch automated real-time alerts.', appno: 'App. No. 2025/04189', cta: 'Register sheet', img: opt('/static/Patent/Grant_acknowledgement.png'), href: file('/static/Patent/Grant acknowledgement.pdf'), alt: 'Official patent register sheet' },
+    { office: 'CIPC · Republic of South Africa', date: 'Lodged 21 / 05 / 2026', status: 'Filed', short: 'Filed', ring: 'Patent filed · CIPC ZA · 2026 · ', title: 'An Intelligent Fruit and Vegetable Identification and Quality Classification System', desc: 'Automated agricultural quality control using digital image processing and machine learning to identify produce, evaluate freshness, detect surface defects and grade quality in real time.', appno: 'App. No. 2026/05473', cta: 'Lodging receipt', img: opt('/static/Patent/Receipt_05473.png'), href: file('/static/Patent/Receipt 05473.pdf'), alt: 'Patent lodging receipt' },
+    { office: 'IPO · Government of India', date: 'Published U/S 11A · 03 / 10 / 2025', status: 'Published', short: 'Published', ring: 'Patent published · IPO India · 2025 · ', title: 'Next-Generation TKPH Tire Health Management System', desc: 'A predictive tyre-health framework for heavy machinery that combines AI-based TKPH analytics, blockchain-secured maintenance records and digital-twin lifecycle monitoring.', appno: 'Indian Patent Office', cta: 'Application', img: opt('/static/Patent/Patent.png'), href: '/static/Patent/Patent.png', alt: 'Published patent application' }
   ].map((p, i) => ({ ...p, pid: 'cring' + i, stick: 'top: ' + (100 + i * 32) + 'px; margin-bottom: 64px; z-index: ' + (i + 1) }))
   const certs = [
     { org: 'McKinsey.org', n: '01', mark: 'Mc', title: 'Forward Program', desc: 'Problem-solving, communication, adaptability and digital readiness through hands-on modules.', date: 'Dec 2025', cta: 'Certificate', href: '/static/certificates/certifications/Certificate.pdf' },
@@ -67,7 +67,7 @@ export default function Recognition() {
               <article key={p_i} className="stack-card" style={css(p.stick)}>
                 <div className="shrink g-patent" style={{ border: "1px solid var(--line)", borderRadius: "28px", background: "var(--surface)", padding: "26px", boxShadow: "0 -16px 50px rgba(0,0,0,.22)" }}>
                   <div style={{ borderRadius: "18px", background: "var(--surface2)", minHeight: "420px", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
-                    <img src={p.img} alt={p.alt} style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "contain", borderRadius: "8px", display: "block" }} />
+                    <img loading="lazy" decoding="async" src={p.img} alt={p.alt} style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "contain", borderRadius: "8px", display: "block" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", padding: "6px 4px" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "16px" }}>
@@ -110,9 +110,9 @@ export default function Recognition() {
           <div className="g-3" style={{ marginTop: "48px" }}>
             <article className="award rv" style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
               <div className="pic swap" style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
-                <img className="a" src="/static/certificates/images/winning_screenshots/1.jpeg" alt="Team pumpdotfun receiving the award" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <img loading="lazy" decoding="async" className="a" src={opt('/static/certificates/images/winning_screenshots/1.jpeg')} alt="Team pumpdotfun receiving the award" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                 {" "}
-                <img className="b" src="/static/certificates/images/official_posts/image.png" alt="Official college post about the award" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <img loading="lazy" decoding="async" className="b" src={opt('/static/certificates/images/official_posts/image.png')} alt="Official college post about the award" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                 {" "}
                 <span className="mono" style={{ position: "absolute", left: "14px", bottom: "14px", background: "var(--bg)", padding: "7px 12px", borderRadius: "999px", fontSize: "10px" }}>Hover · official post</span>
               </div>
@@ -133,7 +133,7 @@ export default function Recognition() {
             </article>
             <article className="award rv" style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
               <div className="pic" style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
-                <img src="/static/Arcade/arcade_dashboard.png" alt="Google Arcade progress dashboard" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
+                <img loading="lazy" decoding="async" src={opt('/static/Arcade/arcade_dashboard.png')} alt="Google Arcade progress dashboard" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
               </div>
               <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "12px", flex: "1" }}>
                 <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)", fontSize: "11px" }}>
@@ -152,7 +152,7 @@ export default function Recognition() {
             </article>
             <article className="award rv" style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
               <div className="pic" style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
-                <img src="/static/certificates/images/official_posts/1724320631666.jpeg" alt="Official Navdhara competition post" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <img loading="lazy" decoding="async" src={opt('/static/certificates/images/official_posts/1724320631666.jpeg')} alt="Official Navdhara competition post" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
               <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "12px", flex: "1" }}>
                 <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)", fontSize: "11px" }}>
@@ -185,7 +185,7 @@ export default function Recognition() {
                     <span>{c.org}</span>
                     <span>No. {c.n}</span>
                   </div>
-                  <div className="disp" style={{ fontSize: "64px", marginTop: "22px", color: "var(--accent)" }}>{c.mark}</div>
+                  <div className="disp" style={{ fontSize: "64px", marginTop: "22px", color: "var(--accent-ink)" }}>{c.mark}</div>
                   <h3 style={{ margin: "16px 0 0", fontSize: "23px", lineHeight: "1.15", letterSpacing: "-.015em" }}>{c.title}</h3>
                   <p style={{ margin: "10px 0 0", fontSize: "14px", lineHeight: "1.55", opacity: ".72" }}>{c.desc}</p>
                 </div>

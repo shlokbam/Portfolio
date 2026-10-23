@@ -2,7 +2,7 @@ import Layout from '../components/Layout'
 import A from '../components/A'
 import { css } from '../lib/css'
 import { useStats } from '../lib/site'
-import { RESUME } from '../lib/links'
+import { RESUME, opt } from '../lib/links'
 import './Home.css'
 
 export default function Home() {
@@ -24,11 +24,11 @@ export default function Home() {
   const hl = ['systems', 'that', 'think']
   const words = sentence.split(' ').map((t) => ({ t, style: hl.indexOf(t) !== -1 ? 'color: var(--accent)' : '' }))
   const explore = [
-    { n: '01', name: 'About', file: '/about', desc: 'Story, portrait and toolkit', img: '/static/images/about/profile.png' },
+    { n: '01', name: 'About', file: '/about', desc: 'Story, portrait and toolkit', img: opt('/static/images/about/profile.png') },
     { n: '02', name: 'Work', file: '/work', desc: '21 projects · 5 flagships · 1 case study', img: '' },
-    { n: '03', name: 'Journey', file: '/journey', desc: 'Internships, leadership and education', img: '/static/certificates/clubs/Operations.jpeg' },
-    { n: '04', name: 'Recognition', file: '/recognition', desc: '3 patents, awards and certifications', img: '/static/Patent/Grant_acknowledgement.png' },
-    { n: '05', name: 'Community', file: '/community', desc: 'Mentoring, anchoring, volunteering', img: '/static/community/1e.jpeg' },
+    { n: '03', name: 'Journey', file: '/journey', desc: 'Internships, leadership and education', img: opt('/static/certificates/clubs/Operations.jpeg') },
+    { n: '04', name: 'Recognition', file: '/recognition', desc: '3 patents, awards and certifications', img: opt('/static/Patent/Grant_acknowledgement.png') },
+    { n: '05', name: 'Community', file: '/community', desc: 'Mentoring, anchoring, volunteering', img: opt('/static/community/1e.jpeg') },
     { n: '06', name: 'Writing', file: '/writing', desc: 'Build logs from the journal', img: '' },
     { n: '07', name: 'Contact', file: '/contact', desc: 'Email, form and AI assistant', img: '' }
   ].map((x) => ({ ...x, noImg: !x.img }))
@@ -140,7 +140,7 @@ export default function Home() {
               </text>
             </svg>
             <div style={{ position: "absolute", left: "32px", top: "32px", width: "136px", height: "136px", borderRadius: "50%", overflow: "hidden", background: "var(--surface)" }}>
-              <img src="/static/images/about/profile.png" alt="Shlok Bam" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <img loading="lazy" decoding="async" src={opt('/static/images/about/profile.png')} alt="Shlok Bam" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
           </div>
           <div>
@@ -310,7 +310,7 @@ export default function Home() {
                 <span className="hide-sm" style={{ color: "var(--muted)", fontSize: "17px" }}>{x.desc}</span>
                 <span className="xthumb hide-sm" style={{ width: "120px", height: "80px", borderRadius: "12px", overflow: "hidden", background: "var(--accent)", color: "var(--onaccent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {x.img && (
-                    <img src={x.img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                    <img loading="lazy" decoding="async" src={x.img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                   )}
                   {x.noImg && (
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">

@@ -98,3 +98,4 @@
 .pg-about .still .fade,.pg-about .still .mlink{opacity:1;transform:none}
 .pg-about .still .rule{transform:none}
 .pg-about .still .curtain{display:none}
+@media (max-width:1100px){.pg-about .g-story{grid-template-columns:minmax(0,1fr);gap:48px}.pg-about .sticky{position:static;max-width:440px}}

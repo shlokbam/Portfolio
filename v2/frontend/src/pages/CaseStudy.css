@@ -85,3 +85,7 @@
 .pg-casestudy .still .rule{transform:none}
 .pg-casestudy .still .curtain{display:none}
 .pg-casestudy .still .tl{width:auto}
+/* phones: let log lines wrap and fade in, since the typed width would run off-screen */
+@media (max-width:700px){.pg-casestudy .tl{white-space:normal;width:auto;opacity:0;animation:casestudy-linein .4s ease forwards;animation-delay:calc(var(--i) * .35s + .6s)}}
+@keyframes casestudy-linein{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.pg-casestudy .tl{opacity:1}}

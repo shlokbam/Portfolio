@@ -1,6 +1,7 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
 import { css } from '../lib/css'
+import { opt } from '../lib/links'
 import { useLightbox } from '../lib/lightbox'
 import './Journey.css'
 
@@ -20,10 +21,10 @@ export default function Journey() {
     ] },
     { id: 'ch-lead', n: '02', word: 'Lead', label: 'Leadership', items: [
       item('2025 — 26', 'Founding chair', 'Chairperson', "Information Technology Students' Association (ITSA)", ['Leading and managing committee activities and events.', 'Organising workshops, technical sessions and AI-tools sessions.', 'Mentoring junior members and coordinating with faculty.']),
-      item('2024 — 25', 'Operations', 'Operations Head', 'Abhivriddhi', ['Ran operations for the club and anchored its flagship technical event, EDGE’24.'], ['/static/certificates/clubs/Operations.jpeg']),
-      item('2024 — 25', 'Administration', 'Chief Administrative', 'The Catalyst', ['Led administration and logistics for the club.'], ['/static/certificates/clubs/Cheif.jpeg']),
-      item('2024 — 25', 'Web', 'Web Development Coordinator', 'Computer Society of India', ['Coordinated web development for the chapter.'], ['/static/certificates/clubs/csi.jpeg']),
-      item('2023 — 24', 'Technical', 'Technical Coordinator', 'Abhivriddhi', ['Technical and content roles for club events.'], ['/static/certificates/clubs/Technical.jpeg'])
+      item('2024 — 25', 'Operations', 'Operations Head', 'Abhivriddhi', ['Ran operations for the club and anchored its flagship technical event, EDGE’24.'], [opt('/static/certificates/clubs/Operations.jpeg')]),
+      item('2024 — 25', 'Administration', 'Chief Administrative', 'The Catalyst', ['Led administration and logistics for the club.'], [opt('/static/certificates/clubs/Cheif.jpeg')]),
+      item('2024 — 25', 'Web', 'Web Development Coordinator', 'Computer Society of India', ['Coordinated web development for the chapter.'], [opt('/static/certificates/clubs/csi.jpeg')]),
+      item('2023 — 24', 'Technical', 'Technical Coordinator', 'Abhivriddhi', ['Technical and content roles for club events.'], [opt('/static/certificates/clubs/Technical.jpeg')])
     ] },
     { id: 'ch-learn', n: '03', word: 'Learn', label: 'Education', items: [
       item('2023 — Now', 'Undergraduate', 'B.Tech, Information Technology', 'Vishwakarma Institute of Technology, Pune', ['9.01 CGPA through the sixth semester.', 'Active member of multiple technical and soft-skills clubs.', 'Taking part in coding competitions and hackathons.']),
@@ -36,7 +37,7 @@ export default function Journey() {
         <div className="lightbox" role="dialog" aria-modal="true" onClick={(e) => { if (e.target === e.currentTarget) closeLb() }} aria-label="Certificate">
           <button type="button" className="pill mono" onClick={closeLb} autoFocus style={{ position: "absolute", top: "24px", right: "24px", height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px solid var(--text)", background: "var(--bg)", color: "var(--text)", cursor: "pointer" }}>Close ✕</button>
           {" "}
-          <img src={lbSrc} alt="Certificate" style={{ maxWidth: "min(1000px, 100%)", maxHeight: "100%", borderRadius: "14px", boxShadow: "0 30px 80px rgba(0,0,0,.45)" }} />
+          <img decoding="async" src={lbSrc} alt="Certificate" style={{ maxWidth: "min(1000px, 100%)", maxHeight: "100%", borderRadius: "14px", boxShadow: "0 30px 80px rgba(0,0,0,.45)" }} />
         </div>
       )}
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
@@ -70,7 +71,7 @@ export default function Journey() {
         <section key={ch_i} id={ch.id} style={{ borderBottom: "1px solid var(--line)" }}>
           <div className="wrap" style={{ paddingTop: "80px", paddingBottom: "88px" }}>
             <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "24px", flexWrap: "wrap", paddingBottom: "28px", borderBottom: "1px solid var(--line)" }}>
-              <span className="disp outline" style={{ fontSize: "clamp(72px, 9vw, 140px)" }}>{ch.word}</span>
+              <h2 className="disp outline" style={{ margin: "0", fontSize: "clamp(72px, 9vw, 140px)" }}>{ch.word}</h2>
               <span className="mono" style={{ color: "var(--accent)" }}>Chapter {ch.n} · {ch.label}</span>
             </div>
             <div style={{ position: "relative", marginTop: "24px" }}>
@@ -104,7 +105,7 @@ export default function Journey() {
                         <div className="fan" aria-label="Certificate">
                           {it.thumbs.map((th, th_i) => (
                             <button key={th_i} type="button" className="th" onClick={th.open} aria-label="Open certificate" style={css(th.style)}>
-                              <img src={th.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                              <img loading="lazy" decoding="async" src={th.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                             </button>
                           ))}
                         </div>

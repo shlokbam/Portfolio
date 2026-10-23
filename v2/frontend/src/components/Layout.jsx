@@ -50,7 +50,7 @@ export default function Layout({ page, vtab, curtain, chat, greeting = GREETING,
 
   const tokens = {
     '--bg': t.bg, '--surface': t.surface, '--surface2': t.surface2, '--line': t.line, '--text': t.text,
-    '--muted': t.muted, '--muted2': t.muted2, '--dot': t.dot, '--accent': t.accent, '--onaccent': t.onaccent,
+    '--muted': t.muted, '--muted2': t.muted2, '--dot': t.dot, '--accent': t.accent, '--onaccent': t.onaccent, '--accent-ink': t.accentInk,
     background: 'var(--bg)', color: 'var(--text)', overflowX: 'clip'
   }
 
@@ -147,9 +147,9 @@ export default function Layout({ page, vtab, curtain, chat, greeting = GREETING,
           </div>
         )}
 
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1}>{children}</main>
 
-        <footer style={css(footerStyle)}>
+        <footer style={chat ? { ...css(footerStyle), paddingBottom: '108px' } : css(footerStyle)}>
           <div className="wrap" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '32px', flexWrap: 'wrap' }}>
             <div>
               <span className="sig" style={{ fontSize: '72px', lineHeight: '1', color: 'var(--accent)' }}>Shlok Bam</span>

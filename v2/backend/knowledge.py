@@ -81,7 +81,7 @@ PROFILE = """
 13. AutoVault — serverless cloud file storage with time-limited access and expiry emails (AWS Lambda, S3, RDS, SES).
 14. Smart TKPH Monitor — live tracking and ML failure prediction for heavy machinery (Flask, Firebase, Scikit-learn).
 15. FormMate AI — Chrome extension that fills Google Forms from a personal knowledge base (Flask, Firebase).
-16. Indovate — AI financial insights over real-time stock data (Next.js, Flask, Gemini).
+16. Indovate — AI financial insights over real-time stock data (Next.js, Flask, Gemini). Repository is not public.
 17. Poaching Detection — computer-vision surveillance that detects poaching and emails evidence alerts (OpenCV, TensorFlow).
 18. NotesVault — academic note sharing with auth, credit-based downloads and search (Flask, SQLite, Bootstrap).
 19. Library Management — book tracking, user management and automated fines (Flask, MySQL, Bootstrap).

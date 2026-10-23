@@ -1,7 +1,7 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
 import { css } from '../lib/css'
-import { RESUME } from '../lib/links'
+import { RESUME, opt } from '../lib/links'
 import './About.css'
 
 export default function About() {
@@ -58,7 +58,7 @@ export default function About() {
           <div className="sticky">
             <div className="rv" style={{ position: "relative" }}>
               <div className="pic gray" style={{ borderRadius: "26px", aspectRatio: "4 / 5", background: "var(--surface)" }}>
-                <img src="/static/images/about/profile.png" alt="Portrait of Shlok Bam" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <img decoding="async" src={opt('/static/images/about/profile.png')} alt="Portrait of Shlok Bam" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
               {" "}
               <span className="sig" aria-hidden="true" style={{ position: "absolute", right: "18px", bottom: "18px", fontSize: "64px", lineHeight: "1", color: "var(--accent)" }}>Shlok</span>

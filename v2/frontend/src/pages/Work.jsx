@@ -211,7 +211,7 @@ export default function Work() {
             <div>
               <span className="mono" style={{ color: "var(--muted)" }}>(02.2) — Index</span>
               {" "}
-              <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>
+              <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(36px, 6.4vw, 100px)" }}>
                 Everything{" "}
                 <span className="mono" style={{ fontSize: "16px", letterSpacing: ".04em", color: "var(--muted)", verticalAlign: "top" }}>({count})</span>
               </h2>
@@ -249,7 +249,9 @@ export default function Work() {
                       Live ↗
                     </A>
                   )}
-                  <A className="mono ul" href={p.code}>Code ↗</A>
+                  {p.code
+                    ? <A className="mono ul" href={p.code}>Code ↗</A>
+                    : <span className="mono" style={{ color: "var(--muted)" }}>Private repo</span>}
                 </span>
                 <div className="peek" aria-hidden="true" style={{ borderRadius: "18px", background: "var(--surface2)", border: "1px solid var(--line)", padding: "20px", boxShadow: "0 24px 50px rgba(0,0,0,.3)" }}>
                   <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>

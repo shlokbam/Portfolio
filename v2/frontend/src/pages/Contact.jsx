@@ -11,12 +11,12 @@ import './Contact.css'
 
 export default function Contact() {
   const clock = useIstClock()
-  const { msgs: chat, busy, send, clearChat } = useSite()
+  const { msgs: chat, busy, slow, send, clearChat } = useSite()
   const [tp, setTopic] = useState('full')
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '', website: '' })
   const [status, setStatus] = useState('idle') // idle | sending | sent | error
   const [error, setError] = useState('')
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState('') // '' | 'yes' | 'no'
   const [q, setQ] = useState('')
   const copyT = useRef(0)
   const chatEnd = useRef(null)
@@ -76,13 +76,30 @@ export default function Contact() {
     }
   }
   const reset = () => { setStatus('idle'); setError('') }
-  const copyLabel = copied ? 'Copied ✓' : 'Copy address'
-  const copyStyle = 'margin-top: 16px; min-height: 44px; padding: 0 18px; border-radius: 999px; cursor: pointer; transition: background-color .3s, color .3s; ' + (copied ? 'border: 1px solid var(--accent); background: var(--accent); color: var(--onaccent)' : 'border: 1px solid var(--line); background: transparent; color: var(--text)')
-  const copyMail = () => {
-    try { if (navigator.clipboard) navigator.clipboard.writeText(EMAIL) } catch (e) { /* clipboard blocked */ }
-    setCopied(true)
-    clearTimeout(copyT.current)
-    copyT.current = setTimeout(() => setCopied(false), 1800)
+  const copyLabel = copied === 'yes' ? 'Copied ✓' : copied === 'no' ? 'Press ⌘/Ctrl + C' : 'Copy address'
+  const copyStyle = 'margin-top: 16px; min-height: 44px; padding: 0 18px; border-radius: 999px; cursor: pointer; transition: background-color .3s, color .3s; ' + (copied === 'yes' ? 'border: 1px solid var(--accent); background: var(--accent); color: var(--onaccent)' : 'border: 1px solid var(--line); background: transparent; color: var(--text)')
+  const copyMail = async () => {
+    const flash = (v) => {
+      setCopied(v)
+      clearTimeout(copyT.current)
+      copyT.current = setTimeout(() => setCopied(''), 1800)
+    }
+    try {
+      await navigator.clipboard.writeText(EMAIL)
+      flash('yes')
+    } catch (e) {
+      // Clipboard API unavailable (insecure origin, permissions): fall back to a selection copy.
+      const ta = document.createElement('textarea')
+      ta.value = EMAIL
+      ta.setAttribute('readonly', '')
+      ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none'
+      document.body.appendChild(ta)
+      ta.select()
+      let done = false
+      try { done = document.execCommand('copy') } catch (err) { done = false }
+      ta.remove()
+      flash(done ? 'yes' : 'no')
+    }
   }
   return (
     <Layout page="contact" vtab="(07) — Contact · Menu" curtain="(07) Contact" footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
@@ -271,7 +288,7 @@ export default function Contact() {
               {msgs.map((m, m_i) => (
                 <div key={m_i} className="bubble" style={css(m.style)}>{m.bot ? <Md text={m.text} /> : m.text}</div>
               ))}
-              {busy && <div className="mono typing" style={{ color: "var(--muted)", fontSize: "11px" }}>Thinking</div>}
+              {busy && <div className="mono typing" style={{ color: "var(--muted)", fontSize: "11px" }}>{slow ? 'Waking up the assistant — first reply takes a moment' : 'Thinking'}</div>}
               <div ref={chatEnd} />
             </div>
             <div style={{ padding: "18px 24px", borderTop: "1px solid var(--line)", display: "flex", gap: "8px", flexWrap: "wrap" }}>

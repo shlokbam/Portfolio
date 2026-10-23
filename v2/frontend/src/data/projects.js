@@ -1,4 +1,5 @@
 // All 21 projects, in display order. `cats` drives the filter chips on the Work page.
+// An empty `code` means the repository is not public.
 export const PROJECTS = [
   { title: 'DailyDiff', cats: ['ai', 'web'], field: 'Agents', desc: 'Autonomous multi-agent tech curation with ELI5 briefings by email.', tags: 'React · FastAPI · LangGraph · Mistral', live: 'https://daily-diff-pi.vercel.app/', code: 'https://github.com/shlokbam/DailyDiff' },
   { title: 'ResearchOS', cats: ['ai', 'web'], field: 'Agents', desc: 'Multi-agent research suite with fact-checking and vector indexing.', tags: 'React · LangChain · ChromaDB · Pinecone', live: 'https://multi-agent-ai-research-system-six.vercel.app/', code: 'https://github.com/shlokbam/Multi_Agent_AI_Research_System' },
@@ -15,7 +16,7 @@ export const PROJECTS = [
   { title: 'AutoVault', cats: ['cloud'], field: 'Serverless', desc: 'Cloud file storage with time-limited access and expiry emails.', tags: 'Lambda · S3 · RDS · SES', live: '', code: 'https://github.com/shlokbam/AutoVault' },
   { title: 'Smart TKPH Monitor', cats: ['ai'], field: 'IoT · ML', desc: 'Live tracking and ML failure prediction for heavy machinery.', tags: 'Flask · Firebase · Scikit-learn', live: '', code: 'https://github.com/shlokbam/Real-Time-Smart-TKPH-Monitoring-and-Predictive-Maintenance-System-for-Heavy-Machinery' },
   { title: 'FormMate AI', cats: ['ai', 'web'], field: 'Extension', desc: 'Chrome extension that fills Google Forms from a personal knowledge base.', tags: 'Flask · Chrome ext · Firebase', live: '', code: 'https://github.com/shlokbam/FormMate_AI' },
-  { title: 'Indovate', cats: ['web', 'ai'], field: 'Fintech', desc: 'AI financial insights over real-time stock data.', tags: 'Next.js · Flask · Gemini', live: '', code: 'https://github.com/shlokbam/indovate' },
+  { title: 'Indovate', cats: ['web', 'ai'], field: 'Fintech', desc: 'AI financial insights over real-time stock data.', tags: 'Next.js · Flask · Gemini', live: '', code: '' },
   { title: 'Poaching Detection', cats: ['ai'], field: 'Vision', desc: 'CV surveillance that detects poaching and emails evidence alerts.', tags: 'OpenCV · TensorFlow', live: '', code: 'https://github.com/shlokbam/Real-Time-Surveillance-and-Poaching-Detection-System-with-Email-Notifications' },
   { title: 'NotesVault', cats: ['web'], field: 'Web', desc: 'Academic note sharing with auth, credit-based downloads and search.', tags: 'Flask · SQLite · Bootstrap', live: '', code: 'https://github.com/shlokbam/NotesVault' },
   { title: 'Library Management', cats: ['web'], field: 'Web', desc: 'Book tracking, user management and automated fines.', tags: 'Flask · MySQL · Bootstrap', live: '', code: 'https://github.com/shlokbam/library_system' },

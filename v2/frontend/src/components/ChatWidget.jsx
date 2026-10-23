@@ -5,7 +5,7 @@ import Md from './Md'
 const CHIPS = ["What's his CGPA?", 'Best projects', 'How to contact']
 
 export default function ChatWidget({ greeting }) {
-  const { msgs, busy, send } = useSite()
+  const { msgs, busy, slow, send } = useSite()
   const [open, setOpen] = useState(false)
   const [q, setQ] = useState('')
   const listRef = useRef(null)
@@ -56,7 +56,7 @@ export default function ChatWidget({ greeting }) {
             {msgs.map((m, i) => m.who === 'u'
               ? <div key={i} data-msg={i} style={{ alignSelf: 'flex-end', maxWidth: '85%', background: 'var(--accent)', color: 'var(--onaccent)', borderRadius: '18px 18px 4px 18px', padding: '12px 14px', fontSize: '15px', lineHeight: '1.5' }}>{m.text}</div>
               : <div key={i} data-msg={i} style={{ alignSelf: 'flex-start', maxWidth: '92%', background: 'var(--surface)', borderRadius: '18px 18px 18px 4px', padding: '14px 16px', fontSize: '15px', lineHeight: '1.5' }}><Md text={m.text} /></div>)}
-            {busy && <div className="mono" style={{ color: 'var(--muted)', fontSize: '11px' }}><span className="typing">Thinking</span></div>}
+            {busy && <div className="mono" style={{ color: 'var(--muted)', fontSize: '11px' }}><span className="typing">{slow ? 'Waking up the assistant — first reply takes a moment' : 'Thinking'}</span></div>}
             {!msgs.length && (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {CHIPS.map((c) => (

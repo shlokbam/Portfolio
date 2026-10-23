@@ -16,6 +16,7 @@ import logging
 import os
 import re
 import time
+from contextlib import asynccontextmanager
 from collections import defaultdict, deque
 from datetime import datetime, timezone
 from pathlib import Path
@@ -64,7 +65,18 @@ LIVE_PROJECTS = [
     'https://ims-frontend-udaw.onrender.com/login',
 ]
 
-app = FastAPI(title='Shlok Bam portfolio API', version='2.0.0', docs_url=None, redoc_url=None)
+_client: Optional[httpx.AsyncClient] = None
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    global _client
+    _client = httpx.AsyncClient(headers=HEADERS, timeout=10, follow_redirects=True)
+    yield
+    await _client.aclose()
+
+
+app = FastAPI(title='Shlok Bam portfolio API', version='2.0.0', docs_url=None, redoc_url=None, lifespan=lifespan)
 
 _origins = [o.strip() for o in os.getenv('ALLOWED_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173').split(',') if o.strip()]
 app.add_middleware(
@@ -75,21 +87,6 @@ app.add_middleware(
     allow_headers=['Content-Type'],
     max_age=86400,
 )
-
-_client: Optional[httpx.AsyncClient] = None
-
-
-@app.on_event('startup')
-async def _startup() -> None:
-    global _client
-    _client = httpx.AsyncClient(headers=HEADERS, timeout=10, follow_redirects=True)
-
-
-@app.on_event('shutdown')
-async def _shutdown() -> None:
-    if _client:
-        await _client.aclose()
-
 
 def client() -> httpx.AsyncClient:
     assert _client is not None
