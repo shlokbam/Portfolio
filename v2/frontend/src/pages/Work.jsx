@@ -14,7 +14,7 @@ export default function Work() {
   const all = PROJECTS.map((p, i) => ({ ...p, n: String(i + 1).padStart(2, '0') }))
   const rows = all
     .filter((p) => fv === 'all' || p.cats.indexOf(fv) !== -1)
-    .map((p) => ({ ...p, status: p.live && avail ? avail[p.live] || '' : '' }))
+    .map((p) => ({ ...p, stack: p.tags.split('·').map((t) => t.trim()).filter(Boolean), status: p.live && avail ? avail[p.live] || '' : '' }))
   const chip = (on) => on
     ? 'min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--text); background: var(--text); color: var(--bg); cursor: pointer'
     : 'min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--text); cursor: pointer'
@@ -72,14 +72,14 @@ export default function Work() {
             </span>
           </div>
           <div className="hs" style={{ marginTop: "48px" }} role="region" aria-label="Flagship projects" tabIndex="0">
-            <article className="hcard" style={{ width: "520px", minHeight: "620px", border: "1px solid var(--line)", borderRadius: "26px", background: "var(--surface)", padding: "28px", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
-              <div className="disp" aria-hidden="true" style={{ position: "absolute", right: "20px", top: "10px", fontSize: "160px", color: "transparent", WebkitTextStroke: "1px var(--line)" }}>01</div>
+            <article className="hcard" style={{ width: "400px", minHeight: "500px", border: "1px solid var(--line)", borderRadius: "26px", background: "var(--surface)", padding: "24px", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
+              <div className="disp" aria-hidden="true" style={{ position: "absolute", right: "18px", top: "8px", fontSize: "112px", color: "transparent", WebkitTextStroke: "1px var(--line)" }}>01</div>
               <div className="mono" style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                 <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#2fd47a" }} />
                 Live · Agents
               </div>
-              <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", minHeight: "220px" }}>
-                <svg className="dash" width="100%" height="150" viewBox="0 0 320 160" fill="none" aria-hidden="true">
+              <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", minHeight: "150px" }}>
+                <svg className="dash" width="100%" height="110" viewBox="0 0 320 160" fill="none" aria-hidden="true">
                   <path d="M30 80 H290" stroke="currentColor" strokeWidth="1.5" strokeDasharray="6 6" />
                   <circle className="blinkdot" style={{ "--d": "0s" }} cx="30" cy="80" r="14" fill="var(--accent)" />
                   <circle className="blinkdot" style={{ "--d": ".25s" }} cx="95" cy="80" r="14" fill="currentColor" />
@@ -88,8 +88,8 @@ export default function Work() {
                   <circle className="blinkdot" style={{ "--d": "1s" }} cx="290" cy="80" r="14" fill="var(--accent)" />
                 </svg>
               </div>
-              <h3 className="disp" style={{ margin: "0", fontSize: "58px" }}>DailyDiff</h3>
-              <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "16px", lineHeight: "1.6" }}>
+              <h3 className="disp" style={{ margin: "0", fontSize: "42px" }}>DailyDiff</h3>
+              <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.55" }}>
                 A live LangGraph pipeline over 7 sources that emails a fact-checked brief three times a week — 185 briefs, 42 editions. LLM calls cut from up to 22 to 4, behind a fail-closed publish gate.
               </p>
               <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>LangGraph · LangChain · FastAPI · Mistral · Gemini · Neon Postgres · React · GitHub Actions</div>
@@ -99,14 +99,14 @@ export default function Work() {
                 <A className="pill mono" href="https://github.com/shlokbam/DailyDiff" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px solid var(--line)", display: "inline-flex", alignItems: "center" }}>Code ↗</A>
               </div>
             </article>
-            <article className="hcard" style={{ width: "520px", minHeight: "620px", border: "1px solid var(--line)", borderRadius: "26px", background: "var(--surface)", padding: "28px", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
-              <div className="disp" aria-hidden="true" style={{ position: "absolute", right: "20px", top: "10px", fontSize: "160px", color: "transparent", WebkitTextStroke: "1px var(--line)" }}>02</div>
+            <article className="hcard" style={{ width: "400px", minHeight: "500px", border: "1px solid var(--line)", borderRadius: "26px", background: "var(--surface)", padding: "24px", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
+              <div className="disp" aria-hidden="true" style={{ position: "absolute", right: "18px", top: "8px", fontSize: "112px", color: "transparent", WebkitTextStroke: "1px var(--line)" }}>02</div>
               <div className="mono" style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                 <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#2fd47a" }} />
                 Live · Research
               </div>
-              <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", minHeight: "220px" }}>
-                <svg width="200" height="200" viewBox="0 0 220 220" fill="none" aria-hidden="true">
+              <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", minHeight: "150px" }}>
+                <svg width="150" height="150" viewBox="0 0 220 220" fill="none" aria-hidden="true">
                   <g stroke="currentColor" strokeWidth="1">
                     <path d="M110 110 L40 50 M110 110 L180 44 M110 110 L190 150 M110 110 L52 172 M110 110 L110 20 M40 50 L110 20 L180 44 M52 172 L190 150" />
                   </g>
@@ -119,8 +119,8 @@ export default function Work() {
                   <circle cx="110" cy="20" r="8" fill="currentColor" />
                 </svg>
               </div>
-              <h3 className="disp" style={{ margin: "0", fontSize: "58px" }}>ResearchOS</h3>
-              <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "16px", lineHeight: "1.6" }}>
+              <h3 className="disp" style={{ margin: "0", fontSize: "42px" }}>ResearchOS</h3>
+              <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.55" }}>
                 Scientific synthesis suite. Collaborating LangChain agents and Mistral scrape sources, generate structured reports, fact-check claims and index them in vector stores for RAG.
               </p>
               <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>React · Python · LangChain · Mistral · Gemini · ChromaDB · Pinecone</div>
@@ -129,21 +129,21 @@ export default function Work() {
                 <A className="pill mono" href="https://github.com/shlokbam/Multi_Agent_AI_Research_System" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px solid var(--line)", display: "inline-flex", alignItems: "center" }}>Code ↗</A>
               </div>
             </article>
-            <article className="hcard" style={{ width: "520px", minHeight: "620px", border: "1px solid var(--line)", borderRadius: "26px", background: "var(--surface)", padding: "28px", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
-              <div className="disp" aria-hidden="true" style={{ position: "absolute", right: "20px", top: "10px", fontSize: "160px", color: "transparent", WebkitTextStroke: "1px var(--line)" }}>03</div>
+            <article className="hcard" style={{ width: "400px", minHeight: "500px", border: "1px solid var(--line)", borderRadius: "26px", background: "var(--surface)", padding: "24px", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
+              <div className="disp" aria-hidden="true" style={{ position: "absolute", right: "18px", top: "8px", fontSize: "112px", color: "transparent", WebkitTextStroke: "1px var(--line)" }}>03</div>
               <div className="mono" style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                 <span style={{ padding: "4px 10px", borderRadius: "999px", background: "var(--text)", color: "var(--bg)" }}>Industry sponsored</span>
               </div>
-              <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", minHeight: "220px" }}>
-                <svg width="200" height="200" viewBox="0 0 220 220" fill="none" aria-hidden="true">
+              <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", minHeight: "150px" }}>
+                <svg width="150" height="150" viewBox="0 0 220 220" fill="none" aria-hidden="true">
                   <circle className="spin" style={{ "--dur": "14s" }} cx="110" cy="110" r="96" stroke="currentColor" strokeWidth="10" strokeDasharray="120 482" strokeLinecap="round" />
                   <circle className="spin rev" style={{ "--dur": "9s" }} cx="110" cy="110" r="70" stroke="var(--accent)" strokeWidth="10" strokeDasharray="90 350" strokeLinecap="round" />
                   <circle className="spin" style={{ "--dur": "6s" }} cx="110" cy="110" r="44" stroke="currentColor" strokeWidth="10" strokeDasharray="50 226" strokeLinecap="round" />
                   <circle cx="110" cy="110" r="10" fill="var(--accent)" />
                 </svg>
               </div>
-              <h3 className="disp" style={{ margin: "0", fontSize: "40px", lineHeight: ".92" }}>Enterprise Workforce Training Platform</h3>
-              <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "16px", lineHeight: "1.6" }}>
+              <h3 className="disp" style={{ margin: "0", fontSize: "30px", lineHeight: ".92" }}>Enterprise Workforce Training Platform</h3>
+              <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.55" }}>
                 Cross-platform LMS with role-based dashboards for trainers and trainees, server-side PDF/video watermarking per trainee, JWT/bcrypt-secured routes, Terraform-provisioned S3 and a Jenkins CI/CD pipeline.
               </p>
               <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>FastAPI · SQLAlchemy · MySQL · React · React Native · Docker · Terraform · AWS S3 · Jenkins</div>
@@ -151,11 +151,11 @@ export default function Work() {
                 <A className="pill mono" href="https://github.com/shlokbam/lms" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", background: "var(--text)", color: "var(--bg)", display: "inline-flex", alignItems: "center" }}>Code ↗</A>
               </div>
             </article>
-            <article className="hcard" style={{ width: "520px", minHeight: "620px", border: "1px solid var(--line)", borderRadius: "26px", background: "var(--surface)", padding: "28px", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
-              <div className="disp" aria-hidden="true" style={{ position: "absolute", right: "20px", top: "10px", fontSize: "160px", color: "transparent", WebkitTextStroke: "1px var(--line)" }}>04</div>
+            <article className="hcard" style={{ width: "400px", minHeight: "500px", border: "1px solid var(--line)", borderRadius: "26px", background: "var(--surface)", padding: "24px", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
+              <div className="disp" aria-hidden="true" style={{ position: "absolute", right: "18px", top: "8px", fontSize: "112px", color: "transparent", WebkitTextStroke: "1px var(--line)" }}>04</div>
               <div className="mono" style={{ display: "flex", gap: "10px", alignItems: "center", color: "var(--muted)" }}>Privacy-first · Finance</div>
-              <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", minHeight: "220px" }}>
-                <svg width="250" height="170" viewBox="0 0 260 180" fill="none" aria-hidden="true">
+              <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", minHeight: "150px" }}>
+                <svg width="190" height="130" viewBox="0 0 260 180" fill="none" aria-hidden="true">
                   <path d="M0 170 H260" stroke="currentColor" strokeWidth="1" />
                   <rect className="bar" style={{ "--d": "0s" }} x="8" y="40" width="22" height="130" rx="4" fill="currentColor" />
                   <rect className="bar" style={{ "--d": ".3s" }} x="44" y="70" width="22" height="100" rx="4" fill="currentColor" />
@@ -166,8 +166,8 @@ export default function Work() {
                   <rect className="bar" style={{ "--d": "1.8s" }} x="224" y="80" width="22" height="90" rx="4" fill="currentColor" />
                 </svg>
               </div>
-              <h3 className="disp" style={{ margin: "0", fontSize: "58px" }}>PaisaWise</h3>
-              <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "16px", lineHeight: "1.6" }}>
+              <h3 className="disp" style={{ margin: "0", fontSize: "42px" }}>PaisaWise</h3>
+              <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.55" }}>
                 Automated personal finance that parses bank SMS alerts on-device, then applies rules, heuristics and an LLM classifier to separate spending from investments, transfers and family cashflow.
               </p>
               <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>React · FastAPI · Python · LLM classifier · Tailwind</div>
@@ -175,11 +175,11 @@ export default function Work() {
                 <A className="pill mono" href="https://github.com/shlokbam/PaisaWise" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", background: "var(--text)", color: "var(--bg)", display: "inline-flex", alignItems: "center" }}>Code ↗</A>
               </div>
             </article>
-            <article className="hcard" style={{ width: "520px", minHeight: "620px", border: "1px solid var(--line)", borderRadius: "26px", background: "var(--surface)", padding: "28px", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
-              <div className="disp" aria-hidden="true" style={{ position: "absolute", right: "20px", top: "10px", fontSize: "160px", color: "transparent", WebkitTextStroke: "1px var(--line)" }}>05</div>
+            <article className="hcard" style={{ width: "400px", minHeight: "500px", border: "1px solid var(--line)", borderRadius: "26px", background: "var(--surface)", padding: "24px", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
+              <div className="disp" aria-hidden="true" style={{ position: "absolute", right: "18px", top: "8px", fontSize: "112px", color: "transparent", WebkitTextStroke: "1px var(--line)" }}>05</div>
               <div className="mono" style={{ display: "flex", gap: "10px", alignItems: "center", color: "var(--muted)" }}>Dev tools · Prompts</div>
-              <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", minHeight: "220px" }}>
-                <svg width="270" height="164" viewBox="0 0 280 170" fill="none" aria-hidden="true">
+              <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", minHeight: "150px" }}>
+                <svg width="205" height="125" viewBox="0 0 280 170" fill="none" aria-hidden="true">
                   <rect x="0" y="0" width="280" height="170" rx="14" stroke="currentColor" strokeWidth="1" />
                   <rect x="20" y="24" width="12" height="8" rx="2" fill="currentColor" />
                   <rect className="slide" style={{ "--d": "0s", "--sx": "18px" }} x="44" y="24" width="150" height="8" rx="4" fill="currentColor" />
@@ -191,8 +191,8 @@ export default function Work() {
                   <rect className="slide" style={{ "--d": "1.2s", "--sx": "-20px" }} x="44" y="102" width="170" height="8" rx="4" fill="var(--accent)" />
                 </svg>
               </div>
-              <h3 className="disp" style={{ margin: "0", fontSize: "58px" }}>PromptVault</h3>
-              <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "16px", lineHeight: "1.6" }}>
+              <h3 className="disp" style={{ margin: "0", fontSize: "42px" }}>PromptVault</h3>
+              <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.55" }}>
                 Centralised prompt management and version control for AI-agent teams — Monaco editor workspace, side-by-side version diffs, test suites, comments and audit trails.
               </p>
               <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>React · FastAPI · SQLAlchemy · Monaco · Python</div>
@@ -235,45 +235,67 @@ export default function Work() {
           </div>
           <div>
             {rows.map((p, p_i) => (
-              <div key={p_i} className="irow g-irow" style={{ padding: "20px 12px", borderBottom: "1px solid var(--line)" }}>
-                <span className="mono" style={{ color: "var(--muted)" }}>{p.n}</span>
-                <div>
-                  <div className="ititle" style={{ fontWeight: "700", fontSize: "20px", letterSpacing: "-.01em" }}>{p.title}</div>
-                  <div className="idesc-sm" style={{ color: "var(--muted)", fontSize: "14px", lineHeight: "1.5", marginTop: "6px" }}>{p.desc}</div>
+              <div key={p.title} className="irow g-irow">
+                <span className="mono inum">{p.n}</span>
+                <div style={{ minWidth: "0" }}>
+                  <div className="ititle">{p.title}{p.badge && <span className="ibadge mono">{p.badge}</span>}</div>
+                  <div className="idesc-sm">{p.desc}</div>
                 </div>
                 <span className="mono hide-md" style={{ color: "var(--muted)" }}>{p.field}</span>
-                <span className="mono hide-sm" style={{ color: "var(--muted)", fontSize: "11px", lineHeight: "1.7" }}>{p.tags}</span>
-                <span style={{ display: "flex", gap: "14px", justifyContent: "flex-end" }}>
+                <span className="istack hide-sm">
+                  {p.stack.slice(0, 3).map((t) => <span key={t} className="ichip mono">{t}</span>)}
+                  {p.stack.length > 3 && <span className="ichip mono more">+{p.stack.length - 3}</span>}
+                </span>
+                <span className="ilinks">
                   {p.live && (
-                    <A className="mono ul" href={p.live} title={p.status === 'offline' ? 'Free-tier host may take a moment to wake up' : p.status === 'online' ? 'Online now' : undefined} style={{ color: "var(--accent)", display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                      {p.status && <span aria-hidden="true" style={{ width: "6px", height: "6px", borderRadius: "50%", background: p.status === 'online' ? "#2fd47a" : "var(--muted2)" }} />}
-                      Live ↗
+                    <A className="ilink live mono" href={p.live} aria-label={'Open ' + p.title + ' live'} title={p.status === 'offline' ? 'Free-tier host may take a moment to wake up' : p.status === 'online' ? 'Online now' : undefined}>
+                      <span className={'idot' + (p.status === 'online' ? ' on' : '')} aria-hidden="true" />Live
                     </A>
                   )}
                   {p.code
-                    ? <A className="mono ul" href={p.code}>Code ↗</A>
-                    : <span className="mono" style={{ color: "var(--muted)" }}>Private repo</span>}
+                    ? (
+                      <A className="ilink mono" href={p.code} aria-label={p.title + ' source code on GitHub'}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z" /></svg>
+                        Code
+                      </A>
+                    )
+                    : (
+                      <span className="ilink off mono" title="Repository is not public">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>
+                        Private
+                      </span>
+                    )}
                 </span>
-                <div className="peek" aria-hidden="true" style={{ borderRadius: "18px", background: "var(--surface2)", border: "1px solid var(--line)", padding: "20px", boxShadow: "0 24px 50px rgba(0,0,0,.3)" }}>
-                  <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>
-                    <span>{p.n} / 21</span>
-                    <span style={{ color: "var(--accent)" }}>{p.field}</span>
+                <div className="peek" aria-hidden="true">
+                  <div className="mono pk-top">
+                    <span>{p.n} / 21 · {p.field}</span>
+                    {p.badge && <span className="pk-badge">{p.badge}</span>}
                   </div>
-                  <div style={{ fontSize: "22px", fontWeight: "700", marginTop: "14px" }}>{p.title}</div>
-                  <p style={{ margin: "10px 0 0", fontSize: "15px", lineHeight: "1.5", color: "var(--muted)" }}>{p.desc}</p>
+                  <div className="pk-title">{p.title}</div>
+                  <p className="pk-desc">{p.desc}</p>
+                  {p.more && (
+                    <ul className="pk-list">
+                      {p.more.map((m) => <li key={m}>{m}</li>)}
+                    </ul>
+                  )}
+                  <div className="pk-stack">{p.stack.map((t) => <span key={t} className="ichip mono">{t}</span>)}</div>
+                  <div className="mono pk-foot">
+                    {p.live && <span><span className={'idot' + (p.status === 'online' ? ' on' : '')} /> {p.status === 'online' ? 'Online now' : p.status === 'offline' ? 'Live · may need a moment to wake' : 'Live demo'}</span>}
+                    <span>{p.code ? 'Open source on GitHub' : 'Private repository'}</span>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </section>
-      <A className="next" href="/work/dailydiff" style={{ borderTop: "1px solid var(--line)" }}>
-        <div className="wrap" style={{ paddingTop: "72px", paddingBottom: "72px" }}>
-          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page — Case study</div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "18px" }}>
-            <span className="disp nt" style={{ fontSize: "clamp(60px, 10vw, 160px)" }}>DailyDiff</span>
-            <span className="narr" style={{ width: "112px", height: "112px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+      <A className="next" href="/journey" style={{ borderTop: "1px solid var(--line)" }}>
+        <div className="wrap" style={{ paddingTop: "26px", paddingBottom: "26px" }}>
+          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page</div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "8px" }}>
+            <span className="disp nt" style={{ fontSize: "clamp(26px, 3vw, 46px)" }}>Journey</span>
+            <span className="narr" style={{ width: "52px", height: "52px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </span>

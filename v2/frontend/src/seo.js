@@ -45,7 +45,7 @@ export const PAGES = {
   },
   '/writing': {
     title: 'Writing & Build Logs — Shlok Bam',
-    description: 'Build logs by Shlok Bam on shipping an AI data analyst, an AI mock-interview platform and a full DevOps CI/CD pipeline — and everything that went wrong along the way.',
+    description: '12 build logs by Shlok Bam — multi-agent systems with LangGraph, RAG with LangChain and ChromaDB, LangSmith tracing, the Model Context Protocol, DevOps with Terraform and Ansible, and full-stack builds.',
     name: 'Writing'
   },
   '/contact': {

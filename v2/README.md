@@ -100,3 +100,10 @@ Scenes load lazily after the page is interactive, run at ~40 fps, pause when off
 background tab, read colours from the theme tokens, and draw a single still frame when the visitor
 prefers reduced motion. Readable overlays sit in the empty strip above each page label (`band()` in
 `util.js`); textures go behind the titles.
+
+## Home page extras
+- **At a glance** (`src/components/Glance.jsx`): stat tiles, each with its own hover interaction.
+- **Skill pit** (`src/components/SkillPit.jsx`): the stack as physical pills (matter-js, ~27 kB gzip,
+  loaded only when the section scrolls into view). Pills are real buttons; the server renders them as
+  a plain list. Edit `SKILLS` to change them — the "used in" projects are matched from `data/projects.js`.
+- The "Built to run" section in `pages/Home.jsx` is commented out; remove the comment wrapper to restore it.

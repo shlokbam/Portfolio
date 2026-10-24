@@ -92,3 +92,46 @@
 .pg-journey .still .fade,.pg-journey .still .mlink{opacity:1;transform:none}
 .pg-journey .still .rule{transform:none}
 .pg-journey .still .curtain{display:none}
+/* ---- The route so far (components/JourneyRoute.jsx) */
+.pg-journey .route{position:relative;height:280vh;border-bottom:1px solid var(--line);background:var(--surface)}
+.pg-journey .route-stage{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:10px;overflow:hidden;padding-top:76px;box-sizing:border-box}
+.pg-journey .route.still{height:auto}
+.pg-journey .route.still .route-stage{position:static;height:auto;padding:96px 0}
+.pg-journey .route-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;position:relative;z-index:1}
+.pg-journey .route-now{display:flex;flex-direction:column;gap:4px;text-align:right;min-width:220px}
+.pg-journey .route-now b{font-size:22px;letter-spacing:-.01em}
+.pg-journey .route-year{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);font-size:min(30vw,420px);color:transparent;-webkit-text-stroke:1px var(--line);pointer-events:none;user-select:none;font-variant-numeric:tabular-nums;z-index:0}
+.pg-journey .route-map{position:relative;z-index:1;flex:1;min-height:0;display:flex}
+.pg-journey .route-map svg{width:100%;height:100%;max-height:62vh;overflow:visible}
+.pg-journey .stop .ring{fill:none;stroke:var(--accent);stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.4);transition:opacity .4s,transform .6s cubic-bezier(.3,1.6,.5,1)}
+.pg-journey .stop .pin{fill:var(--surface);stroke:var(--muted2);stroke-width:3;transform-box:fill-box;transform-origin:center;transition:fill .3s,stroke .3s,transform .5s cubic-bezier(.3,1.6,.5,1)}
+.pg-journey .stop text{font-family:'JetBrains Mono',ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em;fill:var(--muted2);transition:fill .4s,opacity .4s}
+.pg-journey .stop .yr{font-size:13px;font-weight:600}
+.pg-journey .stop .nm{font-size:11px;opacity:.5}
+.pg-journey .stop.on .pin{fill:var(--accent);stroke:var(--accent);transform:scale(1.15)}
+.pg-journey .stop.on .ring{opacity:.6;transform:scale(1)}
+.pg-journey .stop.on text{fill:var(--text)}
+.pg-journey .stop.on .nm{opacity:1;fill:var(--muted)}
+.pg-journey .stop.cur .ring{animation:journey-pin 1.6s ease-out infinite}
+@keyframes journey-pin{from{transform:scale(.8);opacity:.8}to{transform:scale(2.2);opacity:0}}
+.pg-journey .stop.future .pin{stroke-dasharray:3 4;fill:transparent}
+.pg-journey .route-bar{position:relative;z-index:1}
+.pg-journey .route-bar span{display:block;height:2px;background:var(--accent);transform-origin:left}
+.pg-journey .route-bar::before{content:"";position:absolute;left:var(--wrap-pad,0);right:0;height:2px;background:var(--line)}
+@media (max-width:700px){.pg-journey .route{height:300vh}.pg-journey .route-map svg{max-height:66vh}.pg-journey .route-now{text-align:left}.pg-journey .stop .nm{font-size:16px}.pg-journey .stop .yr{font-size:18px}}
+/* ---- More motion in the timeline */
+@supports (animation-timeline: view()){
+.pg-journey .item .dot{animation:journey-dot linear both;animation-timeline:view();animation-range:entry 30% cover 45%}
+@keyframes journey-dot{from{transform:scale(.3);background:var(--line);box-shadow:none}to{transform:scale(1);background:var(--accent);box-shadow:0 0 0 8px color-mix(in srgb,var(--accent) 20%,transparent)}}
+.pg-journey .item .icard{animation:journey-card linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+@keyframes journey-card{from{opacity:0;transform:perspective(900px) rotateX(18deg) translateY(40px) scale(.96)}to{opacity:1;transform:none}}
+.pg-journey .item .yr .disp{animation:journey-yr linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+@keyframes journey-yr{from{opacity:0;letter-spacing:.2em;filter:blur(6px)}to{opacity:1;letter-spacing:-.03em;filter:none}}
+.pg-journey .item li{animation:journey-li linear both;animation-timeline:view();animation-range:entry 20% cover 40%}
+@keyframes journey-li{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}}
+.pg-journey .icard{transition:border-color .3s,box-shadow .4s}
+.pg-journey .icard:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));box-shadow:0 24px 50px rgba(0,0,0,.25)}
+.pg-journey .icard li span:first-child{transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.pg-journey .icard li:hover span:first-child{transform:translateX(6px)}
+.pg-journey .route-stage>.wrap{width:100%;box-sizing:border-box}
+.pg-journey .stop text{paint-order:stroke;stroke:var(--surface);stroke-width:5px;stroke-linejoin:round}

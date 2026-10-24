@@ -138,12 +138,12 @@ export default function Community() {
         </div>
       </section>
       <A className="next" href="/writing">
-        <div className="wrap" style={{ paddingTop: "72px", paddingBottom: "72px" }}>
+        <div className="wrap" style={{ paddingTop: "26px", paddingBottom: "26px" }}>
           <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page</div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "18px" }}>
-            <span className="disp nt" style={{ fontSize: "clamp(60px, 10vw, 160px)" }}>Writing</span>
-            <span className="narr" style={{ width: "112px", height: "112px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "8px" }}>
+            <span className="disp nt" style={{ fontSize: "clamp(26px, 3vw, 46px)" }}>Writing</span>
+            <span className="narr" style={{ width: "52px", height: "52px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </span>

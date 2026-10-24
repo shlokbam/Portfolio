@@ -3,9 +3,12 @@ import A from '../components/A'
 import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import { file, opt } from '../lib/links'
+import { useHolo, useStamp } from '../lib/holo'
 import './Recognition.css'
 
 export default function Recognition() {
+  useHolo()
+  useStamp()
   const title = 'RECOGNITION'.split('').map((ch, i) => ({ ch, style: '--i: ' + i }))
   const patents = [
     { office: 'CIPC · Republic of South Africa', date: 'Granted 25 / 02 / 2026', status: 'Granted', short: 'Granted', ring: 'Patent granted · CIPC ZA · 2026 · ', title: 'A Comprehensive Wildlife Protection System Using YOLO', desc: 'A multi-layered conservation and anti-poaching system that uses YOLO-based computer vision to detect human intruders, recognise animal species and dispatch automated real-time alerts.', appno: 'App. No. 2025/04189', cta: 'Register sheet', img: opt('/static/Patent/Grant_acknowledgement.png'), href: file('/static/Patent/Grant acknowledgement.pdf'), alt: 'Official patent register sheet' },
@@ -67,7 +70,8 @@ export default function Recognition() {
             {patents.map((p, p_i) => (
               <article key={p_i} className="stack-card" style={css(p.stick)}>
                 <div className="shrink g-patent" style={{ border: "1px solid var(--line)", borderRadius: "28px", background: "var(--surface)", padding: "26px", boxShadow: "0 -16px 50px rgba(0,0,0,.22)" }}>
-                  <div style={{ borderRadius: "18px", background: "var(--surface2)", minHeight: "420px", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
+                  <div data-stamp style={{ position: "relative", borderRadius: "18px", background: "var(--surface2)", minHeight: "420px", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
+                    <span className={'stamp st-' + p.short.toLowerCase()} aria-hidden="true"><b>{p.short}</b><i>{p.office.split(' · ')[0]} · {p.date.match(/\d{4}/)[0]}</i></span>
                     <img loading={p_i === 0 ? "eager" : "lazy"} fetchpriority={p_i === 0 ? "high" : undefined} decoding="async" src={p.img} alt={p.alt} style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "contain", borderRadius: "8px", display: "block" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", padding: "6px 4px" }}>
@@ -109,7 +113,7 @@ export default function Recognition() {
           {" "}
           <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>On stage</h2>
           <div className="g-3" style={{ marginTop: "48px" }}>
-            <article className="award rv" style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
+            <article className="award rv" data-holo style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
               <div className="pic swap" style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
                 <img loading="lazy" decoding="async" className="a" src={opt('/static/certificates/images/winning_screenshots/1.jpeg')} alt="Team pumpdotfun receiving the award" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                 {" "}
@@ -132,7 +136,7 @@ export default function Recognition() {
                 </div>
               </div>
             </article>
-            <article className="award rv" style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
+            <article className="award rv" data-holo style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
               <div className="pic" style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
                 <img loading="lazy" decoding="async" src={opt('/static/Arcade/arcade_dashboard.png')} alt="Google Arcade progress dashboard" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
               </div>
@@ -151,7 +155,7 @@ export default function Recognition() {
                 </div>
               </div>
             </article>
-            <article className="award rv" style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
+            <article className="award rv" data-holo style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
               <div className="pic" style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
                 <img loading="lazy" decoding="async" src={opt('/static/certificates/images/official_posts/1724320631666.jpeg')} alt="Official Navdhara competition post" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
@@ -180,7 +184,7 @@ export default function Recognition() {
           <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>Certified</h2>
           <div className="g-3" style={{ marginTop: "48px" }}>
             {certs.map((c, c_i) => (
-              <A key={c_i} className="ticket rv" href={c.href} style={{ display: "flex", flexDirection: "column", borderRadius: "22px", background: "var(--text)", color: "var(--bg)", minHeight: "360px", overflow: "hidden" }}>
+              <A key={c_i} className="ticket rv" data-holo href={c.href} style={{ display: "flex", flexDirection: "column", borderRadius: "22px", background: "var(--text)", color: "var(--bg)", minHeight: "360px", overflow: "hidden" }}>
                 <div style={{ padding: "26px", flex: "1", display: "flex", flexDirection: "column" }}>
                   <div className="mono" style={{ display: "flex", justifyContent: "space-between", opacity: ".7" }}>
                     <span>{c.org}</span>
@@ -195,7 +199,7 @@ export default function Recognition() {
                   <span>{c.date}</span>
                   <span style={{ padding: "9px 14px", borderRadius: "999px", background: "var(--accent)", color: "var(--onaccent)" }}>{c.cta} ↗</span>
                 </div>
-                <span className="notch" style={{ left: "-13px" }} />
+                  <span className="notch" style={{ left: "-13px" }} />
                 <span className="notch" style={{ right: "-13px" }} />
               </A>
             ))}
@@ -219,12 +223,12 @@ export default function Recognition() {
         </div>
       </section>
       <A className="next" href="/community">
-        <div className="wrap" style={{ paddingTop: "72px", paddingBottom: "72px" }}>
+        <div className="wrap" style={{ paddingTop: "26px", paddingBottom: "26px" }}>
           <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page</div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "18px" }}>
-            <span className="disp nt" style={{ fontSize: "clamp(52px, 10vw, 160px)" }}>Community</span>
-            <span className="narr" style={{ width: "112px", height: "112px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "8px" }}>
+            <span className="disp nt" style={{ fontSize: "clamp(26px, 3vw, 46px)" }}>Community</span>
+            <span className="narr" style={{ width: "52px", height: "52px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </span>

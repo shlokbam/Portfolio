@@ -11,6 +11,7 @@ PROFILE = """
 - AI / Generative AI engineer with hands-on experience shipping agentic and LLM-powered systems to production — from multi-agent pipelines to LLM-as-judge evaluation frameworks — alongside full-stack (React/FastAPI) and DevOps (Docker/Terraform) delivery.
 - Currently: Intern at PharmaACE Innovations (June 2026 – present), working on healthcare data and agentic AI pipelines.
 - Education: B.Tech in Information Technology, Vishwakarma Institute of Technology (VIT), Pune, Sept 2023 – May 2027 (expected). CGPA 9.01 / 10.
+- School: Class 10 completed in 2021, Class 12 completed in 2023.
 - Focus: Agentic AI · LLM evaluation · RAG · full-stack.
 - Based in Pune, Maharashtra, India (IST). Open to relocation. Open to opportunities: full-time roles, internships, collaboration and freelance.
 - Founding Chairperson of ITSA (Information Technology Students' Association), VIT Pune, July 2025 – June 2026.
@@ -116,10 +117,19 @@ All code is on https://github.com/shlokbam.
 - Event anchor, EDGE'24 (2024): anchored Abhivriddhi's flagship technical event — hosting, audience interaction, stage coordination.
 - Volunteering at an old age home near Katraj, Pune (2023): every weekend for over a month — conversations, games and social activities with senior residents.
 
-## Writing (journal: https://journal-murex-three.vercel.app/journal)
-- "I built an AI data analyst app from scratch — how I taught a Flask app to think" (Apr 2026): turning raw datasets into LLM-generated insights, charts and summaries.
-- "I built an AI-powered mock interview platform — everything that went wrong" (Apr 2026): the story of MockVue.
-- "I built a full DevOps CI/CD pipeline from scratch — everything that went wrong" (Mar 2026): Docker, Jenkins, Terraform and AWS EC2.
+## Writing (journal: https://journal-murex-three.vercel.app/journal) — 12 published entries, newest first
+- "Building generative AI apps with LangChain: document loaders, text splitters, ChromaDB and LCEL" (Sep 2026) — hands-on RAG practice.
+- "My LangSmith learning log: tracing, debugging and optimising LLM chains and RAG pipelines" (Sep 2026) — prompts, latency, token costs; a PDF RAG pipeline tuned over 4 iterations.
+- "Hands-on agentic AI with LangGraph: sequential, parallel and conditional state workflows" (Aug 2026).
+- "Exploring the Model Context Protocol: AI tools, Streamlit clients and emailmd assistants" (Aug 2026) — custom FastMCP servers and a Streamlit chatbot client.
+- "My 7-day DevOps lab: learning Terraform, Ansible and HashiCorp Vault by building real infrastructure" (Aug 2026).
+- "Designing a real-time inventory system with FIFO stock reduction, PDF invoicing and Telegram webhooks" (Jul 2026).
+- "I built DailyDiff — an autonomous multi-agent tech research and editorial team" (Jun 2026).
+- "Building an autonomous multi-agent research and fact-auditing system with LangChain, Mistral and RAG" (May 2026) — the ResearchOS build.
+- "Building Eagle LMS: leading an industry-sponsored full-stack project from napkin to production" (Apr 2026) — leading a team of five on the training platform.
+- "I built an AI-powered mock interview platform — everything that went wrong" (Apr 2026) — the story of MockVue.
+- "I built an AI data analyst app from scratch — how I taught a Flask app to think" (Mar 2026).
+- "I built a full DevOps CI/CD pipeline from scratch — everything that went wrong" (Mar 2026) — Docker, Jenkins, Terraform and AWS EC2.
 
 ## This website
 - Built with a React (Vite) frontend and a FastAPI backend. Pages: Home, About, Work (+ DailyDiff case study), Journey, Recognition, Community, Writing, Contact.

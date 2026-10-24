@@ -4,6 +4,7 @@ import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import { opt, thumb } from '../lib/links'
 import { useLightbox } from '../lib/lightbox'
+import JourneyRoute from '../components/JourneyRoute'
 import './Journey.css'
 
 export default function Journey() {
@@ -29,7 +30,7 @@ export default function Journey() {
     ] },
     { id: 'ch-learn', n: '03', word: 'Learn', label: 'Education', items: [
       item('2023 — Now', 'Undergraduate', 'B.Tech, Information Technology', 'Vishwakarma Institute of Technology, Pune', ['9.01 / 10 CGPA — graduating May 2027.', 'Active member of multiple technical and soft-skills clubs.', 'Taking part in coding competitions and hackathons.']),
-      item('2010 — 22', 'School', 'Primary & Secondary Education', 'Grades 1–12', ['Completed primary and secondary education.', 'Developed the interest in technology and programming that led here.'])
+      item('2010 — 23', 'School', 'Primary & Secondary Education', 'Grades 1–12', ['Class 10 completed in 2021.', 'Class 12 completed in 2023.', 'Developed the interest in technology and programming that led here.'])
     ] }
   ]
   return (
@@ -68,6 +69,7 @@ export default function Journey() {
           </div>
         </div>
       </section>
+      <JourneyRoute />
       {chapters.map((ch, ch_i) => (
         <section key={ch_i} id={ch.id} style={{ borderBottom: "1px solid var(--line)" }}>
           <div className="wrap" style={{ paddingTop: "80px", paddingBottom: "88px" }}>
@@ -120,12 +122,12 @@ export default function Journey() {
         </section>
       ))}
       <A className="next" href="/recognition">
-        <div className="wrap" style={{ paddingTop: "72px", paddingBottom: "72px" }}>
+        <div className="wrap" style={{ paddingTop: "26px", paddingBottom: "26px" }}>
           <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page</div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "18px" }}>
-            <span className="disp nt" style={{ fontSize: "clamp(48px, 9vw, 144px)" }}>Recognition</span>
-            <span className="narr" style={{ width: "112px", height: "112px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "8px" }}>
+            <span className="disp nt" style={{ fontSize: "clamp(26px, 3vw, 46px)" }}>Recognition</span>
+            <span className="narr" style={{ width: "52px", height: "52px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </span>

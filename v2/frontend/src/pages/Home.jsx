@@ -2,9 +2,12 @@ import Layout from '../components/Layout'
 import A from '../components/A'
 import AIBackdrop from '../components/AIBackdrop'
 import ProfilePeek from '../components/ProfilePeek'
+import Glance from '../components/Glance'
+import Hello from '../components/Hello'
+import AskAI from '../components/AskAI'
 import { css } from '../lib/css'
 import { useStats } from '../lib/site'
-import { RESUME, opt, thumb } from '../lib/links'
+import { RESUME, opt } from '../lib/links'
 import './Home.css'
 
 export default function Home() {
@@ -23,17 +26,8 @@ export default function Home() {
   const sentence = "I'm an IT student at VIT Pune who turns messy, real-world problems into systems that think — and ships them end to end: agents, retrieval, APIs, interfaces and the pipelines that deploy them."
   const hl = ['systems', 'that', 'think']
   const words = sentence.split(' ').map((t) => ({ t, style: hl.indexOf(t) !== -1 ? 'color: var(--accent)' : '' }))
-  const explore = [
-    { n: '01', name: 'About', file: '/about', desc: 'Story, portrait and toolkit', img: opt('/static/images/about/profile.png') },
-    { n: '02', name: 'Work', file: '/work', desc: '21 projects · 5 flagships · 1 case study', img: '' },
-    { n: '03', name: 'Journey', file: '/journey', desc: 'Internships, leadership and education', img: opt('/static/certificates/clubs/Operations.jpeg') },
-    { n: '04', name: 'Recognition', file: '/recognition', desc: '3 patents, awards and certifications', img: opt('/static/Patent/Grant_acknowledgement.png') },
-    { n: '05', name: 'Community', file: '/community', desc: 'Mentoring, anchoring, volunteering', img: opt('/static/community/1e.jpeg') },
-    { n: '06', name: 'Writing', file: '/writing', desc: 'Build logs from the journal', img: '' },
-    { n: '07', name: 'Contact', file: '/contact', desc: 'Email, form and AI assistant', img: '' }
-  ].map((x) => ({ ...x, noImg: !x.img }))
   return (
-    <Layout page="home" chat footerStyle="padding: 56px 0 36px">
+    <Layout page="home" chat footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: "relative", overflow: "hidden", paddingTop: "148px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
         <div aria-hidden="true" data-glow style={{ position: "absolute", inset: "0", pointerEvents: "none", background: "radial-gradient(560px circle at var(--cx, 72%) var(--cy, 30%), color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%)" }} />
         <AIBackdrop kind="nn" />
@@ -41,7 +35,7 @@ export default function Home() {
           <div className="fade" style={{ "--d": ".2s", display: "flex", justifyContent: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>Pune, IN — 2026</span>
           </div>
-          <p className="serif fade" style={{ "--d": ".25s", margin: "56px 0 14px", fontSize: "clamp(26px, 2.6vw, 38px)", color: "var(--muted)" }}>hello, I'm</p>
+          <Hello style={{ "--d": ".25s", margin: "56px 0 14px", fontSize: "clamp(26px, 2.6vw, 38px)", color: "var(--muted)" }} />
           <h1 className="disp" style={{ margin: "0", fontSize: "clamp(64px, 13vw, 196px)", fontStretch: "100%" }}>
             <span className="mask">
               <span className="rise shiny" style={{ "--d": ".15s" }}>
@@ -157,40 +151,9 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section aria-label="At a glance" style={{ borderBottom: "1px solid var(--line)" }}>
-        <div className="wrap g-num">
-          <div style={{ padding: "44px 24px 44px 0" }}>
-            <div className="disp" style={{ fontSize: "clamp(56px, 6vw, 92px)" }}>
-              <span className="count" style={{ "--to": "21" }} />
-            </div>
-            <div className="mono" style={{ color: "var(--muted)", marginTop: "12px" }}>Projects shipped</div>
-          </div>
-          <div style={{ padding: "44px 24px", borderLeft: "1px solid var(--line)" }}>
-            <div className="disp" style={{ fontSize: "clamp(56px, 6vw, 92px)" }}>
-              <span className="count" style={{ "--to": "3" }} />
-            </div>
-            <div className="mono" style={{ color: "var(--muted)", marginTop: "12px" }}>Patents · IN &amp; ZA</div>
-          </div>
-          <div style={{ padding: "44px 24px", borderLeft: "1px solid var(--line)" }}>
-            <div className="disp" style={{ fontSize: "clamp(56px, 6vw, 92px)" }}>9.01</div>
-            <div className="mono" style={{ color: "var(--muted)", marginTop: "12px" }}>CGPA · VIT Pune</div>
-          </div>
-          <div style={{ padding: "44px 24px", borderLeft: "1px solid var(--line)" }}>
-            <div className="disp" style={{ fontSize: "clamp(56px, 6vw, 92px)" }}>
-              <span className="count" style={{ "--to": "90" }} />
-              <span style={{ color: "var(--accent)" }}>+</span>
-            </div>
-            <div className="mono" style={{ color: "var(--muted)", marginTop: "12px" }}>Google Arcade badges</div>
-          </div>
-          <div style={{ padding: "44px 0 44px 24px", borderLeft: "1px solid var(--line)" }}>
-            <div className="disp" style={{ fontSize: "clamp(56px, 6vw, 92px)" }}>
-              <span className="count" style={{ "--to": "100" }} />
-              <span style={{ color: "var(--accent)" }}>+</span>
-            </div>
-            <div className="mono" style={{ color: "var(--muted)", marginTop: "12px" }}>Students mentored</div>
-          </div>
-        </div>
-      </section>
+      <Glance />
+      <AskAI />
+      {/* "Built to run" section: hidden for now — remove this comment wrapper to bring it back.
       <section style={{ padding: "120px 0", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "24px", flexWrap: "wrap" }}>
@@ -294,44 +257,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section style={{ padding: "120px 0 100px" }}>
-        <div className="wrap">
-          <span className="mono" style={{ color: "var(--muted)" }}>Explore the site</span>
-          {" "}
-          <div style={{ marginTop: "36px", borderTop: "1px solid var(--text)" }}>
-            {explore.map((x, x_i) => (
-              <A key={x_i} className="xrow" href={x.file} style={{ display: "grid", gridTemplateColumns: "64px minmax(0, 1fr) minmax(0, 1fr) 120px", alignItems: "center", gap: "24px", padding: "22px 0", borderBottom: "1px solid var(--line)" }}>
-                <span className="mono" style={{ color: "var(--muted)" }}>{x.n}</span>
-                <span className="disp xname" style={{ fontSize: "clamp(32px, 4vw, 64px)" }}>{x.name}</span>
-                <span className="hide-sm" style={{ color: "var(--muted)", fontSize: "17px" }}>{x.desc}</span>
-                <span className="xthumb hide-sm" style={{ width: "120px", height: "80px", borderRadius: "12px", overflow: "hidden", background: "var(--accent)", color: "var(--onaccent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  {x.img && (
-                    <img loading="lazy" decoding="async" src={thumb(x.img)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-                  )}
-                  {x.noImg && (
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <path d="M7 17 17 7M8 7h9v9" />
-                    </svg>
-                  )}
-                </span>
-              </A>
-            ))}
-          </div>
-        </div>
-      </section>
-      <A href="/contact" className="talk" style={{ borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
-        <div className="wrap" style={{ paddingTop: "72px", paddingBottom: "72px" }}>
-          <p className="serif" style={{ margin: "0", fontSize: "clamp(26px, 2.8vw, 42px)" }}>Have a role or a problem worth solving?</p>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "18px" }}>
-            <span className="disp" style={{ fontSize: "clamp(64px, 11vw, 176px)" }}>Let's talk</span>
-            <span className="tarr" style={{ width: "120px", height: "120px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
-              <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </span>
-          </div>
-        </div>
-      </A>
+      */}
     </Layout>
   )
 }
