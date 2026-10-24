@@ -1,7 +1,7 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
 import { css } from '../lib/css'
-import { opt } from '../lib/links'
+import { opt, thumb } from '../lib/links'
 import { useLightbox } from '../lib/lightbox'
 import './Journey.css'
 
@@ -105,7 +105,7 @@ export default function Journey() {
                         <div className="fan" aria-label="Certificate">
                           {it.thumbs.map((th, th_i) => (
                             <button key={th_i} type="button" className="th" onClick={th.open} aria-label="Open certificate" style={css(th.style)}>
-                              <img loading="lazy" decoding="async" src={th.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                              <img loading="lazy" decoding="async" src={thumb(th.src)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                             </button>
                           ))}
                         </div>

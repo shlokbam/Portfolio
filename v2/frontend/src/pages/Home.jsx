@@ -2,7 +2,7 @@ import Layout from '../components/Layout'
 import A from '../components/A'
 import { css } from '../lib/css'
 import { useStats } from '../lib/site'
-import { RESUME, opt } from '../lib/links'
+import { RESUME, opt, thumb } from '../lib/links'
 import './Home.css'
 
 export default function Home() {
@@ -135,7 +135,7 @@ export default function Home() {
               <defs>
                 <path id="sticker" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0" />
               </defs>
-              <text style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "10.5px", letterSpacing: "3.2px", fill: "var(--muted)", textTransform: "uppercase" }}>
+              <text style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "12px", letterSpacing: "3px", fill: "var(--muted)", textTransform: "uppercase" }}>
                 <textPath href="#sticker">IT student · VIT Pune · Founding chair ITSA ·{" "}</textPath>
               </text>
             </svg>
@@ -310,7 +310,7 @@ export default function Home() {
                 <span className="hide-sm" style={{ color: "var(--muted)", fontSize: "17px" }}>{x.desc}</span>
                 <span className="xthumb hide-sm" style={{ width: "120px", height: "80px", borderRadius: "12px", overflow: "hidden", background: "var(--accent)", color: "var(--onaccent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {x.img && (
-                    <img loading="lazy" decoding="async" src={x.img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                    <img loading="lazy" decoding="async" src={thumb(x.img)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                   )}
                   {x.noImg && (
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">

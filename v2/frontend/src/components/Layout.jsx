@@ -96,7 +96,7 @@ export default function Layout({ page, vtab, curtain, chat, greeting = GREETING,
             </div>
           </div>
         </header>
-        <button type="button" className="vtab mono" onClick={openMenu} aria-label="Open menu">
+        <button type="button" className="vtab mono" onClick={openMenu}>
           <span className="vdot" />
           {vtab}
         </button>

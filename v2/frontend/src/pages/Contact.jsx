@@ -308,7 +308,7 @@ export default function Contact() {
           </div>
         </div>
       </section>
-      <A href="mailto:shlokbam19103@gmail.com" className="mailband" aria-label="Email Shlok" style={{ background: "var(--accent)", color: "var(--onaccent)" }}>
+      <A href="mailto:shlokbam19103@gmail.com" className="mailband" style={{ background: "var(--accent)", color: "var(--onaccent)" }}>
         <div className="wrap" style={{ paddingTop: "56px", paddingBottom: "56px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", flexWrap: "wrap" }}>
           <span className="disp" style={{ fontSize: "clamp(18px, 4.5vw, 80px)", textTransform: "lowercase", letterSpacing: "-.04em", wordBreak: "break-all" }}>shlokbam19103@gmail.com</span>
           <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">

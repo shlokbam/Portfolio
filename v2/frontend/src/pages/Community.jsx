@@ -1,12 +1,23 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
 import { css } from '../lib/css'
-import { opt } from '../lib/links'
+import { opt, thumb } from '../lib/links'
+import { useEffect, useRef, useState } from 'react'
 import { useLightbox } from '../lib/lightbox'
 import './Community.css'
 
 export default function Community() {
   const { lbOpen, lbSrc, openLb, closeLb } = useLightbox()
+  // Gallery photos start loading only when the section is near, so they never compete with the first photo.
+  const galleryRef = useRef(null)
+  const [galleryOn, setGalleryOn] = useState(false)
+  useEffect(() => {
+    const el = galleryRef.current
+    if (!el || !('IntersectionObserver' in window)) { setGalleryOn(true); return }
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setGalleryOn(true); io.disconnect() } }, { rootMargin: '900px 0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
   const title = 'BEYOND CODE'.split('').map((ch, i) => ({ ch: ch === ' ' ? '\u00a0' : ch, style: '--i: ' + i }))
   const open = (src) => () => openLb(src)
   const stories = [
@@ -29,7 +40,7 @@ export default function Community() {
     { src: opt('/static/Arcade/arcade_dashboard.png'), cap: 'Google Arcade' }
   ]
   // The list is doubled for the seamless marquee loop; the copy is hidden from assistive tech.
-  const gallery = items.concat(items).map((g, i) => ({ ...g, open: open(g.src), copy: i >= items.length, style: '--r: ' + tilt[i % tilt.length] }))
+  const gallery = items.concat(items).map((g, i) => ({ ...g, small: thumb(g.src), open: open(g.src), copy: i >= items.length, style: '--r: ' + tilt[i % tilt.length] }))
   return (
     <Layout page="community" vtab="(05) — Community · Menu" curtain="(05) Community" chat greeting="Ask me about his mentoring or the events he has hosted." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       {lbOpen && (
@@ -103,12 +114,12 @@ export default function Community() {
           </div>
           <span className="mono" style={{ color: "var(--muted)" }}>Hover to pause · click to enlarge</span>
         </div>
-        <div className="marq-wrap" style={{ marginTop: "56px", padding: "18px 0" }}>
+        <div ref={galleryRef} className="marq-wrap" style={{ marginTop: "56px", padding: "18px 0" }}>
           <div className="marq" style={{ "--dur": "90s" }}>
             {gallery.map((g, g_i) => (
               <button key={g_i} type="button" className="polaroid" onClick={g.open} aria-label={g.cap} aria-hidden={g.copy || undefined} tabIndex={g.copy ? -1 : undefined} style={css(g.style)}>
                 <span style={{ display: "block", aspectRatio: "1 / 1", overflow: "hidden", borderRadius: "3px", background: "var(--surface2)" }}>
-                  <img decoding="async" src={g.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                  <img decoding="async" src={galleryOn ? g.small : undefined} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                 </span>
                 {" "}
                 <span className="mono" style={{ display: "block", marginTop: "10px", fontSize: "10.5px" }}>{g.cap}</span>
