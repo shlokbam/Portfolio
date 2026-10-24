@@ -17,7 +17,7 @@ export default function Arcade() {
   const cur = GAMES.find((x) => x[0] === g)
   const Game = cur[3]
   return (
-    <section className="arcade pit-sec" aria-labelledby="arc-h" style={{ padding: '110px 0', borderBottom: '1px solid var(--line)' }}>
+    <section id="arcade" className="arcade pit-sec" aria-labelledby="arc-h" style={{ padding: '110px 0', borderBottom: '1px solid var(--line)' }}>
       <div className="wrap">
         <div className="pit-head">
           <div>

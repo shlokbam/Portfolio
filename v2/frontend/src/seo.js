@@ -4,64 +4,64 @@ import { PROJECTS } from './data/projects.js'
 
 export const DEFAULT_SITE_URL = 'https://shlokbam.in'
 
-const PERSON_DESC = 'AI / Generative AI engineer from Pune, India shipping agentic and LLM-powered systems to production — multi-agent pipelines, LLM-as-judge evaluation, RAG and full-stack products. B.Tech IT at VIT Pune (9.01 CGPA), intern at PharmaACE Innovations, co-inventor on three patents.'
+const PERSON_DESC = 'AI / Generative AI engineer from Pune, India shipping agentic and LLM-powered systems to production: multi-agent pipelines, LLM-as-judge evaluation, RAG and full-stack products. B.Tech IT at VIT Pune (9.01 CGPA), intern at PharmaACE Innovations, co-inventor on three patents.'
 
 export const PAGES = {
   '/': {
-    title: 'Shlok Bam — AI / Generative AI Engineer in Pune, India',
+    title: 'Shlok Bam | AI / Generative AI Engineer in Pune, India',
     description: 'Shlok Bam is an ' + PERSON_DESC.charAt(0).toLowerCase() + PERSON_DESC.slice(1),
     name: 'Home'
   },
   '/about': {
-    title: 'About Shlok Bam — Story, Skills & Toolkit',
+    title: 'About Shlok Bam | Story, Skills & Toolkit',
     description: 'Who Shlok Bam is: an IT student at VIT Pune and Founding Chair of ITSA who builds agentic AI, LLM evaluation and full-stack systems with Python, LangGraph, LangChain, FastAPI and React.',
     name: 'About'
   },
   '/work': {
-    title: 'Projects by Shlok Bam — 21 AI & Full-Stack Builds',
-    description: 'All 21 projects by Shlok Bam — DailyDiff, ResearchOS, an enterprise workforce training platform, PaisaWise, PromptVault and more — spanning AI agents, RAG, full-stack web, cloud and DevOps, with live demos and code.',
+    title: 'Projects by Shlok Bam | 21 AI & Full-Stack Builds',
+    description: 'All 21 projects by Shlok Bam, including DailyDiff, ResearchOS, an enterprise workforce training platform, PaisaWise and PromptVault, spanning AI agents, RAG, full-stack web, cloud and DevOps, with live demos and code.',
     name: 'Work'
   },
   '/work/dailydiff': {
-    title: 'DailyDiff Case Study — Multi-Agent AI Newsroom by Shlok Bam',
-    description: 'How DailyDiff works: a live LangGraph pipeline over 7 sources that emails a fact-checked tech brief three times a week — 185 briefs, 42 editions, LLM calls cut from 22 to 4, with per-agent evals.',
+    title: 'DailyDiff Case Study | Multi-Agent AI Newsroom by Shlok Bam',
+    description: 'How DailyDiff works: a live LangGraph pipeline over 7 sources that emails a fact-checked tech brief three times a week: 185 briefs, 42 editions, LLM calls cut from 22 to 4, with per-agent evals.',
     name: 'DailyDiff case study',
     parent: '/work'
   },
   '/journey': {
-    title: 'Experience & Education — Shlok Bam',
+    title: 'Experience & Education | Shlok Bam',
     description: 'Shlok Bam’s journey: intern at PharmaACE Innovations building healthcare-data and agentic AI pipelines for pharma clients, Founding Chairperson of ITSA, and a B.Tech in IT at VIT Pune.',
     name: 'Journey'
   },
   '/recognition': {
-    title: 'Patents, Awards & Certifications — Shlok Bam',
+    title: 'Patents, Awards & Certifications | Shlok Bam',
     description: 'Three patents co-invented by Shlok Bam (granted and filed in South Africa, published in India), winning INDOvateAI Sprint 2025 among 200+ teams, Google Arcade Diamond League and nine certifications.',
     name: 'Recognition'
   },
   '/community': {
-    title: 'Community & Leadership — Shlok Bam',
+    title: 'Community & Leadership | Shlok Bam',
     description: 'Beyond code: Shlok Bam has mentored 100+ first-year students, anchored Abhivriddhi’s flagship EDGE’24 tech event and volunteered at an old age home in Pune.',
     name: 'Community'
   },
   '/writing': {
-    title: 'Writing & Build Logs — Shlok Bam',
-    description: '12 build logs by Shlok Bam — multi-agent systems with LangGraph, RAG with LangChain and ChromaDB, LangSmith tracing, the Model Context Protocol, DevOps with Terraform and Ansible, and full-stack builds.',
+    title: 'Writing & Build Logs | Shlok Bam',
+    description: '12 build logs by Shlok Bam on multi-agent systems with LangGraph, RAG with LangChain and ChromaDB, LangSmith tracing, the Model Context Protocol, DevOps with Terraform and Ansible, and full-stack builds.',
     name: 'Writing'
   },
   '/contact': {
-    title: 'Contact Shlok Bam — Hire an AI / Generative AI Engineer',
-    description: 'Get in touch with Shlok Bam about full-time roles, internships, collaboration or freelance work. Email shlokbam19103@gmail.com — based in Pune, open to relocation.',
+    title: 'Contact Shlok Bam | Hire an AI / Generative AI Engineer',
+    description: 'Get in touch with Shlok Bam about full-time roles, internships, collaboration or freelance work. Email shlokbam19103@gmail.com. Based in Pune, open to relocation.',
     name: 'Contact'
   },
   '/privacy': {
-    title: 'Privacy — Shlok Bam',
+    title: 'Privacy | Shlok Bam',
     description: 'What shlokbam.in collects and why: Google Analytics visit counts, questions sent to the AI assistant, contact-form messages, and the theme and game scores kept in your browser.',
     name: 'Privacy',
     card: 'home'
   }
 }
 
-export const NOT_FOUND = { title: 'Page not found — Shlok Bam', description: 'This page does not exist. Explore Shlok Bam’s work, journey and contact details instead.', noindex: true }
+export const NOT_FOUND = { title: 'Page not found | Shlok Bam', description: 'This page does not exist. Explore Shlok Bam’s work, journey and contact details instead.', noindex: true }
 
 export const ROUTES = Object.keys(PAGES)
 
@@ -157,7 +157,7 @@ export function headTags(pathname, site) {
   // each page has its own share card in public/og/ (1200×630)
   const card = pathname === '/' ? 'home' : pathname.split('/').pop()
   const img = site + '/og/' + (PAGES[pathname] ? meta.card || card : 'home') + '.jpg'
-  const alt = pathname === '/' ? 'Shlok Bam — AI / Generative AI Engineer' : (meta.name || 'Shlok Bam') + ' — Shlok Bam, AI / Generative AI Engineer'
+  const alt = pathname === '/' ? 'Shlok Bam, AI / Generative AI Engineer' : (meta.name || 'Shlok Bam') + ' | Shlok Bam, AI / Generative AI Engineer'
   const tags = [
     `<title>${esc(meta.title)}</title>`,
     `<meta name="description" content="${esc(meta.description)}" />`,

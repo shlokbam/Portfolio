@@ -90,7 +90,7 @@ export default function Work() {
               </div>
               <h3 className="disp" style={{ margin: "0", fontSize: "42px" }}>DailyDiff</h3>
               <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.55" }}>
-                A live LangGraph pipeline over 7 sources that emails a fact-checked brief three times a week — 185 briefs, 42 editions. LLM calls cut from up to 22 to 4, behind a fail-closed publish gate.
+                A live LangGraph pipeline over 7 sources that emails a fact-checked brief three times a week: 185 briefs, 42 editions. LLM calls cut from up to 22 to 4, behind a fail-closed publish gate.
               </p>
               <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>LangGraph · LangChain · FastAPI · Mistral · Gemini · Neon Postgres · React · GitHub Actions</div>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "20px" }}>
@@ -193,7 +193,7 @@ export default function Work() {
               </div>
               <h3 className="disp" style={{ margin: "0", fontSize: "42px" }}>PromptVault</h3>
               <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.55" }}>
-                Centralised prompt management and version control for AI-agent teams — Monaco editor workspace, side-by-side version diffs, test suites, comments and audit trails.
+                Centralised prompt management and version control for AI-agent teams: Monaco editor workspace, side-by-side version diffs, test suites, comments and audit trails.
               </p>
               <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>React · FastAPI · SQLAlchemy · Monaco · Python</div>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "20px" }}>

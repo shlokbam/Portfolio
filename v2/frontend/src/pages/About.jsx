@@ -15,7 +15,7 @@ const ALIAS = { 'Multi-agent': 'Multi-agent systems', 'GH Actions': 'GitHub Acti
 function FlipTile({ label, front, children }) {
   const [flip, setFlip] = useState(false)
   return (
-    <div className={'ftile rv' + (flip ? ' flipped' : '')} tabIndex={0} role="button" aria-pressed={flip} aria-label={label + ' — show details'}
+    <div className={'ftile rv' + (flip ? ' flipped' : '')} tabIndex={0} role="button" aria-pressed={flip} aria-label={label + ', show details'}
       onClick={() => setFlip((f) => !f)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setFlip((f) => !f) } }}
       onMouseLeave={() => setFlip(false)}>
       <div className="finner">
@@ -144,7 +144,7 @@ export default function About() {
                 <div>
                   <h2 style={{ margin: "0", fontSize: "28px", letterSpacing: "-.02em", fontWeight: "700" }}>Learn</h2>
                   <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "18px", lineHeight: "1.65" }}>
-                    Information Technology at Vishwakarma Institute of Technology, Pune — 9.01 / 10 CGPA, graduating May 2027. Programming, data-driven applications and cloud are where I spend most of my curiosity.
+                    Information Technology at Vishwakarma Institute of Technology, Pune: 9.01 / 10 CGPA, graduating May 2027. Programming, data-driven applications and cloud are where I spend most of my curiosity.
                   </p>
                 </div>
               </div>
@@ -153,7 +153,7 @@ export default function About() {
                 <div>
                   <h2 style={{ margin: "0", fontSize: "28px", letterSpacing: "-.02em", fontWeight: "700" }}>Lead</h2>
                   <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "18px", lineHeight: "1.65" }}>
-                    As Founding Chairperson of the Information Technology Students' Association I led a 50+ member team — a 500+ attendee AI workshop, mock GD/PIs, a ₹1 lakh-budget event, and a QR attendance system used by 750+ attendees.
+                    As Founding Chairperson of the Information Technology Students' Association I led a 50+ member team: a 500+ attendee AI workshop, mock GD/PIs, a ₹1 lakh-budget event, and a QR attendance system used by 750+ attendees.
                   </p>
                 </div>
               </div>
@@ -162,7 +162,7 @@ export default function About() {
                 <div>
                   <h2 style={{ margin: "0", fontSize: "28px", letterSpacing: "-.02em", fontWeight: "700" }}>Build</h2>
                   <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "18px", lineHeight: "1.65" }}>
-                    At PharmaACE Innovations I build healthcare-data and agentic AI pipelines for pharma clients — provider matching, newsroom monitoring and a natural-language-to-SQL reporting agent. Outside work: 21 projects across agents, evals, full-stack apps and cloud — and three patents as co-inventor.
+                    At PharmaACE Innovations I build healthcare-data and agentic AI pipelines for pharma clients: provider matching, newsroom monitoring and a natural-language-to-SQL reporting agent. Outside work: 21 projects across agents, evals, full-stack apps and cloud, and three patents as co-inventor.
                   </p>
                 </div>
               </div>
@@ -182,7 +182,7 @@ export default function About() {
                 <div className="fb-bar" aria-hidden="true"><span style={{ width: degree + "%" }} /></div>
                 <div className="fb-lines"><span suppressHydrationWarning>{degree}% of the degree done</span></div>
               </FlipTile>
-              <FlipTile label="Based" front={<>Pune —<br />open to relocate</>}>
+              <FlipTile label="Based" front={<>Pune,<br />open to relocate</>}>
                 <div className="radar" aria-hidden="true"><i /><i /><i /><b /></div>
                 <div className="fb-top mono">18.52° N · 73.86° E</div>
                 <div className="fb-title">Pune, India</div>
@@ -220,7 +220,7 @@ export default function About() {
             </div>
           </div>
           <div className="orbit-box orbit-in" style={{ marginTop: "32px", display: "flex", justifyContent: "center" }}>
-            <div className="orbit" ref={orbitRef} onPointerMove={nearCheck} onPointerLeave={() => orbitRef.current && orbitRef.current.classList.remove('near')} aria-label="Skills arranged in orbit by proficiency — move close to pause" style={{ position: "relative", width: "900px", height: "900px" }}>
+            <div className="orbit" ref={orbitRef} onPointerMove={nearCheck} onPointerLeave={() => orbitRef.current && orbitRef.current.classList.remove('near')} aria-label="Skills arranged in orbit by proficiency. Move close to pause" style={{ position: "relative", width: "900px", height: "900px" }}>
               <div aria-hidden="true" style={{ position: "absolute", left: "290px", top: "290px", width: "320px", height: "320px", borderRadius: "50%", border: "1px dashed var(--line)" }} />
               <div aria-hidden="true" style={{ position: "absolute", left: "170px", top: "170px", width: "560px", height: "560px", borderRadius: "50%", border: "1px dashed var(--line)" }} />
               <div aria-hidden="true" style={{ position: "absolute", left: "60px", top: "60px", width: "780px", height: "780px", borderRadius: "50%", border: "1px dashed var(--line)" }} />

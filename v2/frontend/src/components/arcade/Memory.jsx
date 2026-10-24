@@ -50,7 +50,7 @@ export default function Memory() {
       <div className="game-bar mono">
         <span>Moves <b>{moves}</b></span>
         <span>Pairs <b>{done.length}/{NAMES.length}</b></span>
-        <span>Best <b>{best || '—'}</b></span>
+        <span>Best <b>{best || '--'}</b></span>
         <button type="button" className="pit-btn mono" onClick={reset}>Shuffle</button>
       </div>
       <div className="mem-grid">

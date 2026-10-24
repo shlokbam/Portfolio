@@ -5,7 +5,7 @@ import { useId } from 'react'
 const W = 300
 const fmt = (v) => {
   const n = typeof v === 'string' && /^\d+$/.test(v) ? Number(v) : v
-  return typeof n === 'number' ? n.toLocaleString('en-US') : n || '—'
+  return typeof n === 'number' ? n.toLocaleString('en-US') : n || '--'
 }
 
 function RatingChart({ data }) {

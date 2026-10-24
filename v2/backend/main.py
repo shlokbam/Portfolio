@@ -210,9 +210,9 @@ async def fetch_github(username: str = 'shlokbam') -> Optional[dict]:
         if not user and not total:
             return None
         return {
-            'repos': user.get('public_repos', '—'),
-            'followers': user.get('followers', '—'),
-            'contributions': total.group(1) if total else '—',
+            'repos': user.get('public_repos', '--'),
+            'followers': user.get('followers', '--'),
+            'contributions': total.group(1) if total else '--',
             'contributionStart': days[0][0] if days else None,
             'contributionDays': [n for _, n in days],
         }
@@ -301,7 +301,7 @@ async def api_chat(body: ChatIn, request: Request):
 
     api_key = os.getenv('GROQ_API_KEY')
     if not api_key:
-        return {'success': True, 'reply': "My AI brain isn't configured right now — please email Shlok directly at shlokbam19103@gmail.com."}
+        return {'success': True, 'reply': "My AI brain isn't configured right now. Please email Shlok directly at shlokbam19103@gmail.com."}
 
     history = [
         {'role': t.role, 'content': t.content[:1500]}
@@ -333,6 +333,8 @@ async def api_chat(body: ChatIn, request: Request):
             resp.raise_for_status()
             reply = resp.json()['choices'][0]['message']['content'] or ''
             reply = re.sub(r'<think>.*?</think>', '', reply, flags=re.S).strip()
+            # the site's style has no em dashes; the prompt asks for none, this catches any that slip through
+            reply = re.sub(r'\s*—\s*', ', ', reply).replace(', ,', ',')
         except Exception as exc:
             log.warning('groq %s bad response: %s', model, exc)
             continue
@@ -340,7 +342,7 @@ async def api_chat(body: ChatIn, request: Request):
             break
     if not reply:
         return JSONResponse(
-            {'success': False, 'reply': "Sorry — I couldn't reach my brain just now. Please try again in a moment, or email Shlok at shlokbam19103@gmail.com."},
+            {'success': False, 'reply': "Sorry, I couldn't reach my brain just now. Please try again in a moment, or email Shlok at shlokbam19103@gmail.com."},
             status_code=502,
         )
     _chat_count['n'] += 1
@@ -369,19 +371,19 @@ async def api_contact(body: ContactIn, request: Request):
     if not name or not message or not EMAIL_RE.match(email):
         return JSONResponse({'success': False, 'message': 'Please add your name, a valid email and a message.'}, status_code=400)
     if rate_limited('contact', request, limit=5, window=600):
-        return JSONResponse({'success': False, 'message': 'Too many messages — please try again in a few minutes.'}, status_code=429)
+        return JSONResponse({'success': False, 'message': 'Too many messages. Please try again in a few minutes.'}, status_code=429)
 
     access_key = os.getenv('WEB3FORMS_ACCESS_KEY')
     if not access_key:
         return JSONResponse({'success': False, 'message': 'The contact form is not configured. Please email shlokbam19103@gmail.com.'}, status_code=503)
     payload = {
         'access_key': access_key,
-        'subject': f'Portfolio: {body.topic} — {name}',
+        'subject': f'Portfolio: {body.topic} · {name}',
         'from_name': 'Shlok Bam Portfolio',
         'name': name,
         'email': email,
         'replyto': email,
-        'company': body.company.strip() or '—',
+        'company': body.company.strip() or '-',
         'topic': body.topic,
         'message': message,
     }

@@ -37,7 +37,7 @@ function Projects() {
       </div>
       <div className="mono tleg" aria-live="polite">
         {cur
-          ? <span className="tread"><b>{String(hi + 1).padStart(2, '0')}</b> {cur.title} <span style={{ color: 'var(--muted)' }}>— {cur.field}</span></span>
+          ? <span className="tread"><b>{String(hi + 1).padStart(2, '0')}</b> {cur.title} <span style={{ color: 'var(--muted)' }}>· {cur.field}</span></span>
           : <><span><i className="sw ai" /> AI / agents {ai}</span><span><i className="sw" /> Web, cloud &amp; DevOps {PROJECTS.length - ai}</span><span className="hint">Point at a bar ↑</span></>}
       </div>
     </Tile>

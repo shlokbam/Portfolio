@@ -15,12 +15,12 @@ export async function sendMessage({ name, email, company, message, topic, websit
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify({
       access_key: KEY,
-      subject: `Portfolio: ${topic} — ${name}`,
+      subject: `Portfolio: ${topic} · ${name}`,
       from_name: 'Shlok Bam Portfolio',
       name,
       email,
       replyto: email,
-      company: company || '—',
+      company: company || '-',
       topic,
       message,
       botcheck: ''

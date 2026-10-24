@@ -15,7 +15,7 @@ export default function Home() {
   const lc = (stats && stats.leetcode) || {}
   const cc = (stats && stats.codechef) || {}
   const gh = (stats && stats.github) || {}
-  const show = (v) => (v === undefined || v === null || v === 'N/A' || v === '' ? '—' : v)
+  const show = (v) => (v === undefined || v === null || v === 'N/A' || v === '' ? '--' : v)
   const profiles = [
     { kind: 'leetcode', data: lc, name: 'LeetCode', url: 'https://leetcode.com/u/shlokbam05/', a: 'Solved', b: 'Rating', va: show(lc.total), vb: show(lc.contestRating) },
     { kind: 'codechef', data: cc, name: 'CodeChef', url: 'https://www.codechef.com/users/shlokbam', a: 'Rating', b: 'Stars', va: show(cc.rating), vb: show(cc.stars) },
@@ -23,7 +23,7 @@ export default function Home() {
   ]
   const tp = ['Agentic AI', 'RAG pipelines', 'FastAPI', 'React', 'LangGraph', 'MCP', 'Docker']
   const tape = tp.concat(tp)
-  const sentence = "I'm an IT student at VIT Pune who turns messy, real-world problems into systems that think — and ships them end to end: agents, retrieval, APIs, interfaces and the pipelines that deploy them."
+  const sentence = "I'm an IT student at VIT Pune who turns messy, real-world problems into systems that think, and ships them end to end: agents, retrieval, APIs, interfaces and the pipelines that deploy them."
   const hl = ['systems', 'that', 'think']
   const words = sentence.split(' ').map((t) => ({ t, style: hl.indexOf(t) !== -1 ? 'color: var(--accent)' : '' }))
   return (
@@ -33,7 +33,7 @@ export default function Home() {
         <AIBackdrop kind="nn" />
         <div className="wrap" style={{ position: "relative" }}>
           <div className="fade" style={{ "--d": ".2s", display: "flex", justifyContent: "flex-end", gap: "24px", flexWrap: "wrap" }}>
-            <span className="mono" style={{ color: "var(--muted)" }}>Pune, IN — 2026</span>
+            <span className="mono" style={{ color: "var(--muted)" }}>Pune, IN · 2026</span>
           </div>
           <Hello style={{ "--d": ".25s", margin: "56px 0 14px", fontSize: "clamp(26px, 2.6vw, 38px)", color: "var(--muted)" }} />
           <h1 className="disp" style={{ margin: "0", fontSize: "clamp(64px, 13vw, 196px)", fontStretch: "100%" }}>
@@ -49,7 +49,7 @@ export default function Home() {
               <p className="fade" style={{ "--d": ".55s", margin: "0", maxWidth: "780px", fontSize: "clamp(22px, 2.2vw, 31px)", lineHeight: "1.3", letterSpacing: "-.01em" }}>
                 AI / Generative AI engineer. I ship{" "}
                 <span style={{ color: "var(--accent)" }}>agentic and LLM-powered systems</span>
-                {" "}to production — from multi-agent pipelines to LLM-as-judge evals — currently as an intern at PharmaACE Innovations.
+                {" "}to production, from multi-agent pipelines to LLM-as-judge evals, currently as an intern at PharmaACE Innovations.
               </p>
               <div className="fade" style={{ "--d": ".7s", display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "34px" }}>
                 <A className="btn mono" href={RESUME} style={{ background: "var(--accent)", color: "var(--onaccent)", fontWeight: "500" }}>
@@ -194,7 +194,7 @@ export default function Home() {
               </div>
               <div className="disp" style={{ fontSize: "clamp(38px, 3.1vw, 52px)" }}>DailyDiff</div>
               <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "16px", lineHeight: "1.55" }}>
-                A live LangGraph pipeline over 7 sources that emails a fact-checked tech brief three times a week — 185 briefs across 42 editions so far.
+                A live LangGraph pipeline over 7 sources that emails a fact-checked tech brief three times a week: 185 briefs across 42 editions so far.
               </p>
               <div className="mono" style={{ marginTop: "22px", display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>
                 <span>LangGraph · FastAPI · React</span>
@@ -247,7 +247,7 @@ export default function Home() {
               </div>
               <div className="disp" style={{ fontSize: "clamp(30px, 2.3vw, 38px)", lineHeight: ".9" }}>Enterprise Workforce Training Platform</div>
               <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "16px", lineHeight: "1.55" }}>
-                Industry-sponsored LMS — role-based trainer and trainee dashboards, per-trainee watermarking, a React Native app and Jenkins CI/CD.
+                Industry-sponsored LMS: role-based trainer and trainee dashboards, per-trainee watermarking, a React Native app and Jenkins CI/CD.
               </p>
               <div className="mono" style={{ marginTop: "22px", display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>
                 <span>FastAPI · React · Terraform</span>

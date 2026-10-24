@@ -213,7 +213,7 @@ export default function SkillPit({ bare = false }) {
   const tools = (
     <div className="pit-tools">
       <p style={{ margin: '0', color: 'var(--muted)', fontSize: '17px', lineHeight: '1.5', maxWidth: '34ch' }}>
-        {SKILL_DATA.length} tools I ship with. Grab, throw and stack them — tap one to see where I used it.
+        {SKILL_DATA.length} tools I ship with. Grab, throw and stack them, or tap one to see where I used it.
       </p>
       <div style={{ display: 'flex', gap: '10px', marginTop: '18px' }}>
         <button type="button" className="pit-btn mono" onClick={() => api.current && api.current.shake()} disabled={!live}>Shake ⟲</button>
@@ -252,7 +252,7 @@ export default function SkillPit({ bare = false }) {
               <span className="mono" style={{ color: 'var(--accent)' }}>{cur.label}</span>
               {cur.projects.length
                 ? <span>Used in {cur.projects.length} project{cur.projects.length > 1 ? 's' : ''}: {cur.projects.slice(0, 6).join(' · ')}{cur.projects.length > 6 ? ' …' : ''}</span>
-                : <span style={{ color: 'var(--muted)' }}>Part of my everyday toolkit — ask my AI where I use it.</span>}
+                : <span style={{ color: 'var(--muted)' }}>Part of my everyday toolkit. Ask my AI where I use it.</span>}
             </>
           ) : (
             <span className="mono" style={{ color: 'var(--muted)' }}>Tip: throw one hard. Or press Shake.</span>

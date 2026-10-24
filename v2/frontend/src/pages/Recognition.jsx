@@ -17,8 +17,8 @@ export default function Recognition() {
   ].map((p, i) => ({ ...p, pid: 'cring' + i, stick: 'top: ' + (100 + i * 32) + 'px; margin-bottom: 64px; z-index: ' + (i + 1) }))
   const certs = [
     { org: 'McKinsey.org', n: '01', mark: 'Mc', title: 'Forward Program', desc: 'Problem-solving, communication, adaptability and digital readiness through hands-on modules.', date: 'Dec 2025', cta: 'Certificate', href: '/static/certificates/certifications/Certificate.pdf' },
-    { org: 'Google Cloud', n: '02', mark: 'GCP', title: 'Google Cloud Data Analytics', desc: 'Five courses — BigQuery, data transformation, visualisation and storytelling — plus a capstone.', date: 'Jun 2025', cta: 'Credly', href: 'https://www.credly.com/badges/e6109deb-b3e0-414c-847c-a2a7ad21c4a6/public_url' },
-    { org: 'Amazon Web Services', n: '03', mark: 'AWS', title: 'AWS Cloud Practitioner Essentials', desc: 'Cloud fundamentals, security, pricing and architecture — EC2, S3, IAM and the Well-Architected Framework.', date: 'Jul 2025', cta: 'Certificate', href: '/static/certificates/certifications/aws.pdf' }
+    { org: 'Google Cloud', n: '02', mark: 'GCP', title: 'Google Cloud Data Analytics', desc: 'Five courses on BigQuery, data transformation, visualisation and storytelling, plus a capstone.', date: 'Jun 2025', cta: 'Credly', href: 'https://www.credly.com/badges/e6109deb-b3e0-414c-847c-a2a7ad21c4a6/public_url' },
+    { org: 'Amazon Web Services', n: '03', mark: 'AWS', title: 'AWS Cloud Practitioner Essentials', desc: 'Cloud fundamentals, security, pricing and architecture: EC2, S3, IAM and the Well-Architected Framework.', date: 'Jul 2025', cta: 'Certificate', href: '/static/certificates/certifications/aws.pdf' }
   ]
   const cert = (name) => file('/static/certificates/certifications/CertificateOfCompletion_' + name + '.pdf')
   const more = [
@@ -126,9 +126,9 @@ export default function Recognition() {
                   <span>INDOvateAI Sprint</span>
                   <span>Mar 2025</span>
                 </div>
-                <h3 style={{ margin: "0", fontSize: "23px", letterSpacing: "-.015em" }}>Best Outstanding Project — Winner</h3>
+                <h3 style={{ margin: "0", fontSize: "23px", letterSpacing: "-.015em" }}>Best Outstanding Project · Winner</h3>
                 <p style={{ margin: "0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.6" }}>
-                  Won among 200+ teams. Team pumpdotfun built IndoTrade — an AI stock assistant combining real-time data with intelligent insight, using Next.js, Flask and MySQL.
+                  Won among 200+ teams. Team pumpdotfun built IndoTrade, an AI stock assistant combining real-time data with intelligent insight, using Next.js, Flask and MySQL.
                 </p>
                 <div className="mono" style={{ marginTop: "auto", paddingTop: "14px", borderTop: "1px solid var(--line)", display: "flex", justifyContent: "space-between" }}>
                   <span style={{ color: "var(--accent)" }}>Winner</span>
@@ -145,7 +145,7 @@ export default function Recognition() {
                   <span>Google Cloud</span>
                   <span>2025</span>
                 </div>
-                <h3 style={{ margin: "0", fontSize: "23px", letterSpacing: "-.015em" }}>Arcade Program — Diamond League</h3>
+                <h3 style={{ margin: "0", fontSize: "23px", letterSpacing: "-.015em" }}>Arcade Program · Diamond League</h3>
                 <p style={{ margin: "0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.6" }}>
                   Selected into Google's hands-on cloud skills program; reached Diamond League with 90+ badges. Swag eligible, Trooper tier.
                 </p>
@@ -164,7 +164,7 @@ export default function Recognition() {
                   <span>Navdhara · State level</span>
                   <span>Sep 2024</span>
                 </div>
-                <h3 style={{ margin: "0", fontSize: "23px", letterSpacing: "-.015em" }}>Poster Competition — Top 5</h3>
+                <h3 style={{ margin: "0", fontSize: "23px", letterSpacing: "-.015em" }}>Poster Competition · Top 5</h3>
                 <p style={{ margin: "0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.6" }}>
                   Team Infinity Innovators presented an AI wildlife-poaching detection system using computer vision and automated alerts.
                 </p>

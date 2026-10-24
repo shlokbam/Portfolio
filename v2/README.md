@@ -67,8 +67,11 @@ npm run dev        # http://localhost:5173
 - Pages show optimized WebP copies from `public/static/opt/` (made with `cwebp -q 80`, max 1600 px).
   The originals in `public/static/` are untouched and are what download links open. If you add or
   replace an image, regenerate its copy: `cwebp -q 80 -m 6 in.jpeg -o public/static/opt/<same path>.webp`.
-- The site pings `/api/health` on load so a sleeping Render instance starts waking early; stats retry
-  once, and chat waits up to 65 s and says "Waking up the assistant" if it's slow.
+- The site pings `/api/health` on load so a sleeping Render instance starts waking early; stats retry once.
+  If the ping takes over 1.5 s (a cold start), both chats show a boot screen (`components/WakeBoot.jsx`: boot log,
+  rotating facts, arcade link). Typed questions are queued and sent once the API answers; quick questions answer
+  at once from `lib/qa.js`. When it wakes, a notification appears and the chat button gets a green dot.
+  The state lives in `lib/site.jsx` (`apiState`: unknown → waking → ready, or down after ~2 min).
 - Indovate's repository isn't public, so the Work page shows "Private repo" instead of a dead link.
 
 ## SEO

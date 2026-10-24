@@ -56,7 +56,7 @@ export default function TypeSprint() {
     <div className="game">
       <div className="game-bar mono">
         <span>Time <b>{result ? result.secs : t0 ? Math.max(0, secs).toFixed(1) : '0.0'}s</b></span>
-        <span>Best <b>{best ? best + ' wpm' : '—'}</b></span>
+        <span>Best <b>{best ? best + ' wpm' : '--'}</b></span>
         <button type="button" className="pit-btn mono" onClick={next}>New line</button>
       </div>
       <div className="type-box" onClick={() => input.current && input.current.focus()}>

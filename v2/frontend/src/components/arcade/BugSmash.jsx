@@ -79,7 +79,7 @@ export default function BugSmash() {
       </div>
       <div className={'bug-grid' + (state === 'play' ? ' live' : '')}>
         {LINES.map((ln, i) => (
-          <button key={i} type="button" className={'bug-cell' + (fx[i] ? ' ' + fx[i] : '')} onClick={() => hit(i)} aria-label={board[i] ? (board[i].kind === 'bug' ? 'Bug — squash it' : 'Feature — leave it') : 'Line ' + (i + 1)}>
+          <button key={i} type="button" className={'bug-cell' + (fx[i] ? ' ' + fx[i] : '')} onClick={() => hit(i)} aria-label={board[i] ? (board[i].kind === 'bug' ? 'Bug, squash it' : 'Feature, leave it') : 'Line ' + (i + 1)}>
             <span className="mono bug-ln">{String(i + 1).padStart(2, '0')}</span>
             <code>{ln}</code>
             {board[i] && board[i].kind === 'bug' && (

@@ -230,7 +230,7 @@ export default function Contact() {
                   Sent
                   <span style={{ color: "var(--accent)" }}>.</span>
                 </h3>
-                <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "18px", lineHeight: "1.6", maxWidth: "380px" }}>Thanks — your message is on its way. I'll get back to you soon.</p>
+                <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "18px", lineHeight: "1.6", maxWidth: "380px" }}>Thanks! Your message is on its way. I'll get back to you soon.</p>
                 <button type="button" className="pill mono" onClick={reset} style={{ marginTop: "26px", height: "46px", padding: "0 20px", borderRadius: "999px", border: "1px solid var(--text)", background: "transparent", color: "var(--text)", cursor: "pointer" }}>Send another</button>
               </div>
             )}

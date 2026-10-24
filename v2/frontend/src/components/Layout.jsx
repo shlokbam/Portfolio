@@ -159,7 +159,7 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
 
         <header style={{ position: 'fixed', top: '0', left: '0', right: '0', zIndex: '70', background: 'color-mix(in srgb, var(--bg) 78%, transparent)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderBottom: '1px solid var(--line)' }}>
           <div className="wrap" style={{ height: '76px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px' }}>
-            <Brand href="/" aria-label="Shlok Bam — home" />
+            <Brand href="/" aria-label="Shlok Bam, home" />
             {back
               ? <A className="mono hide-lg ul" href="/work" style={{ color: 'var(--muted)' }}>← Back to all work</A>
               : (

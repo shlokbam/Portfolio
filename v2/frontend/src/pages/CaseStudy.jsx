@@ -7,7 +7,7 @@ import './CaseStudy.css'
 export default function CaseStudy() {
   const title = 'DAILYDIFF'.split('').map((ch, i) => ({ ch, style: '--i: ' + i }))
   const lines = [
-    ['[cron]', 'trigger fired — Mon / Wed / Fri schedule'],
+    ['[cron]', 'trigger fired · Mon / Wed / Fri schedule'],
     ['[scout]', 'fetching github trending repositories'],
     ['[scout]', 'querying hacker news api'],
     ['[scout]', 'reading dev.to latest posts'],
@@ -78,7 +78,7 @@ export default function CaseStudy() {
       <section style={{ padding: "112px 0", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap g-split">
           <div>
-            <span className="mono" style={{ color: "var(--muted)" }}>01 — The problem</span>
+            <span className="mono" style={{ color: "var(--muted)" }}>01 · The problem</span>
             {" "}
             <h2 className="rv" style={{ margin: "22px 0 0", fontSize: "clamp(34px, 3.8vw, 56px)", lineHeight: "1.05", letterSpacing: "-.03em", fontWeight: "600" }}>
               New developer tools land every day. Keeping up means hours of scrolling and{" "}
@@ -88,7 +88,7 @@ export default function CaseStudy() {
           </div>
           <div className="rv" style={{ paddingTop: "44px" }}>
             <p style={{ margin: "0", fontSize: "19px", lineHeight: "1.7", color: "var(--muted)" }}>
-              DailyDiff does the scrolling for you. On a schedule, a team of agents discovers what's trending across seven sources — GitHub, Hacker News, Dev.to and more — decides what is worth your attention, fact-checks it, rewrites it so a beginner could follow it, and sends a styled HTML briefing straight to your inbox.
+              DailyDiff does the scrolling for you. On a schedule, a team of agents discovers what's trending across seven sources (GitHub, Hacker News, Dev.to and more), decides what is worth your attention, fact-checks it, rewrites it so a beginner could follow it, and sends a styled HTML briefing straight to your inbox.
             </p>
             <p style={{ margin: "22px 0 0", fontSize: "19px", lineHeight: "1.7", color: "var(--muted)" }}>
               Each brief explains the tool in plain words (ELI5), lists real use cases, and links to the source.
@@ -100,7 +100,7 @@ export default function CaseStudy() {
         <div className="wrap">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <div>
-              <span className="mono" style={{ color: "var(--muted)" }}>02 — The pipeline</span>
+              <span className="mono" style={{ color: "var(--muted)" }}>02 · The pipeline</span>
               {" "}
               <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>
                 How it{" "}
@@ -233,7 +233,7 @@ export default function CaseStudy() {
               <span style={{ width: "11px", height: "11px", borderRadius: "50%", background: "#FF5A1F" }} />
               <span style={{ width: "11px", height: "11px", borderRadius: "50%", background: "#57544C" }} />
               <span style={{ width: "11px", height: "11px", borderRadius: "50%", background: "#57544C" }} />
-              <span className="mono" style={{ marginLeft: "12px", color: "#A19D92", fontSize: "11px" }}>dailydiff — run sequence (illustrative)</span>
+              <span className="mono" style={{ marginLeft: "12px", color: "#A19D92", fontSize: "11px" }}>dailydiff · run sequence (illustrative)</span>
             </div>
             <div style={{ padding: "20px 24px 24px", fontFamily: "'JetBrains Mono', monospace", fontSize: "14px", lineHeight: "2" }}>
               {log.map((lg, lg_i) => (
@@ -248,7 +248,7 @@ export default function CaseStudy() {
       </section>
       <section style={{ padding: "112px 0", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap">
-          <span className="mono" style={{ color: "var(--muted)" }}>03 — The team</span>
+          <span className="mono" style={{ color: "var(--muted)" }}>03 · The team</span>
           {" "}
           <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>Four agents</h2>
           <div className="g-agents" style={{ marginTop: "48px" }}>
@@ -260,7 +260,7 @@ export default function CaseStudy() {
               <span className="mono" style={{ color: "var(--muted)", marginTop: "24px" }}>01 · Scheduler</span>
               <h3 style={{ margin: "10px 0 0", fontSize: "24px", letterSpacing: "-.02em" }}>Cron trigger</h3>
               <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.6" }}>
-                Runs the whole pipeline three times a week — Monday, Wednesday and Friday — to collect, process and broadcast.
+                Runs the whole pipeline three times a week (Monday, Wednesday and Friday) to collect, process and broadcast.
               </p>
             </article>
             <article className="agent rv" style={{ border: "1px solid var(--line)", borderRadius: "22px", padding: "24px", background: "var(--surface)", minHeight: "300px", display: "flex", flexDirection: "column" }}>
@@ -303,7 +303,7 @@ export default function CaseStudy() {
         <div className="wrap">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <div>
-              <span className="mono" style={{ color: "var(--muted)" }}>04 — Results</span>
+              <span className="mono" style={{ color: "var(--muted)" }}>04 · Results</span>
               <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>
                 In{" "}
                 <span className="serif" style={{ textTransform: "none", fontWeight: "400", color: "var(--accent)" }}>production</span>

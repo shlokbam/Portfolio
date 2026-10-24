@@ -7,7 +7,7 @@ const SiteCtx = createContext(null)
 // is identical for both themes; only the page background colour is needed here.
 const BG = { dark: '#0B0B0A', light: '#F2EFE7' }
 
-const CHAT_FAIL = "Sorry — I couldn't reach my brain just now. Please try again in a moment, or email Shlok at shlokbam19103@gmail.com."
+const CHAT_FAIL = "Sorry, I couldn't reach my brain just now. Please try again in a moment, or email Shlok at shlokbam19103@gmail.com."
 
 export function SiteProvider({ children }) {
   const [theme, setTheme] = useState(() => (typeof document !== 'undefined' && document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'))
@@ -24,37 +24,89 @@ export function SiteProvider({ children }) {
 
   const toggleTheme = useCallback(() => setTheme((x) => (x === 'dark' ? 'light' : 'dark')), [])
 
-  // ---- AI chat: one conversation shared by the floating widget and the Contact page
+  // ---- API status. Render's free tier sleeps when idle, so the site pings it on load:
+  // 'unknown' until the first answer, 'waking' if that takes over 1.5 s (a cold start),
+  // then 'ready', or 'down' if it never answers. `woke` marks a waking → ready change.
+  const [apiState, setApiState] = useState('unknown')
+  const [wakeAt, setWakeAt] = useState(0)
+  const [woke, setWoke] = useState(false)
+  const apiRef = useRef(apiState)
+  apiRef.current = apiState
+  const markReady = useCallback(() => {
+    if (apiRef.current === 'ready') return
+    if (apiRef.current === 'waking') setWoke(true)
+    setApiState('ready')
+  }, [])
+  const dismissWoke = useCallback(() => setWoke(false), [])
+
+  useEffect(() => {
+    let done = false
+    const slowT = setTimeout(() => { if (!done) { setWakeAt(Date.now()); setApiState('waking') } }, 1500)
+    const t0 = Date.now()
+    const ping = () => api('/api/health', { timeout: 30000 }).then(() => { done = true; markReady() }).catch(() => {
+      // keep trying for ~2 minutes; a cold start normally takes 30–60 s
+      if (Date.now() - t0 < 120000) setTimeout(ping, 4000)
+      else { done = true; setApiState((s) => (s === 'ready' ? s : 'down')) }
+    })
+    ping()
+    return () => { done = true; clearTimeout(slowT) }
+  }, [markReady])
+
+  // ---- AI chat: one conversation shared by the floating widget and the home page.
+  // While the API is waking, typed questions are queued (shown as such) and sent once it's up;
+  // quick questions with a prepared answer reply at once.
   const [msgs, setMsgs] = useState([])
   const [busy, setBusy] = useState(false)
   const [slow, setSlow] = useState(false)
   const msgsRef = useRef(msgs)
   msgsRef.current = msgs
 
-  const send = useCallback(async (text, fallback) => {
-    const q = (text || '').trim()
-    if (!q) return
-    const history = msgsRef.current.slice(-6).map((m) => ({ role: m.who === 'u' ? 'user' : 'assistant', content: m.text }))
-    setMsgs((m) => m.concat([{ who: 'u', text: q }]))
+  // `qid` (queued questions): put the reply right under that question, not at the end
+  const ask = useCallback(async (q, fallback, before, qid) => {
+    const reply = (text) => setMsgs((m) => {
+      const i = qid ? m.findIndex((x) => x.id === qid) : -1
+      return i < 0 ? m.concat([{ who: 'b', text }]) : m.slice(0, i + 1).concat([{ who: 'b', text }], m.slice(i + 1))
+    })
+    const history = before.slice(-6).map((m) => ({ role: m.who === 'u' ? 'user' : 'assistant', content: m.text }))
     setBusy(true)
     const slowT = setTimeout(() => setSlow(true), 6000)
     try {
       // generous timeout: a sleeping Render instance can take ~50 s to wake
       const res = await api('/api/chat', { method: 'POST', body: { message: q, history }, timeout: 65000 })
-      setMsgs((m) => m.concat([{ who: 'b', text: res.reply || fallback || CHAT_FAIL }]))
+      markReady()
+      reply(res.reply || fallback || CHAT_FAIL)
     } catch (e) {
-      const msg = e.status === 429 ? (e.data && e.data.reply) || 'You are asking quickly! Give me a few seconds and try again.' : fallback || CHAT_FAIL
-      setMsgs((m) => m.concat([{ who: 'b', text: msg }]))
+      reply(e.status === 429 ? (e.data && e.data.reply) || 'You are asking quickly! Give me a few seconds and try again.' : fallback || CHAT_FAIL)
     } finally {
       clearTimeout(slowT)
       setBusy(false)
       setSlow(false)
     }
-  }, [])
+  }, [markReady])
+
+  const send = useCallback((text, fallback) => {
+    const q = (text || '').trim()
+    if (!q) return
+    if (apiRef.current === 'waking') {
+      setMsgs((m) => m.concat(fallback ? [{ who: 'u', text: q }, { who: 'b', text: fallback }] : [{ who: 'u', text: q, queued: true, id: Date.now() + Math.random() }]))
+      return
+    }
+    const before = msgsRef.current
+    setMsgs((m) => m.concat([{ who: 'u', text: q }]))
+    ask(q, fallback, before)
+  }, [ask])
   const clearChat = useCallback(() => setMsgs([]), [])
 
-  // Wake the API as soon as the site loads, so it is ready by the time someone asks the chatbot.
-  useEffect(() => { api('/api/health', { timeout: 60000 }).catch(() => {}) }, [])
+  // the API is up: send the queued questions, oldest first
+  useEffect(() => {
+    if (apiState !== 'ready' && apiState !== 'down') return
+    if (busy) return
+    const i = msgs.findIndex((m) => m.queued)
+    if (i < 0) return
+    const { id, text } = msgs[i]
+    setMsgs((m) => m.map((x) => (x.id === id ? { who: 'u', text, id } : x)))
+    ask(text, null, msgs.slice(0, i).filter((m) => !m.queued), id)
+  }, [apiState, busy, msgs, ask])
 
   // ---- live data (fetched once per visit, on first use)
   const [stats, setStats] = useState(null)
@@ -76,8 +128,9 @@ export function SiteProvider({ children }) {
   const value = useMemo(() => ({
     theme, toggleTheme,
     msgs, busy, slow, send, clearChat,
+    apiState, wakeAt, woke, dismissWoke,
     stats, loadStats, avail, loadAvail
-  }), [theme, toggleTheme, msgs, busy, slow, send, clearChat, stats, loadStats, avail, loadAvail])
+  }), [theme, toggleTheme, msgs, busy, slow, send, clearChat, apiState, wakeAt, woke, dismissWoke, stats, loadStats, avail, loadAvail])
 
   return <SiteCtx.Provider value={value}>{children}</SiteCtx.Provider>
 }
