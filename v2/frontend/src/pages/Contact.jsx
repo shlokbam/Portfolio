@@ -151,7 +151,7 @@ export default function Contact() {
               </div>
               <div>
                 <div className="mono" style={{ color: "var(--muted)" }}>Local time</div>
-                <div className="disp" style={{ fontSize: "42px", marginTop: "10px" }}>{clock}</div>
+                <div className="disp" style={{ fontSize: "42px", marginTop: "10px" }} suppressHydrationWarning>{clock}</div>
                 <div style={{ color: "var(--muted)", fontSize: "14px", marginTop: "6px" }}>Pune, Maharashtra · open to relocate</div>
               </div>
             </div>

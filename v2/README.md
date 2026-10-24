@@ -59,3 +59,9 @@ npm run dev        # http://localhost:5173
   the same reveals and progress bars in Safari and Firefox.
 - Render's free tier sleeps when idle, so the first stats/chat request after a while can take ~30 s.
   The site still renders immediately; live numbers and chat fill in once the API wakes.
+- Pages show optimized WebP copies from `public/static/opt/` (made with `cwebp -q 80`, max 1600 px).
+  The originals in `public/static/` are untouched and are what download links open. If you add or
+  replace an image, regenerate its copy: `cwebp -q 80 -m 6 in.jpeg -o public/static/opt/<same path>.webp`.
+- The site pings `/api/health` on load so a sleeping Render instance starts waking early; stats retry
+  once, and chat waits up to 65 s and says "Waking up the assistant" if it's slow.
+- Indovate's repository isn't public, so the Work page shows "Private repo" instead of a dead link.

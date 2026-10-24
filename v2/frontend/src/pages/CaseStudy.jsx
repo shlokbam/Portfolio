@@ -106,7 +106,7 @@ export default function CaseStudy() {
               <svg className="flow" width="35" height="8" viewBox="0 0 35 8" preserveAspectRatio="none" style={{ position: "absolute", left: "236px", top: "84px", width: "35px", height: "8px", overflow: "visible", fill: "none", stroke: "var(--muted)", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", strokeDasharray: "6 6" }}>
                 <defs>
                   <marker id="dc-arrow-head-filled-1" orient="auto" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible">
-                    <path d="M0 0 L4 2 L0 4 Z" fill="#A19D92" stroke="none" style={{ stroke: "none", fill: "#A19D92", fill: "context-stroke" }} />
+                    <path d="M0 0 L4 2 L0 4 Z" fill="#A19D92" stroke="none" style={{ stroke: "none", fill: "var(--muted)" }} />
                   </marker>
                 </defs>
                 <path d="M 0 4 L 31 4" markerEnd="url(#dc-arrow-head-filled-1)" />
@@ -114,7 +114,7 @@ export default function CaseStudy() {
               <svg className="flow" width="35" height="8" viewBox="0 0 35 8" preserveAspectRatio="none" style={{ position: "absolute", left: "236px", top: "220px", width: "35px", height: "8px", overflow: "visible", fill: "none", stroke: "var(--muted)", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", strokeDasharray: "6 6" }}>
                 <defs>
                   <marker id="dc-arrow-head-filled-2" orient="auto" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible">
-                    <path d="M0 0 L4 2 L0 4 Z" fill="#A19D92" stroke="none" style={{ stroke: "none", fill: "#A19D92", fill: "context-stroke" }} />
+                    <path d="M0 0 L4 2 L0 4 Z" fill="#A19D92" stroke="none" style={{ stroke: "none", fill: "var(--muted)" }} />
                   </marker>
                 </defs>
                 <path d="M 0 4 L 31 4" markerEnd="url(#dc-arrow-head-filled-2)" />
@@ -122,7 +122,7 @@ export default function CaseStudy() {
               <svg className="flow" width="35" height="8" viewBox="0 0 35 8" preserveAspectRatio="none" style={{ position: "absolute", left: "236px", top: "356px", width: "35px", height: "8px", overflow: "visible", fill: "none", stroke: "var(--muted)", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", strokeDasharray: "6 6" }}>
                 <defs>
                   <marker id="dc-arrow-head-filled-3" orient="auto" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible">
-                    <path d="M0 0 L4 2 L0 4 Z" fill="#A19D92" stroke="none" style={{ stroke: "none", fill: "#A19D92", fill: "context-stroke" }} />
+                    <path d="M0 0 L4 2 L0 4 Z" fill="#A19D92" stroke="none" style={{ stroke: "none", fill: "var(--muted)" }} />
                   </marker>
                 </defs>
                 <path d="M 0 4 L 31 4" markerEnd="url(#dc-arrow-head-filled-3)" />
@@ -142,7 +142,7 @@ export default function CaseStudy() {
               <svg className="flow" width="35" height="8" viewBox="0 0 35 8" preserveAspectRatio="none" style={{ position: "absolute", left: "484px", top: "220px", width: "35px", height: "8px", overflow: "visible", fill: "none", stroke: "var(--muted)", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", strokeDasharray: "6 6" }}>
                 <defs>
                   <marker id="dc-arrow-head-filled-4" orient="auto" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible">
-                    <path d="M0 0 L4 2 L0 4 Z" fill="#A19D92" stroke="none" style={{ stroke: "none", fill: "#A19D92", fill: "context-stroke" }} />
+                    <path d="M0 0 L4 2 L0 4 Z" fill="#A19D92" stroke="none" style={{ stroke: "none", fill: "var(--muted)" }} />
                   </marker>
                 </defs>
                 <path d="M 0 4 L 31 4" markerEnd="url(#dc-arrow-head-filled-4)" />

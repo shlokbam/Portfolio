@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <Layout page="home" vtab="(00) — Index · Menu" chat footerStyle="padding: 56px 0 36px">
       <section id="top" className="dots" style={{ position: "relative", overflow: "hidden", paddingTop: "148px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
-        <div aria-hidden="true" style={{ position: "absolute", inset: "0", pointerEvents: "none", background: "radial-gradient(560px circle at var(--cx, 72%) var(--cy, 30%), color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%)" }} />
+        <div aria-hidden="true" data-glow style={{ position: "absolute", inset: "0", pointerEvents: "none", background: "radial-gradient(560px circle at var(--cx, 72%) var(--cy, 30%), color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%)" }} />
         <div aria-hidden="true" style={{ position: "absolute", inset: "0", pointerEvents: "none" }}>
           {meteors.map((m, m_i) => (
             <span key={m_i} className="meteor" style={css(m)} />

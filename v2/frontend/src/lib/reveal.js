@@ -3,9 +3,12 @@
 // adds .in to elements as they enter the viewport and drives the progress bars.
 const SELECTOR = '.rv, .orbit-in, .lit, .count, .railfill'
 
+let started = false
+
 export function startReveal() {
   const html = document.documentElement
-  if (!html.classList.contains('no-sda')) return
+  if (started || !html.classList.contains('no-sda')) return
+  started = true
   // Elements waiting to be revealed. A position check (rather than IntersectionObserver)
   // also catches elements jumped past via anchors and the zero-height timeline rail.
   const pending = new Set()

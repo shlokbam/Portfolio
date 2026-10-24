@@ -67,7 +67,7 @@ export default function Recognition() {
               <article key={p_i} className="stack-card" style={css(p.stick)}>
                 <div className="shrink g-patent" style={{ border: "1px solid var(--line)", borderRadius: "28px", background: "var(--surface)", padding: "26px", boxShadow: "0 -16px 50px rgba(0,0,0,.22)" }}>
                   <div style={{ borderRadius: "18px", background: "var(--surface2)", minHeight: "420px", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
-                    <img loading="lazy" decoding="async" src={p.img} alt={p.alt} style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "contain", borderRadius: "8px", display: "block" }} />
+                    <img loading={p_i === 0 ? "eager" : "lazy"} fetchpriority={p_i === 0 ? "high" : undefined} decoding="async" src={p.img} alt={p.alt} style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "contain", borderRadius: "8px", display: "block" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", padding: "6px 4px" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "16px" }}>

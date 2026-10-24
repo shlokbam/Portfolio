@@ -3,24 +3,24 @@ import { api } from './api'
 
 const SiteCtx = createContext(null)
 
-const DARK = { bg: '#0B0B0A', surface: '#131311', surface2: '#1B1B18', line: '#272622', text: '#F2EFE7', muted: '#A19D92', muted2: '#6E6A61', dot: '#242320', accent: '#FF5A1F', onaccent: '#0B0B0A', accentInk: '#C2410C' }
-const LIGHT = { bg: '#F2EFE7', surface: '#E9E5DA', surface2: '#DFDACD', line: '#D2CCBD', text: '#11110F', muted: '#5B584F', muted2: '#A8A397', dot: '#D6D0C2', accent: '#B93A0B', onaccent: '#FFFFFF', accentInk: '#FF5A1F' }
+// Colour tokens live in styles/global.css (keyed by html[data-theme]) so prerendered HTML
+// is identical for both themes; only the page background colour is needed here.
+const BG = { dark: '#0B0B0A', light: '#F2EFE7' }
 
 const CHAT_FAIL = "Sorry — I couldn't reach my brain just now. Please try again in a moment, or email Shlok at shlokbam19103@gmail.com."
 
 export function SiteProvider({ children }) {
-  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme === 'light' ? 'light' : 'dark')
-  const t = theme === 'dark' ? DARK : LIGHT
+  const [theme, setTheme] = useState(() => (typeof document !== 'undefined' && document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'))
 
   useEffect(() => {
     const d = document.documentElement
     d.dataset.theme = theme
-    d.style.background = t.bg
+    d.style.background = BG[theme]
     d.style.colorScheme = theme
     const meta = document.querySelector('meta[name="theme-color"]')
-    if (meta) meta.setAttribute('content', t.bg)
+    if (meta) meta.setAttribute('content', BG[theme])
     try { localStorage.setItem('sb-theme', theme) } catch (e) { /* storage blocked */ }
-  }, [theme, t.bg])
+  }, [theme])
 
   const toggleTheme = useCallback(() => setTheme((x) => (x === 'dark' ? 'light' : 'dark')), [])
 
@@ -74,10 +74,10 @@ export function SiteProvider({ children }) {
   }, [])
 
   const value = useMemo(() => ({
-    theme, t, isDark: theme === 'dark', isLight: theme !== 'dark', toggleTheme,
+    theme, toggleTheme,
     msgs, busy, slow, send, clearChat,
     stats, loadStats, avail, loadAvail
-  }), [theme, t, toggleTheme, msgs, busy, slow, send, clearChat, stats, loadStats, avail, loadAvail])
+  }), [theme, toggleTheme, msgs, busy, slow, send, clearChat, stats, loadStats, avail, loadAvail])
 
   return <SiteCtx.Provider value={value}>{children}</SiteCtx.Provider>
 }

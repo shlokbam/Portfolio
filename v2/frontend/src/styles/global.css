@@ -20,7 +20,7 @@ html.no-sda .rv { opacity: 0; transform: translateY(32px); transition: opacity .
 html.no-sda .rv.in { opacity: 1; transform: none; }
 html.no-sda .orbit-in { opacity: 0; transform: scale(.9); transition: opacity 1.2s cubic-bezier(.16,1,.3,1), transform 1.2s cubic-bezier(.16,1,.3,1); }
 html.no-sda .orbit-in.in { opacity: 1; transform: none; }
-html.no-sda .lit { opacity: .32; transition: opacity .7s ease; }
+html.no-sda .lit { opacity: .7; transition: opacity .7s ease; }
 html.no-sda .lit.in { opacity: 1; }
 html.no-sda .count { animation-play-state: paused; }
 html.no-sda .count.in { animation-play-state: running; }
@@ -53,3 +53,16 @@ html.no-sda .prog, html.no-sda .hs-prog { opacity: 1; transform-origin: left; tr
   .menu .mlink { grid-template-columns: 32px minmax(0, 1fr) !important; gap: 12px !important; }
   .menu .mname { font-size: clamp(28px, 9vw, 72px) !important; }
 }
+
+/* ---- Theme tokens (dark default; html[data-theme="light"] set before first paint by index.html) */
+.sb {
+  --bg: #0B0B0A; --surface: #131311; --surface2: #1B1B18; --line: #272622; --text: #F2EFE7;
+  --muted: #A19D92; --muted2: #6E6A61; --dot: #242320; --accent: #FF5A1F; --onaccent: #0B0B0A; --accent-ink: #C2410C;
+  background: var(--bg); color: var(--text); overflow-x: clip;
+}
+html[data-theme="light"] .sb {
+  --bg: #F2EFE7; --surface: #E9E5DA; --surface2: #DFDACD; --line: #D2CCBD; --text: #11110F;
+  --muted: #5B584F; --muted2: #A8A397; --dot: #D6D0C2; --accent: #B93A0B; --onaccent: #FFFFFF; --accent-ink: #FF5A1F;
+}
+html[data-theme="light"] .ic-sun, html:not([data-theme="light"]) .ic-moon { display: none; }
+

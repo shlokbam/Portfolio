@@ -1,11 +1,13 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
-import { startReveal } from './lib/reveal'
+import './styles/fonts.css'
+import 'lenis/dist/lenis.css'
 import './styles/global.css'
 
-createRoot(document.getElementById('root')).render(
+const root = document.getElementById('root')
+const app = (
   <StrictMode>
     <BrowserRouter>
       <App />
@@ -13,4 +15,6 @@ createRoot(document.getElementById('root')).render(
   </StrictMode>
 )
 
-startReveal()
+// Production pages are prerendered (scripts/prerender.mjs) and hydrated; dev renders from scratch.
+if (root.hasChildNodes()) hydrateRoot(root, app)
+else createRoot(root).render(app)

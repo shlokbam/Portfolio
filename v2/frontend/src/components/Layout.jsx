@@ -5,6 +5,7 @@ import { useSite } from '../lib/site'
 import { css } from '../lib/css'
 import { RESUME } from '../lib/links'
 import { useIstClock } from '../lib/clock'
+import { lockScroll, unlockScroll } from '../lib/smooth'
 
 const PAGES = [
   ['00', 'Home', '/', 'Index', 'home'],
@@ -20,26 +21,35 @@ const PAGES = [
 const GREETING = "Hi! Ask me about Shlok's projects, patents, VIT Pune record or how to reach him."
 
 export default function Layout({ page, vtab, curtain, chat, greeting = GREETING, footerStyle, back, children }) {
-  const { t, isDark, isLight, toggleTheme } = useSite()
+  const { toggleTheme } = useSite()
   const [menuOpen, setMenuOpen] = useState(false)
   const clock = useIstClock()
   const root = useRef(null)
 
   useEffect(() => {
     if (!menuOpen) return
-    const html = document.documentElement
-    const prev = html.style.overflow
-    html.style.overflow = 'hidden'
+    lockScroll()
     const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false) }
     window.addEventListener('keydown', onKey)
-    return () => { html.style.overflow = prev; window.removeEventListener('keydown', onKey) }
+    return () => { unlockScroll(); window.removeEventListener('keydown', onKey) }
   }, [menuOpen])
 
+  // Mouse-follow glow: write the position only to [data-glow] elements, once per frame.
+  // (Setting it on the page root made every element recalculate styles on each mouse move.)
+  const raf = useRef(0)
   const onMove = useCallback((e) => {
-    if (!root.current) return
-    root.current.style.setProperty('--cx', e.clientX + 'px')
-    root.current.style.setProperty('--cy', e.clientY + 'px')
+    const x = e.clientX, y = e.clientY
+    if (raf.current) return
+    raf.current = requestAnimationFrame(() => {
+      raf.current = 0
+      if (!root.current) return
+      root.current.querySelectorAll('[data-glow]').forEach((el) => {
+        el.style.setProperty('--cx', x + 'px')
+        el.style.setProperty('--cy', y + 'px')
+      })
+    })
   }, [])
+  useEffect(() => () => cancelAnimationFrame(raf.current), [])
 
   const openMenu = () => setMenuOpen(true)
   const closeMenu = () => setMenuOpen(false)
@@ -48,15 +58,9 @@ export default function Layout({ page, vtab, curtain, chat, greeting = GREETING,
     n, name, file, desc, style: '--i: ' + i + ((current === key || (page === 'casestudy' && key === 'work')) ? '; color: var(--accent)' : '')
   }))
 
-  const tokens = {
-    '--bg': t.bg, '--surface': t.surface, '--surface2': t.surface2, '--line': t.line, '--text': t.text,
-    '--muted': t.muted, '--muted2': t.muted2, '--dot': t.dot, '--accent': t.accent, '--onaccent': t.onaccent, '--accent-ink': t.accentInk,
-    background: 'var(--bg)', color: 'var(--text)', overflowX: 'clip'
-  }
-
   return (
     <div className={'pg-' + page}>
-      <div className="sb" ref={root} onMouseMove={onMove} style={tokens}>
+      <div className="sb" ref={root} onMouseMove={onMove}>
         <a className="skip mono" href="#main">Skip to content</a>
         <div className="prog" style={{ position: 'fixed', top: '0', left: '0', right: '0', height: '2px', background: 'var(--accent)', zIndex: '80' }} />
         {curtain && <div className="curtain" aria-hidden="true"><div className="ct mono">{curtain}</div></div>}
@@ -69,7 +73,7 @@ export default function Layout({ page, vtab, curtain, chat, greeting = GREETING,
               : (
                 <span className="mono hide-lg" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', color: 'var(--muted)' }}>
                   <span className="pulse" style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#2fd47a', color: '#2fd47a' }} />
-                  Open to opportunities · Pune, IN · {clock} IST
+                  Open to opportunities · Pune, IN · <span suppressHydrationWarning>{clock}</span> IST
                 </span>
               )}
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
@@ -77,16 +81,13 @@ export default function Layout({ page, vtab, curtain, chat, greeting = GREETING,
                 Résumé{' '}
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M12 4v13M6 11l6 6 6-6M5 20h14" /></svg>
               </A>
-              <button type="button" className="pill" onClick={toggleTheme} aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'} style={{ width: '44px', height: '44px', borderRadius: '50%', border: '1px solid var(--line)', background: 'transparent', color: 'var(--text)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-                {isDark && (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-                    <circle cx="12" cy="12" r="4.5" />
-                    <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" />
-                  </svg>
-                )}
-                {isLight && (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" /></svg>
-                )}
+              <button type="button" className="pill" onClick={toggleTheme} aria-label="Toggle colour theme" style={{ width: '44px', height: '44px', borderRadius: '50%', border: '1px solid var(--line)', background: 'transparent', color: 'var(--text)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                {/* both icons render; CSS shows the one for the current theme */}
+                <svg className="ic-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+                  <circle cx="12" cy="12" r="4.5" />
+                  <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" />
+                </svg>
+                <svg className="ic-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" /></svg>
               </button>
               <button type="button" className="pill mono" onClick={openMenu} aria-haspopup="dialog" aria-expanded={menuOpen} style={{ height: '44px', padding: '0 18px', borderRadius: '999px', border: '1px solid var(--text)', background: 'var(--text)', color: 'var(--bg)', display: 'inline-flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
                 Menu{' '}

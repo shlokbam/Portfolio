@@ -69,9 +69,9 @@ export default function Community() {
         <div className="wrap" style={{ display: "flex", flexDirection: "column", gap: "112px" }}>
           {stories.map((s, s_i) => (
             <article key={s_i} className={s.cls}>
-              <button type="button" className="simg rv" onClick={s.open} aria-label="Enlarge photo" style={{ display: "block", padding: "0", border: "none", background: "var(--surface)", borderRadius: "26px", overflow: "hidden", aspectRatio: "5 / 4", cursor: "zoom-in", position: "relative" }}>
+              <button type="button" className="simg rv" onClick={s.open} aria-label={s.year + " — enlarge photo"} style={{ display: "block", padding: "0", border: "none", background: "var(--surface)", borderRadius: "26px", overflow: "hidden", aspectRatio: "5 / 4", cursor: "zoom-in", position: "relative" }}>
                 <span className="pic gray" style={{ display: "block", width: "100%", height: "100%" }}>
-                  <img loading="lazy" decoding="async" className="para" src={s.img} alt={s.alt} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                  <img loading={s_i === 0 ? "eager" : "lazy"} fetchpriority={s_i === 0 ? "high" : undefined} decoding="async" className="para" src={s.img} alt={s.alt} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                 </span>
                 {" "}
                 <span className="mono" style={{ position: "absolute", left: "16px", top: "16px", background: "var(--bg)", color: "var(--text)", padding: "8px 12px", borderRadius: "999px" }}>{s.year}</span>

@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
+import { scrollToTop } from '../lib/smooth'
 
 // One anchor for every link in the mockup markup:
 // internal routes use the router, "#top" scrolls smoothly, files and external sites open in a new tab.
 export default function A({ href = '', children, onClick, ...rest }) {
   if (href === '#top') {
-    const top = (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); onClick && onClick(e) }
+    const top = (e) => { e.preventDefault(); scrollToTop(); onClick && onClick(e) }
     return <a href="#top" onClick={top} {...rest}>{children}</a>
   }
   if (href.startsWith('/') && !href.startsWith('/static/')) {

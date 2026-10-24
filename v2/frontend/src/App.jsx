@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { SiteProvider } from './lib/site'
+import { pageMeta } from './seo'
+import { startSmooth, scrollToTop, scrollToEl } from './lib/smooth'
+import { startReveal } from './lib/reveal'
 import Home from './pages/Home'
 import About from './pages/About'
 import Work from './pages/Work'
@@ -12,28 +15,42 @@ import Writing from './pages/Writing'
 import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
 
-const TITLES = {
-  '/': 'Shlok Bam — AI & Full-Stack Engineer',
-  '/about': 'About — Shlok Bam',
-  '/work': 'Work — Shlok Bam',
-  '/work/dailydiff': 'DailyDiff case study — Shlok Bam',
-  '/journey': 'Journey — Shlok Bam',
-  '/recognition': 'Recognition — Shlok Bam',
-  '/community': 'Community — Shlok Bam',
-  '/writing': 'Writing — Shlok Bam',
-  '/contact': 'Contact — Shlok Bam'
+function setMeta(selector, attr, value) {
+  const el = document.head.querySelector(selector)
+  if (el) el.setAttribute(attr, value)
 }
 
+// Keep <head> in step with in-app navigation (the prerendered HTML already has it for first load).
 function RouteEffects() {
   const { pathname, hash } = useLocation()
   useEffect(() => {
-    document.title = TITLES[pathname] || 'Shlok Bam'
-    if (hash) {
-      const el = document.getElementById(hash.slice(1))
-      if (el) { el.scrollIntoView(); return }
+    const meta = pageMeta(pathname)
+    document.title = meta.title
+    setMeta('meta[name="description"]', 'content', meta.description)
+    setMeta('meta[property="og:title"]', 'content', meta.title)
+    setMeta('meta[property="og:description"]', 'content', meta.description)
+    setMeta('meta[name="twitter:title"]', 'content', meta.title)
+    setMeta('meta[name="twitter:description"]', 'content', meta.description)
+    const canon = document.head.querySelector('link[rel="canonical"]')
+    if (canon) {
+      const url = new URL(canon.href).origin + (pathname === '/' ? '/' : pathname)
+      canon.href = url
+      setMeta('meta[property="og:url"]', 'content', url)
     }
-    window.scrollTo(0, 0)
+  }, [pathname])
+  useEffect(() => {
+    if (hash) {
+      const el = document.getElementById(decodeURIComponent(hash.slice(1)))
+      if (el) { scrollToEl(el, { immediate: true }); return }
+    }
+    scrollToTop({ immediate: true })
   }, [pathname, hash])
+  return null
+}
+
+function ClientEffects() {
+  // after hydration: smooth scrolling and the scroll-reveal fallback for Safari/Firefox
+  useEffect(() => { startSmooth(); startReveal() }, [])
   return null
 }
 
@@ -41,6 +58,7 @@ export default function App() {
   return (
     <SiteProvider>
       <RouteEffects />
+      <ClientEffects />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
