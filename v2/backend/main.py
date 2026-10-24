@@ -25,7 +25,7 @@ from typing import Deque, Dict, List, Optional
 import httpx
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse, Response
 from pydantic import BaseModel, Field
 
 from knowledge import SYSTEM_PROMPT
@@ -402,6 +402,50 @@ async def health():
     return {'ok': True}
 
 
-@app.get('/')
+# ---------------------------------------------------------------- old v1 address -> v2 site
+# This service also answers on the address the v1 portfolio lived at. Anyone opening an old
+# link is sent (301) to the same place on the new site, and the v1 service worker that cached
+# the old pages in returning visitors' browsers is replaced by one that removes itself.
+
+SITE_URL = os.getenv('SITE_URL', 'https://shlokbam.in').rstrip('/')
+V2_PAGES = {'about', 'work', 'work/dailydiff', 'journey', 'recognition', 'community', 'writing', 'contact'}
+V1_MOVED = {
+    'download-resume': '/static/Resume/Shlok_Bam_Resume.pdf',
+    'static/Resume/Shlok_Bam_VIT.pdf': '/static/Resume/Shlok_Bam_Resume.pdf',
+}
+KILL_SW = """// Retired v1 service worker: clear its caches, unregister, reload into the new site.
+self.addEventListener('install', () => self.skipWaiting());
+self.addEventListener('activate', (event) => event.waitUntil((async () => {
+  for (const key of await caches.keys()) await caches.delete(key);
+  await self.registration.unregister();
+  for (const client of await self.clients.matchAll({ type: 'window' })) client.navigate(client.url);
+})()));
+"""
+
+
+@app.get('/service-worker.js')
+async def retired_service_worker():
+    return Response(KILL_SW, media_type='application/javascript', headers={'Cache-Control': 'no-cache, no-store'})
+
+
+def _to_site(path: str) -> str:
+    path = path.strip('/')
+    if path in V1_MOVED:
+        return SITE_URL + V1_MOVED[path]
+    if path.startswith(('certifications/', 'hackathons/')):
+        return SITE_URL + '/recognition'
+    if path in V2_PAGES or path.startswith('static/'):
+        return SITE_URL + '/' + path
+    return SITE_URL + '/'
+
+
+@app.api_route('/', methods=['GET', 'HEAD'])
 async def root():
-    return {'service': 'shlokbam portfolio api', 'ok': True}
+    return RedirectResponse(SITE_URL + '/', status_code=301)
+
+
+@app.api_route('/{path:path}', methods=['GET', 'HEAD'])
+async def old_links(path: str):
+    if path.startswith('api/'):
+        return JSONResponse({'detail': 'Not Found'}, status_code=404)
+    return RedirectResponse(_to_site(path), status_code=301)

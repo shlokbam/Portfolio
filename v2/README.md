@@ -32,6 +32,9 @@ npm run dev        # http://localhost:5173
 
 ## Deploy
 
+Step-by-step launch guide (Render + Vercel + the GoDaddy domain, and moving the old link): **[DEPLOY.md](DEPLOY.md)**.
+
+
 **Backend → Render** (Web Service)
 - Root directory: `v2/backend`
 - Build: `pip install -r requirements.txt`
@@ -47,7 +50,7 @@ npm run dev        # http://localhost:5173
 - Root directory: `v2/frontend` (framework preset: Vite)
 - Env vars: `VITE_API_URL` = the Render URL (e.g. `https://shlokbam-portfolio-api.onrender.com`),
   `VITE_WEB3FORMS_KEY` = the Web3Forms access key (public by design; same one v1 used),
-  `SITE_URL` = the public address of the site (e.g. `https://shlokbam.com`) — used for canonical
+  `SITE_URL` = the public address of the site (`https://shlokbam.in`) — used for canonical
   links, the sitemap and social previews. Default: `https://shlokbam.in`.
 - `npm run build` builds the app, renders every page to static HTML (`scripts/prerender.mjs`) and
   writes `sitemap.xml`, `robots.txt` and a real `404.html`. `vercel.json` sets clean URLs and caching.
@@ -107,3 +110,9 @@ prefers reduced motion. Readable overlays sit in the empty strip above each page
   loaded only when the section scrolls into view). Pills are real buttons; the server renders them as
   a plain list. Edit `SKILLS` to change them — the "used in" projects are matched from `data/projects.js`.
 - The "Built to run" section in `pages/Home.jsx` is commented out; remove the comment wrapper to restore it.
+
+## Analytics, icon, old address
+- Google Analytics (`G-8BD4MSYPM6`, same property as v1) is in `frontend/index.html`; it is skipped on localhost.
+- Site icon: `public/icon.svg` (the orbit mark), with PNG/ICO copies and a maskable icon for Android.
+- The API also answers on the old v1 address: non-API paths 301 to `SITE_URL`, and `/service-worker.js`
+  replaces v1's caching service worker with one that removes itself.

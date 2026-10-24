@@ -28,6 +28,22 @@
         if (!(window.CSS && CSS.supports && CSS.supports('animation-timeline: view()'))) d.classList.add('no-sda');
       })();
     </script>
+    <!-- Google tag (gtag.js), same property as v1. Skipped on localhost so local testing doesn't count.
+         In-app navigation is recorded by GA4's "page changes based on browser history events". -->
+    <script>
+      (function () {
+        var id = 'G-8BD4MSYPM6', h = location.hostname;
+        if (h === 'localhost' || h === '127.0.0.1') return;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { dataLayer.push(arguments); };
+        gtag('js', new Date());
+        gtag('config', id, { anonymize_ip: true });
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+        document.head.appendChild(s);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -17,3 +17,5 @@ services:
         sync: false
       - key: ALLOWED_ORIGINS
         value: https://shlokbam.in,https://www.shlokbam.in
+      - key: SITE_URL
+        value: https://shlokbam.in

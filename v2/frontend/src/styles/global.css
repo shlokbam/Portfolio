@@ -33,13 +33,12 @@ html.no-sda .prog, html.no-sda .hs-prog { opacity: 1; transform-origin: left; tr
   .skip { transition: none; }
 }
 
-/* Phones: the oversized "next page" / "Let's talk" rows must fit the screen. */
+/* Phones: the oversized "next page" row must fit the screen. */
 @media (max-width: 700px) {
   .next .nt { font-size: clamp(24px, 7vw, 40px) !important; }
-  .next .narr, .talk .tarr { width: 46px !important; height: 46px !important; }
+  .next .narr { width: 46px !important; height: 46px !important; }
   .next .narr svg { width: 20px; height: 20px; }
-  .next .narr svg, .talk .tarr svg { width: 24px; height: 24px; }
-  .talk .disp { font-size: clamp(40px, 12vw, 64px) !important; }
+  .next .narr svg { width: 20px; height: 20px; }
 }
 
 /* Shared chrome (menu résumé button) on pages whose own stylesheet never defined these.

@@ -58,14 +58,15 @@ export default function AskAI() {
     seen.current = chat.length
     const m = chat[i]
     if (m.who !== 'b' || matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    let n = 0, raf = 0
-    const step = () => {
-      n = Math.min(m.text.length, n + Math.max(2, Math.ceil(m.text.length / 90)))
+    // time-based, so it catches up if the tab was in the background
+    const len = m.text.length, dur = Math.min(1800, len * 12), t0 = performance.now()
+    const id = setInterval(() => {
+      const n = Math.ceil(len * Math.min(1, (performance.now() - t0) / dur))
       setShown((s) => ({ ...s, [i]: n }))
-      if (n < m.text.length) raf = requestAnimationFrame(step)
-    }
-    raf = requestAnimationFrame(step)
-    return () => { cancelAnimationFrame(raf); setShown((s) => ({ ...s, [i]: m.text.length })) }
+      if (n >= len) clearInterval(id)
+    }, 30)
+    setShown((s) => ({ ...s, [i]: 0 }))
+    return () => { clearInterval(id); setShown((s) => ({ ...s, [i]: len })) }
   }, [chat])
 
   const ask = (e) => {

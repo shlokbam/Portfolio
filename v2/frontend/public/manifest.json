@@ -1,14 +1,27 @@
 {
-  "name": "Shlok Bam — AI & Full-Stack Engineer",
-  "short_name": "Shlok Bam",
-  "description": "Portfolio of Shlok Bam — agentic AI, RAG pipelines and full-stack products.",
+  "name": "Shlok Bam — Portfolio",
+  "short_name": "Portfolio",
+  "description": "Portfolio of Shlok Bam — AI / Generative AI engineer building agentic and LLM-powered systems.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0B0B0A",
   "theme_color": "#0B0B0A",
   "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
