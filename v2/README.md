@@ -1,6 +1,7 @@
-# Portfolio v2 — React + FastAPI
+# Portfolio v2 — developer notes
 
-The corporate redesign of the portfolio. v1 (Flask, repo root) is untouched.
+The project overview lives in the [repo README](../README.md). This file is the working detail.
+v1 (Flask) was removed from the working tree; it is still in git history.
 
 ```
 v2/
@@ -31,9 +32,6 @@ npm run dev        # http://localhost:5173
 ```
 
 ## Deploy
-
-Step-by-step launch guide (Render + Vercel + the GoDaddy domain, and moving the old link): **[DEPLOY.md](DEPLOY.md)**.
-
 
 **Backend → Render** (Web Service)
 - Root directory: `v2/backend`
@@ -97,7 +95,7 @@ scenes in `src/lib/scenes/`):
 | Recognition | `cv` | 3×3 Sobel convolution scanning a pixel strip, then detections |
 | Community | `graph` | message passing over a k-NN graph |
 | Writing | `tokens` | next-token sampling with attention arcs |
-| Contact | `attention` | self-attention heatmap over what the visitor types |
+| Home · Ask my AI | `attention` | self-attention heatmap over what the visitor types |
 
 Scenes load lazily after the page is interactive, run at ~40 fps, pause when off-screen or in a
 background tab, read colours from the theme tokens, and draw a single still frame when the visitor
