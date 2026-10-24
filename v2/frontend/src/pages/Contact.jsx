@@ -1,5 +1,7 @@
+import { Fragment } from 'react'
 import Layout from '../components/Layout'
 import A from '../components/A'
+import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import { useEffect, useRef, useState } from 'react'
 import { useSite } from '../lib/site'
@@ -26,6 +28,8 @@ export default function Contact() {
   }, [chat.length, busy])
 
   const title = "LET'S TALK".split('').map((ch, i) => ({ ch: ch === ' ' ? '\u00a0' : ch, style: '--i: ' + i }))
+  // letters grouped by word, so a title only ever wraps between words
+  const words = title.reduce((ws, l, i) => { if (l.ch === '\u00a0') ws.push([]); else ws[ws.length - 1].push({ ...l, i }); return ws }, [[]])
   const TOPICS = [['full', 'Full-time role'], ['intern', 'Internship'], ['collab', 'Collaboration'], ['free', 'Freelance'], ['hi', 'Just saying hi']]
   const topics = TOPICS.map(([id, label]) => ({
     label, pressed: tp === id ? 'true' : 'false',
@@ -37,11 +41,12 @@ export default function Contact() {
   // Prepared answers are shown if the live assistant can't be reached.
   const qa = [
     ["What's his CGPA?", '9.01 CGPA through the sixth semester — B.Tech in Information Technology at Vishwakarma Institute of Technology, Pune.'],
-    ['Best projects?', 'His flagships are DailyDiff (agentic tech curation), ResearchOS (multi-agent research), Eagle LMS (industry-sponsored), PaisaWise (privacy-first finance) and PromptVault (prompt version control).'],
+    ['Best projects?', 'His flagships are DailyDiff (agentic tech curation), ResearchOS (multi-agent research), the Enterprise Workforce Training Platform (industry-sponsored), PaisaWise (privacy-first finance) and PromptVault (prompt version control).'],
     ['Patents?', 'Three as co-inventor: a YOLO wildlife-protection system (granted, CIPC South Africa), a fruit & vegetable quality classifier (filed, CIPC South Africa) and a TKPH tyre-health system (published, IPO India).'],
     ['Leadership?', 'Founding Chairperson of ITSA. Before that: Operations Head at Abhivriddhi, Chief Administrative at The Catalyst and Web Development Coordinator at CSI.'],
     ['How do I reach him?', 'Email shlokbam19103@gmail.com or call +91 79746 70370 (Mon–Fri, 9am–6pm IST). He is based in Pune and open to relocation.']
   ]
+  const lastAsked = (chat.filter((m) => m.who === 'u').pop() || {}).text || ''
   const asks = qa.map(([q, a]) => ({ q, ask: () => { if (!busy) send(q, a) } }))
   const msgs = chat.map((m) => ({
     text: m.text, bot: m.who === 'b',
@@ -112,12 +117,17 @@ export default function Contact() {
               Available for opportunity
             </span>
           </div>
-          <h1 className="disp" aria-label="Let's talk" style={{ margin: "24px 0 0", fontSize: "clamp(48px, 12vw, 176px)", fontStretch: "100%" }}>
+          <h1 className="disp" aria-label="Let's talk" style={{ margin: "24px 0 0", fontSize: "min(clamp(48px, 12vw, 176px), calc((100vw - 80px) / 3.21))", fontStretch: "100%" }}>
             <span className="mask">
-              {title.map((l, l_i) => (
-                <span key={l_i} className="ltr" aria-hidden="true" style={css(l.style)}>{l.ch}</span>
+              {words.map((wd, wi) => (
+                <Fragment key={wi}>
+                  {wi > 0 && ' '}
+                  <span style={{ whiteSpace: "nowrap" }}>
+                    {wd.map((l) => <span key={l.i} className="ltr" aria-hidden="true" style={css(l.style)}>{l.ch}</span>)}
+                    {wi === words.length - 1 && <span className="ltr" aria-hidden="true" style={{ "--i": "10", color: "var(--accent)" }}>.</span>}
+                  </span>
+                </Fragment>
               ))}
-              <span className="ltr" aria-hidden="true" style={{ "--i": "10", color: "var(--accent)" }}>.</span>
             </span>
           </h1>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "32px", flexWrap: "wrap", marginTop: "32px" }}>
@@ -189,7 +199,7 @@ export default function Contact() {
               <A className="srow" href={RESUME}>
                 <span style={{ fontSize: "24px", fontWeight: "700", letterSpacing: "-.02em" }}>Résumé</span>
                 <span style={{ display: "flex", gap: "18px", alignItems: "center" }}>
-                  <span className="mono hide-sm">Shlok_Bam_VIT.pdf</span>
+                  <span className="mono hide-sm">Shlok_Bam_Resume.pdf</span>
                   <svg className="sarr" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
                     <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
@@ -259,7 +269,8 @@ export default function Contact() {
           </form>
         </div>
       </section>
-      <section style={{ padding: "104px 0", borderBottom: "1px solid var(--line)", background: "var(--surface)" }}>
+      <section className="ai-host" style={{ padding: "104px 0", borderBottom: "1px solid var(--line)", background: "var(--surface)" }}>
+        <AIBackdrop kind="attention" text={q || lastAsked} style={{ height: "380px", bottom: "auto" }} />
         <div className="wrap">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <div>

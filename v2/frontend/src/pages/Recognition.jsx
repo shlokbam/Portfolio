@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
+import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import { file, opt } from '../lib/links'
 import './Recognition.css'
@@ -28,13 +29,14 @@ export default function Recognition() {
   return (
     <Layout page="recognition" vtab="(04) — Recognition · Menu" curtain="(04) Recognition" chat greeting="Ask me what each patent does, or which one was granted." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
+        <AIBackdrop kind="cv" />
         <div className="wrap">
           <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>(04) — Recognition</span>
             <span className="mono" style={{ color: "var(--muted)" }}>Shlok Bam / Portfolio 2026</span>
           </div>
-          <h1 className="disp" aria-label="Recognition" style={{ margin: "24px 0 0", fontSize: "clamp(40px, 10.2vw, 152px)", fontStretch: "100%" }}>
-            <span className="mask">
+          <h1 className="disp" aria-label="Recognition" style={{ margin: "24px 0 0", fontSize: "min(clamp(40px, 10.2vw, 152px), calc((100vw - 80px) / 7.5))", fontStretch: "100%" }}>
+            <span className="mask" style={{ whiteSpace: "nowrap" }}>
               {title.map((l, l_i) => (
                 <span key={l_i} className="ltr" aria-hidden="true" style={css(l.style)}>{l.ch}</span>
               ))}
@@ -121,9 +123,9 @@ export default function Recognition() {
                   <span>INDOvateAI Sprint</span>
                   <span>Mar 2025</span>
                 </div>
-                <h3 style={{ margin: "0", fontSize: "23px", letterSpacing: "-.015em" }}>Outstanding Performance Award</h3>
+                <h3 style={{ margin: "0", fontSize: "23px", letterSpacing: "-.015em" }}>Best Outstanding Project — Winner</h3>
                 <p style={{ margin: "0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.6" }}>
-                  Team pumpdotfun built IndoTrade — an AI stock assistant combining real-time data with intelligent insight, using Next.js, Flask and MySQL.
+                  Won among 200+ teams. Team pumpdotfun built IndoTrade — an AI stock assistant combining real-time data with intelligent insight, using Next.js, Flask and MySQL.
                 </p>
                 <div className="mono" style={{ marginTop: "auto", paddingTop: "14px", borderTop: "1px solid var(--line)", display: "flex", justifyContent: "space-between" }}>
                   <span style={{ color: "var(--accent)" }}>Winner</span>

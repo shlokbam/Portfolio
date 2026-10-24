@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
+import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import { useStats } from '../lib/site'
 import { RESUME, opt, thumb } from '../lib/links'
@@ -7,8 +8,6 @@ import './Home.css'
 
 export default function Home() {
   const stats = useStats()
-  const meteors = [[18, 1.5, 11], [46, 6, 13], [70, 3.5, 12], [88, 9, 14]]
-    .map(([l, d, s]) => 'left: ' + l + '%; top: -10px; animation-delay: ' + d + 's; animation-duration: ' + s + 's')
   const lc = (stats && stats.leetcode) || {}
   const cc = (stats && stats.codechef) || {}
   const gh = (stats && stats.github) || {}
@@ -36,11 +35,7 @@ export default function Home() {
     <Layout page="home" vtab="(00) — Index · Menu" chat footerStyle="padding: 56px 0 36px">
       <section id="top" className="dots" style={{ position: "relative", overflow: "hidden", paddingTop: "148px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
         <div aria-hidden="true" data-glow style={{ position: "absolute", inset: "0", pointerEvents: "none", background: "radial-gradient(560px circle at var(--cx, 72%) var(--cy, 30%), color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%)" }} />
-        <div aria-hidden="true" style={{ position: "absolute", inset: "0", pointerEvents: "none" }}>
-          {meteors.map((m, m_i) => (
-            <span key={m_i} className="meteor" style={css(m)} />
-          ))}
-        </div>
+        <AIBackdrop kind="nn" />
         <div className="wrap" style={{ position: "relative" }}>
           <div className="fade" style={{ "--d": ".2s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>(00) — Index</span>
@@ -58,9 +53,9 @@ export default function Home() {
           <div className="g-hero" style={{ marginTop: "40px" }}>
             <div>
               <p className="fade" style={{ "--d": ".55s", margin: "0", maxWidth: "780px", fontSize: "clamp(22px, 2.2vw, 31px)", lineHeight: "1.3", letterSpacing: "-.01em" }}>
-                AI &amp; full-stack engineer. I build{" "}
-                <span style={{ color: "var(--accent)" }}>agentic AI systems</span>
-                , RAG pipelines and the products around them — currently as an intern at PharmaACE Innovations.
+                AI / Generative AI engineer. I ship{" "}
+                <span style={{ color: "var(--accent)" }}>agentic and LLM-powered systems</span>
+                {" "}to production — from multi-agent pipelines to LLM-as-judge evals — currently as an intern at PharmaACE Innovations.
               </p>
               <div className="fade" style={{ "--d": ".7s", display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "34px" }}>
                 <A className="btn mono" href={RESUME} style={{ background: "var(--accent)", color: "var(--onaccent)", fontWeight: "500" }}>
@@ -109,7 +104,7 @@ export default function Home() {
             </div>
             <div style={{ padding: "20px 20px 0", borderLeft: "1px solid var(--line)" }}>
               <div className="mono" style={{ color: "var(--muted)" }}>Focus</div>
-              <div style={{ marginTop: "8px", fontSize: "17px", fontWeight: "600" }}>Agentic AI · RAG · Full-stack</div>
+              <div style={{ marginTop: "8px", fontSize: "17px", fontWeight: "600" }}>Agentic AI · LLM evals · RAG</div>
             </div>
             <div style={{ padding: "20px 0 0 20px", borderLeft: "1px solid var(--line)" }}>
               <div className="mono" style={{ color: "var(--muted)" }}>Based</div>
@@ -235,7 +230,7 @@ export default function Home() {
               </div>
               <div className="disp" style={{ fontSize: "clamp(38px, 3.1vw, 52px)" }}>DailyDiff</div>
               <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "16px", lineHeight: "1.55" }}>
-                Autonomous multi-agent tech curation — LangGraph scouts GitHub, Hacker News and Dev.to, writes ELI5 briefs and emails them out.
+                A live LangGraph pipeline over 7 sources that emails a fact-checked tech brief three times a week — 185 briefs across 42 editions so far.
               </p>
               <div className="mono" style={{ marginTop: "22px", display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>
                 <span>LangGraph · FastAPI · React</span>
@@ -286,12 +281,12 @@ export default function Home() {
                   <circle cx="110" cy="110" r="10" fill="var(--accent)" />
                 </svg>
               </div>
-              <div className="disp" style={{ fontSize: "clamp(38px, 3.1vw, 52px)" }}>Eagle LMS</div>
+              <div className="disp" style={{ fontSize: "clamp(30px, 2.3vw, 38px)", lineHeight: ".9" }}>Enterprise Workforce Training Platform</div>
               <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "16px", lineHeight: "1.55" }}>
-                Industry-sponsored learning platform — FastAPI, dual dashboards, an Expo mobile app and a containerised pipeline.
+                Industry-sponsored LMS — role-based trainer and trainee dashboards, per-trainee watermarking, a React Native app and Jenkins CI/CD.
               </p>
               <div className="mono" style={{ marginTop: "22px", display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>
-                <span>FastAPI · React Native · Jenkins</span>
+                <span>FastAPI · React · Terraform</span>
                 <span style={{ color: "var(--accent)" }}>Explore →</span>
               </div>
             </A>

@@ -1,5 +1,7 @@
+import { Fragment } from 'react'
 import Layout from '../components/Layout'
 import A from '../components/A'
+import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import { opt, thumb } from '../lib/links'
 import { useEffect, useRef, useState } from 'react'
@@ -19,6 +21,8 @@ export default function Community() {
     return () => io.disconnect()
   }, [])
   const title = 'BEYOND CODE'.split('').map((ch, i) => ({ ch: ch === ' ' ? '\u00a0' : ch, style: '--i: ' + i }))
+  // letters grouped by word, so a title only ever wraps between words
+  const words = title.reduce((ws, l, i) => { if (l.ch === '\u00a0') ws.push([]); else ws[ws.length - 1].push({ ...l, i }); return ws }, [[]])
   const open = (src) => () => openLb(src)
   const stories = [
     { n: '01', cls: 'g-story', year: '2024 — Now', role: 'Mentorship · Abhivriddhi & ITSA', title: 'Mentoring first-year students', desc: 'As Management Head at Abhivriddhi I guided first-years in communication, presentation skills and professional confidence. As ITSA Chairperson I ran AI-tools and modern productivity sessions so students build real-world skills early.', tags: ['Mentorship', 'Leadership', 'Skill development'], img: opt('/static/community/1m.jpeg'), alt: 'Shlok mentoring first-year students', link: '', cta: '' },
@@ -51,17 +55,23 @@ export default function Community() {
         </div>
       )}
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
+        <AIBackdrop kind="graph" />
         <div className="wrap">
           <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>(05) — Community &amp; leadership</span>
             <span className="mono" style={{ color: "var(--muted)" }}>Shlok Bam / Portfolio 2026</span>
           </div>
-          <h1 className="disp" aria-label="Beyond code" style={{ margin: "24px 0 0", fontSize: "clamp(40px, 10.2vw, 152px)", fontStretch: "100%" }}>
+          <h1 className="disp" aria-label="Beyond code" style={{ margin: "24px 0 0", fontSize: "min(clamp(40px, 10.2vw, 152px), calc((100vw - 80px) / 4.55))", fontStretch: "100%" }}>
             <span className="mask">
-              {title.map((l, l_i) => (
-                <span key={l_i} className="ltr" aria-hidden="true" style={css(l.style)}>{l.ch}</span>
+              {words.map((wd, wi) => (
+                <Fragment key={wi}>
+                  {wi > 0 && ' '}
+                  <span style={{ whiteSpace: "nowrap" }}>
+                    {wd.map((l) => <span key={l.i} className="ltr" aria-hidden="true" style={css(l.style)}>{l.ch}</span>)}
+                    {wi === words.length - 1 && <span className="ltr" aria-hidden="true" style={{ "--i": "11", color: "var(--accent)" }}>.</span>}
+                  </span>
+                </Fragment>
               ))}
-              <span className="ltr" aria-hidden="true" style={{ "--i": "11", color: "var(--accent)" }}>.</span>
             </span>
           </h1>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "32px", flexWrap: "wrap", marginTop: "32px" }}>

@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
+import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import './Writing.css'
 
@@ -13,13 +14,14 @@ export default function Writing() {
   return (
     <Layout page="writing" vtab="(06) — Writing · Menu" curtain="(06) Writing" chat greeting="Want the short version of an article? Ask me." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
+        <AIBackdrop kind="tokens" />
         <div className="wrap">
           <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>(06) — Writing</span>
             <span className="mono" style={{ color: "var(--muted)" }}>Shlok Bam / Portfolio 2026</span>
           </div>
-          <h1 className="disp" aria-label="Journal" style={{ margin: "24px 0 0", fontSize: "clamp(72px, 15vw, 226px)", fontStretch: "100%" }}>
-            <span className="mask">
+          <h1 className="disp" aria-label="Journal" style={{ margin: "24px 0 0", fontSize: "min(clamp(72px, 15vw, 226px), calc((100vw - 80px) / 5.46))", fontStretch: "100%" }}>
+            <span className="mask" style={{ whiteSpace: "nowrap" }}>
               {title.map((l, l_i) => (
                 <span key={l_i} className="ltr" aria-hidden="true" style={css(l.style)}>{l.ch}</span>
               ))}

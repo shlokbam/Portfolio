@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
+import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import { RESUME, opt } from '../lib/links'
 import './About.css'
@@ -10,9 +11,9 @@ export default function About() {
     const a = offset + (360 / names.length) * i
     return { name, slot: 'position: absolute; left: 50%; top: 50%; transform: rotate(' + a + 'deg) translateX(' + r + 'px) rotate(' + (-a) + 'deg) translate(-50%, -50%)' }
   })
-  const ring1 = ring(['Python', 'LangChain', 'LangGraph', 'RAG', 'MCP', 'Gemini API'], 160, 0)
-  const ring2 = ring(['LangSmith', 'LLMs', 'Mistral AI', 'Vector DBs', 'Flask', 'HTML5', 'CSS3', 'SQL', 'Docker', 'Git', 'GitHub', 'DSA'], 280, 15)
-  const ring3 = ring(['C++', 'C', 'Java', 'FastAPI', 'Bootstrap', 'Firebase', 'Jenkins', 'GH Actions', 'ML', 'Networks', 'OS'], 390, 8)
+  const ring1 = ring(['Python', 'LangGraph', 'LangChain', 'RAG', 'Multi-agent', 'LLM-as-judge'], 160, 0)
+  const ring2 = ring(['FastAPI', 'React', 'MCP', 'LangSmith', 'DeepEval', 'Hugging Face', 'Transformers', 'PostgreSQL', 'Docker', 'SQL', 'Embeddings', 'GH Actions'], 280, 15)
+  const ring3 = ring(['Terraform', 'Jenkins', 'AWS', 'MySQL', 'Chroma', 'Pydantic', 'Guardrails', 'NLP', 'JavaScript', 'Java', 'DSA'], 390, 8)
   const lv = (n) => {
     if (n >= 5) return 'padding: 8px 13px; border-radius: 999px; background: var(--accent); color: var(--onaccent); font-weight: 600; font-size: 14px'
     if (n === 4) return 'padding: 8px 13px; border-radius: 999px; background: var(--text); color: var(--bg); font-weight: 600; font-size: 14px'
@@ -21,25 +22,26 @@ export default function About() {
   }
   const cat = (n, name, items) => ({ n, name, items: items.map(([k, v]) => ({ name: k, style: lv(v) })) })
   const cats = [
-    cat('01', 'Generative AI', [['LangChain', 5], ['LangGraph', 5], ['RAG', 5], ['MCP', 5], ['Gemini API', 5], ['LangSmith', 4], ['LLMs', 4], ['Mistral AI', 4], ['Vector DBs', 4]]),
-    cat('02', 'Languages', [['Python', 5], ['C++', 3], ['C', 3], ['Java', 3], ['JavaScript', 2]]),
-    cat('03', 'Backend', [['Flask', 4], ['FastAPI', 3], ['Node.js', 2], ['REST', 2]]),
-    cat('04', 'Frontend', [['HTML5', 4], ['CSS3', 4], ['Bootstrap', 3], ['React', 1]]),
-    cat('05', 'DevOps', [['Docker', 4], ['Jenkins', 3], ['GH Actions', 3], ['Kubernetes', 2], ['Terraform', 2]]),
-    cat('06', 'Data & Cloud', [['SQL', 4], ['Firebase', 3], ['MongoDB', 2], ['GCP', 2], ['AWS', 1]]),
-    cat('07', 'Foundations', [['Git', 4], ['GitHub', 4], ['DSA', 4], ['ML', 3], ['Networks', 3], ['OS', 3]]),
-    cat('08', 'Exploring next', [['JavaScript', 2], ['React', 1], ['Node.js', 2], ['Kubernetes', 2], ['Terraform', 2], ['AWS', 1]])
+    cat('01', 'Generative AI', [['LangGraph', 5], ['LangChain', 5], ['RAG', 5], ['Multi-agent systems', 5], ['MCP', 4], ['Tool calling', 4], ['Prompt engineering', 4], ['Hugging Face', 4], ['Gemini', 4], ['Mistral AI', 4]]),
+    cat('02', 'LLM evaluation & safety', [['LLM-as-judge', 5], ['Golden datasets', 4], ['DeepEval', 4], ['GEval', 4], ['Guardrails', 4], ['LangSmith', 4]]),
+    cat('03', 'Machine learning', [['NLP', 4], ['Transformers', 4], ['Embeddings', 4], ['Deep learning', 3], ['Computer vision', 3]]),
+    cat('04', 'Languages', [['Python', 5], ['SQL', 4], ['JavaScript', 3], ['Java', 3], ['C++', 3]]),
+    cat('05', 'Web', [['FastAPI', 5], ['Pydantic', 4], ['REST APIs', 4], ['React', 4], ['Flask', 4]]),
+    cat('06', 'Databases', [['PostgreSQL', 4], ['MySQL', 4], ['Chroma', 4], ['Firebase', 3]]),
+    cat('07', 'Cloud & DevOps', [['Docker', 4], ['GitHub Actions', 4], ['Git', 4], ['Terraform', 3], ['Jenkins', 3], ['AWS', 3]]),
+    cat('08', 'Core CS', [['DSA', 4], ['OOP', 4], ['DBMS', 4], ['OS', 3]])
   ]
   return (
     <Layout page="about" vtab="(01) — About · Menu" curtain="(01) About" chat footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
+        <AIBackdrop kind="embed" />
         <div className="wrap">
           <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>(01) — About</span>
             <span className="mono" style={{ color: "var(--muted)" }}>Shlok Bam / Portfolio 2026</span>
           </div>
-          <h1 className="disp" aria-label="About" style={{ margin: "24px 0 0", fontSize: "clamp(88px, 18vw, 270px)", fontStretch: "100%" }}>
-            <span className="mask">
+          <h1 className="disp" aria-label="About" style={{ margin: "24px 0 0", fontSize: "min(clamp(88px, 18vw, 270px), calc((100vw - 80px) / 4.11))", fontStretch: "100%" }}>
+            <span className="mask" style={{ whiteSpace: "nowrap" }}>
               {title.map((l, l_i) => (
                 <span key={l_i} className="ltr" aria-hidden="true" style={css(l.style)}>{l.ch}</span>
               ))}
@@ -85,7 +87,7 @@ export default function About() {
                 <div>
                   <h2 style={{ margin: "0", fontSize: "28px", letterSpacing: "-.02em", fontWeight: "700" }}>Learn</h2>
                   <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "18px", lineHeight: "1.65" }}>
-                    Information Technology at Vishwakarma Institute of Technology, Pune — 9.01 CGPA through the sixth semester. Programming, data-driven applications and cloud are where I spend most of my curiosity.
+                    Information Technology at Vishwakarma Institute of Technology, Pune — 9.01 / 10 CGPA, graduating May 2027. Programming, data-driven applications and cloud are where I spend most of my curiosity.
                   </p>
                 </div>
               </div>
@@ -94,7 +96,7 @@ export default function About() {
                 <div>
                   <h2 style={{ margin: "0", fontSize: "28px", letterSpacing: "-.02em", fontWeight: "700" }}>Lead</h2>
                   <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "18px", lineHeight: "1.65" }}>
-                    As Founding Chairperson of the Information Technology Students' Association I lead committees, run workshops and AI-tools sessions, and mentor first-year students in communication and confidence.
+                    As Founding Chairperson of the Information Technology Students' Association I led a 50+ member team — a 500+ attendee AI workshop, mock GD/PIs, a ₹1 lakh-budget event, and a QR attendance system used by 750+ attendees.
                   </p>
                 </div>
               </div>
@@ -103,7 +105,7 @@ export default function About() {
                 <div>
                   <h2 style={{ margin: "0", fontSize: "28px", letterSpacing: "-.02em", fontWeight: "700" }}>Build</h2>
                   <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "18px", lineHeight: "1.65" }}>
-                    At PharmaACE Innovations I engineer agentic AI systems, multi-stage orchestration and RAG pipelines. Outside work: 21 projects across agents, full-stack apps and cloud — and three patents as co-inventor.
+                    At PharmaACE Innovations I build healthcare-data and agentic AI pipelines for pharma clients — provider matching, newsroom monitoring and a natural-language-to-SQL reporting agent. Outside work: 21 projects across agents, evals, full-stack apps and cloud — and three patents as co-inventor.
                   </p>
                 </div>
               </div>

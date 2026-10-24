@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
+import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import { useState } from 'react'
 import { useAvailability } from '../lib/site'
@@ -25,13 +26,14 @@ export default function Work() {
   return (
     <Layout page="work" vtab="(02) — Work · Menu" curtain="(02) Work" chat greeting="Ask me which project fits your team, or how any of them were built." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
+        <AIBackdrop kind="gd" />
         <div className="wrap">
           <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>(02) — Work</span>
             <span className="mono" style={{ color: "var(--muted)" }}>Shlok Bam / Portfolio 2026</span>
           </div>
-          <h1 className="disp" aria-label="Work" style={{ margin: "24px 0 0", fontSize: "clamp(100px, 21vw, 310px)", fontStretch: "100%" }}>
-            <span className="mask">
+          <h1 className="disp" aria-label="Work" style={{ margin: "24px 0 0", fontSize: "min(clamp(100px, 21vw, 310px), calc((100vw - 80px) / 3.65))", fontStretch: "100%" }}>
+            <span className="mask" style={{ whiteSpace: "nowrap" }}>
               {title.map((l, l_i) => (
                 <span key={l_i} className="ltr" aria-hidden="true" style={css(l.style)}>{l.ch}</span>
               ))}
@@ -89,12 +91,12 @@ export default function Work() {
               </div>
               <h3 className="disp" style={{ margin: "0", fontSize: "58px" }}>DailyDiff</h3>
               <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "16px", lineHeight: "1.6" }}>
-                Autonomous multi-agent tech curation. A LangGraph pipeline scours GitHub Trending, Hacker News and Dev.to, writes ELI5 summaries and emails briefings three times a week.
+                A live LangGraph pipeline over 7 sources that emails a fact-checked brief three times a week — 185 briefs, 42 editions. LLM calls cut from up to 22 to 4, behind a fail-closed publish gate.
               </p>
-              <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>React · Vite · FastAPI · LangGraph · Mistral · Gemini · PostgreSQL</div>
+              <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>LangGraph · LangChain · FastAPI · Mistral · Gemini · Neon Postgres · React · GitHub Actions</div>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "20px" }}>
                 <A className="pill mono" href="/work/dailydiff" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", background: "var(--accent)", color: "var(--onaccent)", display: "inline-flex", alignItems: "center" }}>Case study →</A>
-                <A className="pill mono" href="https://daily-diff-pi.vercel.app/" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px solid var(--text)", display: "inline-flex", alignItems: "center" }}>Live ↗</A>
+                <A className="pill mono" href="https://dailydiff.in/" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px solid var(--text)", display: "inline-flex", alignItems: "center" }}>Live ↗</A>
                 <A className="pill mono" href="https://github.com/shlokbam/DailyDiff" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px solid var(--line)", display: "inline-flex", alignItems: "center" }}>Code ↗</A>
               </div>
             </article>
@@ -141,11 +143,11 @@ export default function Work() {
                   <circle cx="110" cy="110" r="10" fill="var(--accent)" />
                 </svg>
               </div>
-              <h3 className="disp" style={{ margin: "0", fontSize: "58px" }}>Eagle LMS</h3>
+              <h3 className="disp" style={{ margin: "0", fontSize: "40px", lineHeight: ".92" }}>Enterprise Workforce Training Platform</h3>
               <p style={{ margin: "14px 0 0", color: "var(--muted)", fontSize: "16px", lineHeight: "1.6" }}>
-                Enterprise learning platform with a FastAPI backend, trainer and trainee dashboards, an Expo mobile app, customised PDF watermarking and a containerised local DevOps pipeline.
+                Cross-platform LMS with role-based dashboards for trainers and trainees, server-side PDF/video watermarking per trainee, JWT/bcrypt-secured routes, Terraform-provisioned S3 and a Jenkins CI/CD pipeline.
               </p>
-              <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>FastAPI · React · React Native · Expo · Docker · Terraform · Jenkins</div>
+              <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>FastAPI · SQLAlchemy · MySQL · React · React Native · Docker · Terraform · AWS S3 · Jenkins</div>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "20px" }}>
                 <A className="pill mono" href="https://github.com/shlokbam/lms" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", background: "var(--text)", color: "var(--bg)", display: "inline-flex", alignItems: "center" }}>Code ↗</A>
               </div>

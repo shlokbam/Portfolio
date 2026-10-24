@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
+import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import './CaseStudy.css'
 
@@ -14,20 +15,33 @@ export default function CaseStudy() {
     ['[curate]', 'mistral → eli5 summary + use cases'],
     ['[dispatch]', 'brevo → html briefing sent to subscribers']
   ]
+  const stats = [
+    { value: '185', label: 'Briefs sent' },
+    { value: '42', label: 'Editions' },
+    { value: '7', label: 'Sources scanned' },
+    { value: '22→4', label: 'LLM calls per run' }
+  ]
+  const evals = [
+    { agent: 'Skeptic', job: 'Rejects noise before it reaches the brief', score: '6–7 / 7 (was 3 / 7)' },
+    { agent: 'Verifier', job: 'Catches bad or unsupported items', score: '14–15 / 16' },
+    { agent: 'Analyst', job: 'Agrees with the golden verdicts', score: '13–14 / 15' },
+    { agent: 'Editor', job: 'Briefs pass every structure check; a fail-closed gate blocks publishing otherwise', score: '5 / 5' }
+  ]
   const log = lines.map(([tag, msg], i) => ({ tag, msg, style: '--i: ' + i + '; --w: ' + (tag.length + msg.length + 2) + 'ch' }))
   return (
     <Layout page="casestudy" back vtab="(02.1) — Case study · Menu" curtain="(02.1) Case study" chat greeting="Curious how the DailyDiff agents hand off work? Ask me." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
+        <AIBackdrop kind="agents" />
         <div className="wrap">
           <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>(02.1) — Case study · 01 of 5 flagships</span>
             <span className="mono" style={{ display: "inline-flex", gap: "10px", alignItems: "center" }}>
               <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#2fd47a" }} />
-              Live on Vercel
+              Live at dailydiff.in
             </span>
           </div>
-          <h1 className="disp" aria-label="DailyDiff" style={{ margin: "24px 0 0", fontSize: "clamp(56px, 12.4vw, 184px)", fontStretch: "100%" }}>
-            <span className="mask">
+          <h1 className="disp" aria-label="DailyDiff" style={{ margin: "24px 0 0", fontSize: "min(clamp(56px, 12.4vw, 184px), calc((100vw - 80px) / 5.55))", fontStretch: "100%" }}>
+            <span className="mask" style={{ whiteSpace: "nowrap" }}>
               {title.map((l, l_i) => (
                 <span key={l_i} className="ltr" aria-hidden="true" style={css(l.style)}>{l.ch}</span>
               ))}
@@ -36,7 +50,7 @@ export default function CaseStudy() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "32px", flexWrap: "wrap", marginTop: "32px" }}>
             <p className="serif fade" style={{ "--d": ".6s", margin: "0", fontSize: "clamp(28px, 3vw, 44px)", maxWidth: "760px", lineHeight: "1.1" }}>A newsroom run entirely by agents.</p>
             <div className="fade" style={{ "--d": ".7s", display: "flex", gap: "10px", flexWrap: "wrap" }}>
-              <A className="pill mono" href="https://daily-diff-pi.vercel.app/" style={{ height: "48px", padding: "0 22px", borderRadius: "999px", background: "var(--accent)", color: "var(--onaccent)", display: "inline-flex", alignItems: "center" }}>Open live ↗</A>
+              <A className="pill mono" href="https://dailydiff.in/" style={{ height: "48px", padding: "0 22px", borderRadius: "999px", background: "var(--accent)", color: "var(--onaccent)", display: "inline-flex", alignItems: "center" }}>Open live ↗</A>
               <A className="pill mono" href="https://github.com/shlokbam/DailyDiff" style={{ height: "48px", padding: "0 22px", borderRadius: "999px", border: "1px solid var(--text)", display: "inline-flex", alignItems: "center" }}>Source ↗</A>
             </div>
           </div>
@@ -52,11 +66,11 @@ export default function CaseStudy() {
             </div>
             <div style={{ padding: "20px 20px 0", borderLeft: "1px solid var(--line)" }}>
               <div className="mono" style={{ color: "var(--muted)" }}>Sources</div>
-              <div style={{ marginTop: "10px", fontSize: "18px", fontWeight: "600" }}>GitHub · HN · Dev.to</div>
+              <div style={{ marginTop: "10px", fontSize: "18px", fontWeight: "600" }}>7 · GitHub, HN, Dev.to…</div>
             </div>
             <div style={{ padding: "20px 0 0 20px", borderLeft: "1px solid var(--line)" }}>
               <div className="mono" style={{ color: "var(--muted)" }}>Stack</div>
-              <div style={{ marginTop: "10px", fontSize: "18px", fontWeight: "600" }}>React · FastAPI · LangGraph</div>
+              <div style={{ marginTop: "10px", fontSize: "18px", fontWeight: "600" }}>LangGraph · FastAPI · Neon</div>
             </div>
           </div>
         </div>
@@ -74,7 +88,7 @@ export default function CaseStudy() {
           </div>
           <div className="rv" style={{ paddingTop: "44px" }}>
             <p style={{ margin: "0", fontSize: "19px", lineHeight: "1.7", color: "var(--muted)" }}>
-              DailyDiff does the scrolling for you. On a schedule, a team of agents discovers what's trending across GitHub, Hacker News and Dev.to, decides what is worth your attention, rewrites it so a beginner could follow it, and sends a styled HTML briefing straight to your inbox.
+              DailyDiff does the scrolling for you. On a schedule, a team of agents discovers what's trending across seven sources — GitHub, Hacker News, Dev.to and more — decides what is worth your attention, fact-checks it, rewrites it so a beginner could follow it, and sends a styled HTML briefing straight to your inbox.
             </p>
             <p style={{ margin: "22px 0 0", fontSize: "19px", lineHeight: "1.7", color: "var(--muted)" }}>
               Each brief explains the tool in plain words (ELI5), lists real use cases, and links to the source.
@@ -285,6 +299,37 @@ export default function CaseStudy() {
         </div>
       </section>
       {" "}
+      <section style={{ padding: "112px 0", borderBottom: "1px solid var(--line)" }}>
+        <div className="wrap">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "24px", flexWrap: "wrap" }}>
+            <div>
+              <span className="mono" style={{ color: "var(--muted)" }}>04 — Results</span>
+              <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>
+                In{" "}
+                <span className="serif" style={{ textTransform: "none", fontWeight: "400", color: "var(--accent)" }}>production</span>
+              </h2>
+            </div>
+            <span className="mono" style={{ color: "var(--muted)" }}>Per-agent evals · 3 runs · 25 golden cases</span>
+          </div>
+          <div className="cs-stats rv" style={{ marginTop: "48px", borderTop: "1px solid var(--text)" }}>
+            {stats.map((x) => (
+              <div key={x.label} style={{ padding: "28px 20px 28px 0" }}>
+                <div className="disp" style={{ fontSize: "clamp(48px, 5vw, 76px)" }}>{x.value}</div>
+                <div className="mono" style={{ color: "var(--muted)", marginTop: "12px", lineHeight: "1.6" }}>{x.label}</div>
+              </div>
+            ))}
+          </div>
+          <div className="rv" style={{ marginTop: "40px", border: "1px solid var(--line)", borderRadius: "22px", background: "var(--surface)", overflow: "hidden" }}>
+            {evals.map((e, i) => (
+              <div key={e.agent} className="cs-eval" style={{ padding: "20px 24px", borderTop: i ? "1px solid var(--line)" : "none" }}>
+                <span style={{ fontSize: "20px", fontWeight: "700" }}>{e.agent}</span>
+                <span style={{ color: "var(--muted)", fontSize: "16px", lineHeight: "1.5" }}>{e.job}</span>
+                <span className="mono" style={{ color: "var(--accent)", textAlign: "right" }}>{e.score}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
       <A className="next" href="/journey">
         <div className="wrap" style={{ paddingTop: "72px", paddingBottom: "72px" }}>
           <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page — (03)</div>

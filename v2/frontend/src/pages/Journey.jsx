@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
+import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import { opt, thumb } from '../lib/links'
 import { useLightbox } from '../lib/lightbox'
@@ -15,19 +16,19 @@ export default function Journey() {
   const item = (when, kind, role, org, points, srcs) => ({ when, kind, role, org, points, thumbs: thumbs(srcs || []), hasThumbs: !!(srcs && srcs.length) })
   const chapters = [
     { id: 'ch-work', n: '01', word: 'Work', label: 'Industry', items: [
-      item('2026 — Now', 'Internship', 'Intern', 'PharmaACE Innovations', ['Engineering agentic AI systems and multi-stage orchestration pipelines to automate workflows.', 'Designing and implementing retrieval-augmented generation (RAG) pipelines and backend integrations.', 'Building data-processing pipelines and prompt-engineering components for scalable AI applications.']),
+      item('2026 — Now', 'Internship', 'Intern', 'PharmaACE Innovations', ['Engineered an NPI matching pilot (Python, Streamlit, Snowpark, rapidfuzz) for a Fortune 500 pharma client — auto-accepted 94% (163 of 174) of a real test batch and routed 11 records for review.', 'Developed a News Monitor pilot (Python, FastAPI, React, Playwright) tracking 1,200+ pharma newsrooms every 30 minutes, with a no-LLM scan and a GPT-4o-mini source-validation judge.', 'Building a Forecast Reporting Agent (Python, FastAPI, LLMs) that turns natural-language questions into SQL with execution-based validation, LLM self-correction and chart recommendations.']),
       item('2024', 'Offer', 'Data Annotation Intern', 'Qualitas Global', ['Selected for the role in second year, first semester.', 'Could not proceed because of the academic schedule.']),
       item('2023', 'Internship', 'UI/UX Intern', 'Herbs Magic', ['Designed and implemented user interfaces for web applications.', 'Conducted user research and created wireframes.', 'Collaborated with the development team through implementation.'])
     ] },
     { id: 'ch-lead', n: '02', word: 'Lead', label: 'Leadership', items: [
-      item('2025 — 26', 'Founding chair', 'Chairperson', "Information Technology Students' Association (ITSA)", ['Leading and managing committee activities and events.', 'Organising workshops, technical sessions and AI-tools sessions.', 'Mentoring junior members and coordinating with faculty.']),
+      item('2025 — 26', 'Founding chair', 'Chairperson', "Information Technology Students' Association (ITSA), VIT Pune", ['Led a 50+ member student team from July 2025 to June 2026.', 'Organised a department-wide AI workshop (500+ attendees), mock GD/PIs and an INR 1 lakh-budget event.', 'Built a QR attendance system used at an event with 750+ attendees.']),
       item('2024 — 25', 'Operations', 'Operations Head', 'Abhivriddhi', ['Ran operations for the club and anchored its flagship technical event, EDGE’24.'], [opt('/static/certificates/clubs/Operations.jpeg')]),
       item('2024 — 25', 'Administration', 'Chief Administrative', 'The Catalyst', ['Led administration and logistics for the club.'], [opt('/static/certificates/clubs/Cheif.jpeg')]),
       item('2024 — 25', 'Web', 'Web Development Coordinator', 'Computer Society of India', ['Coordinated web development for the chapter.'], [opt('/static/certificates/clubs/csi.jpeg')]),
       item('2023 — 24', 'Technical', 'Technical Coordinator', 'Abhivriddhi', ['Technical and content roles for club events.'], [opt('/static/certificates/clubs/Technical.jpeg')])
     ] },
     { id: 'ch-learn', n: '03', word: 'Learn', label: 'Education', items: [
-      item('2023 — Now', 'Undergraduate', 'B.Tech, Information Technology', 'Vishwakarma Institute of Technology, Pune', ['9.01 CGPA through the sixth semester.', 'Active member of multiple technical and soft-skills clubs.', 'Taking part in coding competitions and hackathons.']),
+      item('2023 — Now', 'Undergraduate', 'B.Tech, Information Technology', 'Vishwakarma Institute of Technology, Pune', ['9.01 / 10 CGPA — graduating May 2027.', 'Active member of multiple technical and soft-skills clubs.', 'Taking part in coding competitions and hackathons.']),
       item('2010 — 22', 'School', 'Primary & Secondary Education', 'Grades 1–12', ['Completed primary and secondary education.', 'Developed the interest in technology and programming that led here.'])
     ] }
   ]
@@ -41,13 +42,14 @@ export default function Journey() {
         </div>
       )}
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
+        <AIBackdrop kind="train" />
         <div className="wrap">
           <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>(03) — Journey</span>
             <span className="mono" style={{ color: "var(--muted)" }}>Shlok Bam / Portfolio 2026</span>
           </div>
-          <h1 className="disp" aria-label="Journey" style={{ margin: "24px 0 0", fontSize: "clamp(72px, 15vw, 226px)", fontStretch: "100%" }}>
-            <span className="mask">
+          <h1 className="disp" aria-label="Journey" style={{ margin: "24px 0 0", fontSize: "min(clamp(72px, 15vw, 226px), calc((100vw - 80px) / 5.52))", fontStretch: "100%" }}>
+            <span className="mask" style={{ whiteSpace: "nowrap" }}>
               {title.map((l, l_i) => (
                 <span key={l_i} className="ltr" aria-hidden="true" style={css(l.style)}>{l.ch}</span>
               ))}

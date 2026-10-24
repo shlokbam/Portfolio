@@ -48,7 +48,7 @@ npm run dev        # http://localhost:5173
 - Env vars: `VITE_API_URL` = the Render URL (e.g. `https://shlokbam-portfolio-api.onrender.com`),
   `VITE_WEB3FORMS_KEY` = the Web3Forms access key (public by design; same one v1 used),
   `SITE_URL` = the public address of the site (e.g. `https://shlokbam.com`) — used for canonical
-  links, the sitemap and social previews. Default: `https://shlokbam.vercel.app`.
+  links, the sitemap and social previews. Default: `https://shlokbam.in`.
 - `npm run build` builds the app, renders every page to static HTML (`scripts/prerender.mjs`) and
   writes `sitemap.xml`, `robots.txt` and a real `404.html`. `vercel.json` sets clean URLs and caching.
 - `npm run preview` serves `dist/` the way Vercel does (clean URLs + 404 page).
@@ -79,3 +79,24 @@ npm run dev        # http://localhost:5173
 - After deploying: add the site in Google Search Console, verify it (DNS or HTML tag), submit
   `/sitemap.xml`, and use "Request indexing" on the home page. Link the site from LinkedIn, GitHub
   (profile + repos) and X — those links are what make "Shlok Bam" searches rank it first.
+
+## Live AI backdrops
+Each page header has a small, real computation drawn on a canvas (`src/components/AIBackdrop.jsx`,
+scenes in `src/lib/scenes/`):
+
+| Page | Scene | What runs |
+|---|---|---|
+| Home | `nn` | feed-forward net, tanh forward pass; input follows the pointer |
+| About | `embed` | skills clustering in an embedding space (k = 4), re-fit every 10 s |
+| Work | `gd` | gradient descent with momentum on a 2-D loss surface + live loss curve |
+| Case study | `agents` | DailyDiff pipeline: Skeptic / Verifier reject, Editor batches briefs |
+| Journey | `train` | train/val loss curve with the years as epochs |
+| Recognition | `cv` | 3×3 Sobel convolution scanning a pixel strip, then detections |
+| Community | `graph` | message passing over a k-NN graph |
+| Writing | `tokens` | next-token sampling with attention arcs |
+| Contact | `attention` | self-attention heatmap over what the visitor types |
+
+Scenes load lazily after the page is interactive, run at ~40 fps, pause when off-screen or in a
+background tab, read colours from the theme tokens, and draw a single still frame when the visitor
+prefers reduced motion. Readable overlays sit in the empty strip above each page label (`band()` in
+`util.js`); textures go behind the titles.

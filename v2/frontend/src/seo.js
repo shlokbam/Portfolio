@@ -2,40 +2,40 @@
 // and by the client to update tags on in-app navigation. No browser APIs here.
 import { PROJECTS } from './data/projects.js'
 
-export const DEFAULT_SITE_URL = 'https://shlokbam.vercel.app'
+export const DEFAULT_SITE_URL = 'https://shlokbam.in'
 
-const PERSON_DESC = 'AI & full-stack engineer from Pune, India building agentic AI systems, RAG pipelines and full-stack products. B.Tech IT at VIT Pune (9.01 CGPA), intern at PharmaACE Innovations, co-inventor on three patents.'
+const PERSON_DESC = 'AI / Generative AI engineer from Pune, India shipping agentic and LLM-powered systems to production — multi-agent pipelines, LLM-as-judge evaluation, RAG and full-stack products. B.Tech IT at VIT Pune (9.01 CGPA), intern at PharmaACE Innovations, co-inventor on three patents.'
 
 export const PAGES = {
   '/': {
-    title: 'Shlok Bam — AI & Full-Stack Engineer in Pune, India',
+    title: 'Shlok Bam — AI / Generative AI Engineer in Pune, India',
     description: 'Shlok Bam is an ' + PERSON_DESC.charAt(0).toLowerCase() + PERSON_DESC.slice(1),
     name: 'Home'
   },
   '/about': {
     title: 'About Shlok Bam — Story, Skills & Toolkit',
-    description: 'Who Shlok Bam is: an IT student at VIT Pune and Founding Chair of ITSA who builds agentic AI, RAG and full-stack systems with Python, LangChain, LangGraph, FastAPI and React.',
+    description: 'Who Shlok Bam is: an IT student at VIT Pune and Founding Chair of ITSA who builds agentic AI, LLM evaluation and full-stack systems with Python, LangGraph, LangChain, FastAPI and React.',
     name: 'About'
   },
   '/work': {
     title: 'Projects by Shlok Bam — 21 AI & Full-Stack Builds',
-    description: 'All 21 projects by Shlok Bam — DailyDiff, ResearchOS, Eagle LMS, PaisaWise, PromptVault and more — spanning AI agents, RAG, full-stack web, cloud and DevOps, with live demos and code.',
+    description: 'All 21 projects by Shlok Bam — DailyDiff, ResearchOS, an enterprise workforce training platform, PaisaWise, PromptVault and more — spanning AI agents, RAG, full-stack web, cloud and DevOps, with live demos and code.',
     name: 'Work'
   },
   '/work/dailydiff': {
     title: 'DailyDiff Case Study — Multi-Agent AI Newsroom by Shlok Bam',
-    description: 'How DailyDiff works: LangGraph-coordinated scout agents find trending developer tools on GitHub, Hacker News and Dev.to, write ELI5 briefs with Mistral/Gemini and email them three times a week.',
+    description: 'How DailyDiff works: a live LangGraph pipeline over 7 sources that emails a fact-checked tech brief three times a week — 185 briefs, 42 editions, LLM calls cut from 22 to 4, with per-agent evals.',
     name: 'DailyDiff case study',
     parent: '/work'
   },
   '/journey': {
     title: 'Experience & Education — Shlok Bam',
-    description: 'Shlok Bam’s journey: intern at PharmaACE Innovations engineering agentic AI and RAG pipelines, Founding Chairperson of ITSA, club leadership roles and a B.Tech in IT at VIT Pune.',
+    description: 'Shlok Bam’s journey: intern at PharmaACE Innovations building healthcare-data and agentic AI pipelines for pharma clients, Founding Chairperson of ITSA, and a B.Tech in IT at VIT Pune.',
     name: 'Journey'
   },
   '/recognition': {
     title: 'Patents, Awards & Certifications — Shlok Bam',
-    description: 'Three patents co-invented by Shlok Bam (granted and filed in South Africa, published in India), the INDOvateAI Outstanding Performance Award, Google Arcade Diamond League and nine certifications.',
+    description: 'Three patents co-invented by Shlok Bam (granted and filed in South Africa, published in India), winning INDOvateAI Sprint 2025 among 200+ teams, Google Arcade Diamond League and nine certifications.',
     name: 'Recognition'
   },
   '/community': {
@@ -49,7 +49,7 @@ export const PAGES = {
     name: 'Writing'
   },
   '/contact': {
-    title: 'Contact Shlok Bam — Hire an AI & Full-Stack Engineer',
+    title: 'Contact Shlok Bam — Hire an AI / Generative AI Engineer',
     description: 'Get in touch with Shlok Bam about full-time roles, internships, collaboration or freelance work. Email shlokbam19103@gmail.com — based in Pune, open to relocation.',
     name: 'Contact'
   }
@@ -73,12 +73,12 @@ function jsonLd(pathname, site) {
     url: site + '/',
     image: site + '/static/images/about/profile.png',
     description: PERSON_DESC,
-    jobTitle: 'AI & Full-Stack Engineer',
+    jobTitle: 'AI / Generative AI Engineer',
     worksFor: { '@type': 'Organization', name: 'PharmaACE Innovations' },
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'Vishwakarma Institute of Technology, Pune', sameAs: 'https://www.vit.edu/' },
     address: { '@type': 'PostalAddress', addressLocality: 'Pune', addressRegion: 'Maharashtra', addressCountry: 'IN' },
     email: 'mailto:shlokbam19103@gmail.com',
-    knowsAbout: ['Agentic AI', 'Retrieval-augmented generation (RAG)', 'LangChain', 'LangGraph', 'Model Context Protocol', 'Python', 'FastAPI', 'React', 'Docker', 'Machine learning', 'Computer vision'],
+    knowsAbout: ['Generative AI', 'Agentic AI', 'Multi-agent systems', 'LLM evaluation', 'LLM-as-judge', 'Retrieval-augmented generation (RAG)', 'LangGraph', 'LangChain', 'Model Context Protocol', 'Python', 'FastAPI', 'React', 'PostgreSQL', 'Docker', 'Terraform'],
     sameAs: [
       'https://github.com/shlokbam',
       'https://www.linkedin.com/in/shlokbam/',
@@ -133,7 +133,7 @@ function jsonLd(pathname, site) {
       name: 'DailyDiff',
       applicationCategory: 'DeveloperApplication',
       operatingSystem: 'Web',
-      url: 'https://daily-diff-pi.vercel.app/',
+      url: 'https://dailydiff.in/',
       description: meta.description,
       author: { '@id': site + '/#person' },
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
@@ -166,7 +166,7 @@ export function headTags(pathname, site) {
       `<meta property="og:image" content="${img}" />`,
       '<meta property="og:image:width" content="1200" />',
       '<meta property="og:image:height" content="630" />',
-      '<meta property="og:image:alt" content="Shlok Bam — AI &amp; Full-Stack Engineer" />',
+      '<meta property="og:image:alt" content="Shlok Bam — AI / Generative AI Engineer" />',
       ...(pathname === '/' ? ['<meta property="profile:first_name" content="Shlok" />', '<meta property="profile:last_name" content="Bam" />'] : []),
       '<meta name="twitter:card" content="summary_large_image" />',
       '<meta name="twitter:site" content="@shlok_bam" />',

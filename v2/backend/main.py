@@ -56,7 +56,7 @@ HTML_HEADERS = {'User-Agent': 'Mozilla/5.0 (compatible; portfolio-stats/2.0)', '
 STATS_TTL = 2 * 60 * 60
 AVAILABILITY_TTL = 10 * 60
 LIVE_PROJECTS = [
-    'https://daily-diff-pi.vercel.app/',
+    'https://dailydiff.in/',
     'https://multi-agent-ai-research-system-six.vercel.app/',
     'https://mock-vue.vercel.app/',
     'https://generativeai-rag.streamlit.app/',
@@ -78,7 +78,7 @@ async def lifespan(_app: FastAPI):
 
 app = FastAPI(title='Shlok Bam portfolio API', version='2.0.0', docs_url=None, redoc_url=None, lifespan=lifespan)
 
-_origins = [o.strip() for o in os.getenv('ALLOWED_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173').split(',') if o.strip()]
+_origins = [o.strip() for o in os.getenv('ALLOWED_ORIGINS', 'https://shlokbam.in,https://www.shlokbam.in,http://localhost:5173,http://127.0.0.1:5173').split(',') if o.strip()]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=_origins,
