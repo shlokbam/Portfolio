@@ -75,7 +75,8 @@ npm run dev        # http://localhost:5173
 - Every page is prerendered with its own `<title>`, description, canonical URL, Open Graph/Twitter
   tags and JSON-LD (Person, WebSite, ProfilePage/WebPage, breadcrumbs, the project list and the
   DailyDiff app). Titles and descriptions live in `src/seo.js`.
-- Share image: `public/og.png` (1200×630). Icons: `icon.svg`, `icon-192/512.png`, `apple-touch-icon.png`.
+- Share images: one 1200×630 card per page in `public/og/` (`home.jpg`, `work.jpg`, …), picked in `headTags()`
+  in `src/seo.js`; `public/og.png` is a copy of the home card. Icons: `icon.svg`, `icon-192/512.png`, `apple-touch-icon.png`.
 - Fonts are self-hosted from `public/fonts` (latin subset, SIL Open Font License).
 - After deploying: add the site in Google Search Console, verify it (DNS or HTML tag), submit
   `/sitemap.xml`, and use "Request indexing" on the home page. Link the site from LinkedIn, GitHub

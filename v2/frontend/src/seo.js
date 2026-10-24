@@ -148,7 +148,10 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').repl
 export function headTags(pathname, site) {
   const meta = pageMeta(pathname)
   const url = site + (pathname === '/' ? '/' : pathname)
-  const img = site + '/og.png'
+  // each page has its own share card in public/og/ (1200×630)
+  const card = pathname === '/' ? 'home' : pathname.split('/').pop()
+  const img = site + '/og/' + (PAGES[pathname] ? card : 'home') + '.jpg'
+  const alt = pathname === '/' ? 'Shlok Bam — AI / Generative AI Engineer' : (meta.name || 'Shlok Bam') + ' — Shlok Bam, AI / Generative AI Engineer'
   const tags = [
     `<title>${esc(meta.title)}</title>`,
     `<meta name="description" content="${esc(meta.description)}" />`,
@@ -164,9 +167,11 @@ export function headTags(pathname, site) {
       `<meta property="og:title" content="${esc(meta.title)}" />`,
       `<meta property="og:description" content="${esc(meta.description)}" />`,
       `<meta property="og:image" content="${img}" />`,
+      `<meta property="og:image:secure_url" content="${img}" />`,
+      '<meta property="og:image:type" content="image/jpeg" />',
       '<meta property="og:image:width" content="1200" />',
       '<meta property="og:image:height" content="630" />',
-      '<meta property="og:image:alt" content="Shlok Bam — AI / Generative AI Engineer" />',
+      `<meta property="og:image:alt" content="${esc(alt)}" />`,
       ...(pathname === '/' ? ['<meta property="profile:first_name" content="Shlok" />', '<meta property="profile:last_name" content="Bam" />'] : []),
       '<meta name="twitter:card" content="summary_large_image" />',
       '<meta name="twitter:site" content="@shlok_bam" />',
@@ -174,6 +179,7 @@ export function headTags(pathname, site) {
       `<meta name="twitter:title" content="${esc(meta.title)}" />`,
       `<meta name="twitter:description" content="${esc(meta.description)}" />`,
       `<meta name="twitter:image" content="${img}" />`,
+      `<meta name="twitter:image:alt" content="${esc(alt)}" />`,
       `<script type="application/ld+json">${JSON.stringify(jsonLd(pathname, site)).replace(/</g, '\\u003c')}</script>`
     )
   }
