@@ -4,8 +4,8 @@ import ChatWidget from './ChatWidget'
 import { useSite } from '../lib/site'
 import { css } from '../lib/css'
 import { RESUME } from '../lib/links'
-import { useIstClock } from '../lib/clock'
-import { lockScroll, unlockScroll } from '../lib/smooth'
+import { useIstDateTime } from '../lib/clock'
+import { lockScroll, unlockScroll, scrollToTop } from '../lib/smooth'
 
 const PAGES = [
   ['00', 'Home', '/', 'Index', 'home'],
@@ -20,18 +20,55 @@ const PAGES = [
 
 const GREETING = "Hi! Ask me about Shlok's projects, patents, VIT Pune record or how to reach him."
 
-export default function Layout({ page, vtab, curtain, chat, greeting = GREETING, footerStyle, back, children }) {
+// Header clock: its own component so the per-second tick re-renders only this text.
+function LiveClock() {
+  const now = useIstDateTime()
+  return <span suppressHydrationWarning style={{ fontVariantNumeric: 'tabular-nums' }}>{now}</span>
+}
+
+function Brand({ as: Tag = A, ...props }) {
+  return (
+    <Tag className="brand" {...props}>
+      <span className="brand-mark disp" aria-hidden="true">SB</span>
+      <span className="brand-name disp">Shlok Bam<span style={{ color: 'var(--accent)' }}>.</span></span>
+    </Tag>
+  )
+}
+
+// Fixed "back to top" button; shows once the visitor has scrolled past the first screen.
+function ToTop({ chat }) {
+  const [show, setShow] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > window.innerHeight * 0.8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return (
+    <button type="button" className={'totop' + (show ? ' on' : '') + (chat ? ' with-chat' : '')} onClick={() => scrollToTop()} aria-label="Back to top" tabIndex={show ? 0 : -1}>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M12 20V5M6 11l6-6 6 6" /></svg>
+    </button>
+  )
+}
+
+export default function Layout({ page, curtain, chat, greeting = GREETING, footerStyle, back, children }) {
   const { toggleTheme } = useSite()
   const [menuOpen, setMenuOpen] = useState(false)
-  const clock = useIstClock()
   const root = useRef(null)
+  const menuRef = useRef(null)
 
   useEffect(() => {
     if (!menuOpen) return
     lockScroll()
+    const opener = document.activeElement
+    if (menuRef.current) menuRef.current.focus({ preventScroll: true })
     const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false) }
     window.addEventListener('keydown', onKey)
-    return () => { unlockScroll(); window.removeEventListener('keydown', onKey) }
+    return () => {
+      unlockScroll()
+      window.removeEventListener('keydown', onKey)
+      if (opener && opener.focus && document.contains(opener)) opener.focus({ preventScroll: true })
+    }
   }, [menuOpen])
 
   // Mouse-follow glow: write the position only to [data-glow] elements, once per frame.
@@ -67,13 +104,13 @@ export default function Layout({ page, vtab, curtain, chat, greeting = GREETING,
 
         <header style={{ position: 'fixed', top: '0', left: '0', right: '0', zIndex: '70', background: 'color-mix(in srgb, var(--bg) 78%, transparent)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderBottom: '1px solid var(--line)' }}>
           <div className="wrap" style={{ height: '76px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px' }}>
-            <A href="/" className="sig" aria-label="Shlok Bam — home" style={{ fontSize: '38px', lineHeight: '1' }}>Shlok Bam</A>
+            <Brand href="/" aria-label="Shlok Bam — home" />
             {back
               ? <A className="mono hide-lg ul" href="/work" style={{ color: 'var(--muted)' }}>← Back to all work</A>
               : (
                 <span className="mono hide-lg" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', color: 'var(--muted)' }}>
-                  <span className="pulse" style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#2fd47a', color: '#2fd47a' }} />
-                  Open to opportunities · Pune, IN · <span suppressHydrationWarning>{clock}</span> IST
+                  <span className="pulse" style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--accent)', color: 'var(--accent)' }} />
+                  <LiveClock /> IST
                 </span>
               )}
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
@@ -96,27 +133,32 @@ export default function Layout({ page, vtab, curtain, chat, greeting = GREETING,
             </div>
           </div>
         </header>
-        <button type="button" className="vtab mono" onClick={openMenu}>
-          <span className="vdot" />
-          {vtab}
-        </button>
+        {page !== 'contact' && (
+          <aside aria-label="Availability">
+            <A className="vtab mono" href="/contact">
+              <span className="vdot" style={{ background: '#2fd47a' }} />
+              Open to opportunities · Let's talk
+            </A>
+          </aside>
+        )}
 
         {menuOpen && (
-          <div className="menu dots" role="dialog" aria-modal="true" aria-label="Site menu">
+          // a click anywhere that isn't a link closes the menu (links close it as they navigate)
+          <div className="menu dots" role="dialog" aria-modal="true" aria-label="Site menu" tabIndex={-1} ref={menuRef} onClick={(e) => { if (!e.target.closest('a, button')) closeMenu() }}>
             <div className="wrap" style={{ paddingTop: '16px', paddingBottom: '48px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '64px' }}>
-                <span className="sig" style={{ fontSize: '38px', lineHeight: '1' }}>Shlok Bam</span>
-                <button type="button" className="pill mono" onClick={closeMenu} autoFocus style={{ height: '44px', padding: '0 18px', borderRadius: '999px', border: '1px solid var(--text)', background: 'transparent', color: 'var(--text)', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
-                  Close{' '}
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" /></svg>
-                </button>
+                <Brand as="span" />
+                <span className="mono" style={{ color: 'var(--muted)' }}>
+                  <span className="hide-sm">Click anywhere to close · Esc</span>
+                  <button type="button" className="sr-only" onClick={closeMenu}>Close menu</button>
+                </span>
               </div>
               <div className="g-menu" style={{ marginTop: '36px' }}>
                 <nav aria-label="Pages">
                   {pages.map((pg) => (
                     <A key={pg.n} className="mlink" href={pg.file} onClick={closeMenu} style={css(pg.style)}>
                       <span className="mono" style={{ color: 'var(--muted)' }}>{pg.n}</span>
-                      <span className="mname disp" style={{ fontSize: 'clamp(36px, 5vw, 72px)' }}>{pg.name}</span>
+                      <span className="mname disp" style={{ fontSize: 'clamp(34px, 4.3vw, 66px)' }}>{pg.name}</span>
                       <span className="mdesc mono hide-sm">{pg.desc}</span>
                     </A>
                   ))}
@@ -150,11 +192,11 @@ export default function Layout({ page, vtab, curtain, chat, greeting = GREETING,
 
         <main id="main" tabIndex={-1}>{children}</main>
 
-        <footer style={chat ? { ...css(footerStyle), paddingBottom: '108px' } : css(footerStyle)}>
+        <footer className="site-foot" style={css(footerStyle)}>
           <div className="wrap" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '32px', flexWrap: 'wrap' }}>
             <div>
-              <span className="sig" style={{ fontSize: '72px', lineHeight: '1', color: 'var(--accent)' }}>Shlok Bam</span>
-              <div className="mono" style={{ color: 'var(--muted)', marginTop: '12px' }}>© {new Date().getFullYear()} · Built with React + FastAPI</div>
+              <p className="serif" style={{ margin: '0', fontSize: 'clamp(26px, 2.6vw, 36px)', lineHeight: '1.1' }}>Turning messy problems into systems that think.</p>
+              <div className="mono" style={{ color: 'var(--muted)', marginTop: '14px' }}>© {new Date().getFullYear()} Shlok Bam · Designed &amp; engineered in Pune, India</div>
             </div>
             <div className="mono" style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
               <A className="ul" href="https://github.com/shlokbam">GitHub ↗</A>
@@ -162,10 +204,11 @@ export default function Layout({ page, vtab, curtain, chat, greeting = GREETING,
               <A className="ul" href="https://x.com/shlok_bam">X ↗</A>
               <A className="ul" href={RESUME}>Résumé ↓</A>
             </div>
-            <A className="mono ul" href="#top">Back to top ↑</A>
           </div>
+          <div className="foot-big disp" aria-hidden="true">Shlok Bam</div>
         </footer>
 
+        <ToTop chat={chat} />
         {chat && <ChatWidget greeting={greeting} />}
       </div>
     </div>

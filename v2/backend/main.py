@@ -198,15 +198,23 @@ async def fetch_github(username: str = 'shlokbam') -> Optional[dict]:
         user = api_resp.json() if api_resp.status_code == 200 else {}
         html = cont_resp.text if cont_resp.status_code == 200 else ''
         total = re.search(r'([0-9,]+)\s+contributions', html)
-        days = re.findall(r'(\d+|No)\s+contributions?\s+on\s+[A-Za-z]+\s+\d+', html)
-        history = [0 if d == 'No' else int(d) for d in days][-15:]
+        # the calendar is laid out row by row (one row per weekday), so join each cell's date to
+        # its tooltip by id and sort, rather than trusting document order
+        dates = dict(re.findall(r'data-date="(\d{4}-\d\d-\d\d)"\s+id="([\w-]+)"', html))
+        dates = {cid: d for d, cid in dates.items()}
+        counts = {}
+        for cid, n in re.findall(r'for="([\w-]+)"[^>]*>\s*(\d+|No) contributions? on', html):
+            if cid in dates:
+                counts[dates[cid]] = 0 if n == 'No' else int(n)
+        days = sorted(counts.items())[-182:]  # last 26 weeks
         if not user and not total:
             return None
         return {
             'repos': user.get('public_repos', '—'),
             'followers': user.get('followers', '—'),
             'contributions': total.group(1) if total else '—',
-            'contributionHistory': history,
+            'contributionStart': days[0][0] if days else None,
+            'contributionDays': [n for _, n in days],
         }
     except Exception as exc:
         log.warning('github fetch failed: %s', exc)

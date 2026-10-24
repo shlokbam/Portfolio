@@ -4,10 +4,10 @@ import './Home.css'
 
 export default function NotFound() {
   return (
-    <Layout page="home" vtab="(404) — Lost · Menu" chat footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
+    <Layout page="home" chat footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: 'relative', paddingTop: '200px', paddingBottom: '140px' }}>
         <div className="wrap">
-          <span className="mono" style={{ color: 'var(--muted)' }}>(404) — Page not found</span>
+          <span className="mono" style={{ color: 'var(--muted)' }}>404 — Page not found</span>
           <h1 className="disp" style={{ margin: '24px 0 0', fontSize: 'clamp(88px, 18vw, 270px)', fontStretch: '100%' }}>
             <span className="mask"><span className="rise" style={{ '--d': '.1s' }}>Lost<span style={{ color: 'var(--accent)' }}>.</span></span></span>
           </h1>

@@ -33,7 +33,7 @@ export default function Journey() {
     ] }
   ]
   return (
-    <Layout page="journey" vtab="(03) — Journey · Menu" curtain="(03) Journey" chat greeting="Ask me about his PharmaACE internship or the clubs he has led." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
+    <Layout page="journey" curtain="Journey" chat greeting="Ask me about his PharmaACE internship or the clubs he has led." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       {lbOpen && (
         <div className="lightbox" role="dialog" aria-modal="true" onClick={(e) => { if (e.target === e.currentTarget) closeLb() }} aria-label="Certificate">
           <button type="button" className="pill mono" onClick={closeLb} autoFocus style={{ position: "absolute", top: "24px", right: "24px", height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px solid var(--text)", background: "var(--bg)", color: "var(--text)", cursor: "pointer" }}>Close ✕</button>
@@ -44,8 +44,7 @@ export default function Journey() {
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
         <AIBackdrop kind="train" />
         <div className="wrap">
-          <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
-            <span className="mono" style={{ color: "var(--muted)" }}>(03) — Journey</span>
+          <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>Shlok Bam / Portfolio 2026</span>
           </div>
           <h1 className="disp" aria-label="Journey" style={{ margin: "24px 0 0", fontSize: "min(clamp(72px, 15vw, 226px), calc((100vw - 80px) / 5.52))", fontStretch: "100%" }}>
@@ -122,7 +121,7 @@ export default function Journey() {
       ))}
       <A className="next" href="/recognition">
         <div className="wrap" style={{ paddingTop: "72px", paddingBottom: "72px" }}>
-          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page — (04)</div>
+          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page</div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "18px" }}>
             <span className="disp nt" style={{ fontSize: "clamp(48px, 9vw, 144px)" }}>Recognition</span>
             <span className="narr" style={{ width: "112px", height: "112px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>

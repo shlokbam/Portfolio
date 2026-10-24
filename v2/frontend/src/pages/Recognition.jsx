@@ -27,12 +27,11 @@ export default function Recognition() {
     { title: 'Master In-Demand Professional Soft Skills', desc: 'Communication, leadership, problem-solving and workplace productivity.', href: cert('Master InDemand Professional Soft Skills (5)') }
   ].map((m, i) => ({ ...m, n: String(i + 4).padStart(2, '0') }))
   return (
-    <Layout page="recognition" vtab="(04) — Recognition · Menu" curtain="(04) Recognition" chat greeting="Ask me what each patent does, or which one was granted." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
+    <Layout page="recognition" curtain="Recognition" chat greeting="Ask me what each patent does, or which one was granted." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
         <AIBackdrop kind="cv" />
         <div className="wrap">
-          <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
-            <span className="mono" style={{ color: "var(--muted)" }}>(04) — Recognition</span>
+          <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>Shlok Bam / Portfolio 2026</span>
           </div>
           <h1 className="disp" aria-label="Recognition" style={{ margin: "24px 0 0", fontSize: "min(clamp(40px, 10.2vw, 152px), calc((100vw - 80px) / 7.5))", fontStretch: "100%" }}>
@@ -57,7 +56,7 @@ export default function Recognition() {
       </section>
       <section style={{ padding: "104px 0 48px" }}>
         <div className="wrap">
-          <span className="mono" style={{ color: "var(--muted)" }}>(04.1) — Patents</span>
+          <span className="mono" style={{ color: "var(--muted)" }}>Patents</span>
           {" "}
           <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>
             Co-
@@ -106,7 +105,7 @@ export default function Recognition() {
       </section>
       <section style={{ padding: "88px 0 112px", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap">
-          <span className="mono" style={{ color: "var(--muted)" }}>(04.2) — Awards &amp; programs</span>
+          <span className="mono" style={{ color: "var(--muted)" }}>Awards &amp; programs</span>
           {" "}
           <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>On stage</h2>
           <div className="g-3" style={{ marginTop: "48px" }}>
@@ -176,7 +175,7 @@ export default function Recognition() {
       </section>
       <section style={{ padding: "112px 0", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap">
-          <span className="mono" style={{ color: "var(--muted)" }}>(04.3) — Certifications</span>
+          <span className="mono" style={{ color: "var(--muted)" }}>Certifications</span>
           {" "}
           <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>Certified</h2>
           <div className="g-3" style={{ marginTop: "48px" }}>
@@ -221,7 +220,7 @@ export default function Recognition() {
       </section>
       <A className="next" href="/community">
         <div className="wrap" style={{ paddingTop: "72px", paddingBottom: "72px" }}>
-          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page — (05)</div>
+          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page</div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "18px" }}>
             <span className="disp nt" style={{ fontSize: "clamp(52px, 10vw, 160px)" }}>Community</span>
             <span className="narr" style={{ width: "112px", height: "112px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>

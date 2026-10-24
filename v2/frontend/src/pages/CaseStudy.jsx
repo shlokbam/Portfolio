@@ -29,12 +29,12 @@ export default function CaseStudy() {
   ]
   const log = lines.map(([tag, msg], i) => ({ tag, msg, style: '--i: ' + i + '; --w: ' + (tag.length + msg.length + 2) + 'ch' }))
   return (
-    <Layout page="casestudy" back vtab="(02.1) — Case study · Menu" curtain="(02.1) Case study" chat greeting="Curious how the DailyDiff agents hand off work? Ask me." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
+    <Layout page="casestudy" back curtain="Case study" chat greeting="Curious how the DailyDiff agents hand off work? Ask me." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
         <AIBackdrop kind="agents" />
         <div className="wrap">
           <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
-            <span className="mono" style={{ color: "var(--muted)" }}>(02.1) — Case study · 01 of 5 flagships</span>
+            <span className="mono" style={{ color: "var(--muted)" }}>Case study · 01 of 5 flagships</span>
             <span className="mono" style={{ display: "inline-flex", gap: "10px", alignItems: "center" }}>
               <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#2fd47a" }} />
               Live at dailydiff.in
@@ -332,7 +332,7 @@ export default function CaseStudy() {
       </section>
       <A className="next" href="/journey">
         <div className="wrap" style={{ paddingTop: "72px", paddingBottom: "72px" }}>
-          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page — (03)</div>
+          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page</div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "18px" }}>
             <span className="disp nt" style={{ fontSize: "clamp(60px, 10vw, 160px)" }}>Journey</span>
             <span className="narr" style={{ width: "112px", height: "112px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>

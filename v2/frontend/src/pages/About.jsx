@@ -32,12 +32,11 @@ export default function About() {
     cat('08', 'Core CS', [['DSA', 4], ['OOP', 4], ['DBMS', 4], ['OS', 3]])
   ]
   return (
-    <Layout page="about" vtab="(01) — About · Menu" curtain="(01) About" chat footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
+    <Layout page="about" curtain="About" chat footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
         <AIBackdrop kind="embed" />
         <div className="wrap">
-          <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
-            <span className="mono" style={{ color: "var(--muted)" }}>(01) — About</span>
+          <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>Shlok Bam / Portfolio 2026</span>
           </div>
           <h1 className="disp" aria-label="About" style={{ margin: "24px 0 0", fontSize: "min(clamp(88px, 18vw, 270px), calc((100vw - 80px) / 4.11))", fontStretch: "100%" }}>
@@ -143,7 +142,7 @@ export default function About() {
         <div className="wrap">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <div>
-              <span className="mono" style={{ color: "var(--muted)" }}>(01.2) — Toolkit</span>
+              <span className="mono" style={{ color: "var(--muted)" }}>Toolkit</span>
               {" "}
               <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(52px, 7vw, 112px)" }}>In orbit</h2>
             </div>
@@ -224,7 +223,7 @@ export default function About() {
       {" "}
       <A className="next" href="/work">
         <div className="wrap" style={{ paddingTop: "72px", paddingBottom: "72px" }}>
-          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page — (02)</div>
+          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page</div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "18px" }}>
             <span className="disp nt" style={{ fontSize: "clamp(60px, 10vw, 160px)" }}>Work</span>
             <span className="narr" style={{ width: "112px", height: "112px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>

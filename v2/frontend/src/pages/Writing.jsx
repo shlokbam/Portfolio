@@ -12,12 +12,11 @@ export default function Writing() {
     { n: '03', date: 'Mar 2026', tag: 'DevOps', title: 'I built a full DevOps CI/CD pipeline from scratch — everything that went wrong', blurb: 'Docker, Jenkins, Terraform and AWS EC2 — what it actually took to ship a Flask app end to end.', href: 'https://journal-murex-three.vercel.app/journal/i-built-a-full-devops-ci-cd-pipeline-from-scratch-here-s-everything-that-went-wrong' }
   ]
   return (
-    <Layout page="writing" vtab="(06) — Writing · Menu" curtain="(06) Writing" chat greeting="Want the short version of an article? Ask me." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
+    <Layout page="writing" curtain="Writing" chat greeting="Want the short version of an article? Ask me." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
         <AIBackdrop kind="tokens" />
         <div className="wrap">
-          <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
-            <span className="mono" style={{ color: "var(--muted)" }}>(06) — Writing</span>
+          <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>Shlok Bam / Portfolio 2026</span>
           </div>
           <h1 className="disp" aria-label="Journal" style={{ margin: "24px 0 0", fontSize: "min(clamp(72px, 15vw, 226px), calc((100vw - 80px) / 5.46))", fontStretch: "100%" }}>
@@ -77,7 +76,7 @@ export default function Writing() {
       {" "}
       <A className="next" href="/contact" style={{ borderTop: "1px solid var(--line)" }}>
         <div className="wrap" style={{ paddingTop: "72px", paddingBottom: "72px" }}>
-          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page — (07)</div>
+          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page</div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "18px" }}>
             <span className="disp nt" style={{ fontSize: "clamp(60px, 10vw, 160px)" }}>Contact</span>
             <span className="narr" style={{ width: "112px", height: "112px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>

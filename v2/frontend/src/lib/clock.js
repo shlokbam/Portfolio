@@ -14,3 +14,25 @@ export function useIstClock() {
   }, [])
   return clock
 }
+
+function istDateTime() {
+  try {
+    const d = new Date()
+    const date = d.toLocaleDateString('en-GB', { timeZone: 'Asia/Kolkata', weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' })
+    const time = d.toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })
+    return date.replace(',', '') + ' · ' + time
+  } catch (e) { return '--- -- --- ---- · --:--:--' }
+}
+
+// Full date and time in Pune (IST), ticking on each second. Keep it in a small leaf
+// component so only that text re-renders.
+export function useIstDateTime() {
+  const [now, setNow] = useState(istDateTime)
+  useEffect(() => {
+    let id
+    const tick = () => { setNow(istDateTime()); id = setTimeout(tick, 1000 - (Date.now() % 1000) + 5) }
+    tick()
+    return () => clearTimeout(id)
+  }, [])
+  return now
+}

@@ -107,11 +107,10 @@ export default function Contact() {
     }
   }
   return (
-    <Layout page="contact" vtab="(07) — Contact · Menu" curtain="(07) Contact" footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
+    <Layout page="contact" curtain="Contact" footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap">
-          <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
-            <span className="mono" style={{ color: "var(--muted)" }}>(07) — Contact</span>
+          <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ display: "inline-flex", gap: "10px", alignItems: "center" }}>
               <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#2fd47a" }} />
               Available for opportunity
@@ -274,7 +273,7 @@ export default function Contact() {
         <div className="wrap">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <div>
-              <span className="mono" style={{ color: "var(--muted)" }}>(07.1) — Quick answers</span>
+              <span className="mono" style={{ color: "var(--muted)" }}>Quick answers</span>
               {" "}
               <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>
                 Ask my{" "}

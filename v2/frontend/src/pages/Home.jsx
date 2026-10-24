@@ -1,6 +1,7 @@
 import Layout from '../components/Layout'
 import A from '../components/A'
 import AIBackdrop from '../components/AIBackdrop'
+import ProfilePeek from '../components/ProfilePeek'
 import { css } from '../lib/css'
 import { useStats } from '../lib/site'
 import { RESUME, opt, thumb } from '../lib/links'
@@ -13,9 +14,9 @@ export default function Home() {
   const gh = (stats && stats.github) || {}
   const show = (v) => (v === undefined || v === null || v === 'N/A' || v === '' ? '—' : v)
   const profiles = [
-    { name: 'LeetCode', url: 'https://leetcode.com/u/shlokbam05/', a: 'Solved', b: 'Rating', va: show(lc.total), vb: show(lc.contestRating) },
-    { name: 'CodeChef', url: 'https://www.codechef.com/users/shlokbam', a: 'Rating', b: 'Stars', va: show(cc.rating), vb: show(cc.stars) },
-    { name: 'GitHub', url: 'https://github.com/shlokbam', a: 'Contribs', b: 'Repos', va: show(gh.contributions), vb: show(gh.repos) }
+    { kind: 'leetcode', data: lc, name: 'LeetCode', url: 'https://leetcode.com/u/shlokbam05/', a: 'Solved', b: 'Rating', va: show(lc.total), vb: show(lc.contestRating) },
+    { kind: 'codechef', data: cc, name: 'CodeChef', url: 'https://www.codechef.com/users/shlokbam', a: 'Rating', b: 'Stars', va: show(cc.rating), vb: show(cc.stars) },
+    { kind: 'github', data: gh, name: 'GitHub', url: 'https://github.com/shlokbam', a: 'Contribs', b: 'Repos', va: show(gh.contributions), vb: show(gh.repos) }
   ]
   const tp = ['Agentic AI', 'RAG pipelines', 'FastAPI', 'React', 'LangGraph', 'MCP', 'Docker']
   const tape = tp.concat(tp)
@@ -32,13 +33,12 @@ export default function Home() {
     { n: '07', name: 'Contact', file: '/contact', desc: 'Email, form and AI assistant', img: '' }
   ].map((x) => ({ ...x, noImg: !x.img }))
   return (
-    <Layout page="home" vtab="(00) — Index · Menu" chat footerStyle="padding: 56px 0 36px">
+    <Layout page="home" chat footerStyle="padding: 56px 0 36px">
       <section id="top" className="dots" style={{ position: "relative", overflow: "hidden", paddingTop: "148px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
         <div aria-hidden="true" data-glow style={{ position: "absolute", inset: "0", pointerEvents: "none", background: "radial-gradient(560px circle at var(--cx, 72%) var(--cy, 30%), color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%)" }} />
         <AIBackdrop kind="nn" />
         <div className="wrap" style={{ position: "relative" }}>
-          <div className="fade" style={{ "--d": ".2s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
-            <span className="mono" style={{ color: "var(--muted)" }}>(00) — Index</span>
+          <div className="fade" style={{ "--d": ".2s", display: "flex", justifyContent: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>Pune, IN — 2026</span>
           </div>
           <p className="serif fade" style={{ "--d": ".25s", margin: "56px 0 14px", fontSize: "clamp(26px, 2.6vw, 38px)", color: "var(--muted)" }}>hello, I'm</p>
@@ -73,13 +73,13 @@ export default function Home() {
                 <A className="btn mono" href="/contact" style={{ border: "1px solid var(--line)" }}>Contact</A>
               </div>
             </div>
-            <aside className="fade" aria-label="Coding profiles" style={{ "--d": ".8s", border: "1px solid var(--line)", background: "color-mix(in srgb, var(--surface) 90%, transparent)", borderRadius: "18px", padding: "18px 20px" }}>
+            <aside className="fade cprofiles" aria-label="Coding profiles" style={{ "--d": ".8s", border: "1px solid var(--line)", background: "color-mix(in srgb, var(--surface) 90%, transparent)", borderRadius: "18px", padding: "18px 20px" }}>
               <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>
                 <span>Coding profiles</span>
                 <span>{stats === null ? 'Loading' : stats ? 'Live' : 'Offline'}</span>
               </div>
               {profiles.map((pf, pf_i) => (
-                <A key={pf_i} href={pf.url} style={{ display: "grid", gridTemplateColumns: "96px repeat(2, minmax(0, 1fr))", gap: "10px", alignItems: "baseline", padding: "13px 0", borderTop: "1px solid var(--line)", marginTop: "10px" }}>
+                <A key={pf_i} href={pf.url} className="prow" style={{ display: "grid", gridTemplateColumns: "96px repeat(2, minmax(0, 1fr))", gap: "10px", alignItems: "baseline", padding: "13px 0", borderTop: "1px solid var(--line)", marginTop: "10px" }}>
                   <span style={{ fontWeight: "700" }}>{pf.name}</span>
                   <span>
                     <span className="disp" style={{ fontSize: "22px", letterSpacing: "-.02em" }}>{pf.va}</span>
@@ -89,6 +89,7 @@ export default function Home() {
                     <span className="disp" style={{ fontSize: "22px", letterSpacing: "-.02em" }}>{pf.vb}</span>
                     <span className="mono" style={{ display: "block", fontSize: "10px", color: "var(--muted)", marginTop: "4px" }}>{pf.b}</span>
                   </span>
+                  <ProfilePeek kind={pf.kind} data={pf.data} />
                 </A>
               ))}
             </aside>
@@ -139,7 +140,7 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <span className="mono" style={{ color: "var(--muted)" }}>(01) — In short</span>
+            <span className="mono" style={{ color: "var(--muted)" }}>In short</span>
             {" "}
             <p style={{ margin: "24px 0 0", fontSize: "clamp(30px, 3.8vw, 56px)", lineHeight: "1.08", letterSpacing: "-.03em", fontWeight: "500" }}>
               {words.map((w, w_i) => (
@@ -194,7 +195,7 @@ export default function Home() {
         <div className="wrap">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <div>
-              <span className="mono" style={{ color: "var(--muted)" }}>(02) — Selected work</span>
+              <span className="mono" style={{ color: "var(--muted)" }}>Selected work</span>
               {" "}
               <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(52px, 7vw, 112px)" }}>
                 Built{" "}
@@ -295,7 +296,7 @@ export default function Home() {
       </section>
       <section style={{ padding: "120px 0 100px" }}>
         <div className="wrap">
-          <span className="mono" style={{ color: "var(--muted)" }}>(03) — Explore the site</span>
+          <span className="mono" style={{ color: "var(--muted)" }}>Explore the site</span>
           {" "}
           <div style={{ marginTop: "36px", borderTop: "1px solid var(--text)" }}>
             {explore.map((x, x_i) => (

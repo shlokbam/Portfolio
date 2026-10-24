@@ -46,7 +46,7 @@ export default function Community() {
   // The list is doubled for the seamless marquee loop; the copy is hidden from assistive tech.
   const gallery = items.concat(items).map((g, i) => ({ ...g, small: thumb(g.src), open: open(g.src), copy: i >= items.length, style: '--r: ' + tilt[i % tilt.length] }))
   return (
-    <Layout page="community" vtab="(05) — Community · Menu" curtain="(05) Community" chat greeting="Ask me about his mentoring or the events he has hosted." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
+    <Layout page="community" curtain="Community" chat greeting="Ask me about his mentoring or the events he has hosted." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       {lbOpen && (
         <div className="lightbox" role="dialog" aria-modal="true" onClick={(e) => { if (e.target === e.currentTarget) closeLb() }} aria-label="Photo">
           <button type="button" className="pill mono" onClick={closeLb} autoFocus style={{ position: "absolute", top: "24px", right: "24px", height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px solid var(--text)", background: "var(--bg)", color: "var(--text)", cursor: "pointer" }}>Close ✕</button>
@@ -57,8 +57,7 @@ export default function Community() {
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
         <AIBackdrop kind="graph" />
         <div className="wrap">
-          <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap" }}>
-            <span className="mono" style={{ color: "var(--muted)" }}>(05) — Community &amp; leadership</span>
+          <div className="fade" style={{ "--d": ".3s", display: "flex", justifyContent: "flex-end", gap: "24px", flexWrap: "wrap" }}>
             <span className="mono" style={{ color: "var(--muted)" }}>Shlok Bam / Portfolio 2026</span>
           </div>
           <h1 className="disp" aria-label="Beyond code" style={{ margin: "24px 0 0", fontSize: "min(clamp(40px, 10.2vw, 152px), calc((100vw - 80px) / 4.55))", fontStretch: "100%" }}>
@@ -118,7 +117,7 @@ export default function Community() {
       <section style={{ padding: "88px 0 112px", borderBottom: "1px solid var(--line)", overflow: "hidden" }}>
         <div className="wrap" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "24px", flexWrap: "wrap" }}>
           <div>
-            <span className="mono" style={{ color: "var(--muted)" }}>(05.1) — Gallery</span>
+            <span className="mono" style={{ color: "var(--muted)" }}>Gallery</span>
             {" "}
             <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>Moments</h2>
           </div>
@@ -140,7 +139,7 @@ export default function Community() {
       </section>
       <A className="next" href="/writing">
         <div className="wrap" style={{ paddingTop: "72px", paddingBottom: "72px" }}>
-          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page — (06)</div>
+          <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page</div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "24px", marginTop: "18px" }}>
             <span className="disp nt" style={{ fontSize: "clamp(60px, 10vw, 160px)" }}>Writing</span>
             <span className="narr" style={{ width: "112px", height: "112px", borderRadius: "50%", border: "1px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", flex: "none" }}>
