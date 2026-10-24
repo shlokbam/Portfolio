@@ -52,6 +52,12 @@ export const PAGES = {
     title: 'Contact Shlok Bam — Hire an AI / Generative AI Engineer',
     description: 'Get in touch with Shlok Bam about full-time roles, internships, collaboration or freelance work. Email shlokbam19103@gmail.com — based in Pune, open to relocation.',
     name: 'Contact'
+  },
+  '/privacy': {
+    title: 'Privacy — Shlok Bam',
+    description: 'What shlokbam.in collects and why: Google Analytics visit counts, questions sent to the AI assistant, contact-form messages, and the theme and game scores kept in your browser.',
+    name: 'Privacy',
+    card: 'home'
   }
 }
 
@@ -150,7 +156,7 @@ export function headTags(pathname, site) {
   const url = site + (pathname === '/' ? '/' : pathname)
   // each page has its own share card in public/og/ (1200×630)
   const card = pathname === '/' ? 'home' : pathname.split('/').pop()
-  const img = site + '/og/' + (PAGES[pathname] ? card : 'home') + '.jpg'
+  const img = site + '/og/' + (PAGES[pathname] ? meta.card || card : 'home') + '.jpg'
   const alt = pathname === '/' ? 'Shlok Bam — AI / Generative AI Engineer' : (meta.name || 'Shlok Bam') + ' — Shlok Bam, AI / Generative AI Engineer'
   const tags = [
     `<title>${esc(meta.title)}</title>`,

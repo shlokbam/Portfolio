@@ -13,6 +13,7 @@ import Recognition from './pages/Recognition'
 import Community from './pages/Community'
 import Writing from './pages/Writing'
 import Contact from './pages/Contact'
+import Privacy from './pages/Privacy'
 import NotFound from './pages/NotFound'
 
 function setMeta(selector, attr, value) {
@@ -69,6 +70,7 @@ export default function App() {
         <Route path="/community" element={<Community />} />
         <Route path="/writing" element={<Writing />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy" element={<Privacy />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </SiteProvider>

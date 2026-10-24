@@ -112,6 +112,9 @@ prefers reduced motion. Readable overlays sit in the empty strip above each page
 
 ## Analytics, icon, old address
 - Google Analytics (`G-8BD4MSYPM6`, same property as v1) is in `frontend/index.html`; it is skipped on localhost.
+- Microsoft Clarity (project `z2u0dv5iv5`, heatmaps and replays) is next to it, also skipped on localhost.
+- `src/pages/Privacy.jsx` (`/privacy`) describes what the site collects. Update it whenever analytics, the chat or the
+  contact form change.
 - Site icon: `public/icon.svg` (the orbit mark), with PNG/ICO copies and a maskable icon for Android.
 - The API also answers on the old v1 address: non-API paths 301 to `SITE_URL`, and `/service-worker.js`
   replaces v1's caching service worker with one that removes itself.
