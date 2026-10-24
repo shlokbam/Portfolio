@@ -1,4 +1,4 @@
-// Contact: a live self-attention heatmap over whatever the visitor types into "Ask my AI".
+// Home "Ask my AI": a live self-attention heatmap over whatever the visitor types.
 // Each token gets a hashed character-trigram embedding; scores are scaled dot products with a
 // causal mask, softmaxed per row. One query row at a time is highlighted.
 import { rgba, MONO } from './util.js'
@@ -19,8 +19,10 @@ export default function create(env) {
   let toks = [], A = [], shownA = [], lastText = null, region = null
 
   function compute(text) {
-    toks = (text || '').trim().split(/\s+/).filter(Boolean).slice(-9)
+    toks = (text || '').trim().split(/\s+/).filter(Boolean).slice(-8)
     if (!toks.length) toks = ['ask', 'me', 'anything', 'about', "shlok's", 'work']
+    // a start-of-sequence token, as real models use, so even a one-word question has a pattern
+    toks = ['<s>'].concat(toks)
     const E = toks.map(embed)
     A = toks.map((_, i) => {
       const s = toks.map((_, j) => (j > i ? -Infinity : (E[i].reduce((a, v, k) => a + v * E[j][k], 0) * 4) / Math.sqrt(D) + (j === i ? 0.6 : 0)))
@@ -37,7 +39,8 @@ export default function create(env) {
   function frame(e, t) {
     const { ctx, colors } = e
     if (e.text !== lastText) { lastText = e.text; compute(e.text) }
-    const n = toks.length, cell = region.size / n, x0 = region.x1 - region.size, y0 = region.y0
+    // cells never grow past 30px, so short questions give a small grid instead of one big block
+    const n = toks.length, cell = Math.min(30, region.size / n), size = cell * n, x0 = region.x1 - size, y0 = region.y0
     const q = Math.floor(t / 900) % n
     for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
       shownA[i][j] += (A[i][j] - shownA[i][j]) * 0.12
@@ -46,7 +49,7 @@ export default function create(env) {
       ctx.fillRect(x0 + j * cell + 1, y0 + i * cell + 1, cell - 2, cell - 2)
     }
     ctx.strokeStyle = rgba(colors.accent, 0.8); ctx.lineWidth = 1
-    ctx.strokeRect(x0, y0 + q * cell, region.size, cell)
+    ctx.strokeRect(x0, y0 + q * cell, size, cell)
     ctx.font = `10px ${MONO}`; ctx.textAlign = 'right'
     toks.forEach((tk, i) => {
       ctx.fillStyle = rgba(i === q ? colors.accent : colors.muted2, i === q ? 0.95 : 0.7)
