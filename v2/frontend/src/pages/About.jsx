@@ -47,6 +47,7 @@ export default function About() {
   const clock = useIstClock()
   // the orbit stops once the pointer is within ~4 cm (150px) of any skill
   const orbitRef = useRef(null)
+  const coreRef = useRef(null)
   const nearRaf = useRef(0)
   const nearCheck = (e) => {
     const x = e.clientX, y = e.clientY
@@ -61,6 +62,14 @@ export default function About() {
         if (Math.hypot(r.left + r.width / 2 - x, r.top + r.height / 2 - y) < 150) { near = true; break }
       }
       el.classList.toggle('near', near)
+      // the eye in the middle looks towards the pointer
+      const c = coreRef.current
+      if (c) {
+        const r = c.getBoundingClientRect(), dx = x - (r.left + r.width / 2), dy = y - (r.top + r.height / 2)
+        const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 260) * 15
+        c.style.setProperty('--px', (dx / d * k).toFixed(1) + 'px')
+        c.style.setProperty('--py', (dy / d * k).toFixed(1) + 'px')
+      }
     })
   }
   useEffect(() => () => cancelAnimationFrame(nearRaf.current), [])
@@ -220,13 +229,14 @@ export default function About() {
             </div>
           </div>
           <div className="orbit-box orbit-in" style={{ marginTop: "32px", display: "flex", justifyContent: "center" }}>
-            <div className="orbit" ref={orbitRef} onPointerMove={nearCheck} onPointerLeave={() => orbitRef.current && orbitRef.current.classList.remove('near')} aria-label="Skills arranged in orbit by proficiency. Move close to pause" style={{ position: "relative", width: "900px", height: "900px" }}>
+            <div className="orbit" ref={orbitRef} onPointerMove={nearCheck} onPointerLeave={() => { if (orbitRef.current) orbitRef.current.classList.remove('near'); if (coreRef.current) { coreRef.current.style.setProperty('--px', '0px'); coreRef.current.style.setProperty('--py', '0px') } }} aria-label="Skills arranged in orbit by proficiency. Move close to pause" style={{ position: "relative", width: "900px", height: "900px" }}>
               <div aria-hidden="true" style={{ position: "absolute", left: "290px", top: "290px", width: "320px", height: "320px", borderRadius: "50%", border: "1px dashed var(--line)" }} />
               <div aria-hidden="true" style={{ position: "absolute", left: "170px", top: "170px", width: "560px", height: "560px", borderRadius: "50%", border: "1px dashed var(--line)" }} />
               <div aria-hidden="true" style={{ position: "absolute", left: "60px", top: "60px", width: "780px", height: "780px", borderRadius: "50%", border: "1px dashed var(--line)" }} />
-              <div style={{ position: "absolute", left: "370px", top: "370px", width: "160px", height: "160px", borderRadius: "50%", background: "var(--accent)", color: "var(--onaccent)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                <span className="disp" style={{ fontSize: "46px", lineHeight: ".8", letterSpacing: "-.04em" }}>SB</span>
-                <span className="mono" style={{ fontSize: "10px", marginTop: "8px" }}>Come closer to pause</span>
+              <div className="ocore" ref={coreRef}>
+                <span className="ocore-ring" aria-hidden="true" />
+                <span className="ocore-eye" aria-hidden="true"><span className="ocore-iris"><span className="ocore-pupil" /></span></span>
+                <span className="mono ocore-lab"><span className="l1">Come closer to pause</span><span className="l2">Paused · hi there</span></span>
               </div>
               <div className="spin" style={{ "--dur": "48s", position: "absolute", inset: "0" }}>
                 {ring1.map((s, s_i) => (
