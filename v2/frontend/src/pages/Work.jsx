@@ -153,7 +153,7 @@ export default function Work() {
             </article>
             <article className="hcard" style={{ width: "400px", minHeight: "500px", border: "1px solid var(--line)", borderRadius: "26px", background: "var(--surface)", padding: "24px", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
               <div className="disp" aria-hidden="true" style={{ position: "absolute", right: "18px", top: "8px", fontSize: "112px", color: "transparent", WebkitTextStroke: "1px var(--line)" }}>04</div>
-              <div className="mono" style={{ display: "flex", gap: "10px", alignItems: "center", color: "var(--muted)" }}>Privacy-first · Finance</div>
+              <div className="mono" style={{ display: "flex", gap: "10px", alignItems: "center", color: "var(--muted)" }}>SMS · Finance</div>
               <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)", minHeight: "150px" }}>
                 <svg width="190" height="130" viewBox="0 0 260 180" fill="none" aria-hidden="true">
                   <path d="M0 170 H260" stroke="currentColor" strokeWidth="1" />
@@ -168,9 +168,9 @@ export default function Work() {
               </div>
               <h3 className="disp" style={{ margin: "0", fontSize: "42px" }}>PaisaWise</h3>
               <p style={{ margin: "12px 0 0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.55" }}>
-                Automated personal finance that parses bank SMS alerts on-device, then applies rules, heuristics and an LLM classifier to separate spending from investments, transfers and family cashflow.
+                Automated personal finance from bank SMS alerts. The phone filters the alerts and sends them to a FastAPI server, where rules and heuristics classify each transaction; low-confidence ones go to an LLM (Groq or Mistral). It separates spending from investments, transfers and family cashflow.
               </p>
-              <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>React · FastAPI · Python · LLM classifier · Tailwind</div>
+              <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>React · FastAPI · Python · Groq · Mistral · Tailwind</div>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "20px" }}>
                 <A className="pill mono" href="https://github.com/shlokbam/PaisaWise" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", background: "var(--text)", color: "var(--bg)", display: "inline-flex", alignItems: "center" }}>Code ↗</A>
               </div>
