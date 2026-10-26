@@ -15,8 +15,7 @@ const PAGES = [
   ['04', 'Recognition', '/recognition', 'Patents & awards', 'recognition'],
   ['05', 'Community', '/community', 'Beyond code', 'community'],
   ['06', 'Writing', '/writing', 'Journal', 'writing'],
-  ['07', 'Contact', '/contact', "Let's talk", 'contact'],
-  ['08', 'Now', '/now', 'This month', 'now']
+  ['07', 'Contact', '/contact', "Let's talk", 'contact']
 ]
 
 const GREETING = "Hi! Ask me about Shlok's projects, patents, VIT Pune record or how to reach him."
@@ -107,8 +106,7 @@ function ToTop({ chat }) {
   )
 }
 
-// `nav` picks the menu item to highlight when it differs from `page` (which also selects the page stylesheet)
-export default function Layout({ page, nav, curtain, chat, greeting = GREETING, footerStyle, back, children }) {
+export default function Layout({ page, curtain, chat, greeting = GREETING, footerStyle, back, children }) {
   const { toggleTheme } = useSite()
   const [menuOpen, setMenuOpen] = useState(false)
   const root = useRef(null)
@@ -147,7 +145,7 @@ export default function Layout({ page, nav, curtain, chat, greeting = GREETING, 
 
   const openMenu = () => setMenuOpen(true)
   const closeMenu = () => setMenuOpen(false)
-  const current = (PAGES.find((p) => p[4] === (nav || page)) || PAGES[2])[4]
+  const current = (PAGES.find((p) => p[4] === page) || PAGES[2])[4]
   const pages = PAGES.map(([n, name, file, desc, key], i) => ({
     n, name, file, desc, style: '--i: ' + i + ((current === key || (page === 'casestudy' && key === 'work')) ? '; color: var(--accent)' : '')
   }))

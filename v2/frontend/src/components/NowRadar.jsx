@@ -12,6 +12,12 @@ export default function NowRadar() {
   const n = blocks.length
   const [active, setActive] = useState(0)
   const [held, setHeld] = useState(null)
+  // how far through the month we are; set after hydration so the prerendered HTML stays stable
+  const [month, setMonth] = useState(null)
+  useEffect(() => {
+    const d = new Date()
+    setMonth({ day: d.getDate(), days: new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate() })
+  }, [])
   const sweep = useRef(null)
   const box = useRef(null)
   const heldRef = useRef(held)
@@ -48,7 +54,7 @@ export default function NowRadar() {
   const release = () => setHeld(null)
 
   return (
-    <section className="nowr" ref={box} style={{ padding: '110px 0', borderBottom: '1px solid var(--line)' }}>
+    <section id="now" className="nowr" ref={box} style={{ padding: '110px 0', borderBottom: '1px solid var(--line)' }}>
       <div className="wrap">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '24px', flexWrap: 'wrap' }}>
           <div>
@@ -58,7 +64,10 @@ export default function NowRadar() {
               <span className="serif" style={{ textTransform: 'none', fontWeight: '400', color: 'var(--accent)' }}>radar</span>
             </h2>
           </div>
-          <A className="nowr-go mono" href="/now">Open the Now page →</A>
+          <div className="nowr-month mono" aria-hidden="true">
+            <span>{month ? 'Day ' + month.day + ' of ' + month.days : 'This month'}</span>
+            <span className="nowr-track"><i style={{ transform: 'scaleX(' + (month ? month.day / month.days : 0) + ')' }} /></span>
+          </div>
         </div>
 
         <div className="nowr-grid">

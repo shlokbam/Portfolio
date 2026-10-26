@@ -1,4 +1,4 @@
-// The /now page (nownownow.com convention): what Shlok is focused on this month.
+// Home "On my radar" (components/NowRadar.jsx): what Shlok is focused on this month.
 // Update monthly: change UPDATED, edit the blocks. A block with an empty `text` is not shown.
 // Keep PharmaACE to public, non-confidential wording.
 export const UPDATED = 'October 2026'

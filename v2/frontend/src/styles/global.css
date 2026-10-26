@@ -327,8 +327,11 @@ section#top > .wrap, .ai-host > .wrap { position: relative; z-index: 1; }
 
 /* Home "On my radar" (NowRadar) */
 .sb .nowr-live { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #2fd47a; margin-right: 10px; box-shadow: 0 0 0 4px color-mix(in srgb, #2fd47a 22%, transparent); animation: sb-led 1.4s steps(1) infinite; }
-.sb .nowr-go { display: inline-flex; align-items: center; height: 46px; padding: 0 20px; border-radius: 999px; background: var(--accent); color: var(--onaccent); font-size: 11px; transition: transform .3s cubic-bezier(.16,1,.3,1); }
-.sb .nowr-go:hover { transform: translateY(-2px); }
+.sb .nowr { scroll-margin-top: 80px; }
+.sb .nowr-month { display: flex; align-items: center; gap: 16px; width: min(360px, 100%); padding-bottom: 8px; color: var(--muted); font-size: 11px; }
+.sb .nowr-month span:first-child { flex: none; }
+.sb .nowr-track { flex: 1; height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.sb .nowr-track i { display: block; height: 100%; background: var(--accent); transform-origin: left; transition: transform 1.2s cubic-bezier(.16,1,.3,1); }
 .sb .nowr-grid { margin-top: 48px; display: grid; grid-template-columns: minmax(280px, 420px) minmax(0, 1fr); gap: 56px; align-items: center; }
 .sb .nowr-radar { width: 100%; height: auto; overflow: visible; }
 .sb .nowr-ring { fill: none; stroke: var(--line); stroke-width: 1; }
@@ -352,7 +355,7 @@ section#top > .wrap, .ai-host > .wrap { position: relative; z-index: 1; }
 .sb .nowr-item p { margin: 8px 0 0; font-size: 16px; line-height: 1.5; }
 .sb .nowr-l { display: inline-block; margin-top: 8px; font-size: 10px; color: var(--muted); }
 @media (max-width: 860px) { .sb .nowr-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; } .sb .nowr-radar { max-width: 320px; margin: 0 auto; } .sb .nowr-item.on { transform: none; } }
-@media (prefers-reduced-motion: reduce) { .sb .nowr-live, .sb .nowr-blip.on .nowr-ping { animation: none; } .sb .nowr-item, .sb .nowr-item::before { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .sb .nowr-live, .sb .nowr-blip.on .nowr-ping { animation: none; } .sb .nowr-item, .sb .nowr-item::before, .sb .nowr-track i { transition: none; } }
 
 /* Home hero: the "Now" link, made to look clickable */
 .sb .now-chip { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; height: 30px; padding: 0 12px 0 10px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line)); background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent); font-size: 10px; transition: background-color .25s, color .25s, transform .3s cubic-bezier(.16,1,.3,1); }

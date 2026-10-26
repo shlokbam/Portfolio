@@ -96,7 +96,7 @@ export default function Home() {
             <div style={{ padding: "20px 20px 0 0" }}>
               <div className="mono" style={{ color: "var(--muted)" }}>Currently</div>
               <div style={{ marginTop: "8px", fontSize: "17px", fontWeight: "600" }}>Intern, PharmaACE Innovations</div>
-              <A className="now-chip mono" href="/now"><i aria-hidden="true" />What I'm up to now <b aria-hidden="true">→</b></A>
+              <A className="now-chip mono" href="#now"><i aria-hidden="true" />What I'm up to now <b aria-hidden="true">→</b></A>
             </div>
             <div style={{ padding: "20px 20px 0", borderLeft: "1px solid var(--line)" }}>
               <div className="mono" style={{ color: "var(--muted)" }}>Education</div>
@@ -157,7 +157,6 @@ export default function Home() {
         </div>
       </section>
       <Glance />
-      {/* option B for the Now content (option A is the /now page); keep one, remove the other */}
       <NowRadar />
       <AskAI />
       {/* "Built to run" section: hidden for now — remove this comment wrapper to bring it back.
