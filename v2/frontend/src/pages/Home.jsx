@@ -68,7 +68,6 @@ export default function Home() {
                     <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
                 </A>
-                <A className="btn mono" href="/contact" style={{ border: "1px solid var(--line)" }}>Contact</A>
               </div>
             </div>
             <aside className="fade cprofiles" aria-label="Coding profiles" style={{ "--d": ".8s", border: "1px solid var(--line)", background: "color-mix(in srgb, var(--surface) 90%, transparent)", borderRadius: "18px", padding: "18px 20px" }}>
@@ -96,7 +95,6 @@ export default function Home() {
             <div style={{ padding: "20px 20px 0 0" }}>
               <div className="mono" style={{ color: "var(--muted)" }}>Currently</div>
               <div style={{ marginTop: "8px", fontSize: "17px", fontWeight: "600" }}>Intern, PharmaACE Innovations</div>
-              <A className="now-chip mono" href="#now"><i aria-hidden="true" />What I'm up to now <b aria-hidden="true">→</b></A>
             </div>
             <div style={{ padding: "20px 20px 0", borderLeft: "1px solid var(--line)" }}>
               <div className="mono" style={{ color: "var(--muted)" }}>Education</div>

@@ -357,10 +357,3 @@ section#top > .wrap, .ai-host > .wrap { position: relative; z-index: 1; }
 @media (max-width: 860px) { .sb .nowr-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; } .sb .nowr-radar { max-width: 320px; margin: 0 auto; } .sb .nowr-item.on { transform: none; } }
 @media (prefers-reduced-motion: reduce) { .sb .nowr-live, .sb .nowr-blip.on .nowr-ping { animation: none; } .sb .nowr-item, .sb .nowr-item::before, .sb .nowr-track i { transition: none; } }
 
-/* Home hero: the "Now" link, made to look clickable */
-.sb .now-chip { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; height: 30px; padding: 0 12px 0 10px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line)); background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent); font-size: 10px; transition: background-color .25s, color .25s, transform .3s cubic-bezier(.16,1,.3,1); }
-.sb .now-chip:hover { background: var(--accent); color: var(--onaccent); transform: translateY(-2px); }
-.sb .now-chip i { width: 7px; height: 7px; border-radius: 50%; background: #2fd47a; box-shadow: 0 0 0 3px color-mix(in srgb, #2fd47a 25%, transparent); animation: sb-led 1.4s steps(1) infinite; }
-.sb .now-chip b { font-weight: 500; transition: transform .3s; }
-.sb .now-chip:hover b { transform: translateX(3px); }
-@media (prefers-reduced-motion: reduce) { .sb .now-chip i { animation: none; } }
