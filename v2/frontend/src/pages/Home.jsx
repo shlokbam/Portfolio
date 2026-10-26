@@ -130,7 +130,7 @@ export default function Home() {
               </text>
             </svg>
             <div style={{ position: "absolute", left: "32px", top: "32px", width: "136px", height: "136px", borderRadius: "50%", overflow: "hidden", background: "var(--surface)" }}>
-              <img loading="lazy" decoding="async" src={opt('/static/images/about/profile.png')} alt="Shlok Bam" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <img loading="lazy" decoding="async" src={opt('/static/images/shlok-bam.jpg')} width="611" height="919" alt="Shlok Bam, AI / Generative AI engineer from Pune, India" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
           </div>
           <div>

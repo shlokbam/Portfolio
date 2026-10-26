@@ -81,6 +81,9 @@ npm run dev        # http://localhost:5173
 - Share images: one 1200×630 card per page in `public/og/` (`home.jpg`, `work.jpg`, …), picked in `headTags()`
   in `src/seo.js`; `public/og.png` is a copy of the home card. Icons: `icon.svg`, `icon-192/512.png`, `apple-touch-icon.png`.
 - Fonts are self-hosted from `public/fonts` (latin subset, SIL Open Font License).
+- The build also writes `llms.txt` (a plain-text summary for AI assistants, from `PAGES` in `src/seo.js` plus key facts
+  in `scripts/prerender.mjs`; keep those facts in step with `backend/knowledge.py`) and lists the portrait
+  `public/static/images/shlok-bam.jpg` in the sitemap for image search. The original `images/about/profile.png` is kept.
 - After deploying: add the site in Google Search Console, verify it (DNS or HTML tag), submit
   `/sitemap.xml`, and use "Request indexing" on the home page. Link the site from LinkedIn, GitHub
   (profile + repos) and X — those links are what make "Shlok Bam" searches rank it first.

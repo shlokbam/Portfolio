@@ -9,7 +9,7 @@ const PERSON_DESC = 'AI / Generative AI engineer from Pune, India shipping agent
 export const PAGES = {
   '/': {
     title: 'Shlok Bam | AI / Generative AI Engineer in Pune, India',
-    description: 'Shlok Bam is an ' + PERSON_DESC.charAt(0).toLowerCase() + PERSON_DESC.slice(1),
+    description: 'Shlok Bam is an ' + PERSON_DESC,
     name: 'Home'
   },
   '/about': {
@@ -24,7 +24,7 @@ export const PAGES = {
   },
   '/work/dailydiff': {
     title: 'DailyDiff Case Study | Multi-Agent AI Newsroom by Shlok Bam',
-    description: 'How DailyDiff works: a live LangGraph pipeline over 7 sources that emails a fact-checked tech brief three times a week: 185 briefs, 42 editions, LLM calls cut from 22 to 4, with per-agent evals.',
+    description: 'How DailyDiff works: a live LangGraph pipeline over 7 sources that emails a fact-checked tech brief three times a week (185 briefs, 42 editions, LLM calls cut from 22 to 4), with per-agent evals.',
     name: 'DailyDiff case study',
     parent: '/work'
   },
@@ -77,7 +77,13 @@ function jsonLd(pathname, site) {
     '@id': site + '/#person',
     name: 'Shlok Bam',
     url: site + '/',
-    image: site + '/static/images/about/profile.png',
+    image: {
+      '@type': 'ImageObject',
+      url: site + '/static/images/shlok-bam.jpg',
+      width: 611,
+      height: 919,
+      caption: 'Shlok Bam, AI / Generative AI engineer from Pune, India'
+    },
     description: PERSON_DESC,
     jobTitle: 'AI / Generative AI Engineer',
     worksFor: { '@type': 'Organization', name: 'PharmaACE Innovations' },

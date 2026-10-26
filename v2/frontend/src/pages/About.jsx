@@ -128,7 +128,7 @@ export default function About() {
           <div className="sticky">
             <div className="rv" style={{ position: "relative" }}>
               <div className="pic gray" style={{ borderRadius: "26px", aspectRatio: "4 / 5", background: "var(--surface)" }}>
-                <img decoding="async" src={opt('/static/images/about/profile.png')} alt="Portrait of Shlok Bam" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <img decoding="async" src={opt('/static/images/shlok-bam.jpg')} width="611" height="919" alt="Shlok Bam, AI / Generative AI engineer from Pune, India" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
             </div>
             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "20px" }}>
