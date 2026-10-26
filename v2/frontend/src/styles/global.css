@@ -324,3 +324,40 @@ section#top > .wrap, .ai-host > .wrap { position: relative; z-index: 1; }
 @media (max-width: 1100px) { .sb .arc-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sb .mem-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 700px) { .sb .bug-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 10px; } .sb .bug-cell { min-height: 92px; padding: 10px; } .sb .bug-cell code { font-size: 10px; } .sb .bug { width: 30px; height: 30px; right: 8px; bottom: 8px; } .sb .mem-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 10px; } .sb .type-box { padding: 24px 18px; } }
 @media (prefers-reduced-motion: reduce) { .sb .mem-in { transition: none; } .sb .bug, .sb .feat, .sb .bug-cell.hit, .sb .bug-cell.oops, .sb .tc.cur { animation: none; } }
+
+/* Home "On my radar" (NowRadar) */
+.sb .nowr-live { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #2fd47a; margin-right: 10px; box-shadow: 0 0 0 4px color-mix(in srgb, #2fd47a 22%, transparent); animation: sb-led 1.4s steps(1) infinite; }
+.sb .nowr-go { display: inline-flex; align-items: center; height: 46px; padding: 0 20px; border-radius: 999px; background: var(--accent); color: var(--onaccent); font-size: 11px; transition: transform .3s cubic-bezier(.16,1,.3,1); }
+.sb .nowr-go:hover { transform: translateY(-2px); }
+.sb .nowr-grid { margin-top: 48px; display: grid; grid-template-columns: minmax(280px, 420px) minmax(0, 1fr); gap: 56px; align-items: center; }
+.sb .nowr-radar { width: 100%; height: auto; overflow: visible; }
+.sb .nowr-ring { fill: none; stroke: var(--line); stroke-width: 1; }
+.sb .nowr-arm { stroke: var(--accent); stroke-width: 2; }
+.sb .nowr-dot { fill: var(--muted2); transition: fill .3s, r .3s; }
+.sb .nowr-ping { fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: 0; }
+.sb .nowr-tag { font: 500 9px 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; fill: var(--muted); transition: fill .3s; }
+.sb .nowr-blip { cursor: default; }
+.sb .nowr-blip.on .nowr-dot { fill: var(--accent); r: 7px; }
+.sb .nowr-blip.on .nowr-tag { fill: var(--text); }
+.sb .nowr-blip.on .nowr-ping { animation: sb-ping 1.2s ease-out infinite; }
+@keyframes sb-ping { from { opacity: .9; transform: scale(.4); } to { opacity: 0; transform: scale(1.6); } }
+.sb .nowr-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.sb .nowr-item { position: relative; border: 1px solid var(--line); border-radius: 18px; padding: 16px 20px 16px 24px; background: var(--surface); outline: none; transition: border-color .3s, background-color .3s, transform .4s cubic-bezier(.16,1,.3,1); }
+.sb .nowr-item::before { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 3px; border-radius: 3px; background: var(--accent); transform: scaleY(0); transition: transform .35s cubic-bezier(.16,1,.3,1); }
+.sb .nowr-item.on { border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); background: color-mix(in srgb, var(--accent) 7%, var(--surface)); transform: translateX(6px); }
+.sb .nowr-item.on::before { transform: scaleY(1); }
+.sb .nowr-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sb .nowr-k { display: flex; gap: 10px; color: var(--accent); font-size: 10.5px; }
+.sb .nowr-k span { color: var(--muted); }
+.sb .nowr-item p { margin: 8px 0 0; font-size: 16px; line-height: 1.5; }
+.sb .nowr-l { display: inline-block; margin-top: 8px; font-size: 10px; color: var(--muted); }
+@media (max-width: 860px) { .sb .nowr-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; } .sb .nowr-radar { max-width: 320px; margin: 0 auto; } .sb .nowr-item.on { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .sb .nowr-live, .sb .nowr-blip.on .nowr-ping { animation: none; } .sb .nowr-item, .sb .nowr-item::before { transition: none; } }
+
+/* Home hero: the "Now" link, made to look clickable */
+.sb .now-chip { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; height: 30px; padding: 0 12px 0 10px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line)); background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent); font-size: 10px; transition: background-color .25s, color .25s, transform .3s cubic-bezier(.16,1,.3,1); }
+.sb .now-chip:hover { background: var(--accent); color: var(--onaccent); transform: translateY(-2px); }
+.sb .now-chip i { width: 7px; height: 7px; border-radius: 50%; background: #2fd47a; box-shadow: 0 0 0 3px color-mix(in srgb, #2fd47a 25%, transparent); animation: sb-led 1.4s steps(1) infinite; }
+.sb .now-chip b { font-weight: 500; transition: transform .3s; }
+.sb .now-chip:hover b { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) { .sb .now-chip i { animation: none; } }

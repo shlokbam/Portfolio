@@ -3,7 +3,7 @@
 Endpoints
   GET  /api/health         liveness probe for Render
   GET  /api/stats          LeetCode / CodeChef / GitHub numbers (cached 2 h)
-  GET  /api/availability   online/offline state of the live project demos (cached 10 min)
+  GET  /api/availability   online / sleeping / down state of the live project demos (cached 10 min, 90 s if any sleep)
   POST /api/chat           portfolio assistant (Groq; models set by GROQ_MODELS)
   GET  /api/chat/stats     number of questions answered since the last restart
   POST /api/contact        fallback contact relay to Web3Forms (the site normally posts there directly)
@@ -250,23 +250,31 @@ async def api_stats():
 _avail_cache: dict = {'data': None, 'at': 0.0}
 
 
-async def _check(url: str) -> bool:
+async def _check(url: str) -> str:
+    """'online', 'sleeping' (slow to answer or a 502/503/504: a free-tier host spinning up; opening it wakes it)
+    or 'down' (refused, DNS failure or another server error)."""
     try:
         resp = await client().head(url, timeout=6)
         if resp.status_code >= 400:
             resp = await client().get(url, timeout=6)
-        return resp.status_code < 500
+    except httpx.TimeoutException:
+        return 'sleeping'
     except Exception:
-        return False
+        return 'down'
+    if resp.status_code in (502, 503, 504):
+        return 'sleeping'
+    return 'online' if resp.status_code < 500 else 'down'
 
 
 @app.get('/api/availability')
 async def api_availability():
     now = time.time()
-    if _avail_cache['data'] and now - _avail_cache['at'] < AVAILABILITY_TTL:
+    # a sleeping demo is woken by this very check, so re-check those after 90 s instead of 10 min
+    ttl = 90 if _avail_cache['data'] and 'sleeping' in _avail_cache['data'].values() else AVAILABILITY_TTL
+    if _avail_cache['data'] and now - _avail_cache['at'] < ttl:
         return {'success': True, 'statuses': _avail_cache['data'], 'cached': True}
     results = await asyncio.gather(*(_check(u) for u in LIVE_PROJECTS))
-    statuses = {u: ('online' if ok else 'offline') for u, ok in zip(LIVE_PROJECTS, results)}
+    statuses = dict(zip(LIVE_PROJECTS, results))
     _avail_cache.update(data=statuses, at=now)
     return {'success': True, 'statuses': statuses, 'cached': False}
 

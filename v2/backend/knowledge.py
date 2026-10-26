@@ -27,6 +27,7 @@ PROFILE = """
 - X / Twitter: https://x.com/shlok_bam
 - Résumé: downloadable from any page of the site (header "Résumé" button).
 - Website: https://shlokbam.in · Journal: https://journal-murex-three.vercel.app
+- Now page: https://shlokbam.in/now, what he is focused on this month (building agentic systems, turning what he has learnt into real projects; his PharmaACE internship; learning RAG in depth and LLM evals; and looking for full-time roles after graduating in May 2027). Updated monthly.
 - Contact page has a form (topics: full-time role, internship, collaboration, freelance, just saying hi).
 
 ## Coding profiles

@@ -131,6 +131,10 @@
 .pg-work .ilink.off{color:var(--muted);border-style:dashed}
 .pg-work .idot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--muted2)}
 .pg-work .idot.on{background:#2fd47a;box-shadow:0 0 0 3px color-mix(in srgb,#2fd47a 25%,transparent)}
+.pg-work .idot.zz{background:#f5b041;animation:work-zz 1.6s ease-in-out infinite}
+.pg-work .ilink.live.sleep{border-style:dashed}
+@keyframes work-zz{50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.pg-work .idot.zz{animation:none}}
 .pg-work .irow .peek{right:220px;width:380px;border-radius:20px;background:var(--surface2);border:1px solid var(--line);padding:20px 22px;box-shadow:0 30px 60px rgba(0,0,0,.35)}
 .pg-work .pk-top{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:10.5px}
 .pg-work .pk-badge{color:var(--accent)}

@@ -109,6 +109,10 @@ background tab, read colours from the theme tokens, and draw a single still fram
 prefers reduced motion. Readable overlays sit in the empty strip above each page label (`band()` in
 `util.js`); textures go behind the titles.
 
+## Now page
+`/now` shows what Shlok is focused on this month. Edit `src/data/now.js` monthly: change `UPDATED` and the
+blocks (a block with empty `text` is hidden). Keep the matching line in `backend/knowledge.py` current too.
+
 ## Home page extras
 - **At a glance** (`src/components/Glance.jsx`): stat tiles, each with its own hover interaction.
 - **Skill pit** (`src/components/SkillPit.jsx`): the stack as physical pills (matter-js, ~27 kB gzip,

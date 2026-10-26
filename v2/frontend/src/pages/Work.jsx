@@ -5,6 +5,7 @@ import { css } from '../lib/css'
 import { useState } from 'react'
 import { useAvailability } from '../lib/site'
 import { PROJECTS } from '../data/projects'
+import { demoState, DEMO_NOTE, DEMO_LABEL } from '../lib/demo'
 import './Work.css'
 
 export default function Work() {
@@ -14,7 +15,7 @@ export default function Work() {
   const all = PROJECTS.map((p, i) => ({ ...p, n: String(i + 1).padStart(2, '0') }))
   const rows = all
     .filter((p) => fv === 'all' || p.cats.indexOf(fv) !== -1)
-    .map((p) => ({ ...p, stack: p.tags.split('·').map((t) => t.trim()).filter(Boolean), status: p.live && avail ? avail[p.live] || '' : '' }))
+    .map((p) => ({ ...p, stack: p.tags.split('·').map((t) => t.trim()).filter(Boolean), status: demoState(avail, p.live) }))
   const chip = (on) => on
     ? 'min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--text); background: var(--text); color: var(--bg); cursor: pointer'
     : 'min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--text); cursor: pointer'
@@ -95,7 +96,9 @@ export default function Work() {
               <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>LangGraph · LangChain · FastAPI · Mistral · Gemini · Neon Postgres · React · GitHub Actions</div>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "20px" }}>
                 <A className="pill mono" href="/work/dailydiff" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", background: "var(--accent)", color: "var(--onaccent)", display: "inline-flex", alignItems: "center" }}>Case study →</A>
-                <A className="pill mono" href="https://dailydiff.in/" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px solid var(--text)", display: "inline-flex", alignItems: "center" }}>Live ↗</A>
+                {demoState(avail, "https://dailydiff.in/") === 'down'
+                  ? <span className="pill mono" title={DEMO_NOTE.down} style={{ height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px dashed var(--line)", color: "var(--muted)", display: "inline-flex", alignItems: "center" }}>Offline</span>
+                  : <A className="pill mono" href="https://dailydiff.in/" title={DEMO_NOTE[demoState(avail, "https://dailydiff.in/")]} style={{ height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px solid var(--text)", display: "inline-flex", alignItems: "center" }}>{DEMO_LABEL[demoState(avail, "https://dailydiff.in/")]} ↗</A>}
                 <A className="pill mono" href="https://github.com/shlokbam/DailyDiff" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px solid var(--line)", display: "inline-flex", alignItems: "center" }}>Code ↗</A>
               </div>
             </article>
@@ -125,7 +128,9 @@ export default function Work() {
               </p>
               <div className="mono" style={{ marginTop: "16px", color: "var(--muted)", lineHeight: "1.8" }}>React · Python · LangChain · Mistral · Gemini · ChromaDB · Pinecone</div>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "20px" }}>
-                <A className="pill mono" href="https://multi-agent-ai-research-system-six.vercel.app/" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", background: "var(--text)", color: "var(--bg)", display: "inline-flex", alignItems: "center" }}>Live ↗</A>
+                {demoState(avail, "https://multi-agent-ai-research-system-six.vercel.app/") === 'down'
+                  ? <span className="pill mono" title={DEMO_NOTE.down} style={{ height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px dashed var(--line)", color: "var(--muted)", display: "inline-flex", alignItems: "center" }}>Offline</span>
+                  : <A className="pill mono" href="https://multi-agent-ai-research-system-six.vercel.app/" title={DEMO_NOTE[demoState(avail, "https://multi-agent-ai-research-system-six.vercel.app/")]} style={{ height: "44px", padding: "0 18px", borderRadius: "999px", background: "var(--text)", color: "var(--bg)", display: "inline-flex", alignItems: "center" }}>{DEMO_LABEL[demoState(avail, "https://multi-agent-ai-research-system-six.vercel.app/")]} ↗</A>}
                 <A className="pill mono" href="https://github.com/shlokbam/Multi_Agent_AI_Research_System" style={{ height: "44px", padding: "0 18px", borderRadius: "999px", border: "1px solid var(--line)", display: "inline-flex", alignItems: "center" }}>Code ↗</A>
               </div>
             </article>
@@ -247,11 +252,17 @@ export default function Work() {
                   {p.stack.length > 3 && <span className="ichip mono more">+{p.stack.length - 3}</span>}
                 </span>
                 <span className="ilinks">
-                  {p.live && (
-                    <A className="ilink live mono" href={p.live} aria-label={'Open ' + p.title + ' live'} title={p.status === 'offline' ? 'Free-tier host may take a moment to wake up' : p.status === 'online' ? 'Online now' : undefined}>
-                      <span className={'idot' + (p.status === 'online' ? ' on' : '')} aria-hidden="true" />Live
-                    </A>
-                  )}
+                  {p.live && (p.status === 'down'
+                    ? (
+                      <span className="ilink off mono" title={DEMO_NOTE.down + '; the code is still available'}>
+                        <span className="idot" aria-hidden="true" />Offline
+                      </span>
+                    )
+                    : (
+                      <A className={'ilink live mono' + (p.status === 'sleeping' ? ' sleep' : '')} href={p.live} aria-label={'Open ' + p.title + ' live' + (p.status === 'sleeping' ? '. It is asleep and wakes in about a minute' : '')} title={p.status ? DEMO_NOTE[p.status] : undefined}>
+                        <span className={'idot' + (p.status === 'online' ? ' on' : p.status === 'sleeping' ? ' zz' : '')} aria-hidden="true" />{p.status === 'sleeping' ? 'Wake' : 'Live'}
+                      </A>
+                    ))}
                   {p.code
                     ? (
                       <A className="ilink mono" href={p.code} aria-label={p.title + ' source code on GitHub'}>
@@ -280,7 +291,7 @@ export default function Work() {
                   )}
                   <div className="pk-stack">{p.stack.map((t) => <span key={t} className="ichip mono">{t}</span>)}</div>
                   <div className="mono pk-foot">
-                    {p.live && <span><span className={'idot' + (p.status === 'online' ? ' on' : '')} /> {p.status === 'online' ? 'Online now' : p.status === 'offline' ? 'Live · may need a moment to wake' : 'Live demo'}</span>}
+                    {p.live && <span><span className={'idot' + (p.status === 'online' ? ' on' : p.status === 'sleeping' ? ' zz' : '')} /> {DEMO_NOTE[p.status]}</span>}
                     <span>{p.code ? 'Open source on GitHub' : 'Private repository'}</span>
                   </div>
                 </div>

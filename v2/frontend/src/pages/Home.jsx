@@ -5,13 +5,17 @@ import ProfilePeek from '../components/ProfilePeek'
 import Glance from '../components/Glance'
 import Hello from '../components/Hello'
 import AskAI from '../components/AskAI'
+import NowRadar from '../components/NowRadar'
 import { css } from '../lib/css'
-import { useStats } from '../lib/site'
+import { useStats, useAvailability } from '../lib/site'
+import { demoState, DEMO_NOTE, DEMO_LABEL } from '../lib/demo'
 import { RESUME, opt } from '../lib/links'
 import './Home.css'
 
 export default function Home() {
   const stats = useStats()
+  const avail = useAvailability()
+  const dot = { online: '#2fd47a', sleeping: '#f5b041', down: 'var(--muted2)', '': '#2fd47a' }
   const lc = (stats && stats.leetcode) || {}
   const cc = (stats && stats.codechef) || {}
   const gh = (stats && stats.github) || {}
@@ -92,6 +96,7 @@ export default function Home() {
             <div style={{ padding: "20px 20px 0 0" }}>
               <div className="mono" style={{ color: "var(--muted)" }}>Currently</div>
               <div style={{ marginTop: "8px", fontSize: "17px", fontWeight: "600" }}>Intern, PharmaACE Innovations</div>
+              <A className="now-chip mono" href="/now"><i aria-hidden="true" />What I'm up to now <b aria-hidden="true">→</b></A>
             </div>
             <div style={{ padding: "20px 20px 0", borderLeft: "1px solid var(--line)" }}>
               <div className="mono" style={{ color: "var(--muted)" }}>Education</div>
@@ -152,6 +157,8 @@ export default function Home() {
         </div>
       </section>
       <Glance />
+      {/* option B for the Now content (option A is the /now page); keep one, remove the other */}
+      <NowRadar />
       <AskAI />
       {/* "Built to run" section: hidden for now — remove this comment wrapper to bring it back.
       <section style={{ padding: "120px 0", borderBottom: "1px solid var(--line)" }}>
@@ -177,9 +184,9 @@ export default function Home() {
             <A className="card rv" href="/work/dailydiff" style={{ border: "1px solid var(--line)", borderRadius: "24px", background: "var(--surface)", padding: "28px", display: "flex", flexDirection: "column", minHeight: "520px", overflow: "hidden" }}>
               <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>
                 <span>01 / Flagship</span>
-                <span style={{ display: "inline-flex", gap: "8px", alignItems: "center", color: "var(--text)" }}>
-                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#2fd47a" }} />
-                  Live
+                <span title={DEMO_NOTE[demoState(avail, "https://dailydiff.in/")]} style={{ display: "inline-flex", gap: "8px", alignItems: "center", color: "var(--text)" }}>
+                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: dot[demoState(avail, "https://dailydiff.in/")] }} />
+                  {demoState(avail, "https://dailydiff.in/") === 'sleeping' ? 'Sleeping' : DEMO_LABEL[demoState(avail, "https://dailydiff.in/")]}
                 </span>
               </div>
               <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)" }}>
@@ -204,9 +211,9 @@ export default function Home() {
             <A className="card rv" href="/work" style={{ border: "1px solid var(--line)", borderRadius: "24px", background: "var(--surface)", padding: "28px", display: "flex", flexDirection: "column", minHeight: "520px", overflow: "hidden" }}>
               <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>
                 <span>02 / Flagship</span>
-                <span style={{ display: "inline-flex", gap: "8px", alignItems: "center", color: "var(--text)" }}>
-                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#2fd47a" }} />
-                  Live
+                <span title={DEMO_NOTE[demoState(avail, "https://multi-agent-ai-research-system-six.vercel.app/")]} style={{ display: "inline-flex", gap: "8px", alignItems: "center", color: "var(--text)" }}>
+                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: dot[demoState(avail, "https://multi-agent-ai-research-system-six.vercel.app/")] }} />
+                  {demoState(avail, "https://multi-agent-ai-research-system-six.vercel.app/") === 'sleeping' ? 'Sleeping' : DEMO_LABEL[demoState(avail, "https://multi-agent-ai-research-system-six.vercel.app/")]}
                 </span>
               </div>
               <div className="motif" style={{ flex: "1", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--muted)" }}>

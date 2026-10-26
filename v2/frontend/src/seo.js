@@ -53,6 +53,12 @@ export const PAGES = {
     description: 'Get in touch with Shlok Bam about full-time roles, internships, collaboration or freelance work. Email shlokbam19103@gmail.com. Based in Pune, open to relocation.',
     name: 'Contact'
   },
+  '/now': {
+    title: 'Now | What Shlok Bam Is Working On',
+    description: 'What Shlok Bam is focused on this month: what he is building, learning and looking for, updated monthly.',
+    name: 'Now',
+    card: 'home'
+  },
   '/privacy': {
     title: 'Privacy | Shlok Bam',
     description: 'What shlokbam.in collects and why: Google Analytics visit counts, questions sent to the AI assistant, contact-form messages, and the theme and game scores kept in your browser.',
