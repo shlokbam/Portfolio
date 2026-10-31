@@ -53,6 +53,12 @@ export const PAGES = {
     description: 'Get in touch with Shlok Bam about full-time roles, internships, collaboration or freelance work. Email shlokbam19103@gmail.com. Based in Pune, open to relocation.',
     name: 'Contact'
   },
+  '/resume': {
+    title: 'Résumé | Shlok Bam, AI / Generative AI Engineer',
+    description: 'Shlok Bam’s résumé: AI / Generative AI engineer, intern at PharmaACE Innovations, Founding Chairperson of ITSA, B.Tech IT at VIT Pune (9.01 CGPA). DailyDiff, an enterprise LMS, skills in LangGraph, RAG, LLM evals, FastAPI and AWS.',
+    name: 'Résumé',
+    card: 'home'
+  },
   '/privacy': {
     title: 'Privacy | Shlok Bam',
     description: 'What shlokbam.in collects and why: Google Analytics visit counts, questions sent to the AI assistant, contact-form messages, and the theme and game scores kept in your browser.',

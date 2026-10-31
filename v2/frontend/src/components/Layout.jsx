@@ -277,7 +277,7 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
               </div>
             </div>
             <div className="mono foot-bar">
-              <span>© {new Date().getFullYear()} Shlok Bam. All rights reserved. · <A className="ul" href="/privacy">Privacy</A></span>
+              <span>© {new Date().getFullYear()} Shlok Bam. All rights reserved. · <A className="ul" href="/resume">Résumé</A> · <A className="ul" href="/privacy">Privacy</A></span>
               <span>AI / Generative AI Engineer · building agentic &amp; LLM-powered systems</span>
             </div>
           </div>

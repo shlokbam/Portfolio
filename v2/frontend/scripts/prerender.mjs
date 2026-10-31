@@ -31,7 +31,7 @@ for (const route of ROUTES) {
 fs.writeFileSync(path.join(dist, '404.html'), page('/404'))
 
 const today = new Date().toISOString().slice(0, 10)
-const priority = { '/': '1.0', '/work': '0.9', '/about': '0.8', '/work/dailydiff': '0.8', '/recognition': '0.8', '/journey': '0.7', '/contact': '0.7', '/community': '0.6', '/writing': '0.6', '/privacy': '0.2' }
+const priority = { '/': '1.0', '/work': '0.9', '/about': '0.8', '/work/dailydiff': '0.8', '/recognition': '0.8', '/journey': '0.7', '/contact': '0.7', '/community': '0.6', '/writing': '0.6', '/resume': '0.7', '/privacy': '0.2' }
 // the portrait is listed for image search on the pages that show it
 const PHOTO = `<image:image><image:loc>${SITE}/static/images/shlok-bam.jpg</image:loc></image:image>`
 const photoOn = new Set(['/', '/about'])

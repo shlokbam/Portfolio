@@ -57,7 +57,7 @@ export default function Recognition() {
           </div>
         </div>
       </section>
-      <section style={{ padding: "104px 0 48px" }}>
+      <section id="patents" style={{ padding: "104px 0 48px" }}>
         <div className="wrap">
           <span className="mono" style={{ color: "var(--muted)" }}>Patents</span>
           {" "}
@@ -107,7 +107,7 @@ export default function Recognition() {
           </div>
         </div>
       </section>
-      <section style={{ padding: "88px 0 112px", borderBottom: "1px solid var(--line)" }}>
+      <section id="stage" style={{ padding: "88px 0 112px", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap">
           <span className="mono" style={{ color: "var(--muted)" }}>Awards &amp; programs</span>
           {" "}
@@ -177,7 +177,7 @@ export default function Recognition() {
           </div>
         </div>
       </section>
-      <section style={{ padding: "112px 0", borderBottom: "1px solid var(--line)" }}>
+      <section id="certified" style={{ padding: "112px 0", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap">
           <span className="mono" style={{ color: "var(--muted)" }}>Certifications</span>
           {" "}

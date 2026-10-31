@@ -29,6 +29,16 @@ export function scrollToEl(el, { immediate = false } = {}) {
   else el.scrollIntoView({ behavior: immediate ? 'auto' : 'smooth' })
 }
 
+// Briefly ring an element that a link pointed at (a Work row, the coding profiles), so the eye finds it.
+// Whole sections are left alone: they already fill the screen.
+export function flash(el) {
+  if (!el || el.tagName === 'SECTION') return
+  el.classList.remove('flash')
+  void el.offsetWidth // restart the animation if it is already running
+  el.classList.add('flash')
+  setTimeout(() => el.classList.remove('flash'), 2600)
+}
+
 // Freeze page scrolling while an overlay (menu, lightbox) is open. Counted, so overlays can nest.
 export function lockScroll() {
   locks++

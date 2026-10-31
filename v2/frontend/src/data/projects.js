@@ -1,3 +1,6 @@
+// Work-page row ids ("/work#paisawise"); the assistant's source links use the same slugs (backend/knowledge.py)
+export const slug = (title) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+
 // All 21 projects, in display order. `cats` drives the filter chips on the Work page.
 // An empty `code` means the repository is not public.
 export const PROJECTS = [

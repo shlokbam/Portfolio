@@ -3,6 +3,7 @@ import AIBackdrop from './AIBackdrop'
 import WakeBoot from './WakeBoot'
 import BotMark from './BotMark'
 import Md from './Md'
+import Sources from './Sources'
 import { useSite } from '../lib/site'
 import { QA } from '../lib/qa'
 
@@ -52,7 +53,8 @@ export default function AskAI() {
     let i = -1
     chat.forEach((m, j) => { if (!seen.current.has(m) && m.who === 'b') i = j })
     seen.current = new Set(chat)
-    if (i < 0 || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    // no streaming: re-render once so the reply's sources show (they wait until a reply is seen)
+    if (i < 0 || matchMedia('(prefers-reduced-motion: reduce)').matches) { setShown({ i: -1, n: 0 }); return }
     const m = chat[i]
     // time-based, so it catches up if the tab was in the background
     const len = m.text.length, dur = Math.min(1800, len * 12), t0 = performance.now()
@@ -109,6 +111,7 @@ export default function AskAI() {
                 <div key={i} className={'ask-msg ' + (m.who === 'u' ? 'me' : 'bot')}>
                   {m.who === 'u' ? <>{m.text}{m.queued && <span className="q-tag">Queued · sends when I'm awake</span>}</> : <Md text={partial ? m.text.slice(0, n) : m.text} />}
                   {partial && <span className="ask-caret" aria-hidden="true" />}
+                  {m.who === 'b' && !partial && seen.current.has(m) && <Sources items={m.sources} />}
                 </div>
               )
             })}
@@ -124,8 +127,8 @@ export default function AskAI() {
           </div>
 
           <div className="ask-chips">
-            {QA.map(([question, answer]) => (
-              <button key={question} type="button" className="ask-btn mono" onClick={() => { if (!busy) send(question, answer) }} disabled={busy}>{question}</button>
+            {QA.map(([question, answer, src]) => (
+              <button key={question} type="button" className="ask-btn mono" onClick={() => { if (!busy) send(question, answer, src) }} disabled={busy}>{question}</button>
             ))}
           </div>
 

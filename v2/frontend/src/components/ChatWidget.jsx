@@ -3,6 +3,7 @@ import { useSite } from '../lib/site'
 import Md from './Md'
 import WakeBoot from './WakeBoot'
 import BotMark from './BotMark'
+import Sources from './Sources'
 import { QA } from '../lib/qa'
 
 // the widget's quick questions, with their prepared answers (instant while the API wakes)
@@ -86,13 +87,13 @@ export default function ChatWidget({ greeting }) {
             <div style={{ background: 'var(--surface)', borderRadius: '18px 18px 18px 4px', padding: '14px 16px', fontSize: '15px', lineHeight: '1.5' }}>{greeting}</div>
             {msgs.map((m, i) => m.who === 'u'
               ? <div key={i} data-msg={i} style={{ alignSelf: 'flex-end', maxWidth: '85%', background: 'var(--accent)', color: 'var(--onaccent)', borderRadius: '18px 18px 4px 18px', padding: '12px 14px', fontSize: '15px', lineHeight: '1.5' }}>{m.text}{m.queued && <span className="q-tag">Queued · sends when I'm awake</span>}</div>
-              : <div key={i} data-msg={i} style={{ alignSelf: 'flex-start', maxWidth: '92%', background: 'var(--surface)', borderRadius: '18px 18px 18px 4px', padding: '14px 16px', fontSize: '15px', lineHeight: '1.5' }}><Md text={m.text} /></div>)}
+              : <div key={i} data-msg={i} style={{ alignSelf: 'flex-start', maxWidth: '92%', background: 'var(--surface)', borderRadius: '18px 18px 18px 4px', padding: '14px 16px', fontSize: '15px', lineHeight: '1.5' }}><Md text={m.text} /><Sources items={m.sources} onGo={() => { if (innerWidth < 720) setOpen(false) }} /></div>)}
             {waking && <WakeBoot compact />}
             {busy && <div className="mono" style={{ color: 'var(--muted)', fontSize: '11px' }}><span className="typing">{slow ? 'Waking up the assistant, first reply takes a moment' : 'Thinking'}</span></div>}
             {!msgs.length && (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {CHIPS.map(([c, answer]) => (
-                  <button key={c} type="button" className="pill mono" onClick={() => send(c, answer)} disabled={busy} style={{ minHeight: '40px', padding: '0 12px', borderRadius: '999px', border: '1px solid var(--line)', background: 'transparent', color: 'var(--text)', fontSize: '10.5px', cursor: 'pointer' }}>{c}</button>
+                {CHIPS.map(([c, answer, src]) => (
+                  <button key={c} type="button" className="pill mono" onClick={() => send(c, answer, src)} disabled={busy} style={{ minHeight: '40px', padding: '0 12px', borderRadius: '999px', border: '1px solid var(--line)', background: 'transparent', color: 'var(--text)', fontSize: '10.5px', cursor: 'pointer' }}>{c}</button>
                 ))}
               </div>
             )}

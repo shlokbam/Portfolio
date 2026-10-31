@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { SiteProvider } from './lib/site'
 import { pageMeta } from './seo'
-import { startSmooth, scrollToTop, scrollToEl } from './lib/smooth'
+import { startSmooth, scrollToTop, scrollToEl, flash } from './lib/smooth'
 import { startReveal } from './lib/reveal'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -14,6 +14,7 @@ import Community from './pages/Community'
 import Writing from './pages/Writing'
 import Contact from './pages/Contact'
 import Privacy from './pages/Privacy'
+import Resume from './pages/Resume'
 import NotFound from './pages/NotFound'
 
 function setMeta(selector, attr, value) {
@@ -42,7 +43,7 @@ function RouteEffects() {
   useEffect(() => {
     if (hash) {
       const el = document.getElementById(decodeURIComponent(hash.slice(1)))
-      if (el) { scrollToEl(el, { immediate: true }); return }
+      if (el) { scrollToEl(el, { immediate: true }); flash(el); return }
     }
     scrollToTop({ immediate: true })
   }, [pathname, hash])
@@ -70,6 +71,7 @@ export default function App() {
         <Route path="/community" element={<Community />} />
         <Route path="/writing" element={<Writing />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/resume" element={<Resume />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

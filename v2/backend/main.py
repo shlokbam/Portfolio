@@ -4,6 +4,7 @@ Endpoints
   GET  /api/health         liveness probe for Render
   GET  /api/stats          LeetCode / CodeChef / GitHub numbers (cached 2 h)
   GET  /api/availability   online / sleeping / down state of the live project demos (cached 10 min, 90 s if any sleep)
+  GET  /api/shipping       recent commits to public GitHub repos, automated ones left out (cached 30 min)
   POST /api/chat           portfolio assistant (Groq; models set by GROQ_MODELS)
   GET  /api/chat/stats     number of questions answered since the last restart
   POST /api/contact        fallback contact relay to Web3Forms (the site normally posts there directly)
@@ -28,7 +29,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse, Response
 from pydantic import BaseModel, Field
 
-from knowledge import SYSTEM_PROMPT
+from knowledge import SECTIONS, SYSTEM_PROMPT
 
 
 def _load_dotenv() -> None:
@@ -279,6 +280,57 @@ async def api_availability():
     return {'success': True, 'statuses': statuses, 'cached': False}
 
 
+# ---------------------------------------------------------------- shipping (recent commits)
+
+SHIPPING_TTL = 30 * 60
+GITHUB_USER = os.getenv('GITHUB_USER', 'shlokbam')
+# commits made by schedules and bots, not by hand: the daily DailyDiff brief, the profile-image refresh, merges
+SHIP_SKIP = re.compile(os.getenv('SHIP_SKIP', r'^(daily: publish|chore: refresh profile|merge (branch|pull request)|initial commit$)'), re.I)
+SHIP_SKIP_REPOS = {r.strip().lower() for r in os.getenv('SHIP_SKIP_REPOS', GITHUB_USER).split(',') if r.strip()}  # the profile README repo
+_ship_cache: dict = {'data': None, 'at': 0.0}
+
+
+async def fetch_shipping() -> Optional[dict]:
+    """One search call for the last 30 days of commits authored by GITHUB_USER (public repos only)."""
+    since = datetime.fromtimestamp(time.time() - 30 * 86400, timezone.utc).strftime('%Y-%m-%d')
+    try:
+        resp = await client().get(
+            'https://api.github.com/search/commits',
+            params={'q': f'author:{GITHUB_USER} author-date:>={since}', 'sort': 'author-date', 'order': 'desc', 'per_page': 100},
+            headers={**HEADERS, 'Accept': 'application/vnd.github+json'},
+        )
+        if resp.status_code != 200:
+            log.warning('github commit search: %s', resp.status_code)
+            return None
+        commits = []
+        for item in resp.json().get('items', []):
+            repo = item['repository']['name']
+            msg = (item['commit']['message'] or '').split('\n', 1)[0].strip()
+            if len(item.get('parents') or []) > 1 or repo.lower() in SHIP_SKIP_REPOS or not msg or SHIP_SKIP.search(msg):
+                continue
+            commits.append({'repo': repo, 'message': msg[:120], 'date': item['commit']['author']['date'], 'url': item['html_url']})
+        commits.sort(key=lambda c: datetime.fromisoformat(c['date'].replace('Z', '+00:00')), reverse=True)
+        week = time.time() - 7 * 86400
+        recent = [c for c in commits if datetime.fromisoformat(c['date'].replace('Z', '+00:00')).timestamp() >= week]
+        return {'week': len(recent), 'weekRepos': len({c['repo'] for c in recent}), 'month': len(commits), 'commits': commits[:12]}
+    except Exception as exc:
+        log.warning('github commit search failed: %s', exc)
+        return None
+
+
+@app.get('/api/shipping')
+async def api_shipping():
+    now = time.time()
+    if _ship_cache['data'] and now - _ship_cache['at'] < SHIPPING_TTL:
+        return {'success': True, 'data': _ship_cache['data'], 'cached': True}
+    data = await fetch_shipping()
+    if data:
+        _ship_cache.update(data=data, at=now)
+    elif _ship_cache['data']:
+        data = _ship_cache['data']  # GitHub hiccup: keep showing the last good list
+    return {'success': bool(data), 'data': data, 'cached': False}
+
+
 # ---------------------------------------------------------------- chat
 
 _chat_count = {'n': int(os.getenv('CHAT_COUNT_START', '247'))}
@@ -292,6 +344,27 @@ class ChatTurn(BaseModel):
 class ChatIn(BaseModel):
     message: str = Field(..., max_length=500)
     history: List[ChatTurn] = Field(default_factory=list, max_length=12)
+
+
+SOURCES_LINE = re.compile(r'\n?[ \t*_`]*sources?\s*:\s*([^\n]*)[`*_]*\s*$', re.I)
+
+
+def split_sources(reply: str):
+    """Take the closing `Sources: id, id` line off a reply (prompt rule 8) and turn known ids into
+    {label, href} links; unknown ids and `none` are dropped, so a sloppy line never shows up as a broken link."""
+    m = SOURCES_LINE.search(reply)
+    if not m:
+        return reply, []
+    out, seen = [], set()
+    for sid in re.split(r'[,\s]+', m.group(1).lower()):
+        sid = sid.strip('`*_.[]()')
+        if sid in SECTIONS and sid not in seen:
+            seen.add(sid)
+            label, href = SECTIONS[sid]
+            out.append({'label': label, 'href': href})
+    # a specific section (Work › PaisaWise) is more useful than a whole page (Work), so it goes first
+    out.sort(key=lambda src: '›' not in src['label'] and '#' not in src['href'])
+    return reply[:m.start()].rstrip(), out[:3]
 
 
 @app.get('/api/chat/stats')
@@ -343,6 +416,7 @@ async def api_chat(body: ChatIn, request: Request):
             reply = re.sub(r'<think>.*?</think>', '', reply, flags=re.S).strip()
             # the site's style has no em dashes; the prompt asks for none, this catches any that slip through
             reply = re.sub(r'\s*—\s*', ', ', reply).replace(', ,', ',')
+            reply, sources = split_sources(reply)
         except Exception as exc:
             log.warning('groq %s bad response: %s', model, exc)
             continue
@@ -354,7 +428,7 @@ async def api_chat(body: ChatIn, request: Request):
             status_code=502,
         )
     _chat_count['n'] += 1
-    return {'success': True, 'reply': reply, 'count': _chat_count['n']}
+    return {'success': True, 'reply': reply, 'sources': sources, 'count': _chat_count['n']}
 
 
 # ---------------------------------------------------------------- contact (fallback relay)

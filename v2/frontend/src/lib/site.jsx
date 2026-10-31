@@ -62,10 +62,12 @@ export function SiteProvider({ children }) {
   msgsRef.current = msgs
 
   // `qid` (queued questions): put the reply right under that question, not at the end
-  const ask = useCallback(async (q, fallback, before, qid) => {
-    const reply = (text) => setMsgs((m) => {
+  // `sources`: the parts of the site the answer came from, shown as "From:" links under it
+  const ask = useCallback(async (q, fallback, before, qid, fallbackSources) => {
+    const reply = (text, sources) => setMsgs((m) => {
+      const b = { who: 'b', text, sources: sources || [] }
       const i = qid ? m.findIndex((x) => x.id === qid) : -1
-      return i < 0 ? m.concat([{ who: 'b', text }]) : m.slice(0, i + 1).concat([{ who: 'b', text }], m.slice(i + 1))
+      return i < 0 ? m.concat([b]) : m.slice(0, i + 1).concat([b], m.slice(i + 1))
     })
     const history = before.slice(-6).map((m) => ({ role: m.who === 'u' ? 'user' : 'assistant', content: m.text }))
     setBusy(true)
@@ -74,9 +76,11 @@ export function SiteProvider({ children }) {
       // generous timeout: a sleeping Render instance can take ~50 s to wake
       const res = await api('/api/chat', { method: 'POST', body: { message: q, history }, timeout: 65000 })
       markReady()
-      reply(res.reply || fallback || CHAT_FAIL)
+      if (res.reply) reply(res.reply, res.sources)
+      else reply(fallback || CHAT_FAIL, fallback && fallbackSources)
     } catch (e) {
-      reply(e.status === 429 ? (e.data && e.data.reply) || 'You are asking quickly! Give me a few seconds and try again.' : fallback || CHAT_FAIL)
+      if (e.status === 429) reply((e.data && e.data.reply) || 'You are asking quickly! Give me a few seconds and try again.')
+      else reply(fallback || CHAT_FAIL, fallback && fallbackSources)
     } finally {
       clearTimeout(slowT)
       setBusy(false)
@@ -84,16 +88,16 @@ export function SiteProvider({ children }) {
     }
   }, [markReady])
 
-  const send = useCallback((text, fallback) => {
+  const send = useCallback((text, fallback, fallbackSources) => {
     const q = (text || '').trim()
     if (!q) return
     if (apiRef.current === 'waking') {
-      setMsgs((m) => m.concat(fallback ? [{ who: 'u', text: q }, { who: 'b', text: fallback }] : [{ who: 'u', text: q, queued: true, id: Date.now() + Math.random() }]))
+      setMsgs((m) => m.concat(fallback ? [{ who: 'u', text: q }, { who: 'b', text: fallback, sources: fallbackSources || [] }] : [{ who: 'u', text: q, queued: true, id: Date.now() + Math.random() }]))
       return
     }
     const before = msgsRef.current
     setMsgs((m) => m.concat([{ who: 'u', text: q }]))
-    ask(q, fallback, before)
+    ask(q, fallback, before, undefined, fallbackSources)
   }, [ask])
   const clearChat = useCallback(() => setMsgs([]), [])
 

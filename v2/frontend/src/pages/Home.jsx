@@ -6,6 +6,7 @@ import Glance from '../components/Glance'
 import Hello from '../components/Hello'
 import AskAI from '../components/AskAI'
 import NowRadar from '../components/NowRadar'
+import Shipping from '../components/Shipping'
 import { css } from '../lib/css'
 import { useStats, useAvailability } from '../lib/site'
 import { demoState, DEMO_NOTE, DEMO_LABEL } from '../lib/demo'
@@ -70,7 +71,7 @@ export default function Home() {
                 </A>
               </div>
             </div>
-            <aside className="fade cprofiles" aria-label="Coding profiles" style={{ "--d": ".8s", border: "1px solid var(--line)", background: "color-mix(in srgb, var(--surface) 90%, transparent)", borderRadius: "18px", padding: "18px 20px" }}>
+            <aside id="profiles" className="fade cprofiles" aria-label="Coding profiles" style={{ "--d": ".8s", border: "1px solid var(--line)", background: "color-mix(in srgb, var(--surface) 90%, transparent)", borderRadius: "18px", padding: "18px 20px" }}>
               <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>
                 <span>Coding profiles</span>
                 <span>{stats === null ? 'Loading' : stats ? 'Live' : 'Offline'}</span>
@@ -156,6 +157,7 @@ export default function Home() {
       </section>
       <Glance />
       <NowRadar />
+      <Shipping />
       <AskAI />
       {/* "Built to run" section: hidden for now — remove this comment wrapper to bring it back.
       <section style={{ padding: "120px 0", borderBottom: "1px solid var(--line)" }}>
