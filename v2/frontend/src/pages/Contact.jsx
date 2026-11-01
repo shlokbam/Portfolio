@@ -5,7 +5,7 @@ import { css } from '../lib/css'
 import { useEffect, useRef, useState } from 'react'
 import { useIstClock } from '../lib/clock'
 import { sendMessage } from '../lib/contact'
-import { RESUME, EMAIL } from '../lib/links'
+import { RESUME, RESUME_PAGE, EMAIL } from '../lib/links'
 import Arcade from '../components/Arcade'
 import './Contact.css'
 
@@ -100,10 +100,10 @@ export default function Contact() {
           </h1>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "32px", flexWrap: "wrap", marginTop: "32px" }}>
             <p className="serif fade" style={{ "--d": ".6s", margin: "0", fontSize: "clamp(28px, 3vw, 44px)", maxWidth: "760px", lineHeight: "1.1" }}>Have a role or a problem worth solving? Tell me about it.</p>
-            <A className="btn mono fade" href={RESUME} style={{ "--d": ".7s", background: "var(--accent)", color: "var(--onaccent)" }}>
-              Download résumé{" "}
+            <A className="btn mono fade" href={RESUME_PAGE} style={{ "--d": ".7s", background: "var(--accent)", color: "var(--onaccent)" }}>
+              View résumé{" "}
               <svg className="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-                <path d="M12 4v13M6 11l6 6 6-6" />
+                <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </A>
           </div>

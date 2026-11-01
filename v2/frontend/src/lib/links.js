@@ -1,4 +1,5 @@
 export const RESUME = '/static/Resume/Shlok_Bam_Resume.pdf'
+export const RESUME_PAGE = '/resume' // the web version; it has the PDF download
 export const EMAIL = 'shlokbam19103@gmail.com'
 export const file = (path) => encodeURI(path)
 // Display copy of an image: /static/a/b.png -> /static/opt/a/b.webp (originals stay for downloads).

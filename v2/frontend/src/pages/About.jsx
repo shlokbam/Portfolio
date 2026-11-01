@@ -2,7 +2,7 @@ import Layout from '../components/Layout'
 import A from '../components/A'
 import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
-import { RESUME, opt } from '../lib/links'
+import { RESUME_PAGE, opt } from '../lib/links'
 import { useIstClock } from '../lib/clock'
 import SkillIcon, { hasIcon } from '../components/SkillIcon'
 import { useEffect, useRef, useState } from 'react'
@@ -132,10 +132,10 @@ export default function About() {
               </div>
             </div>
             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "20px" }}>
-              <A className="btn mono" href={RESUME} style={{ background: "var(--accent)", color: "var(--onaccent)" }}>
-                Download résumé{" "}
+              <A className="btn mono" href={RESUME_PAGE} style={{ background: "var(--accent)", color: "var(--onaccent)" }}>
+                View résumé{" "}
                 <svg className="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-                  <path d="M12 4v13M6 11l6 6 6-6" />
+                  <path d="M5 12h14M13 6l6 6-6 6" />
                 </svg>
               </A>
               <A className="btn mono" href="https://www.linkedin.com/in/shlokbam/" style={{ border: "1px solid var(--line)" }}>LinkedIn ↗</A>

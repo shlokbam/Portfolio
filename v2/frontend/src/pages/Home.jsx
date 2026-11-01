@@ -10,7 +10,7 @@ import Shipping from '../components/Shipping'
 import { css } from '../lib/css'
 import { useStats, useAvailability } from '../lib/site'
 import { demoState, DEMO_NOTE, DEMO_LABEL } from '../lib/demo'
-import { RESUME, opt } from '../lib/links'
+import { RESUME_PAGE, opt } from '../lib/links'
 import './Home.css'
 
 export default function Home() {
@@ -57,10 +57,10 @@ export default function Home() {
                 {" "}to production, from multi-agent pipelines to LLM-as-judge evals, currently as an intern at PharmaACE Innovations.
               </p>
               <div className="fade" style={{ "--d": ".7s", display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "34px" }}>
-                <A className="btn mono" href={RESUME} style={{ background: "var(--accent)", color: "var(--onaccent)", fontWeight: "500" }}>
+                <A className="btn mono" href={RESUME_PAGE} style={{ background: "var(--accent)", color: "var(--onaccent)", fontWeight: "500" }}>
                   View résumé{" "}
                   <svg className="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-                    <path d="M12 4v13M6 11l6 6 6-6" />
+                    <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
                 </A>
                 <A className="btn mono" href="/work" style={{ border: "1px solid var(--text)" }}>

@@ -3,7 +3,7 @@ import A from './A'
 import ChatWidget from './ChatWidget'
 import { useSite } from '../lib/site'
 import { css } from '../lib/css'
-import { RESUME } from '../lib/links'
+import { RESUME_PAGE } from '../lib/links'
 import { useIstDateTime } from '../lib/clock'
 import { lockScroll, unlockScroll, scrollToTop } from '../lib/smooth'
 
@@ -169,9 +169,9 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
                 </span>
               )}
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-              <A className="pill mono hide-sm" href={RESUME} style={{ height: '44px', padding: '0 18px', borderRadius: '999px', border: '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+              <A className="pill mono hide-sm" href={RESUME_PAGE} style={{ height: '44px', padding: '0 18px', borderRadius: '999px', border: '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                 Résumé{' '}
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M12 4v13M6 11l6 6 6-6M5 20h14" /></svg>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </A>
               <button type="button" className="pill" onClick={toggleTheme} aria-label="Toggle colour theme" style={{ width: '44px', height: '44px', borderRadius: '50%', border: '1px solid var(--line)', background: 'transparent', color: 'var(--text)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                 {/* both icons render; CSS shows the one for the current theme */}
@@ -235,9 +235,9 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
                       <A className="ul" href="https://x.com/shlok_bam">X ↗</A>
                     </div>
                   </div>
-                  <A className="btn mono" href={RESUME} style={{ alignSelf: 'flex-start', background: 'var(--accent)', color: 'var(--onaccent)' }}>
-                    Download résumé{' '}
-                    <svg className="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M12 4v13M6 11l6 6 6-6" /></svg>
+                  <A className="btn mono" href={RESUME_PAGE} style={{ alignSelf: 'flex-start', background: 'var(--accent)', color: 'var(--onaccent)' }}>
+                    View résumé{' '}
+                    <svg className="arr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
                   </A>
                 </div>
               </div>
@@ -273,7 +273,7 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
                 <div className="mono fh">Contact</div>
                 <A className="ul" href="tel:+917974670370">+91 79746 70370</A>
                 <span style={{ color: 'var(--muted)' }}>Pune, India · open to relocate</span>
-                <A className="btn mono" href={RESUME} style={{ marginTop: '10px', alignSelf: 'flex-start', height: '46px', background: 'var(--accent)', color: 'var(--onaccent)' }}>Résumé ↓</A>
+                <A className="btn mono" href={RESUME_PAGE} style={{ marginTop: '10px', alignSelf: 'flex-start', height: '46px', background: 'var(--accent)', color: 'var(--onaccent)' }}>Résumé →</A>
               </div>
             </div>
             <div className="mono foot-bar">
