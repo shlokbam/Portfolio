@@ -31,8 +31,7 @@ const LEADERSHIP = [
 const PROJECTS = [
   {
     name: 'Enterprise Workforce Training Platform',
-    // the PDF lists a Project Completion Letter; it isn't on the site, so it shows as text without a link
-    links: [['Project Completion Letter', ''], ['GitHub', 'https://github.com/shlokbam/lms'], ['Blog', JOURNAL + 'i-built-an-enterprise-lms-with-local-cloud-devops-from-scratch-here-s-everything-that-went-wrong']],
+    links: [['Project Completion Letter', 'https://drive.google.com/file/d/1zk8QMcyoz0oRE8DoGNU6u3xcyiPSbhfa/view?usp=sharing'], ['GitHub', 'https://github.com/shlokbam/lms'], ['Blog', JOURNAL + 'i-built-an-enterprise-lms-with-local-cloud-devops-from-scratch-here-s-everything-that-went-wrong']],
     points: [
       'Developed a cross-platform LMS with role-based dashboards for trainers and trainees (module creation, scheduling, assessments, progress tracking), delivered as a containerized React web app (Docker Compose).',
       'Provisioned cloud storage with Terraform, secured routes with JWT/bcrypt, added server-side PDF/video watermarking per trainee, and configured a Jenkins CI/CD pipeline.'
@@ -41,7 +40,7 @@ const PROJECTS = [
   },
   {
     name: 'DailyDiff: Autonomous Multi-Agent Tech Curation Platform',
-    links: [['Live Link', 'https://dailydiff.in/'], ['GitHub', 'https://github.com/shlokbam/DailyDiff'], ['Blog', JOURNAL + 'i-built-dailydiff-an-autonomous-multi-agent-tech-research-editorial-team']],
+    links: [['Live Link', 'https://www.dailydiff.in/'], ['GitHub', 'https://github.com/shlokbam/DailyDiff'], ['Blog', JOURNAL + 'i-built-dailydiff-an-autonomous-multi-agent-tech-research-editorial-team']],
     points: [
       'Built DailyDiff (dailydiff.in), a live LangGraph pipeline over 7 sources that emails a fact-checked brief 3x/week (185 briefs, 42 editions); cut LLM calls from up to 22 to 4, added a fail-closed publish gate.',
       'Per-agent evals, 3 runs (25 golden cases): Skeptic rejected 6-7/7 noise items (3/7 pre-fix), Verifier caught 14-15/16 bad items, Analyst matched 13-14/15 verdicts, Editor 5/5 briefs passed structure checks.'
@@ -85,7 +84,6 @@ export default function Resume() {
           </div>
           <div className="fade" style={{ '--d': '.4s', display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '32px' }}>
             <A className="btn mono" href={PDF} style={{ background: 'var(--accent)', color: 'var(--onaccent)' }}>Download PDF ↓</A>
-            <button type="button" className="btn mono" onClick={() => window.print()} style={{ border: '1px solid var(--line)', background: 'transparent', color: 'var(--text)', cursor: 'pointer' }}>Print</button>
           </div>
         </div>
       </section>
@@ -97,7 +95,7 @@ export default function Resume() {
               <h1>Shlok Bam</h1>
               <p className="rs-title">AI / Generative AI Engineer</p>
               <p className="rs-contact">
-                <A href="mailto:shlokbam19103@gmail.com">shlokbam19103@gmail.com</A> | <A href="tel:+917974670370">+91-7974670370</A> | Pune, India | <A href="https://github.com/shlokbam">github.com/shlokbam</A> | <A href="https://www.linkedin.com/in/shlokbam/">linkedin.com/in/shlokbam</A> | <A href="/">shlokbam.in</A>
+                <A href="mailto:shlokbam19103@gmail.com">shlokbam19103@gmail.com</A> | +91-7974670370 | Pune, India | <A href="https://github.com/shlokbam">github.com/shlokbam</A> | <A href="https://www.linkedin.com/in/shlokbam/">linkedin.com/in/shlokbam</A> | <A href="/">shlokbam.in</A>
               </p>
             </div>
 
