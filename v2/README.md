@@ -13,7 +13,7 @@ v2/
     src/lib/         site state (theme, chat, live data), API client, scroll-reveal fallback
     src/data/        project list
   backend/    FastAPI → Render
-    main.py          /api/stats, /api/availability, /api/chat, /api/chat/stats, /api/contact, /api/health
+    main.py          /api/stats, /api/availability, /api/shipping, /api/chat, /api/chat/stats, /api/contact, /api/health
     knowledge.py     everything the chatbot knows (keep in sync with page content)
 ```
 

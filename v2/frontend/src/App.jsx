@@ -43,7 +43,9 @@ function RouteEffects() {
   useEffect(() => {
     if (hash) {
       const el = document.getElementById(decodeURIComponent(hash.slice(1)))
-      if (el) { scrollToEl(el, { immediate: true }); flash(el); return }
+      // reset first: Lenis measures the target from its own scroll position, which can still be
+      // the previous page's (the browser clamps it when the new page is shorter)
+      if (el) { scrollToTop({ immediate: true }); scrollToEl(el, { immediate: true }); flash(el); return }
     }
     scrollToTop({ immediate: true })
   }, [pathname, hash])

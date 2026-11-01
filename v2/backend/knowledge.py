@@ -134,7 +134,7 @@ All code is on https://github.com/shlokbam.
 - "I built a full DevOps CI/CD pipeline from scratch — everything that went wrong" (Mar 2026) — Docker, Jenkins, Terraform and AWS EC2.
 
 ## This website
-- Built with a React (Vite) frontend and a FastAPI backend. Pages: Home, About, Work (+ DailyDiff case study), Journey, Recognition, Community, Writing, Contact.
+- Built with a React (Vite) frontend and a FastAPI backend. Pages: Home, About, Work (+ DailyDiff case study), Journey, Recognition, Community, Writing, Contact, Résumé (a web version of the PDF at /resume).
 """.strip()
 
 RULES = """

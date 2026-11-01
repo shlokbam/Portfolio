@@ -492,7 +492,7 @@ async def health():
 # the old pages in returning visitors' browsers is replaced by one that removes itself.
 
 SITE_URL = os.getenv('SITE_URL', 'https://shlokbam.in').rstrip('/')
-V2_PAGES = {'about', 'work', 'work/dailydiff', 'journey', 'recognition', 'community', 'writing', 'contact'}
+V2_PAGES = {'about', 'work', 'work/dailydiff', 'journey', 'recognition', 'community', 'writing', 'contact', 'resume'}
 V1_MOVED = {
     'download-resume': '/static/Resume/Shlok_Bam_Resume.pdf',
     'static/Resume/Shlok_Bam_VIT.pdf': '/static/Resume/Shlok_Bam_Resume.pdf',

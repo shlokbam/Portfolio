@@ -91,13 +91,13 @@ export default function Resume() {
       <section style={{ padding: '72px 0 110px' }}>
         <div className="wrap">
           <article className="rs-paper">
-            <header className="rs-top">
+            <div className="rs-top">
               <h1>Shlok Bam</h1>
               <p className="rs-title">AI / Generative AI Engineer</p>
               <p className="rs-contact">
                 <A href="mailto:shlokbam19103@gmail.com">shlokbam19103@gmail.com</A> | <A href="tel:+917974670370">+91-7974670370</A> | Pune, India | <A href="https://github.com/shlokbam">github.com/shlokbam</A> | <A href="https://www.linkedin.com/in/shlokbam/">linkedin.com/in/shlokbam</A> | <A href="/">shlokbam.in</A>
               </p>
-            </header>
+            </div>
 
             <h2>Summary</h2>
             <p>AI/Generative AI engineer with hands-on experience shipping agentic and LLM-powered systems to production, from multi-agent pipelines to LLM-as-judge evaluation frameworks, alongside full-stack (React/FastAPI) and DevOps (Docker/Terraform) delivery. Currently interning at PharmaACE on healthcare data and agentic AI pipelines.</p>
