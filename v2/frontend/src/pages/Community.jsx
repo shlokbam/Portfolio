@@ -129,7 +129,7 @@ export default function Community() {
             {gallery.map((g, g_i) => (
               <button key={g_i} type="button" className="polaroid" onClick={g.open} aria-label={g.cap} aria-hidden={g.copy || undefined} tabIndex={g.copy ? -1 : undefined} style={css(g.style)}>
                 <span style={{ display: "block", aspectRatio: "1 / 1", overflow: "hidden", borderRadius: "3px", background: "var(--surface2)" }}>
-                  <img decoding="async" src={galleryOn ? g.small.src : undefined} srcSet={galleryOn ? g.small.srcSet : undefined} sizes="240px" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                  <img decoding="async" src={galleryOn ? g.small.src : undefined} srcSet={galleryOn ? g.small.srcSet : undefined} sizes="240px" alt={g.cap} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                 </span>
                 {" "}
                 <span className="mono" style={{ display: "block", marginTop: "10px", fontSize: "10.5px" }}>{g.cap}</span>

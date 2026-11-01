@@ -97,7 +97,7 @@ export default function Journey() {
                       <div style={{ flex: "1 1 360px", minWidth: "0" }}>
                         <div className="orghead">
                           {it.logo
-                            ? <span className="orgmark" aria-hidden="true"><img loading="lazy" decoding="async" src={it.logo} alt="" /></span>
+                            ? <span className="orgmark" aria-hidden="true"><img loading="lazy" decoding="async" src={it.logo} alt={it.org + ' logo'} /></span>
                             : <span className="orgmark mono" aria-hidden="true">{it.mono}</span>}
                           <div style={{ minWidth: "0" }}>
                             <h3 style={{ margin: "0", fontSize: "clamp(22px, 2.2vw, 30px)", letterSpacing: "-.02em", fontWeight: "700" }}>{it.role}</h3>
@@ -119,7 +119,7 @@ export default function Journey() {
                         <div className="fan" aria-label="Certificate">
                           {it.thumbs.map((th, th_i) => (
                             <button key={th_i} type="button" className="th" onClick={th.open} aria-label="Open certificate" style={css(th.style)}>
-                              <img loading="lazy" decoding="async" src={thumb(th.src)} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                              <img loading="lazy" decoding="async" src={thumb(th.src)} alt={'Certificate: ' + it.role + ', ' + it.org} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                             </button>
                           ))}
                         </div>
