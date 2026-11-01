@@ -10,5 +10,5 @@ export const sized = (optPath) => ({
   src: optPath.replace('/static/opt/', '/static/opt/w800/'),
   srcSet: [480, 800, 1280].map((w) => optPath.replace('/static/opt/', '/static/opt/w' + w + '/') + ' ' + w + 'w').join(', ')
 })
-// Small (480 px) copy for thumbnails, from an opt() path: /static/opt/a/b.webp -> /static/opt/thumbs/a/b.webp
+// Thumbnail copy (960 px wide), from an opt() path: /static/opt/a/b.webp -> /static/opt/thumbs/a/b.webp
 export const thumb = (optPath) => optPath.replace('/static/opt/', '/static/opt/thumbs/')

@@ -170,10 +170,11 @@ flowchart LR
 │   │   │   ├── components/       Layout, AskAI, ChatWidget, Arcade, SkillPit, ProfilePeek, …
 │   │   │   │   └── arcade/       Bug smash, Memory, Typing sprint
 │   │   │   ├── lib/scenes/       the live AI canvases (nn, embed, gd, attention, cv, …)
-│   │   │   ├── data/projects.js  the 21 projects
+│   │   │   ├── data/             the 21 projects, the "On my radar" blocks
+│   │   │   ├── routes.jsx        the route list (one chunk per page)
 │   │   │   └── seo.js            per-page titles, descriptions, structured data
 │   │   ├── public/static/        résumé, certificates, patents, photos (+ WebP copies in opt/)
-│   │   └── scripts/prerender.mjs
+│   │   └── scripts/              prerender.mjs, resize-images.sh
 │   ├── backend/                  → Render (root directory: v2/backend)
 │   │   ├── main.py               API, stats fetchers, redirects
 │   │   └── knowledge.py          everything the assistant knows

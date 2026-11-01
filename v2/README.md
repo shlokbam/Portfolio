@@ -6,12 +6,16 @@ v1 (Flask) was removed from the working tree; it is still in git history.
 ```
 v2/
   frontend/   React 18 + Vite + React Router  → Vercel
-    public/static/   every v1 asset (résumé, certificates, patents, photos), copied 1:1
+    public/static/   résumé, certificates, patents, photos (originals; WebP display copies in opt/)
+    public/og/       one share card per page
+    src/routes.jsx   the route list; each page is its own chunk
     src/pages/       one component + stylesheet per page (Home, About, Work, CaseStudy, Journey,
-                     Recognition, Community, Writing, Contact, NotFound)
-    src/components/  Layout (header, menu, footer), ChatWidget, A (smart link), Md (chat markdown)
-    src/lib/         site state (theme, chat, live data), API client, scroll-reveal fallback
-    src/data/        project list
+                     Recognition, Community, Writing, Contact, Resume, Privacy, NotFound)
+    src/components/  Layout (header, menu, footer), AskAI + ChatWidget (assistant), Sources, NowRadar,
+                     Shipping, A (smart link), Md (chat markdown), arcade/ games, …
+    src/lib/         site state (theme, chat, live data), API client, links, scroll helpers, scenes/
+    src/data/        projects, the "On my radar" blocks
+    scripts/         prerender.mjs (static pages, sitemap, llms.txt), resize-images.sh
   backend/    FastAPI → Render
     main.py          /api/stats, /api/availability, /api/shipping, /api/chat, /api/chat/stats, /api/contact, /api/health
     knowledge.py     everything the chatbot knows (keep in sync with page content)
