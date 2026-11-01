@@ -85,6 +85,9 @@ npm run dev        # http://localhost:5173
 - Indovate's repository isn't public, so the Work page shows "Private repo" instead of a dead link.
 
 ## SEO
+- IndexNow: after a deploy is live, run `npm run indexnow` (in `v2/frontend`) to tell Bing, Yandex and the
+  other IndexNow engines that the pages changed. It sends every URL in the live sitemap; the key file is
+  `public/0ad7faedcb78f4799790d153ec798e39.txt` (public by design, it proves the site is ours).
 - Every page is prerendered with its own `<title>`, description, canonical URL, Open Graph/Twitter
   tags and JSON-LD (Person, WebSite, ProfilePage/WebPage, breadcrumbs, the project list and the
   DailyDiff app). Titles and descriptions live in `src/seo.js`.
