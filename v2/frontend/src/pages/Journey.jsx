@@ -22,7 +22,7 @@ export default function Journey() {
       item('2023', 'Internship', 'UI/UX Intern', 'Herbs Magic', ['Designed and implemented user interfaces for web applications.', 'Conducted user research and created wireframes.', 'Collaborated with the development team through implementation.'])
     ] },
     { id: 'ch-lead', n: '02', word: 'Lead', label: 'Leadership', items: [
-      item('2025-26', 'Founding chair', 'Chairperson', "Information Technology Students' Association (ITSA), VIT Pune", ['Led a 50+ member student team from July 2025 to June 2026.', 'Organised a department-wide AI workshop (500+ attendees), mock GD/PIs and an INR 1 lakh-budget event.', 'Built a QR attendance system used at an event with 750+ attendees.']),
+      item('2025-26', 'Founding chair', 'Chairperson', "Information Technology Students' Association (ITSA), VIT Pune", ['Led a 50+ member student team from July 2025 to June 2026.', 'Organised a department-wide AI workshop (500+ attendees), mock GD/PIs and an INR 1 lakh-budget event.', 'Built a QR attendance system used at an event with 750+ attendees.'], [opt('/static/certificates/clubs/ITSA.png')]),
       item('2024-25', 'Operations', 'Operations Head', 'Abhivriddhi', ['Ran operations for the club and anchored its flagship technical event, EDGE’24.'], [opt('/static/certificates/clubs/Operations.jpeg')]),
       item('2024-25', 'Administration', 'Chief Administrative', 'The Catalyst', ['Led administration and logistics for the club.'], [opt('/static/certificates/clubs/Cheif.jpeg')]),
       item('2024-25', 'Web', 'Web Development Coordinator', 'Computer Society of India', ['Coordinated web development for the chapter.'], [opt('/static/certificates/clubs/csi.jpeg')]),

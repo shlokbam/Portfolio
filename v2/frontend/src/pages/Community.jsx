@@ -37,6 +37,7 @@ export default function Community() {
     { src: opt('/static/community/1v.jpeg'), cap: 'Volunteering · 2023' },
     { src: opt('/static/certificates/images/official_posts/image.png'), cap: 'Official post' },
     { src: opt('/static/certificates/images/official_posts/1724320631666.jpeg'), cap: 'Navdhara · Top 5' },
+    { src: opt('/static/certificates/clubs/ITSA.png'), cap: 'ITSA · Chairperson' },
     { src: opt('/static/certificates/clubs/Operations.jpeg'), cap: 'Operations Head' },
     { src: opt('/static/certificates/clubs/Cheif.jpeg'), cap: 'Chief Administrative' },
     { src: opt('/static/certificates/clubs/Technical.jpeg'), cap: 'Technical Coordinator' },
