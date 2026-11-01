@@ -67,6 +67,12 @@ npm run dev        # http://localhost:5173
 - Pages show optimized WebP copies from `public/static/opt/` (made with `cwebp -q 80`, max 1600 px).
   The originals in `public/static/` are untouched and are what download links open. If you add or
   replace an image, regenerate its copy: `cwebp -q 80 -m 6 in.jpeg -o public/static/opt/<same path>.webp`.
+  Community and Recognition photos also have 480 / 800 / 1280 px copies (`opt/w480`, `w800`, `w1280`) picked
+  by `srcset` (`sized()` in `lib/links.js`); after changing one of them run `zsh scripts/resize-images.sh`.
+- Each page is its own JavaScript chunk (`src/routes.jsx`): a visitor downloads only the page they open, the
+  prerendered HTML preloads it, and the rest load when the browser is idle or a link is hovered. All CSS stays in
+  one stylesheet so nothing renders unstyled. Test production builds with `npm run preview` (it serves
+  `dist/about/index.html` for `/about` like Vercel); `vite preview` serves the home page HTML for every route.
 - The site pings `/api/health` on load so a sleeping Render instance starts waking early; stats retry once.
   If the ping takes over 1.5 s (a cold start), both chats show a boot screen (`components/WakeBoot.jsx`: boot log,
   rotating facts, arcade link). Typed questions are queued and sent once the API answers; quick questions answer

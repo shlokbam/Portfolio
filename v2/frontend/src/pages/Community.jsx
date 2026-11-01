@@ -3,7 +3,7 @@ import Layout from '../components/Layout'
 import A from '../components/A'
 import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
-import { opt, thumb } from '../lib/links'
+import { opt, sized } from '../lib/links'
 import { useEffect, useRef, useState } from 'react'
 import { useLightbox } from '../lib/lightbox'
 import './Community.css'
@@ -44,7 +44,7 @@ export default function Community() {
     { src: opt('/static/Arcade/arcade_dashboard.png'), cap: 'Google Arcade' }
   ]
   // The list is doubled for the seamless marquee loop; the copy is hidden from assistive tech.
-  const gallery = items.concat(items).map((g, i) => ({ ...g, small: thumb(g.src), open: open(g.src), copy: i >= items.length, style: '--r: ' + tilt[i % tilt.length] }))
+  const gallery = items.concat(items).map((g, i) => ({ ...g, small: sized(g.src), open: open(g.src), copy: i >= items.length, style: '--r: ' + tilt[i % tilt.length] }))
   return (
     <Layout page="community" curtain="Community" chat greeting="Ask me about his mentoring or the events he has hosted." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       {lbOpen && (
@@ -91,7 +91,7 @@ export default function Community() {
             <article key={s_i} className={s.cls}>
               <button type="button" className="simg rv" onClick={s.open} aria-label={s.year + ", enlarge photo"} style={{ display: "block", padding: "0", border: "none", background: "var(--surface)", borderRadius: "26px", overflow: "hidden", aspectRatio: "5 / 4", cursor: "zoom-in", position: "relative" }}>
                 <span className="pic gray" style={{ display: "block", width: "100%", height: "100%" }}>
-                  <img loading={s_i === 0 ? "eager" : "lazy"} fetchpriority={s_i === 0 ? "high" : undefined} decoding="async" className="para" src={s.img} alt={s.alt} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                  <img loading={s_i === 0 ? "eager" : "lazy"} fetchpriority={s_i === 0 ? "high" : undefined} decoding="async" className="para" {...sized(s.img)} sizes="(max-width: 900px) calc(100vw - 32px), 640px" alt={s.alt} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                 </span>
                 {" "}
                 <span className="mono" style={{ position: "absolute", left: "16px", top: "16px", background: "var(--bg)", color: "var(--text)", padding: "8px 12px", borderRadius: "999px" }}>{s.year}</span>
@@ -128,7 +128,7 @@ export default function Community() {
             {gallery.map((g, g_i) => (
               <button key={g_i} type="button" className="polaroid" onClick={g.open} aria-label={g.cap} aria-hidden={g.copy || undefined} tabIndex={g.copy ? -1 : undefined} style={css(g.style)}>
                 <span style={{ display: "block", aspectRatio: "1 / 1", overflow: "hidden", borderRadius: "3px", background: "var(--surface2)" }}>
-                  <img decoding="async" src={galleryOn ? g.small : undefined} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                  <img decoding="async" src={galleryOn ? g.small.src : undefined} srcSet={galleryOn ? g.small.srcSet : undefined} sizes="240px" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                 </span>
                 {" "}
                 <span className="mono" style={{ display: "block", marginTop: "10px", fontSize: "10.5px" }}>{g.cap}</span>

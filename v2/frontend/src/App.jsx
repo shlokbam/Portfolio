@@ -1,21 +1,10 @@
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { SiteProvider } from './lib/site'
 import { pageMeta } from './seo'
 import { startSmooth, scrollToTop, scrollToEl, flash } from './lib/smooth'
 import { startReveal } from './lib/reveal'
-import Home from './pages/Home'
-import About from './pages/About'
-import Work from './pages/Work'
-import CaseStudy from './pages/CaseStudy'
-import Journey from './pages/Journey'
-import Recognition from './pages/Recognition'
-import Community from './pages/Community'
-import Writing from './pages/Writing'
-import Contact from './pages/Contact'
-import Privacy from './pages/Privacy'
-import Resume from './pages/Resume'
-import NotFound from './pages/NotFound'
+import { ROUTE_PAGES, NotFound } from './routes'
 
 function setMeta(selector, attr, value) {
   const el = document.head.querySelector(selector)
@@ -63,20 +52,12 @@ export default function App() {
     <SiteProvider>
       <RouteEffects />
       <ClientEffects />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/work" element={<Work />} />
-        <Route path="/work/dailydiff" element={<CaseStudy />} />
-        <Route path="/journey" element={<Journey />} />
-        <Route path="/recognition" element={<Recognition />} />
-        <Route path="/community" element={<Community />} />
-        <Route path="/writing" element={<Writing />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/resume" element={<Resume />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          {ROUTE_PAGES.map(([path, Page]) => <Route key={path} path={path} element={<Page />} />)}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </SiteProvider>
   )
 }

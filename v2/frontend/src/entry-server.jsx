@@ -4,6 +4,7 @@ import { StaticRouter } from 'react-router-dom/server'
 import App from './App'
 
 export { ROUTES, PAGES, headTags } from './seo'
+export { loadAllPages as preload, pageFor } from './routes'
 
 export function render(url) {
   return renderToString(

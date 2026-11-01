@@ -2,7 +2,7 @@ import Layout from '../components/Layout'
 import A from '../components/A'
 import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
-import { file, opt } from '../lib/links'
+import { file, opt, sized } from '../lib/links'
 import { useHolo, useStamp } from '../lib/holo'
 import './Recognition.css'
 
@@ -72,7 +72,7 @@ export default function Recognition() {
                 <div className="shrink g-patent" style={{ border: "1px solid var(--line)", borderRadius: "28px", background: "var(--surface)", padding: "26px", boxShadow: "0 -16px 50px rgba(0,0,0,.22)" }}>
                   <div data-stamp style={{ position: "relative", borderRadius: "18px", background: "var(--surface2)", minHeight: "420px", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
                     <span className={'stamp st-' + p.short.toLowerCase()} aria-hidden="true"><b>{p.short}</b><i>{p.office.split(' · ')[0]} · {p.date.match(/\d{4}/)[0]}</i></span>
-                    <img loading={p_i === 0 ? "eager" : "lazy"} fetchpriority={p_i === 0 ? "high" : undefined} decoding="async" src={p.img} alt={p.alt} style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "contain", borderRadius: "8px", display: "block" }} />
+                    <img loading={p_i === 0 ? "eager" : "lazy"} fetchpriority={p_i === 0 ? "high" : undefined} decoding="async" {...sized(p.img)} sizes="(max-width: 900px) 70vw, 440px" alt={p.alt} style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "contain", borderRadius: "8px", display: "block" }} />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", padding: "6px 4px" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "16px" }}>
@@ -115,9 +115,9 @@ export default function Recognition() {
           <div className="g-3" style={{ marginTop: "48px" }}>
             <article className="award rv" data-holo style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
               <div className="pic swap" style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
-                <img loading="lazy" decoding="async" className="a" src={opt('/static/certificates/images/winning_screenshots/1.jpeg')} alt="Team pumpdotfun receiving the award" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <img loading="lazy" decoding="async" className="a" {...sized(opt('/static/certificates/images/winning_screenshots/1.jpeg'))} sizes="(max-width: 900px) 92vw, 360px" alt="Team pumpdotfun receiving the award" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                 {" "}
-                <img loading="lazy" decoding="async" className="b" src={opt('/static/certificates/images/official_posts/image.png')} alt="Official college post about the award" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <img loading="lazy" decoding="async" className="b" {...sized(opt('/static/certificates/images/official_posts/image.png'))} sizes="(max-width: 900px) 92vw, 360px" alt="Official college post about the award" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                 {" "}
                 <span className="mono" style={{ position: "absolute", left: "14px", bottom: "14px", background: "var(--bg)", padding: "7px 12px", borderRadius: "999px", fontSize: "10px" }}>Hover · official post</span>
               </div>
@@ -138,7 +138,7 @@ export default function Recognition() {
             </article>
             <article className="award rv" data-holo style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
               <div className="pic" style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
-                <img loading="lazy" decoding="async" src={opt('/static/Arcade/arcade_dashboard.png')} alt="Google Arcade progress dashboard" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
+                <img loading="lazy" decoding="async" {...sized(opt('/static/Arcade/arcade_dashboard.png'))} sizes="(max-width: 900px) 92vw, 360px" alt="Google Arcade progress dashboard" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
               </div>
               <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "12px", flex: "1" }}>
                 <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)", fontSize: "11px" }}>
@@ -157,7 +157,7 @@ export default function Recognition() {
             </article>
             <article className="award rv" data-holo style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
               <div className="pic" style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
-                <img loading="lazy" decoding="async" src={opt('/static/certificates/images/official_posts/1724320631666.jpeg')} alt="Official Navdhara competition post" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <img loading="lazy" decoding="async" {...sized(opt('/static/certificates/images/official_posts/1724320631666.jpeg'))} sizes="(max-width: 900px) 92vw, 360px" alt="Official Navdhara competition post" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
               <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "12px", flex: "1" }}>
                 <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)", fontSize: "11px" }}>

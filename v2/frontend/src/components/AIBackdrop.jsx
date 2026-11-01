@@ -103,12 +103,18 @@ export default function AIBackdrop({ kind, text = '', className = '', style }) {
       window.addEventListener('pointermove', onPointer, { passive: true })
       start()
     })
+    // start once the page has finished loading and the browser is idle, so the scene never competes
+    // with the page's own first paint and hydration on a slow phone
     const ric = 'requestIdleCallback' in window
-    const idleId = ric ? window.requestIdleCallback(boot, { timeout: 1500 }) : setTimeout(boot, 200)
+    let idleId = 0
+    const later = () => { idleId = ric ? window.requestIdleCallback(boot, { timeout: 2500 }) : setTimeout(boot, 300) }
+    if (document.readyState === 'complete') later()
+    else window.addEventListener('load', later, { once: true })
 
     return () => {
       disposed = true
       stop()
+      window.removeEventListener('load', later)
       if (ric) window.cancelIdleCallback(idleId)
       else clearTimeout(idleId)
       io.disconnect(); ro.disconnect(); mo.disconnect()

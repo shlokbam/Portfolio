@@ -16,7 +16,6 @@
 .rs-paper li { margin: 4px 0; }
 .rs-paper p { margin: 0; }
 .rs-skills { list-style: none; padding-left: 0 !important; }
-.rs-more { margin-top: 14px !important; font-size: 14px; color: var(--muted); }
 
 /* Print / Save as PDF: just the paper, black on white, about two A4 pages */
 @media print {
@@ -40,7 +39,6 @@
   .rs-paper ul { margin-top: 3px; }
   .rs-paper li { margin: 1px 0; }
   .rs-paper a { text-decoration: none; }
-  .rs-contact, .rs-when, .rs-more { color: #333 !important; }
-  .rs-more { margin-top: 6px !important; font-size: 9pt; }
+  .rs-contact, .rs-when { color: #333 !important; }
   .rs-item { break-inside: avoid; }
 }

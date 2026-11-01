@@ -10,7 +10,18 @@ const dist = path.join(root, 'dist')
 const ssrDir = path.join(root, 'dist-ssr')
 const SITE = (process.env.SITE_URL || process.env.VITE_SITE_URL || 'https://shlokbam.in').replace(/\/+$/, '')
 
-const { render, ROUTES, PAGES, headTags } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href)
+const { render, ROUTES, PAGES, headTags, preload, pageFor } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href)
+await preload() // pages are separate chunks; load them all so render() never suspends
+
+// each page fetches its own chunk early (the client loads it before hydrating); the manifest is
+// only needed here, so it isn't left in the deployed site
+const manifestFile = path.join(dist, '.vite', 'manifest.json')
+const manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8'))
+fs.rmSync(path.join(dist, '.vite'), { recursive: true, force: true })
+const chunkFor = (route) => {
+  const entry = manifest['src/pages/' + pageFor(route).file + '.jsx']
+  return entry ? `<link rel="modulepreload" crossorigin href="/${entry.file}">` : ''
+}
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
 if (!template.includes('<!--head:start-->') || !template.includes('<div id="root"></div>')) {
   throw new Error('index.html is missing the prerender markers')
@@ -19,7 +30,7 @@ if (!template.includes('<!--head:start-->') || !template.includes('<div id="root
 function page(route) {
   const html = render(route === '/404' ? '/404-not-found' : route)
   return template
-    .replace(/<!--head:start-->[\s\S]*?<!--head:end-->/, headTags(route === '/404' ? '/404-not-found' : route, SITE))
+    .replace(/<!--head:start-->[\s\S]*?<!--head:end-->/, headTags(route === '/404' ? '/404-not-found' : route, SITE) + chunkFor(route === '/404' ? '/404-not-found' : route))
     .replace('<div id="root"></div>', `<div id="root">${html}</div>`)
 }
 

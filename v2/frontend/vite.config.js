@@ -20,6 +20,10 @@ export default defineConfig(({ mode }) => {
   const key = env.VITE_WEB3FORMS_KEY || rootWeb3formsKey()
   return {
     plugins: [react()],
+    // pages are split into chunks (src/routes.jsx), but their styles stay in one stylesheet linked from
+    // every prerendered page, so nothing renders unstyled while a page's script loads; the manifest
+    // tells the prerender which chunk each page needs
+    build: { cssCodeSplit: false, manifest: true },
     define: { 'import.meta.env.VITE_WEB3FORMS_KEY': JSON.stringify(key) },
     // In dev, /api is proxied to the FastAPI server (uvicorn on :8000).
     server: { proxy: { '/api': 'http://localhost:8000' } }
