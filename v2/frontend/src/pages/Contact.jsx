@@ -5,6 +5,7 @@ import { css } from '../lib/css'
 import { useEffect, useRef, useState } from 'react'
 import { useIstClock } from '../lib/clock'
 import { sendMessage } from '../lib/contact'
+import { track } from '../lib/track'
 import { RESUME, RESUME_PAGE, EMAIL } from '../lib/links'
 import Arcade from '../components/Arcade'
 import './Contact.css'
@@ -41,10 +42,13 @@ export default function Contact() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) { setStatus('error'); setError('That email address doesn\'t look right.'); return }
     setStatus('sending'); setError('')
     try {
-      await sendMessage({ ...form, topic: (TOPICS.find((t) => t[0] === tp) || TOPICS[0])[1] })
+      const topic = (TOPICS.find((t) => t[0] === tp) || TOPICS[0])[1]
+      await sendMessage({ ...form, topic })
+      track('contact_submit', { topic })
       setStatus('sent')
       setForm({ name: '', email: '', company: '', message: '', website: '' })
     } catch (err) {
+      track('contact_error')
       setStatus('error')
       setError((err.data && err.data.message) || 'Something went wrong sending that. Please email me directly at ' + EMAIL + '.')
     }

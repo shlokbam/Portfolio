@@ -5,6 +5,7 @@ import WakeBoot from './WakeBoot'
 import BotMark from './BotMark'
 import Sources from './Sources'
 import { QA } from '../lib/qa'
+import { track } from '../lib/track'
 
 // the widget's quick questions, with their prepared answers (instant while the API wakes)
 const CHIPS = [QA[0], QA[1], QA[4]]
@@ -107,7 +108,7 @@ export default function ChatWidget({ greeting }) {
           </form>
         </div>
       )}
-      <button type="button" className="pill mono" onClick={() => setOpen((o) => !o)} aria-label={fresh && !open ? 'Ask my AI about Shlok (ready)' : 'Ask my AI about Shlok'} aria-expanded={open} style={{ position: 'relative', height: '52px', padding: '0 20px 0 8px', borderRadius: '999px', border: '1px solid var(--line)', background: 'var(--surface)', color: 'var(--text)', display: 'inline-flex', alignItems: 'center', gap: '12px', cursor: 'pointer', boxShadow: '0 12px 30px rgba(0,0,0,.25)' }}>
+      <button type="button" className="pill mono" onClick={() => { if (!open) track('chat_open', { page: location.pathname }); setOpen((o) => !o) }} aria-label={fresh && !open ? 'Ask my AI about Shlok (ready)' : 'Ask my AI about Shlok'} aria-expanded={open} style={{ position: 'relative', height: '52px', padding: '0 20px 0 8px', borderRadius: '999px', border: '1px solid var(--line)', background: 'var(--surface)', color: 'var(--text)', display: 'inline-flex', alignItems: 'center', gap: '12px', cursor: 'pointer', boxShadow: '0 12px 30px rgba(0,0,0,.25)' }}>
         {fresh && !open && <span className="fab-dot" aria-hidden="true" />}
         <span style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'var(--accent)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--onaccent)" strokeWidth="1.8" aria-hidden="true"><path d="M4 5h16v11H9l-5 4Z" /></svg>

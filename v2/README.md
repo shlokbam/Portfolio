@@ -137,6 +137,12 @@ matching line in `backend/knowledge.py` current too.
 ## Analytics, icon, old address
 - Google Analytics (`G-8BD4MSYPM6`, same property as v1) is in `frontend/index.html`; it is skipped on localhost.
 - Microsoft Clarity (project `z2u0dv5iv5`, heatmaps and replays) is next to it, also skipped on localhost.
+- Events (`src/lib/track.js`, sent to both): `resume_download`, `resume_view_click`, `contact_submit` (topic),
+  `contact_error`, `chat_open`, `chat_question` (quick or typed, never the text), `profile_click` (network),
+  `project_link_click` (domain, URL, link text), `file_open` (certificates, patents, other `/static/` files), `email_click`, `phone_click`. Every event
+  carries `page`. Links are counted by one document-wide click listener, so new links need no code.
+  `contact_submit` and `resume_download` are marked as key events in GA4. Never send personal data.
+- Owner opt-out: open the site once with `?notrack=1` in each of your browsers; `?notrack=0` undoes it.
 - `src/pages/Privacy.jsx` (`/privacy`) describes what the site collects. Update it whenever analytics, the chat or the
   contact form change.
 - Site icon: `public/icon.svg` (the orbit mark), with PNG/ICO copies and a maskable icon for Android.

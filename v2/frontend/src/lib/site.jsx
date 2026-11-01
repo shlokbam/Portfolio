@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { api } from './api'
+import { track } from './track'
 
 const SiteCtx = createContext(null)
 
@@ -91,6 +92,8 @@ export function SiteProvider({ children }) {
   const send = useCallback((text, fallback, fallbackSources) => {
     const q = (text || '').trim()
     if (!q) return
+    // which kind of question, never its text
+    track('chat_question', { kind: fallback ? 'quick' : 'typed', page: location.pathname, api: apiRef.current })
     if (apiRef.current === 'waking') {
       setMsgs((m) => m.concat(fallback ? [{ who: 'u', text: q }, { who: 'b', text: fallback, sources: fallbackSources || [] }] : [{ who: 'u', text: q, queued: true, id: Date.now() + Math.random() }]))
       return

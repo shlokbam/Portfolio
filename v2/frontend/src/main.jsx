@@ -3,6 +3,7 @@ import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import { pageFor, loadAllPages } from './routes'
+import { trackLinks } from './lib/track'
 import './styles/fonts.css'
 import 'lenis/dist/lenis.css'
 import './styles/global.css'
@@ -24,3 +25,4 @@ pageFor(location.pathname).load().finally(() => {
   else createRoot(root).render(app)
   idle(() => loadAllPages().catch(() => {}))
 })
+trackLinks()
