@@ -369,7 +369,7 @@ section#top > .wrap, .ai-host > .wrap { position: relative; z-index: 1; }
 
 
 /* Home "Shipping": recent GitHub commits as a drifting ticker (components/Shipping.jsx) */
-.sb .ship-in { display: grid; grid-template-columns: minmax(200px, 260px) minmax(0, 1fr) auto; align-items: center; gap: 28px; padding-top: 26px; padding-bottom: 26px; }
+.sb .ship-in { display: grid; grid-template-columns: minmax(200px, 260px) minmax(0, 1fr) auto; align-items: center; gap: 28px; padding-top: 40px; padding-bottom: 40px; }
 .sb .ship-head { display: grid; gap: 8px; }
 .sb .ship-led { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #2fd47a; margin-right: 10px; box-shadow: 0 0 0 4px color-mix(in srgb, #2fd47a 22%, transparent); animation: sb-led 1.4s ease-in-out infinite; }
 .sb .ship-count { font-size: 19px; letter-spacing: -.01em; }
