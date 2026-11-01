@@ -14,23 +14,25 @@ export default function Journey() {
     src, open: () => openLb(src),
     style: '--x0: 0px; --r0: -3deg; --x1: 20px; --r1: 0deg'
   }))
-  const item = (when, kind, role, org, points, srcs) => ({ when, kind, role, org, points, thumbs: thumbs(srcs || []), hasThumbs: !!(srcs && srcs.length) })
+  // `at`: the organisation's mark (a logo from public/static/logos/, or letters when there is none) and its official page
+  const item = (when, kind, role, org, points, srcs, at = {}) => ({ when, kind, role, org, points, thumbs: thumbs(srcs || []), hasThumbs: !!(srcs && srcs.length), ...at })
+  const VIT_SCCG = 'https://www.vit.edu/sccg/' // VIT's page for Abhivriddhi (the club's own site is down)
   const chapters = [
     { id: 'ch-work', n: '01', word: 'Work', label: 'Industry', items: [
-      item('2026 → Now', 'Internship', 'Intern', 'PharmaACE Innovations', ['Engineered an NPI matching pilot (Python, Streamlit, Snowpark, rapidfuzz) for a Fortune 500 pharma client that auto-accepted 94% (163 of 174) of a real test batch and routed 11 records for review.', 'Developed a News Monitor pilot (Python, FastAPI, React, Playwright) tracking 1,200+ pharma newsrooms every 30 minutes, with a no-LLM scan and a GPT-4o-mini source-validation judge.', 'Building a Forecast Reporting Agent (Python, FastAPI, LLMs) that turns natural-language questions into SQL with execution-based validation, LLM self-correction and chart recommendations.']),
-      item('2024', 'Offer', 'Data Annotation Intern', 'Qualitas Global', ['Selected for the role in second year, first semester.', 'Could not proceed because of the academic schedule.']),
-      item('2023', 'Internship', 'UI/UX Intern', 'Herbs Magic', ['Designed and implemented user interfaces for web applications.', 'Conducted user research and created wireframes.', 'Collaborated with the development team through implementation.'])
+      item('2026 → Now', 'Internship', 'Intern', 'PharmaACE Innovations', ['Engineered an NPI matching pilot (Python, Streamlit, Snowpark, rapidfuzz) for a Fortune 500 pharma client that auto-accepted 94% (163 of 174) of a real test batch and routed 11 records for review.', 'Developed a News Monitor pilot (Python, FastAPI, React, Playwright) tracking 1,200+ pharma newsrooms every 30 minutes, with a no-LLM scan and a GPT-4o-mini source-validation judge.', 'Building a Forecast Reporting Agent (Python, FastAPI, LLMs) that turns natural-language questions into SQL with execution-based validation, LLM self-correction and chart recommendations.'], null, { logo: '/static/logos/pharmaace.svg', href: 'https://www.pharmaace.com/' }),
+      item('2024', 'Offer', 'Data Annotation Intern', 'Qualitas Global', ['Selected for the role in second year, first semester.', 'Could not proceed because of the academic schedule.'], null, { logo: '/static/logos/qualitas-global.svg', href: 'https://www.qualitasglobal.com/' }),
+      item('2023', 'Internship', 'UI/UX Intern', 'Herbs Magic', ['Designed and implemented user interfaces for web applications.', 'Conducted user research and created wireframes.', 'Collaborated with the development team through implementation.'], null, { mono: 'HM' })
     ] },
     { id: 'ch-lead', n: '02', word: 'Lead', label: 'Leadership', items: [
-      item('2025-26', 'Founding chair', 'Chairperson', "Information Technology Students' Association (ITSA), VIT Pune", ['Led a 50+ member student team from July 2025 to June 2026.', 'Organised a department-wide AI workshop (500+ attendees), mock GD/PIs and an INR 1 lakh-budget event.', 'Built a QR attendance system used at an event with 750+ attendees.'], [opt('/static/certificates/clubs/ITSA.png')]),
-      item('2024-25', 'Operations', 'Operations Head', 'Abhivriddhi', ['Ran operations for the club and anchored its flagship technical event, EDGE’24.'], [opt('/static/certificates/clubs/Operations.jpeg')]),
-      item('2024-25', 'Administration', 'Chief Administrative', 'The Catalyst', ['Led administration and logistics for the club.'], [opt('/static/certificates/clubs/Cheif.jpeg')]),
-      item('2024-25', 'Web', 'Web Development Coordinator', 'Computer Society of India', ['Coordinated web development for the chapter.'], [opt('/static/certificates/clubs/csi.jpeg')]),
-      item('2023-24', 'Technical', 'Technical Coordinator', 'Abhivriddhi', ['Technical and content roles for club events.'], [opt('/static/certificates/clubs/Technical.jpeg')])
+      item('2025-26', 'Founding chair', 'Chairperson', "Information Technology Students' Association (ITSA), VIT Pune", ['Led a 50+ member student team from July 2025 to June 2026.', 'Organised a department-wide AI workshop (500+ attendees), mock GD/PIs and an INR 1 lakh-budget event.', 'Built a QR attendance system used at an event with 750+ attendees.'], [opt('/static/certificates/clubs/ITSA.png')], { logo: '/static/logos/itsa.webp' }),
+      item('2024-25', 'Operations', 'Operations Head', 'Abhivriddhi', ['Ran operations for the club and anchored its flagship technical event, EDGE’24.'], [opt('/static/certificates/clubs/Operations.jpeg')], { logo: '/static/logos/abhivriddhi.webp', href: VIT_SCCG }),
+      item('2024-25', 'Administration', 'Chief Administrative', 'The Catalyst', ['Led administration and logistics for the club.'], [opt('/static/certificates/clubs/Cheif.jpeg')], { mono: 'TC' }),
+      item('2024-25', 'Web', 'Web Development Coordinator', 'Computer Society of India', ['Coordinated web development for the chapter.'], [opt('/static/certificates/clubs/csi.jpeg')], { logo: '/static/logos/csi.webp', href: 'https://vit.edu/wp-content/uploads/2024/07/About-CSI-CSI-Student-Chapter-VIT-Pune.pdf' }),
+      item('2023-24', 'Technical', 'Technical Coordinator', 'Abhivriddhi', ['Technical and content roles for club events.'], [opt('/static/certificates/clubs/Technical.jpeg')], { logo: '/static/logos/abhivriddhi.webp', href: VIT_SCCG })
     ] },
     { id: 'ch-learn', n: '03', word: 'Learn', label: 'Education', items: [
-      item('2023 → Now', 'Undergraduate', 'B.Tech, Information Technology', 'Vishwakarma Institute of Technology, Pune', ['9.01 / 10 CGPA, graduating May 2027.', 'Active member of multiple technical and soft-skills clubs.', 'Taking part in coding competitions and hackathons.']),
-      item('2010-23', 'School', 'Primary & Secondary Education', 'Grades 1–12', ['Class 10 completed in 2021.', 'Class 12 completed in 2023.', 'Developed the interest in technology and programming that led here.'])
+      item('2023 → Now', 'Undergraduate', 'B.Tech, Information Technology', 'Vishwakarma Institute of Technology, Pune', ['9.01 / 10 CGPA, graduating May 2027.', 'Active member of multiple technical and soft-skills clubs.', 'Taking part in coding competitions and hackathons.'], null, { logo: '/static/logos/vit-pune.webp', href: 'https://www.vit.edu/' }),
+      item('2010-23', 'School', 'Primary & Secondary Education', 'Grades 1–12', ['Class 10 completed in 2021.', 'Class 12 completed in 2023.', 'Developed the interest in technology and programming that led here.'], null, { mono: '12' })
     ] }
   ]
   return (
@@ -93,8 +95,17 @@ export default function Journey() {
                   <div className="icard rv" style={{ border: "1px solid var(--line)", borderRadius: "22px", padding: "28px", background: "var(--surface)" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", gap: "24px", flexWrap: "wrap", alignItems: "flex-start" }}>
                       <div style={{ flex: "1 1 360px", minWidth: "0" }}>
-                        <h3 style={{ margin: "0", fontSize: "clamp(22px, 2.2vw, 30px)", letterSpacing: "-.02em", fontWeight: "700" }}>{it.role}</h3>
-                        <div style={{ marginTop: "6px", fontSize: "17px", color: "var(--muted)" }}>{it.org}</div>
+                        <div className="orghead">
+                          {it.logo
+                            ? <span className="orgmark" aria-hidden="true"><img loading="lazy" decoding="async" src={it.logo} alt="" /></span>
+                            : <span className="orgmark mono" aria-hidden="true">{it.mono}</span>}
+                          <div style={{ minWidth: "0" }}>
+                            <h3 style={{ margin: "0", fontSize: "clamp(22px, 2.2vw, 30px)", letterSpacing: "-.02em", fontWeight: "700" }}>{it.role}</h3>
+                            <div style={{ marginTop: "6px", fontSize: "17px", color: "var(--muted)" }}>
+                              {it.href ? <A className="ul orglink" href={it.href}>{it.org}<span aria-hidden="true"> ↗</span></A> : it.org}
+                            </div>
+                          </div>
+                        </div>
                         <ul style={{ margin: "20px 0 0", padding: "0", listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
                           {it.points.map((pt, pt_i) => (
                             <li key={pt_i} style={{ display: "flex", gap: "14px", fontSize: "16px", lineHeight: "1.55" }}>
