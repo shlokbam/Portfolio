@@ -8,6 +8,7 @@ Endpoints
   POST /api/chat           portfolio assistant (Groq; models set by GROQ_MODELS)
   GET  /api/chat/stats     number of questions answered since the last restart
   POST /api/contact        fallback contact relay to Web3Forms (the site normally posts there directly)
+  POST /mcp                the MCP server (mcp_server.py): tools for anyone's AI assistant to ask about Shlok
 
 Static files (résumé, certificates, photos) are served by the frontend host, not by this API.
 """
@@ -28,8 +29,11 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse, Response
 from pydantic import BaseModel, Field
+from mcp.server.transport_security import TransportSecuritySettings
+from starlette.routing import Route
 
 import content
+import mcp_server
 from knowledge import sections, system_prompt
 
 
@@ -74,7 +78,8 @@ _client: Optional[httpx.AsyncClient] = None
 async def lifespan(_app: FastAPI):
     global _client
     _client = httpx.AsyncClient(headers=HEADERS, timeout=10, follow_redirects=True)
-    yield
+    async with portfolio_mcp.session_manager.run():
+        yield
     await _client.aclose()
 
 
@@ -319,17 +324,23 @@ async def fetch_shipping() -> Optional[dict]:
         return None
 
 
-@app.get('/api/shipping')
-async def api_shipping():
+async def shipping() -> tuple:
+    """(data, cached): the cached commit list, refreshed every SHIPPING_TTL; used by the site and the MCP server."""
     now = time.time()
     if _ship_cache['data'] and now - _ship_cache['at'] < SHIPPING_TTL:
-        return {'success': True, 'data': _ship_cache['data'], 'cached': True}
+        return _ship_cache['data'], True
     data = await fetch_shipping()
     if data:
         _ship_cache.update(data=data, at=now)
     elif _ship_cache['data']:
         data = _ship_cache['data']  # GitHub hiccup: keep showing the last good list
-    return {'success': bool(data), 'data': data, 'cached': False}
+    return data, False
+
+
+@app.get('/api/shipping')
+async def api_shipping():
+    data, cached = await shipping()
+    return {'success': bool(data), 'data': data, 'cached': cached}
 
 
 # ---------------------------------------------------------------- chat
@@ -486,6 +497,43 @@ async def api_contact(body: ContactIn, request: Request):
 @app.get('/api/health')
 async def health():
     return {'ok': True}
+
+
+# ---------------------------------------------------------------- MCP server
+# https://shlokbam.in/mcp (Vercel forwards it here). Stateless JSON responses: no sessions to lose when
+# Render restarts or sleeps. The Host check (DNS-rebinding protection) is off: it guards servers on a
+# private network, and this one is public, read-only and behind Vercel's proxy.
+
+async def _activity():
+    return (await shipping())[0]
+
+portfolio_mcp = mcp_server.build(lambda: content.get(client()), _activity)
+_mcp_app = portfolio_mcp.streamable_http_app(
+    streamable_http_path='/mcp', stateless_http=True, json_response=True,
+    transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
+)
+MCP_INFO = {
+    'name': "Shlok Bam's portfolio (MCP server)",
+    'about': 'Connect this address to your AI assistant (Claude, ChatGPT, Cursor, VS Code…) and ask it anything about Shlok Bam.',
+    'url': 'https://shlokbam.in/mcp',
+    'transport': 'Streamable HTTP (POST)',
+    'tools': ['get_profile', 'list_projects', 'get_project', 'get_experience', 'get_achievements', 'get_skills',
+              'get_writing', 'get_resume', 'get_activity', 'search'],
+    'site': 'https://shlokbam.in',
+}
+
+
+async def mcp_get(request: Request):
+    """GET /mcp. A stateless server has no stream to offer, so MCP clients get the spec's 405; a browser gets
+    a note on how to connect (the SDK would otherwise hold the request open)."""
+    if 'text/event-stream' in request.headers.get('accept', ''):
+        return Response(status_code=405, headers={'Allow': 'POST'})
+    return JSONResponse(MCP_INFO, headers={'Cache-Control': 'public, max-age=3600'})
+
+
+# ahead of the v1 catch-all below, which would otherwise redirect GET /mcp to the site
+app.router.routes.insert(0, Route('/mcp', endpoint=mcp_get, methods=['GET', 'HEAD']))
+app.router.routes.insert(1, Route('/mcp', endpoint=_mcp_app.routes[0].endpoint, methods=['POST', 'DELETE']))
 
 
 # ---------------------------------------------------------------- old v1 address -> v2 site

@@ -17,7 +17,8 @@ v2/
     src/content/     everything the site says about Shlok, as data (see Content below)
     scripts/         prerender.mjs (static pages, sitemap, llms.txt), resize-images.sh
   backend/    FastAPI → Render
-    main.py          /api/stats, /api/availability, /api/shipping, /api/chat, /api/chat/stats, /api/contact, /api/health
+    main.py          /api/stats, /api/availability, /api/shipping, /api/chat, /api/chat/stats, /api/contact, /api/health, /mcp
+    mcp_server.py    the MCP server: tools anyone's AI assistant can call to ask about Shlok
     content.py       reads the site's /portfolio.json (cached 10 min; portfolio.snapshot.json as fallback)
     knowledge.py     the chatbot's rules; its facts are built from the content
 ```
@@ -98,6 +99,25 @@ Everything the site says about Shlok lives as plain data in `frontend/src/conten
 - To add a project: add an entry to `content/projects.js` (`details` and `blog` are optional). Its Work-page row,
   the assistant's answers and its source link all follow.
 - The Résumé page (`pages/Resume.jsx`) is the exception: it copies the PDF word for word, so edit it with the PDF.
+
+## MCP server (`https://shlokbam.in/mcp`)
+Anyone can add the portfolio to their AI assistant and ask it about Shlok. The tools return facts from the live content
+(same source as the site and the chat), and the visitor's own AI writes the answer, so it costs nothing per question.
+
+- Tools (all read-only, no sign-in): `get_profile`, `list_projects` (filter by tech, category, flagships), `get_project`
+  (by name, slug or repo name), `get_experience`, `get_achievements` (patents, awards, certifications, community),
+  `get_skills` (with the projects that use each), `get_writing`, `get_resume`, `get_activity` (live GitHub commits),
+  `search`. Defined in `backend/mcp_server.py`; adding a project to `src/content/` needs no change here.
+- Transport: Streamable HTTP, stateless, JSON responses (`main.py` mounts it). A browser opening `/mcp` gets a short JSON
+  note instead. Vercel forwards `shlokbam.in/mcp` to the Render service (`vercel.json` rewrites), so the address
+  stays the same if the backend moves.
+- Each call is logged by tool name only (Render logs: `mcp tool: get_project`), never with what was asked.
+- `.github/workflows/keep-awake.yml` pings the API every 10 minutes from 07:30 to 00:30 IST so calls don't hit a
+  cold start. Render's 750 free hours a month are shared by all free services, so it doesn't run around the clock.
+- Test locally: `CONTENT_URL=snapshot .venv/bin/uvicorn main:app --port 8000`, then
+  `npx @modelcontextprotocol/inspector` and connect to `http://localhost:8000/mcp`.
+- `mcp` 2.x needs Starlette < 0.42 alongside FastAPI 0.115; install with `pip install -r requirements.txt` (which
+  resolves that), not `pip install mcp` on its own.
 
 ## SEO
 - IndexNow: after a deploy is live, run `npm run indexnow` (in `v2/frontend`) to tell Bing, Yandex and the

@@ -1,0 +1,19 @@
+# Keeps the portfolio API (chat + MCP server) awake on Render's free tier, which sleeps after 15 idle
+# minutes and takes ~50 s to wake: long enough for an AI app to give up on an MCP call.
+# Only from about 07:30 to 00:30 IST: Render's free hours (750 a month) are shared by every free
+# service in the workspace, and pinging around the clock would use almost all of them.
+# Uses ~530 hours a month. To stop it: Actions tab → Keep API awake → ⋯ → Disable workflow.
+name: Keep API awake
+
+on:
+  schedule:
+    - cron: '*/10 2-18 * * *'   # every 10 min, 02:00–18:59 UTC (07:30–00:29 IST)
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Ping the API
+        run: curl -fsS --max-time 90 --retry 2 https://portfolio-edaa.onrender.com/api/health

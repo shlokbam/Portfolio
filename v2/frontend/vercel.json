@@ -1,6 +1,12 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/mcp",
+      "destination": "https://portfolio-edaa.onrender.com/mcp"
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",

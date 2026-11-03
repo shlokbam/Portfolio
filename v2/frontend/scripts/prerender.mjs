@@ -80,6 +80,7 @@ ${ROUTES.filter((r) => r !== '/privacy').map((r) => `- [${PAGES[r].name}](${SITE
 
 ## Data
 - [portfolio.json](${SITE}/portfolio.json): everything on this site as JSON (profile, projects, experience, patents, awards, certifications, writing, skills)
+- MCP server: ${SITE}/mcp (Streamable HTTP, read-only tools: get_profile, list_projects, get_project, get_experience, get_achievements, get_skills, get_writing, get_resume, get_activity, search)
 
 ## Optional
 - [Privacy](${SITE}/privacy): ${PAGES['/privacy'].description}
