@@ -337,6 +337,35 @@ async def shipping() -> tuple:
     return data, False
 
 
+REPOS_TTL = 6 * 60 * 60
+_repos_cache: dict = {'data': None, 'at': 0.0}
+
+
+async def github_repos() -> Optional[list]:
+    """GITHUB_USER's public repositories, freshest first, cached REPOS_TTL: one API call fills
+    in stars, language, topics and last update for every project, and finds repos the site doesn't list."""
+    now = time.time()
+    if _repos_cache['data'] is not None and now - _repos_cache['at'] < REPOS_TTL:
+        return _repos_cache['data']
+    try:
+        resp = await client().get(
+            f'https://api.github.com/users/{GITHUB_USER}/repos',
+            params={'per_page': 100, 'sort': 'pushed', 'type': 'owner'},
+            headers={**HEADERS, 'Accept': 'application/vnd.github+json'},
+        )
+        resp.raise_for_status()
+        repos = [{
+            'name': r['name'], 'url': r['html_url'], 'description': r.get('description') or '',
+            'language': r.get('language') or '', 'topics': r.get('topics') or [], 'stars': r.get('stargazers_count', 0),
+            'homepage': r.get('homepage') or '', 'updated': (r.get('pushed_at') or '')[:10], 'created': (r.get('created_at') or '')[:10],
+            'fork': bool(r.get('fork')),  # team projects forked from a teammate's repo; kept so their projects still match
+        } for r in resp.json() if not r.get('private') and r['name'].lower() not in SHIP_SKIP_REPOS]
+        _repos_cache.update(data=repos, at=now)
+    except Exception as exc:
+        log.warning('github repos: %s', exc)
+    return _repos_cache['data']
+
+
 @app.get('/api/shipping')
 async def api_shipping():
     data, cached = await shipping()
@@ -507,7 +536,7 @@ async def health():
 async def _activity():
     return (await shipping())[0]
 
-portfolio_mcp = mcp_server.build(lambda: content.get(client()), _activity)
+portfolio_mcp = mcp_server.build(lambda: content.get(client()), _activity, github_repos)
 _mcp_app = portfolio_mcp.streamable_http_app(
     streamable_http_path='/mcp', stateless_http=True, json_response=True,
     transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
@@ -519,6 +548,7 @@ MCP_INFO = {
     'transport': 'Streamable HTTP (POST)',
     'tools': ['get_profile', 'list_projects', 'get_project', 'get_experience', 'get_achievements', 'get_skills',
               'get_writing', 'get_resume', 'get_activity', 'search'],
+    'prompts': ['evaluate_for_role', 'summary', 'interview_questions', 'latest'],
     'site': 'https://shlokbam.in',
 }
 

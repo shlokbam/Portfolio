@@ -108,6 +108,13 @@ Anyone can add the portfolio to their AI assistant and ask it about Shlok. The t
   (by name, slug or repo name), `get_experience`, `get_achievements` (patents, awards, certifications, community),
   `get_skills` (with the projects that use each), `get_writing`, `get_resume`, `get_activity` (live GitHub commits),
   `search`. Defined in `backend/mcp_server.py`; adding a project to `src/content/` needs no change here.
+- Live GitHub details: one call to GitHub's repo list (cached 6 h, `github_repos()` in `main.py`) adds stars, language,
+  topics and last update to every project with a repo, matched by the repo name in its `code` link (forks included,
+  for team projects). `list_projects(include_other_repos=true)` also lists public repos the site doesn't feature, and
+  `get_project` falls back to GitHub's details for those.
+- Prompts (offered as buttons or slash commands in some apps): `evaluate_for_role` (paste a role or job description),
+  `summary` (three lines for a recruiter), `interview_questions` (optionally for one project), `latest`.
+- The server's instructions tell the AI that pay and client details aren't shared, and to suggest emailing instead of guessing.
 - Transport: Streamable HTTP, stateless, JSON responses (`main.py` mounts it). A browser opening `/mcp` gets a short JSON
   note instead. Vercel forwards `shlokbam.in/mcp` to the Render service (`vercel.json` rewrites), so the address
   stays the same if the backend moves.
