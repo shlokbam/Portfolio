@@ -4,7 +4,7 @@ import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import { useState } from 'react'
 import { useAvailability } from '../lib/site'
-import { PROJECTS, slug } from '../data/projects'
+import { PROJECTS, slug } from '../content/projects'
 import { demoState, DEMO_NOTE, DEMO_LABEL } from '../lib/demo'
 import './Work.css'
 

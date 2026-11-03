@@ -4,31 +4,16 @@ import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
 import { file, opt, sized } from '../lib/links'
 import { useHolo, useStamp } from '../lib/holo'
+import { PATENTS, AWARDS, CERTIFICATIONS, MORE_CERTIFICATIONS } from '../content/recognition'
 import './Recognition.css'
 
 export default function Recognition() {
   useHolo()
   useStamp()
   const title = 'RECOGNITION'.split('').map((ch, i) => ({ ch, style: '--i: ' + i }))
-  const patents = [
-    { office: 'CIPC · Republic of South Africa', date: 'Granted 25 / 02 / 2026', status: 'Granted', short: 'Granted', ring: 'Patent granted · CIPC ZA · 2026 · ', title: 'A Comprehensive Wildlife Protection System Using YOLO', desc: 'A multi-layered conservation and anti-poaching system that uses YOLO-based computer vision to detect human intruders, recognise animal species and dispatch automated real-time alerts.', appno: 'App. No. 2025/04189', cta: 'Register sheet', img: opt('/static/Patent/Grant_acknowledgement.png'), href: file('/static/Patent/Grant acknowledgement.pdf'), alt: 'Official patent register sheet' },
-    { office: 'CIPC · Republic of South Africa', date: 'Lodged 21 / 05 / 2026', status: 'Filed', short: 'Filed', ring: 'Patent filed · CIPC ZA · 2026 · ', title: 'An Intelligent Fruit and Vegetable Identification and Quality Classification System', desc: 'Automated agricultural quality control using digital image processing and machine learning to identify produce, evaluate freshness, detect surface defects and grade quality in real time.', appno: 'App. No. 2026/05473', cta: 'Lodging receipt', img: opt('/static/Patent/Receipt_05473.png'), href: file('/static/Patent/Receipt 05473.pdf'), alt: 'Patent lodging receipt' },
-    { office: 'IPO · Government of India', date: 'Published U/S 11A · 03 / 10 / 2025', status: 'Published', short: 'Published', ring: 'Patent published · IPO India · 2025 · ', title: 'Next-Generation TKPH Tire Health Management System', desc: 'A predictive tyre-health framework for heavy machinery that combines AI-based TKPH analytics, blockchain-secured maintenance records and digital-twin lifecycle monitoring.', appno: 'Indian Patent Office', cta: 'Application', img: opt('/static/Patent/Patent.png'), href: '/static/Patent/Patent.png', alt: 'Published patent application' }
-  ].map((p, i) => ({ ...p, pid: 'cring' + i, stick: 'top: ' + (100 + i * 32) + 'px; margin-bottom: 64px; z-index: ' + (i + 1) }))
-  const certs = [
-    { org: 'McKinsey.org', n: '01', mark: 'Mc', title: 'Forward Program', desc: 'Problem-solving, communication, adaptability and digital readiness through hands-on modules.', date: 'Dec 2025', cta: 'Certificate', href: '/static/certificates/certifications/Certificate.pdf' },
-    { org: 'Google Cloud', n: '02', mark: 'GCP', title: 'Google Cloud Data Analytics', desc: 'Five courses on BigQuery, data transformation, visualisation and storytelling, plus a capstone.', date: 'Jun 2025', cta: 'Credly', href: 'https://www.credly.com/badges/e6109deb-b3e0-414c-847c-a2a7ad21c4a6/public_url' },
-    { org: 'Amazon Web Services', n: '03', mark: 'AWS', title: 'AWS Cloud Practitioner Essentials', desc: 'Cloud fundamentals, security, pricing and architecture: EC2, S3, IAM and the Well-Architected Framework.', date: 'Jul 2025', cta: 'Certificate', href: '/static/certificates/certifications/aws.pdf' }
-  ]
-  const cert = (name) => file('/static/certificates/certifications/CertificateOfCompletion_' + name + '.pdf')
-  const more = [
-    { title: 'Career Essentials in Data Analysis', desc: 'Data analysis fundamentals, visualisation and the analytical tools used in modern business.', href: cert('Career Essentials in Data Analysis by Microsoft and LinkedIn') },
-    { title: 'Build Your Generative AI Productivity Skills', desc: 'Generative AI tools and techniques to automate tasks and boost productivity.', href: cert('Build Your Generative AI Productivity Skills with Microsoft and LinkedIn (2)') },
-    { title: 'Career Essentials in GitHub', desc: 'Version control, collaboration workflows and GitHub best practices.', href: cert('Career Essentials in GitHub Professional Certificate (2)') },
-    { title: 'Career Essentials in Project Management', desc: 'Project management methodologies, tools and delivery practices.', href: cert('Career Essentials in Project Management by Microsoft and LinkedIn (3)') },
-    { title: 'OpenCV for Python Developers', desc: 'Image processing, object detection and real-time video analysis with OpenCV.', href: cert('OpenCV for Python Developers') },
-    { title: 'Master In-Demand Professional Soft Skills', desc: 'Communication, leadership, problem-solving and workplace productivity.', href: cert('Master InDemand Professional Soft Skills (5)') }
-  ].map((m, i) => ({ ...m, n: String(i + 4).padStart(2, '0') }))
+  const patents = PATENTS.map((p, i) => ({ ...p, img: opt(p.image), href: file(p.document), pid: 'cring' + i, stick: 'top: ' + (100 + i * 32) + 'px; margin-bottom: 64px; z-index: ' + (i + 1) }))
+  const certs = CERTIFICATIONS.map((c, i) => ({ ...c, n: String(i + 1).padStart(2, '0') }))
+  const more = MORE_CERTIFICATIONS.map((m, i) => ({ ...m, href: file(m.href), n: String(i + 4).padStart(2, '0') }))
   return (
     <Layout page="recognition" curtain="Recognition" chat greeting="Ask me what each patent does, or which one was granted." footerStyle="padding: 56px 0 36px; border-top: 1px solid var(--line)">
       <section id="top" className="dots" style={{ position: "relative", paddingTop: "168px", paddingBottom: "56px", borderBottom: "1px solid var(--line)" }}>
@@ -113,67 +98,28 @@ export default function Recognition() {
           {" "}
           <h2 className="disp rv" style={{ margin: "20px 0 0", fontSize: "clamp(48px, 6.4vw, 100px)" }}>On stage</h2>
           <div className="g-3" style={{ marginTop: "48px" }}>
-            <article className="award rv" data-holo style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
-              <div className="pic swap" style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
-                <img loading="lazy" decoding="async" className="a" {...sized(opt('/static/certificates/images/winning_screenshots/1.jpeg'))} sizes="(max-width: 900px) 92vw, 360px" alt="Team pumpdotfun receiving the award" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-                {" "}
-                <img loading="lazy" decoding="async" className="b" {...sized(opt('/static/certificates/images/official_posts/image.png'))} sizes="(max-width: 900px) 92vw, 360px" alt="Official college post about the award" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-                {" "}
-                <span className="mono" style={{ position: "absolute", left: "14px", bottom: "14px", background: "var(--bg)", padding: "7px 12px", borderRadius: "999px", fontSize: "10px" }}>Hover · official post</span>
-              </div>
-              <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "12px", flex: "1" }}>
-                <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)", fontSize: "11px" }}>
-                  <span>INDOvateAI Sprint</span>
-                  <span>Mar 2025</span>
+            {AWARDS.map((a) => (
+              <article key={a.title} className="award rv" data-holo style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
+                <div className={a.images.length > 1 ? "pic swap" : "pic"} style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
+                  {a.images.map(([src, alt], i) => (
+                    <img key={src} loading="lazy" decoding="async" className={a.images.length > 1 ? (i ? "b" : "a") : undefined} {...sized(opt(src))} sizes="(max-width: 900px) 92vw, 360px" alt={alt} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: a.imageTop ? "top" : undefined, display: "block" }} />
+                  ))}
+                  {a.images.length > 1 && <span className="mono" style={{ position: "absolute", left: "14px", bottom: "14px", background: "var(--bg)", padding: "7px 12px", borderRadius: "999px", fontSize: "10px" }}>Hover · official post</span>}
                 </div>
-                <h3 style={{ margin: "0", fontSize: "23px", letterSpacing: "-.015em" }}>Best Outstanding Project · Winner</h3>
-                <p style={{ margin: "0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.6" }}>
-                  Won among 200+ teams. Team pumpdotfun built IndoTrade, an AI stock assistant combining real-time data with intelligent insight, using Next.js, Flask and MySQL.
-                </p>
-                <div className="mono" style={{ marginTop: "auto", paddingTop: "14px", borderTop: "1px solid var(--line)", display: "flex", justifyContent: "space-between" }}>
-                  <span style={{ color: "var(--accent)" }}>Winner</span>
-                  <A className="ul" href={file('/static/certificates/hackathons/8.pdf')}>Certificate ↗</A>
+                <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "12px", flex: "1" }}>
+                  <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)", fontSize: "11px" }}>
+                    <span>{a.org}</span>
+                    <span>{a.date}</span>
+                  </div>
+                  <h3 style={{ margin: "0", fontSize: "23px", letterSpacing: "-.015em" }}>{a.title}</h3>
+                  <p style={{ margin: "0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.6" }}>{a.desc}</p>
+                  <div className="mono" style={{ marginTop: "auto", paddingTop: "14px", borderTop: "1px solid var(--line)", display: "flex", justifyContent: "space-between", gap: "12px", flexWrap: "wrap" }}>
+                    {a.result && <span style={{ color: "var(--accent)" }}>{a.result}</span>}
+                    {a.links.map(([label, href]) => <A key={label} className="ul" href={href.startsWith('/static/') ? file(href) : href}>{label} ↗</A>)}
+                  </div>
                 </div>
-              </div>
-            </article>
-            <article className="award rv" data-holo style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
-              <div className="pic" style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
-                <img loading="lazy" decoding="async" {...sized(opt('/static/Arcade/arcade_dashboard.png'))} sizes="(max-width: 900px) 92vw, 360px" alt="Google Arcade progress dashboard" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }} />
-              </div>
-              <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "12px", flex: "1" }}>
-                <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)", fontSize: "11px" }}>
-                  <span>Google Cloud</span>
-                  <span>2025</span>
-                </div>
-                <h3 style={{ margin: "0", fontSize: "23px", letterSpacing: "-.015em" }}>Arcade Program · Diamond League</h3>
-                <p style={{ margin: "0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.6" }}>
-                  Selected into Google's hands-on cloud skills program; reached Diamond League with 90+ badges. Swag eligible, Trooper tier.
-                </p>
-                <div className="mono" style={{ marginTop: "auto", paddingTop: "14px", borderTop: "1px solid var(--line)", display: "flex", justifyContent: "space-between", gap: "12px", flexWrap: "wrap" }}>
-                  <A className="ul" href="https://arcadecalc.netlify.app/dashboard">Dashboard ↗</A>
-                  <A className="ul" href="https://www.skills.google/public_profiles/311559d8-dbf8-4586-a58f-42e5a33291f9">Skills profile ↗</A>
-                </div>
-              </div>
-            </article>
-            <article className="award rv" data-holo style={{ border: "1px solid var(--line)", borderRadius: "24px", overflow: "hidden", background: "var(--surface)", display: "flex", flexDirection: "column" }}>
-              <div className="pic" style={{ position: "relative", aspectRatio: "4 / 3", background: "var(--surface2)" }}>
-                <img loading="lazy" decoding="async" {...sized(opt('/static/certificates/images/official_posts/1724320631666.jpeg'))} sizes="(max-width: 900px) 92vw, 360px" alt="Official Navdhara competition post" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-              </div>
-              <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "12px", flex: "1" }}>
-                <div className="mono" style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)", fontSize: "11px" }}>
-                  <span>Navdhara · State level</span>
-                  <span>Sep 2024</span>
-                </div>
-                <h3 style={{ margin: "0", fontSize: "23px", letterSpacing: "-.015em" }}>Poster Competition · Top 5</h3>
-                <p style={{ margin: "0", color: "var(--muted)", fontSize: "15px", lineHeight: "1.6" }}>
-                  Team Infinity Innovators presented an AI wildlife-poaching detection system using computer vision and automated alerts.
-                </p>
-                <div className="mono" style={{ marginTop: "auto", paddingTop: "14px", borderTop: "1px solid var(--line)", display: "flex", justifyContent: "space-between" }}>
-                  <span style={{ color: "var(--accent)" }}>Finalist</span>
-                  <A className="ul" href={file('/static/certificates/hackathons/1.pdf')}>Certificate ↗</A>
-                </div>
-              </div>
-            </article>
+              </article>
+            ))}
           </div>
         </div>
       </section>

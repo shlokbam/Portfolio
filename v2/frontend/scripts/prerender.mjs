@@ -10,7 +10,7 @@ const dist = path.join(root, 'dist')
 const ssrDir = path.join(root, 'dist-ssr')
 const SITE = (process.env.SITE_URL || process.env.VITE_SITE_URL || 'https://shlokbam.in').replace(/\/+$/, '')
 
-const { render, ROUTES, PAGES, headTags, preload, pageFor } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href)
+const { render, ROUTES, PAGES, headTags, preload, pageFor, portfolio } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href)
 await preload() // pages are separate chunks; load them all so render() never suspends
 
 // each page fetches its own chunk early (the client loads it before hydrating); the manifest is
@@ -78,9 +78,20 @@ ${ROUTES.filter((r) => r !== '/privacy').map((r) => `- [${PAGES[r].name}](${SITE
 - X: https://x.com/shlok_bam
 - Résumé: ${SITE}/static/Resume/Shlok_Bam_Resume.pdf
 
+## Data
+- [portfolio.json](${SITE}/portfolio.json): everything on this site as JSON (profile, projects, experience, patents, awards, certifications, writing, skills)
+
 ## Optional
 - [Privacy](${SITE}/privacy): ${PAGES['/privacy'].description}
 `)
+// /portfolio.json: all of src/content/ as data, for the backend (AI assistant, MCP server) and anyone's tools.
+// A local build also refreshes the backend's fallback copy, used only when the live file can't be fetched;
+// commit it with content changes.
+const data = JSON.stringify(portfolio(SITE), null, 2) + '\n'
+fs.writeFileSync(path.join(dist, 'portfolio.json'), data)
+const snapshot = path.join(root, '..', 'backend', 'portfolio.snapshot.json')
+if (!process.env.VERCEL && fs.existsSync(path.dirname(snapshot))) fs.writeFileSync(snapshot, data)
+
 fs.writeFileSync(path.join(dist, 'robots.txt'), `User-agent: *
 Allow: /
 

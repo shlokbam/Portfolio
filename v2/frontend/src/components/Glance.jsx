@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { PROJECTS } from '../data/projects'
+import { PROJECTS } from '../content/projects'
 
 // "At a glance" numbers on the home page. Each tile has its own hover interaction;
 // styles live in Home.css (.g-bento / .tile).

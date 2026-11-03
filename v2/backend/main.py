@@ -29,7 +29,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse, Response
 from pydantic import BaseModel, Field
 
-from knowledge import SECTIONS, SYSTEM_PROMPT
+import content
+from knowledge import sections, system_prompt
 
 
 def _load_dotenv() -> None:
@@ -349,7 +350,7 @@ class ChatIn(BaseModel):
 SOURCES_LINE = re.compile(r'\n?[ \t*_`]*sources?\s*:\s*([^\n]*)[`*_]*\s*$', re.I)
 
 
-def split_sources(reply: str):
+def split_sources(reply: str, known: dict):
     """Take the closing `Sources: id, id` line off a reply (prompt rule 8) and turn known ids into
     {label, href} links; unknown ids and `none` are dropped, so a sloppy line never shows up as a broken link."""
     m = SOURCES_LINE.search(reply)
@@ -358,9 +359,9 @@ def split_sources(reply: str):
     out, seen = [], set()
     for sid in re.split(r'[,\s]+', m.group(1).lower()):
         sid = sid.strip('`*_.[]()')
-        if sid in SECTIONS and sid not in seen:
+        if sid in known and sid not in seen:
             seen.add(sid)
-            label, href = SECTIONS[sid]
+            label, href = known[sid]
             out.append({'label': label, 'href': href})
     # a specific section (Work › PaisaWise) is more useful than a whole page (Work), so it goes first
     out.sort(key=lambda src: '›' not in src['label'] and '#' not in src['href'])
@@ -389,7 +390,8 @@ async def api_chat(body: ChatIn, request: Request):
         for t in body.history[-6:]
         if t.role in ('user', 'assistant') and t.content.strip()
     ]
-    messages = [{'role': 'system', 'content': SYSTEM_PROMPT}, *history, {'role': 'user', 'content': message}]
+    data = await content.get(client())
+    messages = [{'role': 'system', 'content': system_prompt(data)}, *history, {'role': 'user', 'content': message}]
     reply = None
     for model in GROQ_MODELS:
         payload = {'model': model, 'messages': messages, 'temperature': 0.4, 'max_tokens': 1200}
@@ -416,7 +418,7 @@ async def api_chat(body: ChatIn, request: Request):
             reply = re.sub(r'<think>.*?</think>', '', reply, flags=re.S).strip()
             # the site's style has no em dashes; the prompt asks for none, this catches any that slip through
             reply = re.sub(r'\s*—\s*', ', ', reply).replace(', ,', ',')
-            reply, sources = split_sources(reply)
+            reply, sources = split_sources(reply, sections(data))
         except Exception as exc:
             log.warning('groq %s bad response: %s', model, exc)
             continue

@@ -1,6 +1,6 @@
 // Search & social metadata for every route. Used by the prerender script (full <head> per page)
 // and by the client to update tags on in-app navigation. No browser APIs here.
-import { PROJECTS } from './data/projects.js'
+import { PROJECTS } from './content/projects.js'
 
 const PERSON_DESC = 'AI / Generative AI engineer from Pune, India shipping agentic and LLM-powered systems to production: multi-agent pipelines, LLM-as-judge evaluation, RAG and full-stack products. B.Tech IT at VIT Pune (9.01 CGPA), intern at PharmaACE Innovations, co-inventor on three patents.'
 

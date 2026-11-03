@@ -1,4 +1,5 @@
 import Layout from '../components/Layout'
+import { SKILLS } from '../content/skills'
 import A from '../components/A'
 import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
@@ -88,16 +89,7 @@ export default function About() {
   const ring2 = ring(['FastAPI', 'React', 'MCP', 'LangSmith', 'DeepEval', 'Hugging Face', 'Transformers', 'PostgreSQL', 'Docker', 'SQL', 'Embeddings', 'GH Actions'], 280, 15)
   const ring3 = ring(['Terraform', 'Jenkins', 'AWS', 'MySQL', 'Chroma', 'Pydantic', 'Guardrails', 'NLP', 'JavaScript', 'Java', 'DSA'], 390, 8)
   const cat = (n, name, items) => ({ n, name, avg: items.reduce((a, [, v]) => a + v, 0) / items.length, items: items.map(([k, v]) => ({ name: k, lv: Math.max(2, Math.min(5, v)) })) })
-  const cats = [
-    cat('01', 'Generative AI', [['LangGraph', 5], ['LangChain', 5], ['RAG', 5], ['Multi-agent systems', 5], ['MCP', 4], ['Tool calling', 4], ['Prompt engineering', 4], ['Hugging Face', 4], ['Gemini', 4], ['Mistral AI', 4]]),
-    cat('02', 'LLM evaluation & safety', [['LLM-as-judge', 5], ['Golden datasets', 4], ['DeepEval', 4], ['GEval', 4], ['Guardrails', 4], ['LangSmith', 4]]),
-    cat('03', 'Machine learning', [['NLP', 4], ['Transformers', 4], ['Embeddings', 4], ['Deep learning', 3], ['Computer vision', 3]]),
-    cat('04', 'Languages', [['Python', 5], ['SQL', 4], ['JavaScript', 3], ['Java', 3], ['C++', 3]]),
-    cat('05', 'Web', [['FastAPI', 5], ['Pydantic', 4], ['REST APIs', 4], ['React', 4], ['Flask', 4]]),
-    cat('06', 'Databases', [['PostgreSQL', 4], ['MySQL', 4], ['Chroma', 4], ['Firebase', 3]]),
-    cat('07', 'Cloud & DevOps', [['Docker', 4], ['GitHub Actions', 4], ['Git', 4], ['Terraform', 3], ['Jenkins', 3], ['AWS', 3]]),
-    cat('08', 'Core CS', [['DSA', 4], ['OOP', 4], ['DBMS', 4], ['OS', 3]])
-  ]
+  const cats = SKILLS.map((g, i) => cat(String(i + 1).padStart(2, '0'), g.name, g.skills))
   const levels = Object.fromEntries(cats.flatMap((c) => c.items.map((k) => [k.name, k.lv])))
   const lvOf = (name) => levels[ALIAS[name] || name] || 3
   return (

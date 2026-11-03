@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { PROJECTS } from '../data/projects'
+import { PROJECTS } from '../content/projects'
 
 // "Skill pit" on the home page: the stack as physical pills that rain into a box and can be
 // grabbed, thrown and stacked (matter-js, loaded only when the section scrolls into view).

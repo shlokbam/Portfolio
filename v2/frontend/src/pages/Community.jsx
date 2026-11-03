@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import Layout from '../components/Layout'
+import { STORIES } from '../content/community'
 import A from '../components/A'
 import AIBackdrop from '../components/AIBackdrop'
 import { css } from '../lib/css'
@@ -24,11 +25,10 @@ export default function Community() {
   // letters grouped by word, so a title only ever wraps between words
   const words = title.reduce((ws, l, i) => { if (l.ch === '\u00a0') ws.push([]); else ws[ws.length - 1].push({ ...l, i }); return ws }, [[]])
   const open = (src) => () => openLb(src)
-  const stories = [
-    { n: '01', cls: 'g-story', year: '2024 → Now', role: 'Mentorship · Abhivriddhi & ITSA', title: 'Mentoring first-year students', desc: 'As Management Head at Abhivriddhi I guided first-years in communication, presentation skills and professional confidence. As ITSA Chairperson I ran AI-tools and modern productivity sessions so students build real-world skills early.', tags: ['Mentorship', 'Leadership', 'Skill development'], img: opt('/static/community/1m.jpeg'), alt: 'Shlok mentoring first-year students', link: '', cta: '' },
-    { n: '02', cls: 'g-story flip', year: '2024', role: "Event anchor · EDGE'24", title: "Hosting Abhivriddhi's flagship tech event", desc: "Anchored EDGE'24, handling program hosting, audience interaction and stage coordination, so the event ran smoothly and stayed engaging for participants and speakers.", tags: ['Anchoring', 'Public speaking', 'Event leadership'], img: opt('/static/community/1e.jpeg'), alt: "Shlok anchoring EDGE'24 on stage", link: 'https://www.linkedin.com/posts/shlokbam_thank-you-for-giving-me-the-opportunity-activity-7163012944060923904-n_0S', cta: 'LinkedIn post' },
-    { n: '03', cls: 'g-story', year: '2023', role: 'Volunteering · Katraj, Pune', title: 'Weekends at an old age home', desc: 'Volunteered every weekend for over a month, spending time with senior residents through conversations, games and social activities. Company, more than anything.', tags: ['Volunteering', 'Empathy', 'Community impact'], img: opt('/static/community/1v.jpeg'), alt: 'Volunteering at an old age home', link: '/static/community/old_age_home.pdf', cta: 'Certificate' }
-  ].map((s) => ({ ...s, open: open(s.img) }))
+  const stories = STORIES.map((s, i) => {
+    const img = opt(s.image)
+    return { ...s, img, n: String(i + 1).padStart(2, '0'), cls: i % 2 ? 'g-story flip' : 'g-story', open: open(img) }
+  })
   const tilt = ['-2deg', '1.5deg', '-1deg', '2deg']
   const items = [
     { src: opt('/static/community/1m.jpeg'), cap: 'Mentoring · 2024' },

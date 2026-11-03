@@ -1,0 +1,1334 @@
+{
+  "version": 1,
+  "updated": "2026-11-03",
+  "site": "https://shlokbam.in",
+  "profile": {
+    "name": "Shlok Bam",
+    "title": "AI / Generative AI Engineer",
+    "tagline": "I'm an IT student at VIT Pune who turns messy, real-world problems into systems that think, and ships them end to end: agents, retrieval, APIs, interfaces and the pipelines that deploy them.",
+    "summary": "AI/Generative AI engineer with hands-on experience shipping agentic and LLM-powered systems to production, from multi-agent pipelines to LLM-as-judge evaluation frameworks, alongside full-stack (React/FastAPI) and DevOps (Docker/Terraform) delivery.",
+    "current": "Intern at PharmaACE Innovations (June 2026 to present), working on healthcare data and agentic AI pipelines for pharma clients.",
+    "education": "B.Tech in Information Technology, Vishwakarma Institute of Technology (VIT), Pune, Sept 2023 to May 2027 (expected). CGPA 9.01 / 10.",
+    "focus": [
+      "Agentic AI",
+      "LLM evaluation",
+      "RAG",
+      "Full-stack"
+    ],
+    "location": "Pune, Maharashtra, India",
+    "timezone": "IST (UTC+5:30)",
+    "relocation": true,
+    "openTo": [
+      "Full-time roles (after graduating in May 2027)",
+      "Internships",
+      "Collaboration",
+      "Freelance"
+    ],
+    "personality": "Learns quickly, enjoys working with people, likes making systems easier, faster and more efficient.",
+    "story": [
+      [
+        "Learn",
+        "Information Technology at VIT Pune: 9.01 / 10 CGPA, graduating May 2027. Programming, data-driven applications and cloud are where most of his curiosity goes."
+      ],
+      [
+        "Lead",
+        "As Founding Chairperson of ITSA he led a 50+ member team: a 500+ attendee AI workshop, mock GD/PIs, an INR 1 lakh-budget event, and a QR attendance system used by 750+ attendees."
+      ],
+      [
+        "Build",
+        "At PharmaACE Innovations he builds healthcare-data and agentic AI pipelines for pharma clients. Outside work: 21 projects across agents, evals, full-stack apps and cloud, and three patents as co-inventor."
+      ]
+    ],
+    "stats": {
+      "googleArcadeBadges": "90+",
+      "studentsMentored": "100+",
+      "cgpa": "9.01 / 10"
+    },
+    "contact": {
+      "email": "shlokbam19103@gmail.com",
+      "phone": "+91 79746 70370",
+      "phoneHours": "Mon to Fri, 9am to 6pm IST",
+      "form": "https://shlokbam.in/contact"
+    },
+    "links": {
+      "website": "https://shlokbam.in/",
+      "resumePdf": "https://shlokbam.in/static/Resume/Shlok_Bam_Resume.pdf",
+      "resumePage": "https://shlokbam.in/resume",
+      "linkedin": "https://www.linkedin.com/in/shlokbam/",
+      "github": "https://github.com/shlokbam",
+      "x": "https://x.com/shlok_bam",
+      "leetcode": "https://leetcode.com/u/shlokbam05/",
+      "codechef": "https://www.codechef.com/users/shlokbam",
+      "journal": "https://journal-murex-three.vercel.app/journal"
+    }
+  },
+  "now": {
+    "updated": "October 2026",
+    "items": [
+      {
+        "topic": "Building",
+        "text": "Agentic systems. I've learnt how agents plan, use tools and hand work to each other; now it's time to implement that in real projects."
+      },
+      {
+        "topic": "At work",
+        "text": "Interning at PharmaACE Innovations since June 2026, on healthcare data and agentic AI pipelines for pharma clients. The details stay with the clients."
+      },
+      {
+        "topic": "Learning",
+        "text": "RAG, in depth, and LLM evals: how to retrieve the right context, and how to measure whether an answer is actually right. I write up what breaks along the way."
+      },
+      {
+        "topic": "Looking for",
+        "text": "Full-time AI / Generative AI engineering roles after I graduate in May 2027. Also open to internships, collaborations and freelance work."
+      },
+      {
+        "topic": "Life",
+        "text": "Final year of B.Tech in Information Technology at VIT Pune. Based in Pune and happy to relocate."
+      }
+    ]
+  },
+  "projects": [
+    {
+      "slug": "dailydiff",
+      "title": "DailyDiff",
+      "rank": 1,
+      "flagship": true,
+      "badge": "Flagship",
+      "field": "Agents",
+      "categories": [
+        "ai",
+        "web"
+      ],
+      "summary": "Live LangGraph pipeline over 7 sources that emails a fact-checked brief 3× a week: 185 briefs, 42 editions.",
+      "details": "Autonomous multi-agent tech curation: a live LangGraph pipeline over 7 sources (including GitHub, Hacker News and Dev.to) that emails a fact-checked brief three times a week, 185 briefs across 42 editions so far. Cut LLM calls per run from up to 22 to 4 and added a fail-closed publish gate. Per-agent evals over 3 runs on 25 golden cases: the Skeptic rejected 6-7 of 7 noise items (3 of 7 before the fix), the Verifier caught 14-15 of 16 bad items, the Analyst matched 13-14 of 15 verdicts, and the Editor's 5 of 5 briefs passed structure checks. Stack: Python, LangGraph, LangChain, FastAPI, Mistral AI, Gemini, PostgreSQL (Neon), React, Vite, GitHub Actions, Brevo. Has a full case study on the site.",
+      "highlights": [
+        "7 sources incl. GitHub, Hacker News, Dev.to",
+        "185 briefs across 42 editions",
+        "LLM calls per run cut from 22 to 4",
+        "Per-agent evals on 25 golden cases"
+      ],
+      "tech": [
+        "LangGraph",
+        "FastAPI",
+        "Mistral",
+        "Gemini",
+        "Neon Postgres"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work/dailydiff",
+        "live": "https://dailydiff.in/",
+        "code": "https://github.com/shlokbam/DailyDiff",
+        "blog": "https://journal-murex-three.vercel.app/journal/i-built-dailydiff-an-autonomous-multi-agent-tech-research-editorial-team"
+      }
+    },
+    {
+      "slug": "researchos",
+      "title": "ResearchOS",
+      "rank": 2,
+      "flagship": true,
+      "badge": "Flagship",
+      "field": "Agents",
+      "categories": [
+        "ai",
+        "web"
+      ],
+      "summary": "Multi-agent research suite with fact-checking and vector indexing.",
+      "details": "Multi-agent research pipeline: a Search agent queries the web (Tavily), a Reader scrapes and cleans results, a Writer drafts a structured report and a Critic scores it on a rubric; the run streams live to the browser over Server-Sent Events, and results are indexed as vectors. Stack: Python, LangChain, Mistral AI, FastAPI, React, ChromaDB, Pinecone.",
+      "highlights": [
+        "Search → Reader → Writer → Critic agents",
+        "Critic scores reports on a rubric",
+        "Runs stream live over Server-Sent Events"
+      ],
+      "tech": [
+        "React",
+        "LangChain",
+        "ChromaDB",
+        "Pinecone"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#researchos",
+        "live": "https://multi-agent-ai-research-system-six.vercel.app/",
+        "code": "https://github.com/shlokbam/Multi_Agent_AI_Research_System",
+        "blog": "https://journal-murex-three.vercel.app/journal/building-an-autonomous-multi-agent-ai-research-fact-auditing-system-with-langchain-mistral-and-rag"
+      }
+    },
+    {
+      "slug": "enterprise-workforce-training-platform",
+      "title": "Enterprise Workforce Training Platform",
+      "rank": 3,
+      "flagship": true,
+      "badge": "Industry-sponsored",
+      "field": "Full-stack",
+      "categories": [
+        "web",
+        "devops"
+      ],
+      "summary": "Industry-sponsored LMS: role-based trainer/trainee dashboards, per-trainee PDF/video watermarking, Terraform + Jenkins delivery.",
+      "details": "Industry-sponsored cross-platform LMS (also called Eagle LMS) with role-based dashboards for trainers and trainees (module creation, scheduling, assessments, progress tracking), delivered as a containerised React web app (Docker Compose) and a React Native app; Terraform-provisioned AWS S3 storage, JWT/bcrypt-secured routes, server-side PDF/video watermarking per trainee, and a Jenkins CI/CD pipeline. Shlok led a team of five. Has a project completion letter. Stack: Python, FastAPI, SQLAlchemy, MySQL, React, React Native, Docker, Terraform, AWS S3, Jenkins.",
+      "highlights": [
+        "Trainer & trainee role-based dashboards",
+        "Per-trainee PDF/video watermarking",
+        "Terraform AWS S3 + Jenkins CI/CD",
+        "Web (Docker Compose) + React Native app"
+      ],
+      "tech": [
+        "FastAPI",
+        "React",
+        "React Native",
+        "Terraform",
+        "Jenkins"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#enterprise-workforce-training-platform",
+        "live": "",
+        "code": "https://github.com/shlokbam/lms",
+        "blog": "https://journal-murex-three.vercel.app/journal/i-built-an-enterprise-lms-with-local-cloud-devops-from-scratch-here-s-everything-that-went-wrong"
+      }
+    },
+    {
+      "slug": "paisawise",
+      "title": "PaisaWise",
+      "rank": 4,
+      "flagship": true,
+      "badge": "Flagship",
+      "field": "Finance",
+      "categories": [
+        "ai",
+        "web"
+      ],
+      "summary": "Bank SMS alerts filtered on the phone, then classified on a FastAPI server with rules, heuristics and an LLM fallback.",
+      "details": "Personal finance manager built on bank SMS alerts: the phone only filters the alerts; the full SMS text is sent to a FastAPI server, which classifies each transaction with rules and heuristics and sends low-confidence ones to an LLM in the cloud (Groq or Mistral), separating personal spending from investments, transfers and family cashflows. It is not on-device parsing. Stack: React, FastAPI, Tailwind, Groq, Mistral.",
+      "highlights": [
+        "Phone filters bank SMS alerts",
+        "Server classifies with rules + heuristics",
+        "Low-confidence cases go to Groq or Mistral",
+        "Separates spending, investments & transfers"
+      ],
+      "tech": [
+        "React",
+        "FastAPI",
+        "Tailwind",
+        "Groq",
+        "Mistral"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#paisawise",
+        "live": "",
+        "code": "https://github.com/shlokbam/PaisaWise",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "promptvault",
+      "title": "PromptVault",
+      "rank": 5,
+      "flagship": true,
+      "badge": "Flagship",
+      "field": "Dev tools",
+      "categories": [
+        "ai",
+        "web"
+      ],
+      "summary": "Prompt version control with diffs, test suites and audit trails.",
+      "details": "Prompt management and version control for AI agent teams: Monaco editor workspace, side-by-side diffs, test suites, comments and audit trails. Stack: React, FastAPI, SQLAlchemy, Monaco.",
+      "highlights": [
+        "Monaco editor workspace",
+        "Side-by-side prompt diffs",
+        "Test suites, comments & audit trails"
+      ],
+      "tech": [
+        "React",
+        "FastAPI",
+        "SQLAlchemy",
+        "Monaco"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#promptvault",
+        "live": "",
+        "code": "https://github.com/shlokbam/PromptVault",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "mockvue",
+      "title": "MockVue",
+      "rank": 6,
+      "flagship": false,
+      "badge": "Live",
+      "field": "Full-stack",
+      "categories": [
+        "web",
+        "ai"
+      ],
+      "summary": "Video interview practice with 330+ questions from 13 companies; AI scores content, filler words, pace and eye contact.",
+      "details": "Video interview practice with 330+ questions from 13 companies; users record answers and get AI scores on content quality, filler words, speaking pace and eye contact, tracked on a dashboard. Stack: React, FastAPI, TiDB Cloud (MySQL), Groq (Whisper + Llama), face-api.js.",
+      "highlights": [
+        "330+ questions from 13 companies",
+        "AI scores content, filler words, pace & eye contact",
+        "Groq Whisper + Llama, face-api.js"
+      ],
+      "tech": [
+        "React",
+        "FastAPI",
+        "Groq",
+        "face-api.js"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#mockvue",
+        "live": "https://mock-vue.vercel.app/",
+        "code": "https://github.com/shlokbam/MockVue",
+        "blog": "https://journal-murex-three.vercel.app/journal/i-built-an-ai-powered-mock-interview-platform-from-scratch-here-s-everything-that-went-wrong"
+      }
+    },
+    {
+      "slug": "rag-pdf-hub",
+      "title": "RAG PDF Hub",
+      "rank": 7,
+      "flagship": false,
+      "badge": "Live",
+      "field": "Retrieval",
+      "categories": [
+        "ai"
+      ],
+      "summary": "Multi-PDF RAG with MMR reranking, query expansion and citations.",
+      "details": "",
+      "highlights": [
+        "Multi-PDF retrieval with citations",
+        "MMR reranking + query expansion"
+      ],
+      "tech": [
+        "LangChain",
+        "Streamlit",
+        "Mistral",
+        "ChromaDB"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#rag-pdf-hub",
+        "live": "https://generativeai-rag.streamlit.app/",
+        "code": "https://github.com/shlokbam/Generative_AI/tree/main/RAG_Project",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "genetic-seating-optimiser",
+      "title": "Genetic Seating Optimiser",
+      "rank": 8,
+      "flagship": false,
+      "badge": "Live",
+      "field": "Optimisation",
+      "categories": [
+        "ai"
+      ],
+      "summary": "Genetic algorithm for proximity, role and capacity constraints.",
+      "details": "",
+      "highlights": [
+        "Genetic algorithm search",
+        "Proximity, role & capacity constraints"
+      ],
+      "tech": [
+        "Python",
+        "NumPy"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#genetic-seating-optimiser",
+        "live": "https://genetic-algorithm-multi-constraint.onrender.com/",
+        "code": "https://github.com/shlokbam/Genetic-Algorithm---Multi-Constraint-Seating-Arrangement",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "predictive-maintenance",
+      "title": "Predictive Maintenance",
+      "rank": 9,
+      "flagship": false,
+      "badge": "Live",
+      "field": "ML",
+      "categories": [
+        "ai"
+      ],
+      "summary": "Predicts equipment failure from sensor data, with health dashboards.",
+      "details": "",
+      "highlights": [
+        "Failure prediction from sensor data",
+        "Equipment health dashboards"
+      ],
+      "tech": [
+        "Python",
+        "Scikit-learn",
+        "Matplotlib"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#predictive-maintenance",
+        "live": "https://predictive-maintenance-hx97.onrender.com/",
+        "code": "https://github.com/shlokbam/Predictive_Maintenance",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "inventory-management",
+      "title": "Inventory Management",
+      "rank": 10,
+      "flagship": false,
+      "badge": "Live",
+      "field": "Full-stack",
+      "categories": [
+        "web"
+      ],
+      "summary": "Real-time stock tracking, automated alerts and reporting.",
+      "details": "",
+      "highlights": [
+        "Real-time stock tracking",
+        "Automated alerts and reporting",
+        "Containerised with Docker"
+      ],
+      "tech": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Docker"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#inventory-management",
+        "live": "https://ims-frontend-udaw.onrender.com/login",
+        "code": "https://github.com/shlokbam/Inventory_Management_System",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "ai-data-analyst",
+      "title": "AI Data Analyst",
+      "rank": 11,
+      "flagship": false,
+      "badge": "Build log",
+      "field": "Analytics",
+      "categories": [
+        "ai"
+      ],
+      "summary": "LLM-generated insights, charts and summaries from raw datasets.",
+      "details": "Turns raw datasets into LLM-generated insights, charts and summaries. Stack: Flask, LangChain, OpenAI, Pandas.",
+      "highlights": [
+        "LLM-generated insights from raw datasets",
+        "Auto charts and summaries",
+        "Written up in the journal"
+      ],
+      "tech": [
+        "Flask",
+        "LangChain",
+        "OpenAI",
+        "Pandas"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#ai-data-analyst",
+        "live": "",
+        "code": "https://github.com/shlokbam/ai-data-analyst",
+        "blog": "https://journal-murex-three.vercel.app/journal/i-built-an-ai-data-analyst-app-from-scratch-here-s-how-i-taught-a-flask-app-to-think"
+      }
+    },
+    {
+      "slug": "ci-cd-for-flask",
+      "title": "CI/CD for Flask",
+      "rank": 12,
+      "flagship": false,
+      "badge": "Build log",
+      "field": "DevOps",
+      "categories": [
+        "devops",
+        "cloud"
+      ],
+      "summary": "A Flask task manager containerised and shipped to EC2 via Jenkins and Terraform.",
+      "details": "A Flask task manager containerised with Docker and shipped to AWS EC2 through a Jenkins pipeline, with the infrastructure written in Terraform.",
+      "highlights": [
+        "Containerised Flask task manager",
+        "Shipped to AWS EC2 via Jenkins",
+        "Infrastructure in Terraform"
+      ],
+      "tech": [
+        "Docker",
+        "Jenkins",
+        "Terraform",
+        "EC2"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#ci-cd-for-flask",
+        "live": "",
+        "code": "https://github.com/shlokbam/flask-todo-app",
+        "blog": "https://journal-murex-three.vercel.app/journal/i-built-a-full-devops-ci-cd-pipeline-from-scratch-here-s-everything-that-went-wrong"
+      }
+    },
+    {
+      "slug": "autovault",
+      "title": "AutoVault",
+      "rank": 13,
+      "flagship": false,
+      "badge": "Serverless",
+      "field": "Serverless",
+      "categories": [
+        "cloud"
+      ],
+      "summary": "Cloud file storage with time-limited access and expiry emails.",
+      "details": "",
+      "highlights": [
+        "Time-limited file access",
+        "Expiry emails via SES",
+        "Lambda + S3 + RDS"
+      ],
+      "tech": [
+        "Lambda",
+        "S3",
+        "RDS",
+        "SES"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#autovault",
+        "live": "",
+        "code": "https://github.com/shlokbam/AutoVault",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "smart-tkph-monitor",
+      "title": "Smart TKPH Monitor",
+      "rank": 14,
+      "flagship": false,
+      "badge": "IoT · ML",
+      "field": "IoT · ML",
+      "categories": [
+        "ai"
+      ],
+      "summary": "Live tracking and ML failure prediction for heavy machinery.",
+      "details": "",
+      "highlights": [
+        "Live heavy-machinery tracking",
+        "ML failure prediction"
+      ],
+      "tech": [
+        "Flask",
+        "Firebase",
+        "Scikit-learn"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#smart-tkph-monitor",
+        "live": "",
+        "code": "https://github.com/shlokbam/Real-Time-Smart-TKPH-Monitoring-and-Predictive-Maintenance-System-for-Heavy-Machinery",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "formmate-ai",
+      "title": "FormMate AI",
+      "rank": 15,
+      "flagship": false,
+      "badge": "Extension",
+      "field": "Extension",
+      "categories": [
+        "ai",
+        "web"
+      ],
+      "summary": "Chrome extension that fills Google Forms from a personal knowledge base.",
+      "details": "",
+      "highlights": [
+        "Fills Google Forms automatically",
+        "Uses a personal knowledge base"
+      ],
+      "tech": [
+        "Flask",
+        "Chrome ext",
+        "Firebase"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#formmate-ai",
+        "live": "",
+        "code": "https://github.com/shlokbam/FormMate_AI",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "indovate",
+      "title": "Indovate",
+      "rank": 16,
+      "flagship": false,
+      "badge": "Fintech",
+      "field": "Fintech",
+      "categories": [
+        "web",
+        "ai"
+      ],
+      "summary": "AI financial insights over real-time stock data.",
+      "details": "AI financial insights over real-time stock data (Next.js front end, Flask + Gemini back end). Built around the INDOvateAI Sprint 2025 win. The repository is not public.",
+      "highlights": [
+        "AI insights over real-time stock data",
+        "Next.js front end, Flask + Gemini back end"
+      ],
+      "tech": [
+        "Next.js",
+        "Flask",
+        "Gemini"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#indovate",
+        "live": "",
+        "code": "",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "poaching-detection",
+      "title": "Poaching Detection",
+      "rank": 17,
+      "flagship": false,
+      "badge": "Vision",
+      "field": "Vision",
+      "categories": [
+        "ai"
+      ],
+      "summary": "CV surveillance that detects poaching and emails evidence alerts.",
+      "details": "",
+      "highlights": [
+        "Detects poaching in camera feeds",
+        "Emails evidence alerts"
+      ],
+      "tech": [
+        "OpenCV",
+        "TensorFlow"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#poaching-detection",
+        "live": "",
+        "code": "https://github.com/shlokbam/Real-Time-Surveillance-and-Poaching-Detection-System-with-Email-Notifications",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "notesvault",
+      "title": "NotesVault",
+      "rank": 18,
+      "flagship": false,
+      "badge": "Web",
+      "field": "Web",
+      "categories": [
+        "web"
+      ],
+      "summary": "Academic note sharing with auth, credit-based downloads and search.",
+      "details": "",
+      "highlights": [
+        "Academic note sharing",
+        "Credit-based downloads and search"
+      ],
+      "tech": [
+        "Flask",
+        "SQLite",
+        "Bootstrap"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#notesvault",
+        "live": "",
+        "code": "https://github.com/shlokbam/NotesVault",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "library-management",
+      "title": "Library Management",
+      "rank": 19,
+      "flagship": false,
+      "badge": "Web",
+      "field": "Web",
+      "categories": [
+        "web"
+      ],
+      "summary": "Book tracking, user management and automated fines.",
+      "details": "",
+      "highlights": [
+        "Book & user management",
+        "Automated fines"
+      ],
+      "tech": [
+        "Flask",
+        "MySQL",
+        "Bootstrap"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#library-management",
+        "live": "",
+        "code": "https://github.com/shlokbam/library_system",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "sharelist",
+      "title": "Sharelist",
+      "rank": 20,
+      "flagship": false,
+      "badge": "Web",
+      "field": "Web",
+      "categories": [
+        "web"
+      ],
+      "summary": "Collaborative list sharing with auth and real-time updates.",
+      "details": "",
+      "highlights": [
+        "Collaborative list sharing",
+        "Real-time updates"
+      ],
+      "tech": [
+        "Flask",
+        "SQLite"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#sharelist",
+        "live": "",
+        "code": "https://github.com/shlokbam/Sharelist",
+        "blog": ""
+      }
+    },
+    {
+      "slug": "event-ticketing",
+      "title": "Event Ticketing",
+      "rank": 21,
+      "flagship": false,
+      "badge": "Web",
+      "field": "Web",
+      "categories": [
+        "web"
+      ],
+      "summary": "Ticketing and event management with image processing and charts.",
+      "details": "",
+      "highlights": [
+        "Ticketing & event management",
+        "Image processing and charts"
+      ],
+      "tech": [
+        "Flask",
+        "OpenCV"
+      ],
+      "links": {
+        "page": "https://shlokbam.in/work#event-ticketing",
+        "live": "",
+        "code": "https://github.com/shlokbam/Event-Ticketing-and-Management-System",
+        "blog": ""
+      }
+    }
+  ],
+  "experience": [
+    {
+      "role": "Intern",
+      "organisation": "PharmaACE Innovations",
+      "when": "2026 → Now",
+      "type": "Internship",
+      "points": [
+        "Engineered an NPI matching pilot (Python, Streamlit, Snowpark, rapidfuzz) for a Fortune 500 pharma client that auto-accepted 94% (163 of 174) of a real test batch and routed 11 records for review.",
+        "Developed a News Monitor pilot (Python, FastAPI, React, Playwright) tracking 1,200+ pharma newsrooms every 30 minutes, with a no-LLM scan and a GPT-4o-mini source-validation judge.",
+        "Building a Forecast Reporting Agent (Python, FastAPI, LLMs) that turns natural-language questions into SQL with execution-based validation, LLM self-correction and chart recommendations."
+      ],
+      "organisationUrl": "https://www.pharmaace.com/",
+      "certificates": []
+    },
+    {
+      "role": "Data Annotation Intern",
+      "organisation": "Qualitas Global",
+      "when": "2024",
+      "type": "Offer",
+      "points": [
+        "Selected for the role in second year, first semester.",
+        "Could not proceed because of the academic schedule."
+      ],
+      "organisationUrl": "https://www.qualitasglobal.com/",
+      "certificates": []
+    },
+    {
+      "role": "UI/UX Intern",
+      "organisation": "Herbs Magic",
+      "when": "2023",
+      "type": "Internship",
+      "points": [
+        "Designed and implemented user interfaces for web applications.",
+        "Conducted user research and created wireframes.",
+        "Collaborated with the development team through implementation."
+      ],
+      "organisationUrl": "",
+      "certificates": []
+    }
+  ],
+  "leadership": [
+    {
+      "role": "Chairperson",
+      "organisation": "Information Technology Students' Association (ITSA), VIT Pune",
+      "when": "2025-26",
+      "type": "Founding chair",
+      "points": [
+        "Led a 50+ member student team from July 2025 to June 2026.",
+        "Organised a department-wide AI workshop (500+ attendees), mock GD/PIs and an INR 1 lakh-budget event.",
+        "Built a QR attendance system used at an event with 750+ attendees."
+      ],
+      "organisationUrl": "",
+      "certificates": [
+        "https://shlokbam.in/static/certificates/clubs/ITSA.png"
+      ]
+    },
+    {
+      "role": "Operations Head",
+      "organisation": "Abhivriddhi",
+      "when": "2024-25",
+      "type": "Operations",
+      "points": [
+        "Ran operations for the club and anchored its flagship technical event, EDGE’24."
+      ],
+      "organisationUrl": "https://www.vit.edu/sccg/",
+      "certificates": [
+        "https://shlokbam.in/static/certificates/clubs/Operations.jpeg"
+      ]
+    },
+    {
+      "role": "Chief Administrative",
+      "organisation": "The Catalyst",
+      "when": "2024-25",
+      "type": "Administration",
+      "points": [
+        "Led administration and logistics for the club."
+      ],
+      "organisationUrl": "",
+      "certificates": [
+        "https://shlokbam.in/static/certificates/clubs/Cheif.jpeg"
+      ]
+    },
+    {
+      "role": "Web Development Coordinator",
+      "organisation": "Computer Society of India",
+      "when": "2024-25",
+      "type": "Web",
+      "points": [
+        "Coordinated web development for the chapter."
+      ],
+      "organisationUrl": "https://vit.edu/wp-content/uploads/2024/07/About-CSI-CSI-Student-Chapter-VIT-Pune.pdf",
+      "certificates": [
+        "https://shlokbam.in/static/certificates/clubs/csi.jpeg"
+      ]
+    },
+    {
+      "role": "Technical Coordinator",
+      "organisation": "Abhivriddhi",
+      "when": "2023-24",
+      "type": "Technical",
+      "points": [
+        "Technical and content roles for club events."
+      ],
+      "organisationUrl": "https://www.vit.edu/sccg/",
+      "certificates": [
+        "https://shlokbam.in/static/certificates/clubs/Technical.jpeg"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "role": "B.Tech, Information Technology",
+      "organisation": "Vishwakarma Institute of Technology, Pune",
+      "when": "2023 → Now",
+      "type": "Undergraduate",
+      "points": [
+        "9.01 / 10 CGPA, graduating May 2027.",
+        "Active member of multiple technical and soft-skills clubs.",
+        "Taking part in coding competitions and hackathons."
+      ],
+      "organisationUrl": "https://www.vit.edu/",
+      "certificates": []
+    },
+    {
+      "role": "Primary & Secondary Education",
+      "organisation": "Grades 1–12",
+      "when": "2010-23",
+      "type": "School",
+      "points": [
+        "Class 10 completed in 2021.",
+        "Class 12 completed in 2023.",
+        "Developed the interest in technology and programming that led here."
+      ],
+      "organisationUrl": "",
+      "certificates": []
+    }
+  ],
+  "patents": [
+    {
+      "title": "A Comprehensive Wildlife Protection System Using YOLO",
+      "status": "Granted",
+      "office": "CIPC · Republic of South Africa",
+      "date": "Granted 25 / 02 / 2026",
+      "reference": "App. No. 2025/04189",
+      "summary": "A multi-layered conservation and anti-poaching system that uses YOLO-based computer vision to detect human intruders, recognise animal species and dispatch automated real-time alerts.",
+      "document": "https://shlokbam.in/static/Patent/Grant%20acknowledgement.pdf"
+    },
+    {
+      "title": "An Intelligent Fruit and Vegetable Identification and Quality Classification System",
+      "status": "Filed",
+      "office": "CIPC · Republic of South Africa",
+      "date": "Lodged 21 / 05 / 2026",
+      "reference": "App. No. 2026/05473",
+      "summary": "Automated agricultural quality control using digital image processing and machine learning to identify produce, evaluate freshness, detect surface defects and grade quality in real time.",
+      "document": "https://shlokbam.in/static/Patent/Receipt%2005473.pdf"
+    },
+    {
+      "title": "Next-Generation TKPH Tire Health Management System",
+      "status": "Published",
+      "office": "IPO · Government of India",
+      "date": "Published U/S 11A · 03 / 10 / 2025",
+      "reference": "Indian Patent Office",
+      "summary": "A predictive tyre-health framework for heavy machinery that combines AI-based TKPH analytics, blockchain-secured maintenance records and digital-twin lifecycle monitoring.",
+      "document": "https://shlokbam.in/static/Patent/Patent.png"
+    }
+  ],
+  "awards": [
+    {
+      "title": "Best Outstanding Project · Winner",
+      "organiser": "INDOvateAI Sprint",
+      "date": "Mar 2025",
+      "result": "Winner",
+      "summary": "Won among 200+ teams. Team pumpdotfun built IndoTrade, an AI stock assistant combining real-time data with intelligent insight, using Next.js, Flask and MySQL.",
+      "links": [
+        {
+          "label": "Certificate",
+          "url": "https://shlokbam.in/static/certificates/hackathons/8.pdf"
+        }
+      ]
+    },
+    {
+      "title": "Arcade Program · Diamond League",
+      "organiser": "Google Cloud",
+      "date": "2025",
+      "result": "",
+      "summary": "Selected into Google's hands-on cloud skills program; reached Diamond League with 90+ badges. Swag eligible, Trooper tier.",
+      "links": [
+        {
+          "label": "Dashboard",
+          "url": "https://arcadecalc.netlify.app/dashboard"
+        },
+        {
+          "label": "Skills profile",
+          "url": "https://www.skills.google/public_profiles/311559d8-dbf8-4586-a58f-42e5a33291f9"
+        }
+      ]
+    },
+    {
+      "title": "Poster Competition · Top 5",
+      "organiser": "Navdhara · State level",
+      "date": "Sep 2024",
+      "result": "Finalist",
+      "summary": "Team Infinity Innovators presented an AI wildlife-poaching detection system using computer vision and automated alerts.",
+      "links": [
+        {
+          "label": "Certificate",
+          "url": "https://shlokbam.in/static/certificates/hackathons/1.pdf"
+        }
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Forward Program",
+      "issuer": "McKinsey.org",
+      "date": "Dec 2025",
+      "summary": "Problem-solving, communication, adaptability and digital readiness through hands-on modules.",
+      "url": "https://shlokbam.in/static/certificates/certifications/Certificate.pdf"
+    },
+    {
+      "title": "Google Cloud Data Analytics",
+      "issuer": "Google Cloud",
+      "date": "Jun 2025",
+      "summary": "Five courses on BigQuery, data transformation, visualisation and storytelling, plus a capstone.",
+      "url": "https://www.credly.com/badges/e6109deb-b3e0-414c-847c-a2a7ad21c4a6/public_url"
+    },
+    {
+      "title": "AWS Cloud Practitioner Essentials",
+      "issuer": "Amazon Web Services",
+      "date": "Jul 2025",
+      "summary": "Cloud fundamentals, security, pricing and architecture: EC2, S3, IAM and the Well-Architected Framework.",
+      "url": "https://shlokbam.in/static/certificates/certifications/aws.pdf"
+    },
+    {
+      "title": "Career Essentials in Data Analysis",
+      "issuer": "Microsoft & LinkedIn Learning",
+      "date": "Mar 2024",
+      "summary": "Data analysis fundamentals, visualisation and the analytical tools used in modern business.",
+      "url": "https://shlokbam.in/static/certificates/certifications/CertificateOfCompletion_Career%20Essentials%20in%20Data%20Analysis%20by%20Microsoft%20and%20LinkedIn.pdf"
+    },
+    {
+      "title": "Build Your Generative AI Productivity Skills",
+      "issuer": "Microsoft & LinkedIn Learning",
+      "date": "Mar 2024",
+      "summary": "Generative AI tools and techniques to automate tasks and boost productivity.",
+      "url": "https://shlokbam.in/static/certificates/certifications/CertificateOfCompletion_Build%20Your%20Generative%20AI%20Productivity%20Skills%20with%20Microsoft%20and%20LinkedIn%20(2).pdf"
+    },
+    {
+      "title": "Career Essentials in GitHub",
+      "issuer": "Microsoft & LinkedIn Learning",
+      "date": "Mar 2024",
+      "summary": "Version control, collaboration workflows and GitHub best practices.",
+      "url": "https://shlokbam.in/static/certificates/certifications/CertificateOfCompletion_Career%20Essentials%20in%20GitHub%20Professional%20Certificate%20(2).pdf"
+    },
+    {
+      "title": "Career Essentials in Project Management",
+      "issuer": "Microsoft & LinkedIn Learning",
+      "date": "Mar 2024",
+      "summary": "Project management methodologies, tools and delivery practices.",
+      "url": "https://shlokbam.in/static/certificates/certifications/CertificateOfCompletion_Career%20Essentials%20in%20Project%20Management%20by%20Microsoft%20and%20LinkedIn%20(3).pdf"
+    },
+    {
+      "title": "OpenCV for Python Developers",
+      "issuer": "Microsoft & LinkedIn Learning",
+      "date": "Mar 2024",
+      "summary": "Image processing, object detection and real-time video analysis with OpenCV.",
+      "url": "https://shlokbam.in/static/certificates/certifications/CertificateOfCompletion_OpenCV%20for%20Python%20Developers.pdf"
+    },
+    {
+      "title": "Master In-Demand Professional Soft Skills",
+      "issuer": "Microsoft & LinkedIn Learning",
+      "date": "Mar 2024",
+      "summary": "Communication, leadership, problem-solving and workplace productivity.",
+      "url": "https://shlokbam.in/static/certificates/certifications/CertificateOfCompletion_Master%20InDemand%20Professional%20Soft%20Skills%20(5).pdf"
+    }
+  ],
+  "community": [
+    {
+      "title": "Mentoring first-year students",
+      "role": "Mentorship · Abhivriddhi & ITSA",
+      "when": "2024 → Now",
+      "summary": "As Management Head at Abhivriddhi I guided first-years in communication, presentation skills and professional confidence. As ITSA Chairperson I ran AI-tools and modern productivity sessions so students build real-world skills early.",
+      "tags": [
+        "Mentorship",
+        "Leadership",
+        "Skill development"
+      ],
+      "link": ""
+    },
+    {
+      "title": "Hosting Abhivriddhi's flagship tech event",
+      "role": "Event anchor · EDGE'24",
+      "when": "2024",
+      "summary": "Anchored EDGE'24, handling program hosting, audience interaction and stage coordination, so the event ran smoothly and stayed engaging for participants and speakers.",
+      "tags": [
+        "Anchoring",
+        "Public speaking",
+        "Event leadership"
+      ],
+      "link": "https://www.linkedin.com/posts/shlokbam_thank-you-for-giving-me-the-opportunity-activity-7163012944060923904-n_0S"
+    },
+    {
+      "title": "Weekends at an old age home",
+      "role": "Volunteering · Katraj, Pune",
+      "when": "2023",
+      "summary": "Volunteered every weekend for over a month, spending time with senior residents through conversations, games and social activities. Company, more than anything.",
+      "tags": [
+        "Volunteering",
+        "Empathy",
+        "Community impact"
+      ],
+      "link": "https://shlokbam.in/static/community/old_age_home.pdf"
+    }
+  ],
+  "writing": [
+    {
+      "title": "Building generative AI apps with LangChain: document loaders, text splitters, ChromaDB and LCEL",
+      "date": "Sep 2026",
+      "topic": "RAG",
+      "summary": "Hands-on RAG practice: loaders, splitters, ChromaDB vector stores and LCEL runnables.",
+      "url": "https://journal-murex-three.vercel.app/journal/building-generative-ai-apps-langchain-document-loaders-chromadb-lcel"
+    },
+    {
+      "title": "My LangSmith learning log: tracing, debugging and optimising LLM chains and RAG pipelines",
+      "date": "Sep 2026",
+      "topic": "LLMOps",
+      "summary": "Tracking prompts, latency and token costs in LangSmith, and tuning a PDF RAG pipeline over 4 iterations.",
+      "url": "https://journal-murex-three.vercel.app/journal/my-langsmith-learning-log-tracing-debugging-optimizing-llm-chains-rag"
+    },
+    {
+      "title": "Hands-on agentic AI with LangGraph: sequential, parallel and conditional state workflows",
+      "date": "Aug 2026",
+      "topic": "Agents",
+      "summary": "Stateful LangGraph workflows, from parallel essay graders to equation solvers and sentiment routers.",
+      "url": "https://journal-murex-three.vercel.app/journal/hands-on-agentic-ai-langgraph-sequential-parallel-conditional-workflows"
+    },
+    {
+      "title": "Exploring the Model Context Protocol: AI tools, Streamlit clients and emailmd assistants",
+      "date": "Aug 2026",
+      "topic": "MCP",
+      "summary": "Custom FastMCP servers, emailmd API tools and an interactive Streamlit chatbot client.",
+      "url": "https://journal-murex-three.vercel.app/journal/exploring-model-context-protocol-mcp-ai-tools-streamlit-emailmd"
+    },
+    {
+      "title": "My 7-day DevOps lab: learning Terraform, Ansible and HashiCorp Vault by building real infrastructure",
+      "date": "Aug 2026",
+      "topic": "DevOps",
+      "summary": "From clicking around the AWS console to Terraform modules, S3 state locking, Ansible playbooks and Vault secrets.",
+      "url": "https://journal-murex-three.vercel.app/journal/my-7-day-devops-lab-terraform-ansible-hashicorp-vault"
+    },
+    {
+      "title": "Designing a real-time inventory system with FIFO stock reduction, PDF invoicing and Telegram webhooks",
+      "date": "Jul 2026",
+      "topic": "Architecture",
+      "summary": "FIFO batch allocation, concurrency-safe PostgreSQL transactions, ReportLab invoices and instant Telegram alerts.",
+      "url": "https://journal-murex-three.vercel.app/journal/designing-a-real-time-enterprise-inventory-system-with-fifo-stock-reduction-automated-pdf-invoicing-and-telegram-webhooks"
+    },
+    {
+      "title": "I built DailyDiff: an autonomous multi-agent tech research and editorial team",
+      "date": "Jun 2026",
+      "topic": "Agents",
+      "summary": "How the LangGraph editorial pipeline filters technical noise into sharp 5-point developer briefs.",
+      "url": "https://journal-murex-three.vercel.app/journal/i-built-dailydiff-an-autonomous-multi-agent-tech-research-editorial-team"
+    },
+    {
+      "title": "Building an autonomous multi-agent research and fact-auditing system with LangChain, Mistral and RAG",
+      "date": "May 2026",
+      "topic": "Agents",
+      "summary": "An async pipeline that crawls the web, cleans pages, drafts reports, audits facts and indexes vectors in Pinecone.",
+      "url": "https://journal-murex-three.vercel.app/journal/building-an-autonomous-multi-agent-ai-research-fact-auditing-system-with-langchain-mistral-and-rag"
+    },
+    {
+      "title": "Building Eagle LMS: leading an industry-sponsored full-stack project from napkin to production",
+      "date": "Apr 2026",
+      "topic": "Full-stack",
+      "summary": "Leading a team of five on a dual-role web and React Native app with dynamic watermarking and phase-based unlocking.",
+      "url": "https://journal-murex-three.vercel.app/journal/i-built-an-enterprise-lms-with-local-cloud-devops-from-scratch-here-s-everything-that-went-wrong"
+    },
+    {
+      "title": "I built an AI-powered mock interview platform: everything that went wrong",
+      "date": "Apr 2026",
+      "topic": "AI & React",
+      "summary": "The story of MockVue: AI feedback, live code execution and analytics, and every wrong turn on the way.",
+      "url": "https://journal-murex-three.vercel.app/journal/i-built-an-ai-powered-mock-interview-platform-from-scratch-here-s-everything-that-went-wrong"
+    },
+    {
+      "title": "I built an AI data analyst app from scratch: how I taught a Flask app to think",
+      "date": "Mar 2026",
+      "topic": "AI & Flask",
+      "summary": "The build log behind AI Data Analyst: turning raw datasets into LLM-generated insights, charts and summaries.",
+      "url": "https://journal-murex-three.vercel.app/journal/i-built-an-ai-data-analyst-app-from-scratch-here-s-how-i-taught-a-flask-app-to-think"
+    },
+    {
+      "title": "I built a full DevOps CI/CD pipeline from scratch: everything that went wrong",
+      "date": "Mar 2026",
+      "topic": "DevOps",
+      "summary": "Docker, Jenkins, Terraform and AWS EC2: what it actually took to ship a Flask app end to end.",
+      "url": "https://journal-murex-three.vercel.app/journal/i-built-a-full-devops-ci-cd-pipeline-from-scratch-here-s-everything-that-went-wrong"
+    }
+  ],
+  "skills": [
+    {
+      "group": "Generative AI",
+      "skills": [
+        {
+          "name": "LangGraph",
+          "level": "core"
+        },
+        {
+          "name": "LangChain",
+          "level": "core"
+        },
+        {
+          "name": "RAG",
+          "level": "core"
+        },
+        {
+          "name": "Multi-agent systems",
+          "level": "core"
+        },
+        {
+          "name": "MCP",
+          "level": "strong"
+        },
+        {
+          "name": "Tool calling",
+          "level": "strong"
+        },
+        {
+          "name": "Prompt engineering",
+          "level": "strong"
+        },
+        {
+          "name": "Hugging Face",
+          "level": "strong"
+        },
+        {
+          "name": "Gemini",
+          "level": "strong"
+        },
+        {
+          "name": "Mistral AI",
+          "level": "strong"
+        }
+      ]
+    },
+    {
+      "group": "LLM evaluation & safety",
+      "skills": [
+        {
+          "name": "LLM-as-judge",
+          "level": "core"
+        },
+        {
+          "name": "Golden datasets",
+          "level": "strong"
+        },
+        {
+          "name": "DeepEval",
+          "level": "strong"
+        },
+        {
+          "name": "GEval",
+          "level": "strong"
+        },
+        {
+          "name": "Guardrails",
+          "level": "strong"
+        },
+        {
+          "name": "LangSmith",
+          "level": "strong"
+        }
+      ]
+    },
+    {
+      "group": "Machine learning",
+      "skills": [
+        {
+          "name": "NLP",
+          "level": "strong"
+        },
+        {
+          "name": "Transformers",
+          "level": "strong"
+        },
+        {
+          "name": "Embeddings",
+          "level": "strong"
+        },
+        {
+          "name": "Deep learning",
+          "level": "working"
+        },
+        {
+          "name": "Computer vision",
+          "level": "working"
+        }
+      ]
+    },
+    {
+      "group": "Languages",
+      "skills": [
+        {
+          "name": "Python",
+          "level": "core"
+        },
+        {
+          "name": "SQL",
+          "level": "strong"
+        },
+        {
+          "name": "JavaScript",
+          "level": "working"
+        },
+        {
+          "name": "Java",
+          "level": "working"
+        },
+        {
+          "name": "C++",
+          "level": "working"
+        }
+      ]
+    },
+    {
+      "group": "Web",
+      "skills": [
+        {
+          "name": "FastAPI",
+          "level": "core"
+        },
+        {
+          "name": "Pydantic",
+          "level": "strong"
+        },
+        {
+          "name": "REST APIs",
+          "level": "strong"
+        },
+        {
+          "name": "React",
+          "level": "strong"
+        },
+        {
+          "name": "Flask",
+          "level": "strong"
+        }
+      ]
+    },
+    {
+      "group": "Databases",
+      "skills": [
+        {
+          "name": "PostgreSQL",
+          "level": "strong"
+        },
+        {
+          "name": "MySQL",
+          "level": "strong"
+        },
+        {
+          "name": "Chroma",
+          "level": "strong"
+        },
+        {
+          "name": "Firebase",
+          "level": "working"
+        }
+      ]
+    },
+    {
+      "group": "Cloud & DevOps",
+      "skills": [
+        {
+          "name": "Docker",
+          "level": "strong"
+        },
+        {
+          "name": "GitHub Actions",
+          "level": "strong"
+        },
+        {
+          "name": "Git",
+          "level": "strong"
+        },
+        {
+          "name": "Terraform",
+          "level": "working"
+        },
+        {
+          "name": "Jenkins",
+          "level": "working"
+        },
+        {
+          "name": "AWS",
+          "level": "working"
+        }
+      ]
+    },
+    {
+      "group": "Core CS",
+      "skills": [
+        {
+          "name": "DSA",
+          "level": "strong"
+        },
+        {
+          "name": "OOP",
+          "level": "strong"
+        },
+        {
+          "name": "DBMS",
+          "level": "strong"
+        },
+        {
+          "name": "OS",
+          "level": "working"
+        }
+      ]
+    }
+  ]
+}

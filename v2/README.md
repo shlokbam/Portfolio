@@ -14,11 +14,12 @@ v2/
     src/components/  Layout (header, menu, footer), AskAI + ChatWidget (assistant), Sources, NowRadar,
                      Shipping, A (smart link), Md (chat markdown), arcade/ games, …
     src/lib/         site state (theme, chat, live data), API client, links, scroll helpers, scenes/
-    src/data/        projects, the "On my radar" blocks
+    src/content/     everything the site says about Shlok, as data (see Content below)
     scripts/         prerender.mjs (static pages, sitemap, llms.txt), resize-images.sh
   backend/    FastAPI → Render
     main.py          /api/stats, /api/availability, /api/shipping, /api/chat, /api/chat/stats, /api/contact, /api/health
-    knowledge.py     everything the chatbot knows (keep in sync with page content)
+    content.py       reads the site's /portfolio.json (cached 10 min; portfolio.snapshot.json as fallback)
+    knowledge.py     the chatbot's rules; its facts are built from the content
 ```
 
 ## Run locally
@@ -84,6 +85,20 @@ npm run dev        # http://localhost:5173
   The state lives in `lib/site.jsx` (`apiState`: unknown → waking → ready, or down after ~2 min).
 - Indovate's repository isn't public, so the Work page shows "Private repo" instead of a dead link.
 
+## Content (one source for the site, the assistant and the MCP server)
+Everything the site says about Shlok lives as plain data in `frontend/src/content/`: `profile.js`, `projects.js`,
+`journey.js` (work, leadership, education), `recognition.js` (patents, awards, certifications), `community.js`,
+`writing.js`, `skills.js` and `now.js`. The pages render from these files.
+
+- The build writes all of it to **`/portfolio.json`** (`content/index.js` sets the shape and turns paths into full URLs).
+- The backend reads that live file (`backend/content.py`, refreshed every 10 minutes) and builds the assistant's facts
+  from it (`backend/knowledge.py`). So a content change needs only a frontend push: no backend redeploy.
+- If the live file can't be fetched, the backend uses `backend/portfolio.snapshot.json`. A local `npm run build` refreshes
+  it; commit it along with content changes. `CONTENT_URL=snapshot` makes a local backend use only that copy.
+- To add a project: add an entry to `content/projects.js` (`details` and `blog` are optional). Its Work-page row,
+  the assistant's answers and its source link all follow.
+- The Résumé page (`pages/Resume.jsx`) is the exception: it copies the PDF word for word, so edit it with the PDF.
+
 ## SEO
 - IndexNow: after a deploy is live, run `npm run indexnow` (in `v2/frontend`) to tell Bing, Yandex and the
   other IndexNow engines that the pages changed. It sends every URL in the live sitemap; the key file is
@@ -95,7 +110,7 @@ npm run dev        # http://localhost:5173
   in `src/seo.js`; `public/og.png` is a copy of the home card. Icons: `icon.svg`, `icon-192/512.png`, `apple-touch-icon.png`.
 - Fonts are self-hosted from `public/fonts` (latin subset, SIL Open Font License).
 - The build also writes `llms.txt` (a plain-text summary for AI assistants, from `PAGES` in `src/seo.js` plus key facts
-  in `scripts/prerender.mjs`; keep those facts in step with `backend/knowledge.py`) and lists the portrait
+  in `scripts/prerender.mjs`; keep those facts in step with `src/content/`) and lists the portrait
   `public/static/images/shlok-bam.jpg` in the sitemap for image search. The original `images/about/profile.png` is kept.
 - After deploying: add the site in Google Search Console, verify it (DNS or HTML tag), submit
   `/sitemap.xml`, and use "Request indexing" on the home page. Link the site from LinkedIn, GitHub
@@ -124,14 +139,14 @@ prefers reduced motion. Readable overlays sit in the empty strip above each page
 
 ## Right now (home page)
 The "On my radar" section (`src/components/NowRadar.jsx`) shows what Shlok is focused on this month. Edit
-`src/data/now.js` monthly: change `UPDATED` and the blocks (a block with empty `text` is hidden). Keep the
-matching line in `backend/knowledge.py` current too.
+`src/content/now.js` monthly: change `UPDATED` and the blocks (a block with empty `text` is hidden). The
+assistant picks it up from the content.
 
 ## Home page extras
 - **At a glance** (`src/components/Glance.jsx`): stat tiles, each with its own hover interaction.
 - **Skill pit** (`src/components/SkillPit.jsx`): the stack as physical pills (matter-js, ~27 kB gzip,
   loaded only when the section scrolls into view). Pills are real buttons; the server renders them as
-  a plain list. Edit `SKILLS` to change them — the "used in" projects are matched from `data/projects.js`.
+  a plain list. Edit `SKILLS` to change them — the "used in" projects are matched from `content/projects.js`.
 - The "Built to run" section in `pages/Home.jsx` is commented out; remove the comment wrapper to restore it.
 
 ## Analytics, icon, old address

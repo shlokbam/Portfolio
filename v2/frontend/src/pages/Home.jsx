@@ -1,4 +1,5 @@
 import Layout from '../components/Layout'
+import { PROFILE } from '../content/profile'
 import A from '../components/A'
 import AIBackdrop from '../components/AIBackdrop'
 import ProfilePeek from '../components/ProfilePeek'
@@ -28,7 +29,7 @@ export default function Home() {
   ]
   const tp = ['Agentic AI', 'RAG pipelines', 'FastAPI', 'React', 'LangGraph', 'MCP', 'Docker']
   const tape = tp.concat(tp)
-  const sentence = "I'm an IT student at VIT Pune who turns messy, real-world problems into systems that think, and ships them end to end: agents, retrieval, APIs, interfaces and the pipelines that deploy them."
+  const sentence = PROFILE.tagline
   const hl = ['systems', 'that', 'think']
   const words = sentence.split(' ').map((t) => ({ t, style: hl.indexOf(t) !== -1 ? 'color: var(--accent)' : '' }))
   return (

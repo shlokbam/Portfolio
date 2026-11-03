@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import A from './A'
-import { NOW, UPDATED } from '../data/now'
+import { NOW, UPDATED } from '../content/now'
 
-// Home "Right now": the blocks from data/now.js as blips on a radar. The sweep turns (while on screen)
+// Home "Right now": the blocks from content/now.js as blips on a radar. The sweep turns (while on screen)
 // and lights each blip as it passes, highlighting its line; hovering or focusing a line holds the sweep on it.
 const PERIOD = 9000 // ms per turn
 const R = 150

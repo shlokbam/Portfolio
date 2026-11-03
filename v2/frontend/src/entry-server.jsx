@@ -5,6 +5,7 @@ import App from './App'
 
 export { ROUTES, PAGES, headTags } from './seo'
 export { loadAllPages as preload, pageFor } from './routes'
+export { portfolio } from './content'
 
 export function render(url) {
   return renderToString(

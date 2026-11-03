@@ -30,6 +30,15 @@
       ]
     },
     {
+      "source": "/portfolio.json",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {

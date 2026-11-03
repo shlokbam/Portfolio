@@ -141,7 +141,7 @@ flowchart LR
 ```
 
 - **The site is static.** Every route is prerendered to real HTML at build time, with its own title, description, canonical URL, Open Graph tags and JSON-LD. It loads instantly from Vercel's CDN, even while the API sleeps.
-- **The API is small.** FastAPI handles the assistant (system prompt built from [`knowledge.py`](v2/backend/knowledge.py)), cached coding stats and a health check. It also redirects the old Render address to the new domain and retires v1's service worker.
+- **The API is small.** FastAPI handles the assistant (system prompt built from the site's own content, read from `/portfolio.json`; see [`knowledge.py`](v2/backend/knowledge.py)), cached coding stats and a health check. It also redirects the old Render address to the new domain and retires v1's service worker.
 - **The contact form** posts straight from the browser to Web3Forms, with a honeypot field for bots.
 
 ---
@@ -170,14 +170,14 @@ flowchart LR
 │   │   │   ├── components/       Layout, AskAI, ChatWidget, Arcade, SkillPit, ProfilePeek, …
 │   │   │   │   └── arcade/       Bug smash, Memory, Typing sprint
 │   │   │   ├── lib/scenes/       the live AI canvases (nn, embed, gd, attention, cv, …)
-│   │   │   ├── data/             the 21 projects, the "On my radar" blocks
+│   │   │   ├── content/          everything the site says, as data (published as /portfolio.json)
 │   │   │   ├── routes.jsx        the route list (one chunk per page)
 │   │   │   └── seo.js            per-page titles, descriptions, structured data
 │   │   ├── public/static/        résumé, certificates, patents, photos (+ WebP copies in opt/)
 │   │   └── scripts/              prerender.mjs, resize-images.sh
 │   ├── backend/                  → Render (root directory: v2/backend)
 │   │   ├── main.py               API, stats fetchers, redirects
-│   │   └── knowledge.py          everything the assistant knows
+│   │   └── knowledge.py          the assistant's rules; facts come from the content
 │   └── README.md                 developer notes
 └── docs/screens/                 the images in this README
 ```
