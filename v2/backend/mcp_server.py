@@ -63,18 +63,19 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
         description='Ask your AI about Shlok Bam: projects, experience, skills, patents, awards and contact details, always current.',
         instructions=INSTRUCTIONS,
         website_url='https://shlokbam.in',
-        version='1.2.0',
+        version='1.2.1',
     )
 
-    def tool(title: str):
-        """Register a read-only tool with a human title, and log each call (the tool name only, never what was asked)."""
+    def tool(title: str, github: bool = False):
+        """Register a read-only tool with a human title, and log each call (the tool name only, never what was asked).
+        `github`: the tool also reads live data from GitHub's API, so it is marked open-world."""
         def register(fn):
             async def logged(*args, **kwargs):
                 log.info('mcp tool: %s', fn.__name__)
                 return await fn(*args, **kwargs)
             logged.__name__, logged.__doc__, logged.__annotations__ = fn.__name__, fn.__doc__, fn.__annotations__
             logged.__wrapped__ = fn
-            hints = ToolAnnotations(title=title, read_only_hint=True, destructive_hint=False, idempotent_hint=True, open_world_hint=False)
+            hints = ToolAnnotations(title=title, read_only_hint=True, destructive_hint=False, idempotent_hint=True, open_world_hint=github)
             return mcp.tool(title=title, annotations=hints)(logged)
         return register
 
@@ -99,7 +100,7 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
             'contentUpdated': d['updated'],
         }
 
-    @tool('List projects')
+    @tool('List projects', github=True)
     async def list_projects(
         tech: Annotated[str, Field(description='Only projects using this technology: case-insensitive, matched as part of each tech name and of the write-up, so "lang" finds LangGraph and LangChain. Examples: "LangGraph", "React", "AWS". Empty for all.')] = '',
         category: Annotated[Literal['all', 'ai', 'web', 'devops', 'cloud'], Field(description='Only one kind of project: "ai" (AI, ML and agents), "web" (full-stack and web apps), "devops" (CI/CD and infrastructure), "cloud" (serverless and cloud services), or "all". A project can be in more than one.')] = 'all',
@@ -129,7 +130,7 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
             out['otherRepos'] = [r for r in repos or [] if r['name'].lower() not in featured and not r['fork']]
         return out
 
-    @tool('Project details')
+    @tool('Project details', github=True)
     async def get_project(
         name: Annotated[str, Field(description='A project name, slug or GitHub repository name, any case; part of a name also works. Examples: "DailyDiff", "PaisaWise", "lms", "enterprise-workforce-training-platform".')],
     ) -> dict:
@@ -230,7 +231,7 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
                 'summary': pr['summary'], 'current': pr['current'], 'education': pr['education'],
                 'note': 'The web version has the same content as the PDF.'}
 
-    @tool('Recent GitHub activity')
+    @tool('Recent GitHub activity', github=True)
     async def get_activity() -> dict:
         """What Shlok has been building lately, live from GitHub: commit counts for the last 7 and 30 days,
         how many repositories he touched this week, and his 12 most recent commits (repository, message, date,
