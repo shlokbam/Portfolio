@@ -63,7 +63,7 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
         description='Ask your AI about Shlok Bam: projects, experience, skills, patents, awards and contact details, always current.',
         instructions=INSTRUCTIONS,
         website_url='https://shlokbam.in',
-        version='1.1.0',
+        version='1.2.0',
     )
 
     def tool(title: str):
@@ -80,9 +80,12 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
 
     @tool('Profile overview')
     async def get_profile() -> dict:
-        """Overview of Shlok Bam: who he is, current role, education, location, what he is open to, contact
-        details, links (résumé, LinkedIn, GitHub…), what he is focused on this month, and headline numbers.
-        Call this first for any general question about him."""
+        """Overview of Shlok Bam: summary, current role, education, location and time zone, what he is open to
+        (roles, relocation), story, headline numbers, what he is focused on this month, contact details (email,
+        phone, contact form) and links (résumé, LinkedIn, GitHub, LeetCode, journal). Takes no input.
+        Call it first for any general question, or for contact details. For his work use list_projects and
+        get_project; for jobs and clubs, get_experience; for anything specific, search_portfolio.
+        Data comes from the live site, refreshed about every 10 minutes. Pay is not included."""
         d = await get_content()
         pr = d['profile']
         return {
@@ -98,14 +101,18 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
 
     @tool('List projects')
     async def list_projects(
-        tech: Annotated[str, Field(description='Only projects using this technology, e.g. "LangGraph", "React", "AWS". Leave empty for all.')] = '',
-        category: Annotated[Literal['all', 'ai', 'web', 'devops', 'cloud'], Field(description='Only this kind of project, or "all".')] = 'all',
-        flagship_only: Annotated[bool, Field(description='Only the five flagship projects.')] = False,
-        include_other_repos: Annotated[bool, Field(description="Also list his public GitHub repositories that the portfolio doesn't feature.")] = False,
+        tech: Annotated[str, Field(description='Only projects using this technology: case-insensitive, matched as part of each tech name and of the write-up, so "lang" finds LangGraph and LangChain. Examples: "LangGraph", "React", "AWS". Empty for all.')] = '',
+        category: Annotated[Literal['all', 'ai', 'web', 'devops', 'cloud'], Field(description='Only one kind of project: "ai" (AI, ML and agents), "web" (full-stack and web apps), "devops" (CI/CD and infrastructure), "cloud" (serverless and cloud services), or "all". A project can be in more than one.')] = 'all',
+        flagship_only: Annotated[bool, Field(description='Only the five flagship projects (his most important work). Combines with the other filters.')] = False,
+        include_other_repos: Annotated[bool, Field(description="Also return otherRepos: his public GitHub repositories the portfolio doesn't feature (forks left out), with GitHub's description, language, stars and last update.")] = False,
     ) -> dict:
-        """List Shlok's projects (all of them, in order of importance), each with a one-line summary, tech stack,
-        links and live GitHub details (stars, language, last update). Filter by technology or category. Use
-        get_project for the full details of one project."""
+        """List Shlok's projects in order of importance (the first five are flagships). Each entry has name,
+        slug, field, one-line summary, tech stack, live demo and code links, its page on the portfolio, and live
+        GitHub details (stars, language, topics, last update) when the code is in a public repository.
+        Filters combine (all must match); a filter that matches nothing returns count 0, not an error.
+        GitHub details are cached up to 6 hours and are missing for private repositories or when GitHub can't
+        be reached. Use get_project for one project's full write-up and metrics, and search_portfolio for
+        topics that are not projects (a skill used at work, an award)."""
         d = await get_content()
         repos = await fetch_repos()
         items = d['projects']
@@ -124,11 +131,16 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
 
     @tool('Project details')
     async def get_project(
-        name: Annotated[str, Field(description='The project name or slug, e.g. "DailyDiff", "PaisaWise", "enterprise-workforce-training-platform".')],
+        name: Annotated[str, Field(description='A project name, slug or GitHub repository name, any case; part of a name also works. Examples: "DailyDiff", "PaisaWise", "lms", "enterprise-workforce-training-platform".')],
     ) -> dict:
-        """Everything about one of Shlok's projects: what it does, how it is built, results and metrics, tech
-        stack, and links to the live demo, code, write-up and its page on the portfolio. Accepts the project
-        name, its slug or its GitHub repository name."""
+        """Full details of one of Shlok's projects: what it does and how it is built, results and metrics,
+        highlights, tech stack, rank, live GitHub details, and links (live demo, code, blog post, portfolio page,
+        and the case study for DailyDiff). The name is matched case-insensitively, ignoring punctuation: first
+        exactly against the project name, slug or GitHub repository name, then as part of a name ("workforce"
+        finds the Enterprise Workforce Training Platform). If no featured project matches, his public GitHub
+        repositories are tried and GitHub's details are returned with a note. If nothing matches, the result is
+        {"error", "projects": [every project name]} so you can retry with a valid name.
+        Use list_projects first when you don't know the name."""
         d = await get_content()
         q = _norm(name)
         repo = lambda p: _norm(p['links']['code'].rstrip('/').rsplit('/', 1)[-1]) if p['links']['code'] else ''
@@ -150,19 +162,23 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
 
     @tool('Experience, leadership and education')
     async def get_experience() -> dict:
-        """Shlok's work experience (internships), leadership roles (student clubs) and education, newest first,
-        with what he did in each and links to the organisations and certificates."""
+        """Shlok's work experience (internships), leadership roles (student clubs) and education, each list
+        newest first. Every entry has role, organisation, when, type, what he did (points), the organisation's
+        website and links to certificates where they exist. Takes no input. Pay and confidential client details
+        are not included. For patents, awards and certifications use get_achievements; for projects,
+        list_projects."""
         d = await get_content()
         return {'experience': d['experience'], 'leadership': d['leadership'], 'education': d['education'], 'page': d['site'] + '/journey'}
 
     @tool('Patents, awards and certifications')
     async def get_achievements(
-        kind: Annotated[Literal['all', 'patents', 'awards', 'certifications', 'community'], Field(description='Which part to return, or "all".')] = 'all',
+        kind: Annotated[Literal['all', 'patents', 'awards', 'certifications', 'community'], Field(description='Which part to return: "patents", "awards" (hackathons and programs), "certifications", "community" (mentoring and volunteering), or "all" for everything.')] = 'all',
     ) -> dict:
-        """Shlok's recognition and proof of work: patents (three, as co-inventor: title, status, office, reference
-        number, summary, document link), awards and hackathon results (organiser, date, result, certificate links),
-        certifications (issuer, date, certificate link) and community work (mentoring, volunteering, event anchoring).
-        Use kind to get one part only."""
+        """Shlok's recognition and proof of work: patents (three, as co-inventor: title, status, office,
+        reference number, summary and a link to the document), awards and hackathon results (organiser, date,
+        result, certificate links), certifications (issuer, date, certificate link) and community work
+        (mentoring, volunteering, event anchoring). Returns every part, or only the one named in kind, plus a
+        link to the page on the portfolio that shows them. For jobs and club roles use get_experience."""
         d = await get_content()
         parts = {'patents': d['patents'], 'awards': d['awards'], 'certifications': d['certifications'], 'community': d['community']}
         k = kind
@@ -172,8 +188,11 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
 
     @tool('Skills')
     async def get_skills() -> dict:
-        """Shlok's skills by group (Generative AI, LLM evaluation, ML, languages, web, databases, cloud & DevOps,
-        core CS), each rated core, strong, working or exploring, plus which projects use each skill."""
+        """Shlok's skills in eight groups (Generative AI, LLM evaluation & safety, machine learning, languages,
+        web, databases, cloud & DevOps, core CS), strongest first within each group. Each skill has a level
+        (core, strong, working or exploring) and usedIn: up to six of his projects that list it in their stack
+        or mention it in their write-up (matched by name, so treat it as a pointer, not a complete list).
+        Takes no input. For proof of a skill, open those projects with get_project."""
         d = await get_content()
         groups = []
         for g in d['skills']:
@@ -187,9 +206,12 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
 
     @tool('Blog posts')
     async def get_writing(
-        topic: Annotated[str, Field(description='Only posts on this topic, e.g. "Agents", "RAG", "DevOps". Leave empty for all.')] = '',
+        topic: Annotated[str, Field(description='Only posts about this: case-insensitive, matched as part of the topic tag, title or summary. Examples: "Agents", "RAG", "DevOps", "MCP". Empty for all posts.')] = '',
     ) -> dict:
-        """Shlok's technical blog posts (his journal), newest first, with links."""
+        """Shlok's technical blog posts (his journal), newest first: title, date, topic tag, summary and link.
+        The topic filter is case-insensitive and matches part of a post's topic tag, title or summary ("agent"
+        finds posts tagged Agents); leave it empty for every post. No match returns count 0 and an empty list.
+        For the projects the posts describe, use get_project."""
         d = await get_content()
         posts = d['writing']
         if topic.strip():
@@ -199,7 +221,9 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
 
     @tool('Résumé')
     async def get_resume() -> dict:
-        """Links to Shlok's résumé (PDF download and web version) with a short summary of what it covers."""
+        """Links to Shlok's résumé: the PDF download and a web version with the same content, plus his title,
+        summary, current role and education. Takes no input. The résumé itself is in those documents; for the
+        same facts as structured data use get_experience, get_skills and list_projects."""
         d = await get_content()
         pr = d['profile']
         return {'pdf': pr['links']['resumePdf'], 'web': pr['links']['resumePage'], 'name': pr['name'], 'title': pr['title'],
@@ -208,7 +232,11 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
 
     @tool('Recent GitHub activity')
     async def get_activity() -> dict:
-        """What Shlok has been building lately: his recent commits to public GitHub repositories (live)."""
+        """What Shlok has been building lately, live from GitHub: commit counts for the last 7 and 30 days,
+        how many repositories he touched this week, and his 12 most recent commits (repository, message, date,
+        link). Only public repositories; scheduled and automated commits (DailyDiff's daily publish, merges)
+        are left out. Cached up to 30 minutes. If GitHub can't be reached it returns {"error", "github"}
+        instead. Takes no input. For what he is focused on this month, see get_profile (rightNow)."""
         a = await fetch_activity()
         if not a:
             return {'error': 'GitHub activity is unavailable right now.', 'github': 'https://github.com/shlokbam'}
@@ -217,11 +245,14 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
 
     @tool('Search the portfolio')
     async def search_portfolio(
-        query: Annotated[str, Field(description='What to look for, e.g. "RAG", "Terraform", "hackathon", "PharmaACE", "patent granted".')],
+        query: Annotated[str, Field(description='One or more words, any case; punctuation is ignored. Each word is matched at the start of words in the text ("eval" finds evaluation), matches in a title count more, and the exact phrase scores extra. Examples: "RAG", "Terraform", "hackathon", "PharmaACE", "patent granted".')],
     ) -> dict:
-        """Search everything in Shlok's portfolio (projects, experience, leadership, patents, awards, certifications,
-        community, writing) for a word or topic. Returns up to 8 matches, best first, each with its type, title,
-        a snippet and a link. Use it for specific questions the other tools don't answer directly."""
+        """Search everything in Shlok's portfolio (projects, experience, leadership, education, patents,
+        awards, certifications, community work and blog posts) for a word or topic. Returns up to 8 matches,
+        best first, each with its type, title, a snippet and a link; no match returns an empty results list.
+        Use it for specific questions the other tools don't answer directly, such as where he used a
+        technology or whether he has done something. For a known project use get_project; for the full list of
+        projects, list_projects; for jobs, get_experience; for patents and awards, get_achievements."""
         d = await get_content()
         words = [w for w in _norm(query).split() if len(w) > 1]
         if not words:
