@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import A from './A'
 import AIBackdrop from './AIBackdrop'
 import WakeBoot from './WakeBoot'
 import BotMark from './BotMark'
@@ -76,7 +77,7 @@ export default function AskAI() {
   const streaming = shown.i >= 0 && chat[shown.i] && shown.n < chat[shown.i].text.length
 
   return (
-    <section className="ai-host askai" style={{ padding: '104px 0', borderBottom: '1px solid var(--line)', background: 'var(--surface)' }}>
+    <section id="ask" className="ai-host askai" style={{ padding: '104px 0', borderBottom: '1px solid var(--line)', background: 'var(--surface)' }}>
       <AIBackdrop kind="attention" text={q || lastAsked} style={{ height: '420px', bottom: 'auto' }} />
       <div className="wrap">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '24px', flexWrap: 'wrap' }}>
@@ -87,6 +88,7 @@ export default function AskAI() {
               <span className="serif" style={{ textTransform: 'none', fontWeight: '400', color: 'var(--accent)' }}>AI</span>
             </h2>
           </div>
+          <A className="ul mono" href="/ai" style={{ color: 'var(--muted)' }}>Or ask from your own AI (Claude, ChatGPT, Cursor) →</A>
         </div>
 
         <div className={'rv ask-box' + (busy || streaming || waking ? ' working' : '')}>

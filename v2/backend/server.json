@@ -1,0 +1,19 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.shlokbam/portfolio",
+  "title": "Shlok Bam's portfolio",
+  "description": "Ask about Shlok Bam, AI engineer: projects, experience, skills, patents. Live, read-only.",
+  "version": "1.0.0",
+  "websiteUrl": "https://shlokbam.in/ai",
+  "repository": {
+    "url": "https://github.com/shlokbam/Portfolio",
+    "source": "github",
+    "subfolder": "v2/backend"
+  },
+  "icons": [
+    { "src": "https://shlokbam.in/icon-512.png", "mimeType": "image/png", "sizes": ["512x512"] }
+  ],
+  "remotes": [
+    { "type": "streamable-http", "url": "https://shlokbam.in/mcp" }
+  ]
+}

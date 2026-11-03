@@ -57,6 +57,12 @@ export const PAGES = {
     name: 'Résumé',
     card: 'home'
   },
+  '/ai': {
+    title: 'Ask Your AI About Shlok Bam | MCP Server',
+    description: 'Add Shlok Bam’s portfolio to Claude, ChatGPT, Cursor or VS Code as an MCP server (https://shlokbam.in/mcp) and ask about his projects, experience, skills and patents. Free, read-only, always current.',
+    name: 'Ask your AI',
+    card: 'home'
+  },
   '/privacy': {
     title: 'Privacy | Shlok Bam',
     description: 'What shlokbam.in collects and why: Google Analytics visit counts, questions sent to the AI assistant, contact-form messages, and the theme and game scores kept in your browser.',

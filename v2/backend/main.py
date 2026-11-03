@@ -554,10 +554,13 @@ MCP_INFO = {
 
 
 async def mcp_get(request: Request):
-    """GET /mcp. A stateless server has no stream to offer, so MCP clients get the spec's 405; a browser gets
-    a note on how to connect (the SDK would otherwise hold the request open)."""
-    if 'text/event-stream' in request.headers.get('accept', ''):
+    """GET /mcp. A stateless server has no stream to offer, so MCP clients get the spec's 405; a browser is sent
+    to the how-to-connect page, anything else gets a short JSON note (the SDK would otherwise hold the request open)."""
+    accept = request.headers.get('accept', '')
+    if 'text/event-stream' in accept:
         return Response(status_code=405, headers={'Allow': 'POST'})
+    if 'text/html' in accept:
+        return RedirectResponse(SITE_URL + '/ai', status_code=302)
     return JSONResponse(MCP_INFO, headers={'Cache-Control': 'public, max-age=3600'})
 
 
@@ -572,7 +575,7 @@ app.router.routes.insert(1, Route('/mcp', endpoint=_mcp_app.routes[0].endpoint, 
 # the old pages in returning visitors' browsers is replaced by one that removes itself.
 
 SITE_URL = os.getenv('SITE_URL', 'https://shlokbam.in').rstrip('/')
-V2_PAGES = {'about', 'work', 'work/dailydiff', 'journey', 'recognition', 'community', 'writing', 'contact', 'resume'}
+V2_PAGES = {'about', 'work', 'work/dailydiff', 'journey', 'recognition', 'community', 'writing', 'contact', 'resume', 'ai'}
 V1_MOVED = {
     'download-resume': '/static/Resume/Shlok_Bam_Resume.pdf',
     'static/Resume/Shlok_Bam_VIT.pdf': '/static/Resume/Shlok_Bam_Resume.pdf',

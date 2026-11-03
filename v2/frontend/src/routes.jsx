@@ -27,6 +27,7 @@ export const ROUTE_PAGES = [
   ['/writing', page('Writing', () => import('./pages/Writing'))],
   ['/contact', page('Contact', () => import('./pages/Contact'))],
   ['/resume', page('Resume', () => import('./pages/Resume'))],
+  ['/ai', page('Ai', () => import('./pages/Ai'))],
   ['/privacy', page('Privacy', () => import('./pages/Privacy'))]
 ]
 export const NotFound = page('NotFound', () => import('./pages/NotFound'))

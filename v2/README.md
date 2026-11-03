@@ -115,6 +115,12 @@ Anyone can add the portfolio to their AI assistant and ask it about Shlok. The t
 - Prompts (offered as buttons or slash commands in some apps): `evaluate_for_role` (paste a role or job description),
   `summary` (three lines for a recruiter), `interview_questions` (optionally for one project), `latest`.
 - The server's instructions tell the AI that pay and client details aren't shared, and to suggest emailing instead of guessing.
+- `/ai` (`pages/Ai.jsx`) is the how-to-connect page: copyable address, steps per app, one-click installs for Cursor and
+  VS Code, example questions, the tools and prompts. A browser opening `/mcp` is redirected there (302); keep its
+  TOOLS and PROMPTS lists in step with `mcp_server.py`.
+- Official MCP Registry entry: `backend/server.json` (name `io.github.shlokbam/portfolio`). To publish or update:
+  `brew install mcp-publisher`, then in `v2/backend`: `mcp-publisher login github` and `mcp-publisher publish`
+  (bump `version` for every update).
 - Transport: Streamable HTTP, stateless, JSON responses (`main.py` mounts it). A browser opening `/mcp` gets a short JSON
   note instead. Vercel forwards `shlokbam.in/mcp` to the Render service (`vercel.json` rewrites), so the address
   stays the same if the backend moves.
