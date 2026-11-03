@@ -107,7 +107,7 @@ Anyone can add the portfolio to their AI assistant and ask it about Shlok. The t
 - Tools (all read-only, no sign-in): `get_profile`, `list_projects` (filter by tech, category, flagships), `get_project`
   (by name, slug or repo name), `get_experience`, `get_achievements` (patents, awards, certifications, community),
   `get_skills` (with the projects that use each), `get_writing`, `get_resume`, `get_activity` (live GitHub commits),
-  `search`. Defined in `backend/mcp_server.py`; adding a project to `src/content/` needs no change here.
+  `search_portfolio`. Defined in `backend/mcp_server.py`; adding a project to `src/content/` needs no change here.
 - Live GitHub details: one call to GitHub's repo list (cached 6 h, `github_repos()` in `main.py`) adds stars, language,
   topics and last update to every project with a repo, matched by the repo name in its `code` link (forks included,
   for team projects). `list_projects(include_other_repos=true)` also lists public repos the site doesn't feature, and

@@ -547,7 +547,7 @@ MCP_INFO = {
     'url': 'https://shlokbam.in/mcp',
     'transport': 'Streamable HTTP (POST)',
     'tools': ['get_profile', 'list_projects', 'get_project', 'get_experience', 'get_achievements', 'get_skills',
-              'get_writing', 'get_resume', 'get_activity', 'search'],
+              'get_writing', 'get_resume', 'get_activity', 'search_portfolio'],
     'prompts': ['evaluate_for_role', 'summary', 'interview_questions', 'latest'],
     'site': 'https://shlokbam.in',
 }

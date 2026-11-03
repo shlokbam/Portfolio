@@ -6,7 +6,7 @@ All tools are read-only and need no sign-in. main.py mounts this at /mcp (statel
 """
 import logging
 import re
-from typing import Annotated, Awaitable, Callable, Optional
+from typing import Annotated, Awaitable, Callable, Literal, Optional
 
 from pydantic import Field
 from mcp.server.mcpserver import MCPServer
@@ -18,14 +18,13 @@ INSTRUCTIONS = """
 Facts about Shlok Bam, an AI / Generative AI engineer from Pune, India, straight from his portfolio
 (https://shlokbam.in), always current. Use these tools whenever the user asks about Shlok: his projects,
 experience, skills, patents, awards, certifications, writing, availability or how to contact him.
-Start with get_profile for an overview, list_projects or get_project for his work, and search for anything
-specific. Answer only from what the tools return, and include the links they give so the user can check.
+Start with get_profile for an overview, list_projects or get_project for his work, and search_portfolio for
+anything specific. Answer only from what the tools return, and include the links they give so the user can check.
 Pay (salary, stipend, expected CTC) and details of client work at PharmaACE are not shared here: say so and
 suggest emailing him (shlokbam19103@gmail.com) rather than guessing. If something isn't covered, say that
 plainly; never fill gaps with assumptions.
 """.strip()
 
-READ_ONLY = ToolAnnotations(read_only_hint=True, destructive_hint=False, idempotent_hint=True, open_world_hint=False)
 
 
 def _norm(s: str) -> str:
@@ -64,19 +63,22 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
         description='Ask your AI about Shlok Bam: projects, experience, skills, patents, awards and contact details, always current.',
         instructions=INSTRUCTIONS,
         website_url='https://shlokbam.in',
-        version='1.0.0',
+        version='1.1.0',
     )
 
-    def tool(fn):
-        """Register a read-only tool and log each call (the tool name only, never what was asked)."""
-        async def logged(*args, **kwargs):
-            log.info('mcp tool: %s', fn.__name__)
-            return await fn(*args, **kwargs)
-        logged.__name__, logged.__doc__, logged.__annotations__ = fn.__name__, fn.__doc__, fn.__annotations__
-        logged.__wrapped__ = fn
-        return mcp.tool(annotations=READ_ONLY)(logged)
+    def tool(title: str):
+        """Register a read-only tool with a human title, and log each call (the tool name only, never what was asked)."""
+        def register(fn):
+            async def logged(*args, **kwargs):
+                log.info('mcp tool: %s', fn.__name__)
+                return await fn(*args, **kwargs)
+            logged.__name__, logged.__doc__, logged.__annotations__ = fn.__name__, fn.__doc__, fn.__annotations__
+            logged.__wrapped__ = fn
+            hints = ToolAnnotations(title=title, read_only_hint=True, destructive_hint=False, idempotent_hint=True, open_world_hint=False)
+            return mcp.tool(title=title, annotations=hints)(logged)
+        return register
 
-    @tool
+    @tool('Profile overview')
     async def get_profile() -> dict:
         """Overview of Shlok Bam: who he is, current role, education, location, what he is open to, contact
         details, links (résumé, LinkedIn, GitHub…), what he is focused on this month, and headline numbers.
@@ -94,10 +96,10 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
             'contentUpdated': d['updated'],
         }
 
-    @tool
+    @tool('List projects')
     async def list_projects(
         tech: Annotated[str, Field(description='Only projects using this technology, e.g. "LangGraph", "React", "AWS". Leave empty for all.')] = '',
-        category: Annotated[str, Field(description='Only this kind of project: "ai", "web", "devops" or "cloud". Leave empty for all.')] = '',
+        category: Annotated[Literal['all', 'ai', 'web', 'devops', 'cloud'], Field(description='Only this kind of project, or "all".')] = 'all',
         flagship_only: Annotated[bool, Field(description='Only the five flagship projects.')] = False,
         include_other_repos: Annotated[bool, Field(description="Also list his public GitHub repositories that the portfolio doesn't feature.")] = False,
     ) -> dict:
@@ -109,8 +111,8 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
         items = d['projects']
         if flagship_only:
             items = [p for p in items if p['flagship']]
-        if category.strip():
-            items = [p for p in items if category.strip().lower() in p['categories']]
+        if category != 'all':
+            items = [p for p in items if category in p['categories']]
         if tech.strip():
             t = _norm(tech)
             items = [p for p in items if any(t in _norm(x) for x in p['tech']) or t in _norm(p['details'] + ' ' + p['summary'])]
@@ -120,7 +122,7 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
             out['otherRepos'] = [r for r in repos or [] if r['name'].lower() not in featured and not r['fork']]
         return out
 
-    @tool
+    @tool('Project details')
     async def get_project(
         name: Annotated[str, Field(description='The project name or slug, e.g. "DailyDiff", "PaisaWise", "enterprise-workforce-training-platform".')],
     ) -> dict:
@@ -146,27 +148,29 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
             out['caseStudy'] = p['links']['page']
         return out
 
-    @tool
+    @tool('Experience, leadership and education')
     async def get_experience() -> dict:
         """Shlok's work experience (internships), leadership roles (student clubs) and education, newest first,
         with what he did in each and links to the organisations and certificates."""
         d = await get_content()
         return {'experience': d['experience'], 'leadership': d['leadership'], 'education': d['education'], 'page': d['site'] + '/journey'}
 
-    @tool
+    @tool('Patents, awards and certifications')
     async def get_achievements(
-        kind: Annotated[str, Field(description='"patents", "awards", "certifications" or "community". Leave empty for all.')] = '',
+        kind: Annotated[Literal['all', 'patents', 'awards', 'certifications', 'community'], Field(description='Which part to return, or "all".')] = 'all',
     ) -> dict:
-        """Shlok's patents (three, as co-inventor), awards and hackathon wins, certifications, and community work
-        (mentoring, volunteering), with links to the actual certificates and documents."""
+        """Shlok's recognition and proof of work: patents (three, as co-inventor: title, status, office, reference
+        number, summary, document link), awards and hackathon results (organiser, date, result, certificate links),
+        certifications (issuer, date, certificate link) and community work (mentoring, volunteering, event anchoring).
+        Use kind to get one part only."""
         d = await get_content()
         parts = {'patents': d['patents'], 'awards': d['awards'], 'certifications': d['certifications'], 'community': d['community']}
-        k = kind.strip().lower()
+        k = kind
         if k in parts:
             parts = {k: parts[k]}
         return {**parts, 'page': d['site'] + ('/community' if k == 'community' else '/recognition')}
 
-    @tool
+    @tool('Skills')
     async def get_skills() -> dict:
         """Shlok's skills by group (Generative AI, LLM evaluation, ML, languages, web, databases, cloud & DevOps,
         core CS), each rated core, strong, working or exploring, plus which projects use each skill."""
@@ -181,7 +185,7 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
             groups.append({'group': g['group'], 'skills': skills})
         return {'skills': groups, 'page': d['site'] + '/about#toolkit'}
 
-    @tool
+    @tool('Blog posts')
     async def get_writing(
         topic: Annotated[str, Field(description='Only posts on this topic, e.g. "Agents", "RAG", "DevOps". Leave empty for all.')] = '',
     ) -> dict:
@@ -193,7 +197,7 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
             posts = [w for w in posts if t in _norm(w['topic'] + ' ' + w['title'] + ' ' + w['summary'])]
         return {'count': len(posts), 'posts': posts, 'journal': d['profile']['links']['journal']}
 
-    @tool
+    @tool('Résumé')
     async def get_resume() -> dict:
         """Links to Shlok's résumé (PDF download and web version) with a short summary of what it covers."""
         d = await get_content()
@@ -202,7 +206,7 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
                 'summary': pr['summary'], 'current': pr['current'], 'education': pr['education'],
                 'note': 'The web version has the same content as the PDF.'}
 
-    @tool
+    @tool('Recent GitHub activity')
     async def get_activity() -> dict:
         """What Shlok has been building lately: his recent commits to public GitHub repositories (live)."""
         a = await fetch_activity()
@@ -211,12 +215,13 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
         return {'commitsLast7Days': a['week'], 'reposLast7Days': a['weekRepos'], 'commitsLast30Days': a['month'],
                 'recent': a['commits'], 'github': 'https://github.com/shlokbam'}
 
-    @tool
-    async def search(
+    @tool('Search the portfolio')
+    async def search_portfolio(
         query: Annotated[str, Field(description='What to look for, e.g. "RAG", "Terraform", "hackathon", "PharmaACE", "patent granted".')],
     ) -> dict:
-        """Search everything about Shlok (projects, experience, leadership, patents, awards, certifications,
-        community, writing) for a word or topic. Returns the best matches with links."""
+        """Search everything in Shlok's portfolio (projects, experience, leadership, patents, awards, certifications,
+        community, writing) for a word or topic. Returns up to 8 matches, best first, each with its type, title,
+        a snippet and a link. Use it for specific questions the other tools don't answer directly."""
         d = await get_content()
         words = [w for w in _norm(query).split() if len(w) > 1]
         if not words:
