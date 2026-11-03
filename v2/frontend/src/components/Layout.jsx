@@ -7,6 +7,7 @@ import { css } from '../lib/css'
 import { RESUME_PAGE } from '../lib/links'
 import { useIstDateTime } from '../lib/clock'
 import { lockScroll, unlockScroll, scrollToTop } from '../lib/smooth'
+import { track } from '../lib/track'
 
 const PAGES = [
   ['00', 'Home', '/', 'Index', 'home'],
@@ -220,6 +221,12 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
                   ))}
                 </nav>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '26px', paddingBottom: '12px' }}>
+                  <A className="mcard" href="/ai" onClick={() => { track('mcp_menu_click'); closeMenu() }}>
+                    <span className="mono mcard-top"><span className="mcpn-dot" aria-hidden="true" />New · MCP server</span>
+                    <b className="mcard-title">Ask your own AI about me.</b>
+                    <span className="mcard-sub">Add my portfolio to Claude, ChatGPT or Cursor and ask it anything.</span>
+                    <span className="mono mcard-go">Connect it →</span>
+                  </A>
                   <div>
                     <div className="mono" style={{ color: 'var(--muted)' }}>Email</div>
                     <A className="ul" href="mailto:shlokbam19103@gmail.com" style={{ display: 'inline-block', marginTop: '10px', fontSize: '21px', fontWeight: '600' }}>shlokbam19103@gmail.com</A>

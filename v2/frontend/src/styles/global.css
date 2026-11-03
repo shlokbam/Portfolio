@@ -427,3 +427,11 @@ section#top > .wrap, .ai-host > .wrap { position: relative; z-index: 1; }
   .sb .mcpn-go { min-height: 40px; padding: 0 14px; }
 }
 @media (prefers-reduced-motion: reduce) { .sb .mcpn, .sb .mcpn.out { animation-duration: .01s; } .sb .mcpn-dot, .sb .mcpn-caret { animation: none; } }
+
+/* The MCP card at the top of the menu's right column (components/Layout.jsx), links to /ai */
+.sb .mcard { display: grid; gap: 8px; max-width: 400px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); color: var(--text); text-decoration: none; transition: border-color .25s, transform .25s; }
+.sb .mcard:hover { border-color: var(--accent); transform: translateY(-2px); }
+.sb .mcard-top { color: var(--muted); font-size: 10px; }
+.sb .mcard-title { font-size: 21px; letter-spacing: -.01em; line-height: 1.2; }
+.sb .mcard-sub { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.sb .mcard-go { margin-top: 4px; color: var(--accent); }
