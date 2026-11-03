@@ -115,6 +115,9 @@ Anyone can add the portfolio to their AI assistant and ask it about Shlok. The t
 - Prompts (offered as buttons or slash commands in some apps): `evaluate_for_role` (paste a role or job description),
   `summary` (three lines for a recruiter), `interview_questions` (optionally for one project), `latest`.
 - The server's instructions tell the AI that pay and client details aren't shared, and to suggest emailing instead of guessing.
+- `components/McpNudge.jsx`: a card, bottom-left, pointing to `/ai`. Once per visit after 25 s or half-way down a page,
+  not on `/ai`, `/contact`, `/resume`, and never over the open chat or the wake-up notice. Closing it hides it for 3 days
+  (`HIDE_DAYS`), clicking it hides it for good, ignored it slides away after 15 s. GA events: `mcp_nudge_shown`, `_clicked`, `_closed`.
 - `/ai` (`pages/Ai.jsx`) is the how-to-connect page: copyable address, steps per app, one-click installs for Cursor and
   VS Code, example questions, the tools and prompts. A browser opening `/mcp` is redirected there (302); keep its
   TOOLS and PROMPTS lists in step with `mcp_server.py`.

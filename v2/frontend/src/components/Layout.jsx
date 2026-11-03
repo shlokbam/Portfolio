@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import A from './A'
 import ChatWidget from './ChatWidget'
+import McpNudge from './McpNudge'
 import { useSite } from '../lib/site'
 import { css } from '../lib/css'
 import { RESUME_PAGE } from '../lib/links'
@@ -286,6 +287,7 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
 
         <ToTop chat={chat} />
         {chat && <ChatWidget greeting={greeting} />}
+        <McpNudge />
       </div>
     </div>
   )

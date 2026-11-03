@@ -397,3 +397,33 @@ section#top > .wrap, .ai-host > .wrap { position: relative; z-index: 1; }
   .sb .ship-list[aria-hidden] { display: none; }
   .sb .ship-rail { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
 }
+
+/* The "ask your own AI" card, bottom-left (components/McpNudge.jsx); the right side holds the chat and side tab */
+.sb .mcpn { position: fixed; left: 24px; bottom: 24px; z-index: 63; width: min(330px, calc(100vw - 48px)); display: grid; gap: 10px; padding: 16px 16px 16px 18px; border-radius: 20px; border: 1px solid var(--line); background: var(--surface); color: var(--text); box-shadow: 0 24px 60px rgba(0,0,0,.35); animation: sb-mcpn-in .7s cubic-bezier(.16,1,.3,1) both; }
+.sb .mcpn.out { animation: sb-mcpn-out .35s ease-in both; pointer-events: none; }
+.sb .mcpn-top { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 10px; }
+.sb .mcpn-top button { width: 32px; height: 32px; margin: -6px -6px -6px 0; border: 0; border-radius: 50%; background: transparent; color: var(--muted); cursor: pointer; font-size: 13px; }
+.sb .mcpn-top button:hover { background: var(--surface2); color: var(--text); }
+.sb .mcpn-dot { display: inline-block; width: 7px; height: 7px; margin-right: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); animation: sb-mcpn-pulse 1.8s ease-out infinite; vertical-align: 1px; }
+.sb .mcpn-title { font-size: 19px; letter-spacing: -.01em; line-height: 1.2; }
+.sb .mcpn .mcpn-term { min-height: 42px; padding: 10px 12px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); font-size: 12px; line-height: 1.5; text-transform: none; letter-spacing: 0; }
+.sb .mcpn-term > span:first-child { color: var(--accent); }
+.sb .mcpn-caret { display: inline-block; width: 7px; height: 13px; margin-left: 1px; background: var(--text); vertical-align: -2px; animation: sb-mcpn-blink 1s steps(1) infinite; }
+.sb .mcpn-sub { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+.sb .mcpn-go { justify-self: start; display: inline-flex; align-items: center; min-height: 42px; padding: 0 16px; border-radius: 999px; background: var(--accent); color: var(--onaccent); }
+.sb .mcpn-go:hover { filter: brightness(1.08); }
+@keyframes sb-mcpn-in { from { opacity: 0; transform: translateX(-28px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes sb-mcpn-out { to { opacity: 0; transform: translateX(-20px); } }
+@keyframes sb-mcpn-pulse { to { box-shadow: 0 0 0 8px transparent; } }
+@keyframes sb-mcpn-blink { 50% { opacity: 0; } }
+/* wide screens show the "Open to opportunities" tab on the left edge: sit clear of it */
+@media (min-width: 1101px) { .sb .mcpn { left: 76px; } }
+/* phones: a slim strip above the chat button */
+@media (max-width: 640px) {
+  .sb .mcpn { left: 16px; right: 16px; bottom: 88px; width: auto; grid-template-columns: 1fr auto; align-items: center; gap: 6px 12px; padding: 12px 12px 12px 16px; border-radius: 18px; }
+  .sb .mcpn-top { grid-column: 1 / -1; }
+  .sb .mcpn-term, .sb .mcpn-sub { display: none; }
+  .sb .mcpn-title { font-size: 16px; }
+  .sb .mcpn-go { min-height: 40px; padding: 0 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .sb .mcpn, .sb .mcpn.out { animation-duration: .01s; } .sb .mcpn-dot, .sb .mcpn-caret { animation: none; } }
