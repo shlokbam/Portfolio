@@ -4,6 +4,7 @@ import A from '../components/A'
 import AIBackdrop from '../components/AIBackdrop'
 import ProfilePeek from '../components/ProfilePeek'
 import Glance from '../components/Glance'
+import Flagships from '../components/Flagships'
 import Hello from '../components/Hello'
 import AskAI from '../components/AskAI'
 import NowRadar from '../components/NowRadar'
@@ -157,6 +158,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Flagships />
       <Glance />
       <NowRadar />
       <Shipping />

@@ -199,7 +199,9 @@ posts, so this one line per post is the update; the chatbot and the MCP server (
   `contact_error`, `chat_open`, `chat_question` (quick or typed, never the text), `profile_click` (network),
   `project_link_click` (domain, URL, link text), `file_open` (certificates, patents, other `/static/` files), `email_click`, `phone_click`, `series_post_click` (part, where), `series_follow_click`, `mcp_menu_click`. Every event
   carries `page`. Links are counted by one document-wide click listener, so new links need no code.
-  `contact_submit` and `resume_download` are marked as key events in GA4. Never send personal data.
+  Key events in GA4 (Admin → Events → star): `resume_download` and `resume_view_click`; star `contact_submit` once it
+  shows in "Recent events" (GA lists an event only after it has fired). `home_project_click` (project) counts
+  clicks in Home's "Selected work". Never send personal data.
 - Owner opt-out: open the site once with `?notrack=1` in each of your browsers; `?notrack=0` undoes it.
 - `src/pages/Privacy.jsx` (`/privacy`) describes what the site collects. Update it whenever analytics, the chat or the
   contact form change.
