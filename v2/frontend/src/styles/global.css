@@ -435,3 +435,38 @@ section#top > .wrap, .ai-host > .wrap { position: relative; z-index: 1; }
 .sb .mcard-title { font-size: 21px; letter-spacing: -.01em; line-height: 1.2; }
 .sb .mcard-sub { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
 .sb .mcard-go { margin-top: 4px; color: var(--accent); }
+
+/* The LinkedIn series (components/Series.jsx): the full section on the Writing page and the strip on Home */
+.sb .ser { padding: 72px 0 8px; scroll-margin-top: 80px; }
+.sb .ser-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px 32px; flex-wrap: wrap; }
+.sb .ser-name { margin: 18px 0 0; font-size: clamp(40px, 6vw, 92px); }
+.sb .ser-about { margin: 18px 0 0; max-width: 720px; font-size: clamp(20px, 2vw, 28px); line-height: 1.2; color: var(--muted); }
+.sb .ser-arc { margin-top: 44px; }
+.sb .ser-arcline { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 1px solid var(--text); }
+.sb .ser-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 16px; margin-top: 20px; }
+.sb .ser-card { display: flex; flex-direction: column; gap: 12px; padding: 22px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); color: var(--text); text-decoration: none; transition: border-color .25s, transform .3s cubic-bezier(.16,1,.3,1); }
+.sb .ser-card:hover, .sb .ser-card:focus-visible { border-color: var(--accent); transform: translateY(-3px); }
+.sb .ser-meta, .sb .ser-foot { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); }
+.sb .ser-foot { margin-top: auto; padding-top: 6px; }
+.sb .ser-foot span:last-child { display: inline-flex; align-items: center; gap: 6px; color: var(--text); }
+.sb .ser-title { font-size: 21px; line-height: 1.18; letter-spacing: -.015em; }
+.sb .ser-sum { color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+.sb .ser-strip { padding: 36px 0; }
+.sb .ser-strip-in { display: grid; grid-template-columns: minmax(200px, 260px) minmax(0, 1fr) auto; align-items: center; gap: 28px; }
+.sb .ser-strip-head { display: grid; gap: 8px; }
+.sb .ser-strip-count { font-size: 19px; letter-spacing: -.01em; }
+.sb .ser-dots { display: flex; gap: 6px; }
+.sb .ser-dots i { width: 18px; height: 4px; border-radius: 2px; background: var(--line); }
+.sb .ser-dots i.on { background: var(--accent); }
+.sb .ser-strip-post { display: grid; gap: 6px; padding: 16px 20px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); color: var(--text); text-decoration: none; transition: border-color .2s; }
+.sb .ser-strip-post:hover, .sb .ser-strip-post:focus-visible { border-color: var(--accent); }
+.sb .ser-strip-post b { display: block; font-size: 19px; letter-spacing: -.01em; line-height: 1.2; }
+.sb .ser-strip-post .mono { font-size: 10px; }
+.sb .ser-strip-all { white-space: nowrap; }
+@media (max-width: 900px) {
+  .sb .ser-strip-in { grid-template-columns: minmax(0, 1fr) auto; gap: 16px 20px; }
+  .sb .ser-strip-post { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-width: 560px) { .sb .ser-strip-all { grid-column: 1 / -1; justify-self: start; } }
+.sb .ser-strip-post b svg { display: inline; margin-left: 6px; vertical-align: -1px; }

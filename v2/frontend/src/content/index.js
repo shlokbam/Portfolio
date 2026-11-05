@@ -8,6 +8,7 @@ import { JOURNEY } from './journey.js'
 import { PATENTS, AWARDS, CERTIFICATIONS, MORE_CERTIFICATIONS } from './recognition.js'
 import { STORIES } from './community.js'
 import { POSTS } from './writing.js'
+import { SERIES, ARCS, SERIES_POSTS } from './linkedin.js'
 import { SKILLS } from './skills.js'
 import { NOW, UPDATED } from './now.js'
 
@@ -59,6 +60,9 @@ export function portfolio(site) {
       .concat(MORE_CERTIFICATIONS.map((c) => ({ title: c.title, issuer: 'Microsoft & LinkedIn Learning', date: 'Mar 2024', summary: c.desc, url: url(c.href) }))),
     community: STORIES.map((s) => ({ title: s.title, role: s.role, when: s.year, summary: s.desc, tags: s.tags, link: url(s.link) })),
     writing: POSTS.map((p) => ({ title: p.title, date: p.date, topic: p.tag, summary: p.blurb, url: p.href })),
+    series: { name: SERIES.name, tag: SERIES.tag, about: SERIES.about, where: 'LinkedIn', follow: SERIES.follow, page: url('/writing#series'),
+      arcs: ARCS.map((a) => ({ number: a.n, name: a.name, status: a.status })),
+      posts: SERIES_POSTS.map((p) => ({ part: p.part, arc: p.arc, date: p.date, topic: p.topic, title: p.title, summary: p.summary, url: p.url })) },
     skills: SKILLS.map((g) => ({ group: g.name, skills: g.skills.map(([name, lv]) => ({ name, level: LEVEL[lv] || 'working' })) }))
   }
 }

@@ -155,6 +155,12 @@ def facts(data: dict) -> str:
 
     out += ['', f"## Writing (journal: {links['journal']}) — {len(data['writing'])} published entries, newest first"]
     out += [f"- \"{w['title']}\" ({w['date']}, {w['topic']})" for w in data['writing']]
+    ser = data.get('series')
+    if ser and ser.get('posts'):
+        arcs = {a['number']: a for a in ser['arcs']}
+        out += ['', f"## LinkedIn series: \"{ser['name']}\" ({ser['tag']}) — {ser['about']} All parts: {ser['page']}"]
+        out += [f"- Arc {a['number']}: {a['name']} ({a['status']})" for a in ser['arcs']]
+        out += [f"- Part {p['part']} (arc {p['arc']}, {p['date']}, {p['topic']}): \"{p['title']}\" — {p['summary']} {p['url']}" for p in ser['posts']]
 
     out += ['', SITE_NOTES]
     return '\n'.join(out)

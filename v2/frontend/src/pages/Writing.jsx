@@ -2,6 +2,7 @@ import Layout from '../components/Layout'
 import { POSTS } from '../content/writing'
 import A from '../components/A'
 import AIBackdrop from '../components/AIBackdrop'
+import { SeriesSection } from '../components/Series'
 import { css } from '../lib/css'
 import { useState } from 'react'
 import './Writing.css'
@@ -45,8 +46,10 @@ export default function Writing() {
           </div>
         </div>
       </section>
+      <SeriesSection />
       <section style={{ padding: "72px 0 112px" }}>
         <div className="wrap">
+          <span className="mono" style={{ display: "block", marginBottom: "20px", color: "var(--muted)" }}>On the journal · long-form build logs</span>
           <div role="group" aria-label="Filter entries" className="wfilters">
             {TOPICS.map(([id, label]) => (
               <button key={id} type="button" className={'wchip mono' + (topic === id ? ' on' : '')} aria-pressed={topic === id} onClick={() => setTopic(id)}>

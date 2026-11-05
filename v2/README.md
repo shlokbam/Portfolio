@@ -89,7 +89,7 @@ npm run dev        # http://localhost:5173
 ## Content (one source for the site, the assistant and the MCP server)
 Everything the site says about Shlok lives as plain data in `frontend/src/content/`: `profile.js`, `projects.js`,
 `journey.js` (work, leadership, education), `recognition.js` (patents, awards, certifications), `community.js`,
-`writing.js`, `skills.js` and `now.js`. The pages render from these files.
+`writing.js`, `linkedin.js` (the LinkedIn series), `skills.js` and `now.js`. The pages render from these files.
 
 - The build writes all of it to **`/portfolio.json`** (`content/index.js` sets the shape and turns paths into full URLs).
 - The backend reads that live file (`backend/content.py`, refreshed every 10 minutes) and builds the assistant's facts
@@ -178,6 +178,13 @@ The "On my radar" section (`src/components/NowRadar.jsx`) shows what Shlok is fo
 `src/content/now.js` monthly: change `UPDATED` and the blocks (a block with empty `text` is hidden). The
 assistant picks it up from the content.
 
+## LinkedIn series
+The "Not What You Think" series is listed on the Writing page (`#series`) and its latest part is a strip on
+Home (`src/components/Series.jsx`). After each new post, add one entry at the top of `SERIES_POSTS` in
+`src/content/linkedin.js` (part, arc, date, topic, title, summary, and the post link from "…" → Copy link to
+post), and update an arc's `status` when it finishes or starts. LinkedIn has no API for reading a person's
+posts, so this one line per post is the update; the chatbot and the MCP server (`get_writing`) pick it up.
+
 ## Home page extras
 - **At a glance** (`src/components/Glance.jsx`): stat tiles, each with its own hover interaction.
 - **Skill pit** (`src/components/SkillPit.jsx`): the stack as physical pills (matter-js, ~27 kB gzip,
@@ -190,7 +197,7 @@ assistant picks it up from the content.
 - Microsoft Clarity (project `z2u0dv5iv5`, heatmaps and replays) is next to it, also skipped on localhost.
 - Events (`src/lib/track.js`, sent to both): `resume_download`, `resume_view_click`, `contact_submit` (topic),
   `contact_error`, `chat_open`, `chat_question` (quick or typed, never the text), `profile_click` (network),
-  `project_link_click` (domain, URL, link text), `file_open` (certificates, patents, other `/static/` files), `email_click`, `phone_click`. Every event
+  `project_link_click` (domain, URL, link text), `file_open` (certificates, patents, other `/static/` files), `email_click`, `phone_click`, `series_post_click` (part, where), `series_follow_click`, `mcp_menu_click`. Every event
   carries `page`. Links are counted by one document-wide click listener, so new links need no code.
   `contact_submit` and `resume_download` are marked as key events in GA4. Never send personal data.
 - Owner opt-out: open the site once with `?notrack=1` in each of your browsers; `?notrack=0` undoes it.

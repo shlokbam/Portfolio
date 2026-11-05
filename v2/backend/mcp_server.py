@@ -63,7 +63,7 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
         description='Ask your AI about Shlok Bam: projects, experience, skills, patents, awards and contact details, always current.',
         instructions=INSTRUCTIONS,
         website_url='https://shlokbam.in',
-        version='1.2.1',
+        version='1.2.2',
     )
 
     def tool(title: str, github: bool = False):
@@ -209,16 +209,26 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
     async def get_writing(
         topic: Annotated[str, Field(description='Only posts about this: case-insensitive, matched as part of the topic tag, title or summary. Examples: "Agents", "RAG", "DevOps", "MCP". Empty for all posts.')] = '',
     ) -> dict:
-        """Shlok's technical blog posts (his journal), newest first: title, date, topic tag, summary and link.
-        The topic filter is case-insensitive and matches part of a post's topic tag, title or summary ("agent"
-        finds posts tagged Agents); leave it empty for every post. No match returns count 0 and an empty list.
-        For the projects the posts describe, use get_project."""
+        """Shlok's writing, newest first: his technical blog posts (journal: title, date, topic tag, summary,
+        link) and his LinkedIn series "Not What You Think" (short posts on common misconceptions about LLMs,
+        each with part, arc, date, topic, title, summary and link, plus the series' arcs and their status).
+        The topic filter is case-insensitive and matches part of a post's topic, title or summary in both
+        ("agent" finds posts tagged Agents, "token" finds the series part on tokens); leave it empty for
+        everything. No match returns count 0 and empty lists. For the projects the posts describe, use
+        get_project."""
         d = await get_content()
         posts = d['writing']
+        ser = d.get('series') or {}
+        parts = ser.get('posts', [])
         if topic.strip():
             t = _norm(topic)
             posts = [w for w in posts if t in _norm(w['topic'] + ' ' + w['title'] + ' ' + w['summary'])]
-        return {'count': len(posts), 'posts': posts, 'journal': d['profile']['links']['journal']}
+            parts = [p for p in parts if t in _norm(p['topic'] + ' ' + p['title'] + ' ' + p['summary'])]
+        out = {'count': len(posts) + len(parts), 'posts': posts, 'journal': d['profile']['links']['journal']}
+        if ser:
+            out['linkedinSeries'] = {k: ser[k] for k in ('name', 'tag', 'about', 'follow', 'page', 'arcs') if k in ser}
+            out['linkedinSeries']['posts'] = parts
+        return out
 
     @tool('Résumé')
     async def get_resume() -> dict:
@@ -249,7 +259,7 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
         query: Annotated[str, Field(description='One or more words, any case; punctuation is ignored. Each word is matched at the start of words in the text ("eval" finds evaluation), matches in a title count more, and the exact phrase scores extra. Examples: "RAG", "Terraform", "hackathon", "PharmaACE", "patent granted".')],
     ) -> dict:
         """Search everything in Shlok's portfolio (projects, experience, leadership, education, patents,
-        awards, certifications, community work and blog posts) for a word or topic. Returns up to 8 matches,
+        awards, certifications, community work, blog posts and LinkedIn series posts) for a word or topic. Returns up to 8 matches,
         best first, each with its type, title, a snippet and a link; no match returns an empty results list.
         Use it for specific questions the other tools don't answer directly, such as where he used a
         technology or whether he has done something. For a known project use get_project; for the full list of
@@ -274,6 +284,8 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
             docs.append(('community', c['title'], c['summary'][:220], d['site'] + '/community', ' '.join([c['title'], c['role'], c['summary'], ' '.join(c['tags'])]), 1))
         for w in d['writing']:
             docs.append(('post', w['title'], w['summary'], w['url'], ' '.join([w['title'], w['topic'], w['summary']]), 1))
+        for p in (d.get('series') or {}).get('posts', []):
+            docs.append(('linkedin post', f"{p['title']} (Not What You Think, part {p['part']})", p['summary'], p['url'], ' '.join([p['title'], p['topic'], p['summary'], 'linkedin series']), 1))
         scored = []
         for kind, title, snippet, url, text, weight in docs:
             body, head = ' ' + _norm(text) + ' ', ' ' + _norm(title) + ' '
