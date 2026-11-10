@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shlok Bam · Links</title>
+<meta name="description" content="Figuring life out quietly, staying grateful, and choosing peace over everything.">
+<meta property="og:title" content="Shlok Bam · Links">
+<meta property="og:description" content="Figuring life out quietly, staying grateful, and choosing peace over everything 🤍">
+<meta property="og:image" content="https://shlokbam.in/og/home.jpg">
+<meta name="theme-color" content="#0B0B0A">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://shlokbam.in/links">
+<meta property="og:url" content="https://shlokbam.in/links">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face{font-family:'Archivo';font-style:normal;font-weight:400 900;font-display:swap;src:url('/fonts/archivo-latin.woff2') format('woff2')}
+  @font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/instrument-serif-italic-latin.woff2') format('woff2')}
+  @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 500;font-display:swap;src:url('/fonts/jetbrains-mono-latin.woff2') format('woff2')}
+  :root, html[data-theme="dark"]{
+    --bg:#0B0B0A; --surface:#131311; --surface2:#1B1B18; --line:#272622;
+    --text:#F2EFE7; --muted:#A19D92; --muted2:#6E6A61; --dot:#242320;
+    --accent:#FF5A1F; --onaccent:#0B0B0A; --glow:rgba(255,90,31,.10);
+  }
+  html[data-theme="light"]{
+    --bg:#F2EFE7; --surface:#E9E5DA; --surface2:#DFDACD; --line:#D2CCBD;
+    --text:#11110F; --muted:#5B584F; --muted2:#A8A397; --dot:#D6D0C2;
+    --accent:#B93A0B; --onaccent:#FFFFFF; --glow:rgba(185,58,11,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg)}
+  body{
+    font-family:'Archivo',system-ui,sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(ellipse 70% 45% at 85% 8%, var(--glow), transparent 70%),
+      radial-gradient(circle, var(--dot) 1px, transparent 1.5px) 0 0/22px 22px,
+      var(--bg);
+    background-attachment:fixed;
+    min-height:100vh;
+    display:flex;justify-content:center;
+    transition:background-color .3s,color .3s;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em}
+
+  .page{width:100%;max-width:520px;padding:20px 20px 28px;display:flex;flex-direction:column;min-height:100vh}
+
+  /* top bar */
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:500;color:var(--text);text-decoration:none}
+  .brand .rec{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--accent);display:grid;place-items:center}
+  .brand .rec::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.25}}
+  .actions{display:flex;gap:8px}
+  .circle-btn{
+    width:40px;height:40px;border-radius:50%;
+    border:1px solid var(--line);background:transparent;color:var(--text);
+    display:grid;place-items:center;cursor:pointer;transition:border-color .2s,background .2s;
+  }
+  .circle-btn:hover{border-color:var(--text)}
+  .circle-btn svg{width:17px;height:17px}
+  .sun{display:none} html[data-theme="dark"] .sun{display:block} html[data-theme="dark"] .moon{display:none}
+
+  /* hero */
+  .hero{padding-top:34px}
+  .meta-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .avatar{
+    width:96px;height:96px;border-radius:50%;object-fit:cover;
+    border:1px solid var(--line);padding:4px;background:var(--surface);
+  }
+  .loc{font-size:11px;color:var(--muted);text-align:right;line-height:1.9}
+  .loc .clock{color:var(--muted2)}
+  .hola{font-family:'Instrument Serif',serif;font-style:italic;font-size:30px;color:var(--muted);margin-top:26px;line-height:1}
+  h1{
+    font-weight:900;font-size:clamp(52px,16.5vw,86px);line-height:.88;letter-spacing:-.045em;
+    text-transform:uppercase;margin-top:6px;
+    background:linear-gradient(100deg,var(--muted) 0%,var(--text) 70%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    white-space:nowrap;display:block;width:100%;
+  }
+  h1 .fit{display:inline-block}
+  h1 .sq{display:inline-block;width:.17em;height:.17em;background:var(--accent);margin-left:.04em;-webkit-text-fill-color:initial}
+  .bio{font-size:19px;line-height:1.45;margin-top:22px;color:var(--text)}
+  .bio em{font-style:normal;color:var(--accent)}
+
+  .status{
+    display:inline-flex;align-items:center;gap:8px;margin-top:20px;
+    font-size:11px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);color:var(--text);
+    text-decoration:none;
+  }
+  .status .dot{width:7px;height:7px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+
+  /* socials */
+  .socials{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:28px}
+  .socials a{
+    aspect-ratio:1;border-radius:50%;border:1px solid var(--line);
+    display:grid;place-items:center;color:var(--text);
+    transition:border-color .2s,background .2s,color .2s,transform .2s;
+  }
+  .socials a:hover{background:var(--accent);border-color:var(--accent);color:var(--onaccent);transform:translateY(-2px)}
+  .socials svg{width:44%;height:44%;fill:currentColor}
+
+  /* links card */
+  .card{margin-top:28px;border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
+  .card-head{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);padding:14px 18px;border-bottom:1px solid var(--line)}
+  .row{
+    display:flex;align-items:center;gap:16px;padding:18px;text-decoration:none;color:var(--text);
+    border-bottom:1px solid var(--line);transition:background .2s;
+  }
+  .row:last-child{border-bottom:none}
+  .row:hover{background:var(--surface2)}
+  .row .idx{font-size:11px;color:var(--muted2);width:20px}
+  .row .txt{flex:1;min-width:0}
+  .row .title{font-weight:600;font-size:17px}
+  .row .sub{font-size:10.5px;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .row .arrow{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:all .2s;flex-shrink:0}
+  .row:hover .arrow{background:var(--accent);border-color:var(--accent);color:var(--onaccent);transform:rotate(-45deg)}
+  .row .arrow svg{width:14px;height:14px}
+
+  .cta{
+    display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;
+    background:var(--accent);color:var(--onaccent);text-decoration:none;
+    padding:17px;border-radius:999px;font-size:12.5px;font-weight:500;transition:transform .2s,filter .2s;
+  }
+  .cta:hover{transform:translateY(-2px);filter:brightness(1.08)}
+
+  footer{margin-top:auto;padding-top:40px;display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted2)}
+  footer a{color:var(--muted2);text-decoration:none} footer a:hover{color:var(--accent)}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,16px);background:var(--text);color:var(--bg);
+    padding:10px 18px;border-radius:999px;font-size:11px;opacity:0;transition:all .25s;pointer-events:none}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  .fade{opacity:0;transform:translateY(10px);animation:in .6s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes in{to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.fade{animation:none;opacity:1;transform:none}.brand .rec::after{animation:none}}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="topbar">
+    <a class="brand mono" href="https://shlokbam.in/"><span class="rec"></span>Links</a>
+    <div class="actions">
+      <button class="circle-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="circle-btn" id="shareBtn" aria-label="Share">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="meta-row fade">
+      <img class="avatar" src="/links/avatar.webp" alt="Shlok Bam" width="96" height="96">
+      <div class="loc mono">Pune, IN · <span id="yr"></span><br><span class="clock" id="clock">--:--:-- IST</span></div>
+    </div>
+    <p class="hola fade" style="animation-delay:.08s">hola, I'm</p>
+    <h1 class="fade" style="animation-delay:.14s"><span class="fit">Shlokbam<span class="sq"></span></span></h1>
+    <p class="bio fade" style="animation-delay:.2s">Figuring life out quietly, staying grateful, and choosing <em>peace over everything</em> 🤍</p>
+    <a class="status mono fade" style="animation-delay:.26s" href="https://shlokbam.in/contact" target="_blank" rel="noopener"><span class="dot"></span>Open to opportunities · Let's talk</a>
+  </section>
+
+  <nav class="socials fade" id="socials" style="animation-delay:.32s" aria-label="Social links"></nav>
+
+  <section class="card fade" style="animation-delay:.38s">
+    <div class="card-head mono"><span>Quick links</span><span>Live</span></div>
+    <div id="links"></div>
+  </section>
+
+  <a class="cta mono fade" style="animation-delay:.44s" id="cta" target="_blank" rel="noopener"></a>
+
+  <footer class="mono">
+    <span>© <span id="yr2"></span> Shlok Bam</span>
+    <a href="https://shlokbam.in/">shlokbam.in ↗</a>
+  </footer>
+</main>
+
+<div class="toast mono" id="toast">Link copied</div>
+
+<script>
+/* =========================================================
+   EDIT YOUR LINKS HERE  (leave a url "" to hide it)
+   ========================================================= */
+const SOCIALS = {
+  instagram: "https://instagram.com/shlokbam",              // ← check your Instagram username
+  whatsapp:  "https://wa.me/917974670370",
+  snapchat:  "https://snapchat.com/add/YOUR_SNAP_USERNAME", // ← put your Snapchat username
+  linkedin:  "https://www.linkedin.com/in/shlokbam/",
+  website:   "https://shlokbam.in/",
+  github:    "https://github.com/shlokbam"
+};
+
+const LINKS = [
+  { title: "Portfolio", sub: "shlokbam.in · projects & work", url: "https://shlokbam.in/" },
+  { title: "Résumé",    sub: "AI / GenAI engineer · PDF",     url: "https://shlokbam.in/resume" },
+  { title: "DailyDiff", sub: "dailydiff.in",                  url: "https://dailydiff.in" },
+  { title: "Journal",   sub: "What breaks, written up",       url: "https://journal-murex-three.vercel.app/journal" }
+];
+
+// Big orange button at the bottom
+const CTA = { label: "Get in touch", url: "https://shlokbam.in/contact" };
+
+/* ---------- icons ---------- */
+const ICONS = {
+  instagram:'<svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.2.8-.4.4-.6.7-.8 1.2-.2.4-.3 1-.4 2.1C2.8 9.9 2.8 10.2 2.8 12s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.2.4.4.7.6 1.2.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.2-.8.4-.4.6-.7.8-1.2.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.2-.4-.4-.7-.6-1.2-.8-.4-.2-1-.3-2.1-.4C15.5 4 15.1 4 12 4zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 8.1a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm5.1-8.3a1.1 1.1 0 1 1 0-2.3 1.1 1.1 0 0 1 0 2.3z"/></svg>',
+  whatsapp:'<svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zM20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.7c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3z"/></svg>',
+  snapchat:'<svg viewBox="0 0 24 24"><path d="M12.2 1c1.3 0 5.1.4 6.9 4.4.6 1.3.5 3.6.4 5.4v.2c.1.1.3.1.6.1.4 0 .9-.2 1.3-.4h.3c.4 0 .9.3 1 .6.1.5-.3.9-1.2 1.2-.1 0-.3.1-.4.1-.6.2-1.4.4-1.6.9-.1.3 0 .6.3 1.1 0 0 1.4 3.3 4.6 3.8.2 0 .4.3.4.5v.2c-.2.6-1.5 1.1-3.9 1.5-.1.1-.2.5-.2.8-.1.3-.1.6-.2.8-.1.4-.4.6-.8.6h-.1c-.2 0-.5-.1-.9-.1-.4-.1-.9-.2-1.5-.2-.3 0-.7 0-1 .1-.7.1-1.2.5-1.8.9-.8.6-1.7 1.2-3.1 1.2h-.3c-1.4 0-2.3-.6-3.1-1.2-.6-.4-1.1-.8-1.8-.9-.4-.1-.7-.1-1-.1-.6 0-1.1.1-1.5.2-.3.1-.6.1-.8.1-.4 0-.7-.3-.8-.6-.1-.3-.1-.6-.2-.8 0-.3-.1-.7-.2-.8C1.1 19.2-.2 18.7-.3 18.1v-.2c0-.2.2-.5.4-.5 3.2-.5 4.6-3.8 4.6-3.8.3-.5.3-.9.3-1.1-.2-.5-1-.7-1.6-.9-.1 0-.3-.1-.4-.1-1-.4-1.3-.8-1.2-1.2.1-.4.6-.6 1-.6.1 0 .2 0 .3.1.4.2.9.3 1.3.3.3 0 .5-.1.6-.1v-.3c-.1-1.8-.2-4.1.4-5.4C6.9 1.4 10.7 1 11.9 1h.3z"/></svg>',
+  linkedin:'<svg viewBox="0 0 24 24"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2zm1.8 13.1H3.6V9h3.6v11.5z"/></svg>',
+  website:'<svg viewBox="0 0 24 24" style="fill:none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  github:'<svg viewBox="0 0 24 24"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>'
+};
+const NAMES={instagram:"Instagram",whatsapp:"WhatsApp",snapchat:"Snapchat",linkedin:"LinkedIn",website:"Website",github:"GitHub"};
+const ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+const soc=document.getElementById('socials');
+const socEntries=Object.entries(SOCIALS).filter(([,u])=>u);
+soc.style.gridTemplateColumns=`repeat(${socEntries.length},1fr)`;
+socEntries.forEach(([k,u])=>{
+  const a=document.createElement('a');a.href=u;a.target="_blank";a.rel="noopener noreferrer";
+  a.setAttribute('aria-label',NAMES[k]);a.title=NAMES[k];a.innerHTML=ICONS[k];soc.appendChild(a);
+});
+
+const lw=document.getElementById('links');
+LINKS.filter(l=>l.url).forEach((l,i)=>{
+  const a=document.createElement('a');a.className="row";a.href=l.url;a.target="_blank";a.rel="noopener noreferrer";
+  a.innerHTML=`<span class="idx mono">${String(i+1).padStart(2,'0')}</span>
+    <span class="txt"><div class="title">${l.title}</div>${l.sub?`<div class="sub mono">${l.sub}</div>`:''}</span>
+    <span class="arrow">${ARROW}</span>`;
+  lw.appendChild(a);
+});
+if(!LINKS.length) lw.closest('.card').remove();
+
+const cta=document.getElementById('cta');
+if(CTA&&CTA.url){cta.href=CTA.url;cta.innerHTML=`${CTA.label} ${ARROW.replace('<svg','<svg width="14" height="14"')}`}else cta.remove();
+
+const y=new Date().getFullYear();document.getElementById('yr').textContent=y;document.getElementById('yr2').textContent=y;
+
+/* make the name fill the width without overflowing */
+const h1=document.querySelector('h1'),fit=h1.querySelector('.fit');
+function fitName(){h1.style.fontSize='100px';const r=h1.clientWidth/fit.scrollWidth;h1.style.fontSize=Math.min(100*r*0.98,110)+'px';}
+fitName();window.addEventListener('resize',fitName);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitName);
+
+/* live IST clock, like the portfolio header */
+const clock=document.getElementById('clock');
+const tick=()=>{clock.textContent=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date())+' IST'};
+tick();setInterval(tick,1000);
+
+/* theme toggle (remembers choice) */
+const root=document.documentElement;
+try{const s=localStorage.getItem('sb-links-theme');if(s)root.dataset.theme=s;}catch(e){}
+const setMeta=()=>document.querySelector('meta[name=theme-color]').setAttribute('content',root.dataset.theme==='light'?'#F2EFE7':'#0B0B0A');
+setMeta();
+document.getElementById('themeBtn').addEventListener('click',()=>{
+  root.dataset.theme=root.dataset.theme==='light'?'dark':'light';setMeta();
+  try{localStorage.setItem('sb-links-theme',root.dataset.theme)}catch(e){}
+});
+
+/* share */
+const toast=document.getElementById('toast');
+document.getElementById('shareBtn').addEventListener('click',async()=>{
+  try{
+    if(navigator.share){await navigator.share({title:"Shlok Bam",url:location.href});return;}
+    await navigator.clipboard.writeText(location.href);
+  }catch(e){if(e&&e.name==="AbortError")return;}
+  toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1600);
+});
+</script>
+</body>
+</html>
