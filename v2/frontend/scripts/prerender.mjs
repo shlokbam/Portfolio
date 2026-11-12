@@ -79,8 +79,9 @@ ${ROUTES.filter((r) => r !== '/privacy').map((r) => `- [${PAGES[r].name}](${SITE
 - Résumé: ${SITE}/static/Resume/Shlok_Bam_Resume.pdf
 
 ## Data
-- [portfolio.json](${SITE}/portfolio.json): everything on this site as JSON (profile, projects, experience, patents, awards, certifications, writing, skills)
-- MCP server: ${SITE}/mcp (Streamable HTTP, read-only tools: get_profile, list_projects, get_project, get_experience, get_achievements, get_skills, get_writing, get_resume, get_activity, search_portfolio)
+- [portfolio.json](${SITE}/portfolio.json): everything on this site as JSON (profile, projects, experience, patents, awards, certifications, writing, LinkedIn series, open-source contributions, skills)
+- MCP server: ${SITE}/mcp (Streamable HTTP, read-only tools: get_profile, list_projects, get_project, get_experience, get_achievements, get_skills, get_writing, get_resume, get_activity, get_open_source, search_portfolio)
+- Open source: ${SITE}/work#open-source (pull requests to other projects, live from GitHub)
 
 ## Optional
 - [Privacy](${SITE}/privacy): ${PAGES['/privacy'].description}

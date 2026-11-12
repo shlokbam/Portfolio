@@ -5,7 +5,7 @@ import McpNudge from './McpNudge'
 import { useSite } from '../lib/site'
 import { css } from '../lib/css'
 import { RESUME_PAGE } from '../lib/links'
-import { useIstDateTime } from '../lib/clock'
+import HeaderClock from './HeaderClock'
 import { lockScroll, unlockScroll, scrollToTop } from '../lib/smooth'
 import { track } from '../lib/track'
 
@@ -30,10 +30,11 @@ const SOCIAL = [
   ['Email', 'mailto:shlokbam19103@gmail.com', <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" /></svg>]
 ]
 
-// Header clock: its own component so the per-second tick re-renders only this text.
-function LiveClock() {
-  const now = useIstDateTime()
-  return <span suppressHydrationWarning style={{ fontVariantNumeric: 'tabular-nums' }}>{now}</span>
+// footer spotlight: the pointer's position, for the mask on the lit copy of the name
+function footLight(e) {
+  const el = e.currentTarget, r = el.getBoundingClientRect()
+  el.style.setProperty('--fx', e.clientX - r.left + 'px')
+  el.style.setProperty('--fy', e.clientY - r.top + 'px')
 }
 
 const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/_*#%'
@@ -165,10 +166,7 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
             {back
               ? <A className="mono hide-lg ul" href="/work" style={{ color: 'var(--muted)' }}>← Back to all work</A>
               : (
-                <span className="mono hide-lg" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', color: 'var(--muted)' }}>
-                  <span className="pulse" style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--accent)', color: 'var(--accent)' }} />
-                  <LiveClock /> IST
-                </span>
+                <span className="hide-lg"><HeaderClock /></span>
               )}
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
               <A className="pill mono hide-sm" href={RESUME_PAGE} style={{ height: '44px', padding: '0 18px', borderRadius: '999px', border: '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
@@ -255,7 +253,7 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
 
         <main id="main" tabIndex={-1}>{children}</main>
 
-        <footer className="site-foot" style={css(footerStyle)}>
+        <footer className="site-foot" style={css(footerStyle)} onPointerMove={footLight}>
           <div className="wrap">
             <div className="foot-top">
               <div>
@@ -285,11 +283,15 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
               </div>
             </div>
             <div className="mono foot-bar">
-              <span>© {new Date().getFullYear()} Shlok Bam. All rights reserved. · <A className="ul" href="/resume">Résumé</A> · <A className="ul" href="/ai">Ask your AI</A> · <A className="ul" href="/privacy">Privacy</A></span>
+              <span>© {new Date().getFullYear()} Shlok Bam. All rights reserved. · <A className="ul" href="/privacy">Privacy</A></span>
               <span>AI / Generative AI Engineer · building agentic &amp; LLM-powered systems</span>
             </div>
           </div>
-          <div className="foot-big disp" aria-hidden="true">Shlok Bam</div>
+          {/* the name fills the footer behind everything; a spotlight under the pointer lights it up (CSS) */}
+          <div className="foot-big disp" aria-hidden="true">
+            <span className="fb-base">Shlok<br />Bam</span>
+            <span className="fb-lit">Shlok<br />Bam</span>
+          </div>
         </footer>
 
         <ToTop chat={chat} />

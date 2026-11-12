@@ -5,6 +5,7 @@ Endpoints
   GET  /api/stats          LeetCode / CodeChef / GitHub numbers (cached 2 h)
   GET  /api/availability   online / sleeping / down state of the live project demos (cached 10 min, 90 s if any sleep)
   GET  /api/shipping       recent commits to public GitHub repos, automated ones left out (cached 30 min)
+  GET  /api/opensource     pull requests to other people's repos, with each repo's stars (cached 3 h)
   POST /api/chat           portfolio assistant (Groq; models set by GROQ_MODELS)
   GET  /api/chat/stats     number of questions answered since the last restart
   POST /api/contact        fallback contact relay to Web3Forms (the site normally posts there directly)
@@ -366,6 +367,68 @@ async def github_repos() -> Optional[list]:
     return _repos_cache['data']
 
 
+OSS_TTL = 3 * 60 * 60
+STARS_TTL = 24 * 60 * 60
+_oss_cache: dict = {'data': None, 'at': 0.0}
+_stars_cache: dict = {}  # 'owner/name' -> (at, info)
+
+
+async def _repo_info(name: str) -> dict:
+    """Stars, description and language of someone else's repository, cached STARS_TTL."""
+    now = time.time()
+    hit = _stars_cache.get(name)
+    if hit and now - hit[0] < STARS_TTL:
+        return hit[1]
+    info = {'stars': None, 'description': '', 'language': '', 'url': f'https://github.com/{name}'}
+    try:
+        resp = await client().get(f'https://api.github.com/repos/{name}', headers={**HEADERS, 'Accept': 'application/vnd.github+json'})
+        if resp.status_code == 200:
+            r = resp.json()
+            info = {'stars': r.get('stargazers_count'), 'description': r.get('description') or '', 'language': r.get('language') or '', 'url': r['html_url']}
+            _stars_cache[name] = (now, info)
+        elif hit:
+            info = hit[1]
+    except Exception as exc:
+        log.warning('github repo %s: %s', name, exc)
+        if hit:
+            info = hit[1]
+    return info
+
+
+async def open_source() -> Optional[dict]:
+    """GITHUB_USER's pull requests to repositories they don't own (one search call), with each repository's
+    details; the same shape as the site's build snapshot (frontend/scripts/opensource.mjs). Cached OSS_TTL;
+    on a GitHub hiccup the last good result is kept. The site's curation (skip list) is applied by the readers."""
+    now = time.time()
+    if _oss_cache['data'] and now - _oss_cache['at'] < OSS_TTL:
+        return _oss_cache['data']
+    try:
+        resp = await client().get(
+            'https://api.github.com/search/issues',
+            params={'q': f'author:{GITHUB_USER} type:pr -user:{GITHUB_USER}', 'sort': 'created', 'order': 'desc', 'per_page': 100},
+            headers={**HEADERS, 'Accept': 'application/vnd.github+json'},
+        )
+        resp.raise_for_status()
+        prs = []
+        for it in resp.json().get('items', []):
+            merged = (it.get('pull_request') or {}).get('merged_at')
+            prs.append({'repo': it['repository_url'].split('/repos/', 1)[1], 'number': it['number'], 'title': it['title'],
+                        'state': 'merged' if merged else ('open' if it['state'] == 'open' else 'closed'),
+                        'created': it['created_at'], 'closed': it.get('closed_at'), 'merged': merged, 'url': it['html_url']})
+        repos = {name: await _repo_info(name) for name in dict.fromkeys(p['repo'] for p in prs)}
+        data = {'updated': datetime.now(timezone.utc).isoformat(), 'prs': prs, 'repos': repos}
+        _oss_cache.update(data=data, at=now)
+    except Exception as exc:
+        log.warning('github pull request search: %s', exc)
+    return _oss_cache['data']
+
+
+@app.get('/api/opensource')
+async def api_opensource():
+    data = await open_source()
+    return {'success': bool(data), 'data': data}
+
+
 @app.get('/api/shipping')
 async def api_shipping():
     data, cached = await shipping()
@@ -536,7 +599,7 @@ async def health():
 async def _activity():
     return (await shipping())[0]
 
-portfolio_mcp = mcp_server.build(lambda: content.get(client()), _activity, github_repos)
+portfolio_mcp = mcp_server.build(lambda: content.get(client()), _activity, github_repos, open_source)
 _mcp_app = portfolio_mcp.streamable_http_app(
     streamable_http_path='/mcp', stateless_http=True, json_response=True,
     transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False),
@@ -547,7 +610,7 @@ MCP_INFO = {
     'url': 'https://shlokbam.in/mcp',
     'transport': 'Streamable HTTP (POST)',
     'tools': ['get_profile', 'list_projects', 'get_project', 'get_experience', 'get_achievements', 'get_skills',
-              'get_writing', 'get_resume', 'get_activity', 'search_portfolio'],
+              'get_writing', 'get_resume', 'get_activity', 'get_open_source', 'search_portfolio'],
     'prompts': ['evaluate_for_role', 'summary', 'interview_questions', 'latest'],
     'site': 'https://shlokbam.in',
 }

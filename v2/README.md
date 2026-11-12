@@ -89,7 +89,7 @@ npm run dev        # http://localhost:5173
 ## Content (one source for the site, the assistant and the MCP server)
 Everything the site says about Shlok lives as plain data in `frontend/src/content/`: `profile.js`, `projects.js`,
 `journey.js` (work, leadership, education), `recognition.js` (patents, awards, certifications), `community.js`,
-`writing.js`, `linkedin.js` (the LinkedIn series), `skills.js` and `now.js`. The pages render from these files.
+`writing.js`, `linkedin.js` (the LinkedIn series), `opensource.js` (open-source curation), `skills.js` and `now.js`. The pages render from these files.
 
 - The build writes all of it to **`/portfolio.json`** (`content/index.js` sets the shape and turns paths into full URLs).
 - The backend reads that live file (`backend/content.py`, refreshed every 10 minutes) and builds the assistant's facts
@@ -185,6 +185,16 @@ Home (`src/components/Series.jsx`). After each new post, add one entry at the to
 post), and update an arc's `status` when it finishes or starts. LinkedIn has no API for reading a person's
 posts, so this one line per post is the update; the chatbot and the MCP server (`get_writing`) pick it up.
 
+## Open source
+Pull requests to other people's repositories are found automatically: nothing to update when you open or
+merge one. `scripts/opensource.mjs` runs before every build and saves `src/content/opensource.snapshot.json`
+(so the prerendered Work page, `/portfolio.json` and the assistant have real data); the backend's
+`/api/opensource` refreshes it live (GitHub search, cached 3 h), and the MCP tool `get_open_source` reads it.
+Shown on the Work page (`#open-source`) and as a strip on Home (`src/components/OpenSource.jsx`).
+To curate, edit `src/content/opensource.js`: `skip` (repositories left out; list submissions by default),
+`notes` (one line for a pull request, keyed by its URL) and `pin` (repositories shown first). Optional:
+set `GITHUB_TOKEN` on Vercel for a higher GitHub rate limit during builds.
+
 ## Home page extras
 - **At a glance** (`src/components/Glance.jsx`): stat tiles, each with its own hover interaction.
 - **Skill pit** (`src/components/SkillPit.jsx`): the stack as physical pills (matter-js, ~27 kB gzip,
@@ -197,7 +207,7 @@ posts, so this one line per post is the update; the chatbot and the MCP server (
 - Microsoft Clarity (project `z2u0dv5iv5`, heatmaps and replays) is next to it, also skipped on localhost.
 - Events (`src/lib/track.js`, sent to both): `resume_download`, `resume_view_click`, `contact_submit` (topic),
   `contact_error`, `chat_open`, `chat_question` (quick or typed, never the text), `profile_click` (network),
-  `project_link_click` (domain, URL, link text), `file_open` (certificates, patents, other `/static/` files), `email_click`, `phone_click`, `series_post_click` (part, where), `series_follow_click`, `mcp_menu_click`. Every event
+  `project_link_click` (domain, URL, link text), `file_open` (certificates, patents, other `/static/` files), `email_click`, `phone_click`, `series_post_click` (part, where), `series_follow_click`, `oss_pr_click` (repo, state, where), `oss_all_click`, `mcp_menu_click`, `clock_hover` (once per page view), `theme_toggle` (to), `404_view` (path), `404_break`. Every event
   carries `page`. Links are counted by one document-wide click listener, so new links need no code.
   Key events in GA4 (Admin → Events → star): `resume_download` and `resume_view_click`; star `contact_submit` once it
   shows in "Recent events" (GA lists an event only after it has fired). `home_project_click` (project) counts

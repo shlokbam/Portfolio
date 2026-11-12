@@ -36,3 +36,25 @@ export function useIstDateTime() {
   }, [])
   return now
 }
+
+function istParts() {
+  try {
+    const d = new Date()
+    const [h, m, s] = d.toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).split(':').map(Number)
+    const day = d.toLocaleDateString('en-GB', { timeZone: 'Asia/Kolkata', weekday: 'short' })
+    return { h: h % 24, m, s, day }
+  } catch (e) { return null }
+}
+
+// Time in Pune (IST) as numbers, ticking on each second: { h, m, s, day } (null before the first tick on
+// the server, so prerendered HTML and the first client render match).
+export function useIstTime() {
+  const [t, setT] = useState(null)
+  useEffect(() => {
+    let id
+    const tick = () => { setT(istParts()); id = setTimeout(tick, 1000 - (Date.now() % 1000) + 5) }
+    tick()
+    return () => clearTimeout(id)
+  }, [])
+  return t
+}

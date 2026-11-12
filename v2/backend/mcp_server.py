@@ -19,7 +19,7 @@ Facts about Shlok Bam, an AI / Generative AI engineer from Pune, India, straight
 (https://shlokbam.in), always current. Use these tools whenever the user asks about Shlok: his projects,
 experience, skills, patents, awards, certifications, writing, availability or how to contact him.
 Start with get_profile for an overview, list_projects or get_project for his work, and search_portfolio for
-anything specific. Answer only from what the tools return, and include the links they give so the user can check.
+anything specific, get_open_source for his contributions to other projects. Answer only from what the tools return, and include the links they give so the user can check.
 Pay (salary, stipend, expected CTC) and details of client work at PharmaACE are not shared here: say so and
 suggest emailing him (shlokbam19103@gmail.com) rather than guessing. If something isn't covered, say that
 plainly; never fill gaps with assumptions.
@@ -29,6 +29,11 @@ plainly; never fill gaps with assumptions.
 
 def _norm(s: str) -> str:
     return re.sub(r'[^a-z0-9]+', ' ', (s or '').lower()).strip()
+
+
+def _ts(iso: Optional[str]) -> float:
+    from datetime import datetime
+    return datetime.fromisoformat(iso.replace('Z', '+00:00')).timestamp() if iso else 0.0
 
 
 def _repo_name(p: dict) -> str:
@@ -54,16 +59,18 @@ def _project_card(p: dict, repos: Optional[list] = None) -> dict:
 
 
 def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[], Awaitable[Optional[dict]]],
-          fetch_repos: Callable[[], Awaitable[Optional[list]]]) -> MCPServer:
-    """The server. `get_content` returns the portfolio content, `fetch_activity` recent GitHub commits and
-    `fetch_repos` the public GitHub repositories (both None when GitHub can't be reached)."""
+          fetch_repos: Callable[[], Awaitable[Optional[list]]],
+          fetch_open_source: Callable[[], Awaitable[Optional[dict]]]) -> MCPServer:
+    """The server. `get_content` returns the portfolio content, `fetch_activity` recent GitHub commits,
+    `fetch_repos` the public GitHub repositories and `fetch_open_source` pull requests to other people's
+    repositories (the last three are None when GitHub can't be reached)."""
     mcp = MCPServer(
         name='shlok-bam-portfolio',
         title="Shlok Bam's portfolio",
         description='Ask your AI about Shlok Bam: projects, experience, skills, patents, awards and contact details, always current.',
         instructions=INSTRUCTIONS,
         website_url='https://shlokbam.in',
-        version='1.2.2',
+        version='1.3.0',
     )
 
     def tool(title: str, github: bool = False):
@@ -254,12 +261,51 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
         return {'commitsLast7Days': a['week'], 'reposLast7Days': a['weekRepos'], 'commitsLast30Days': a['month'],
                 'recent': a['commits'], 'github': 'https://github.com/shlokbam'}
 
+    @tool('Open-source contributions', github=True)
+    async def get_open_source(
+        status: Annotated[Literal['all', 'merged', 'open', 'closed'], Field(description='Only pull requests in this state: "merged", "open" (still in review), "closed" (closed without merging), or "all".')] = 'all',
+    ) -> dict:
+        """Shlok's open-source contributions: his pull requests to other people's GitHub repositories, live from
+        GitHub (cached up to 3 hours). Returns totals (merged, in review, closed, projects) and each repository
+        (name, stars, description, link) with its pull requests (title, state, number, dates, link), merged work
+        first. List submissions (awesome lists, portfolio directories) are left out. If GitHub can't be reached,
+        the copy saved at the site's last build is returned with "source": "snapshot". Takes an optional status
+        filter; no match returns empty lists. For his own projects use list_projects; for his own recent commits,
+        get_activity."""
+        d = await get_content()
+        saved = d.get('openSource') or {}
+        skip = {x.lower() for x in saved.get('skip', [])}
+        live = await fetch_open_source()
+        if live:
+            repos = {}
+            for p in live['prs']:
+                if p['repo'].lower() in skip:
+                    continue
+                info = live['repos'].get(p['repo'], {})
+                r = repos.setdefault(p['repo'], {'name': p['repo'], 'url': info.get('url', ''), 'stars': info.get('stars'), 'description': info.get('description', ''), 'prs': []})
+                r['prs'].append({k: p[k] for k in ('title', 'state', 'number', 'created', 'merged', 'closed', 'url')})
+            repos, source, updated = list(repos.values()), 'live', live['updated']
+        else:
+            repos, source, updated = saved.get('repos', []), 'snapshot', saved.get('updated')
+        rank = {'merged': 0, 'open': 1, 'closed': 2}
+        for r in repos:
+            r['prs'] = sorted(r['prs'], key=lambda p: (rank[p['state']], p['created'] and -_ts(p['created'])))
+        every = [p for r in repos for p in r['prs']]
+        count = lambda st: sum(p['state'] == st for p in every)
+        totals = {'merged': count('merged'), 'inReview': count('open'), 'closed': count('closed'), 'projects': len(repos)}
+        if status != 'all':
+            repos = [{**r, 'prs': [p for p in r['prs'] if p['state'] == status]} for r in repos]
+            repos = [r for r in repos if r['prs']]
+        repos.sort(key=lambda r: (not any(p['state'] == 'merged' for p in r['prs']), -max(_ts(p['merged'] or p['created']) for p in r['prs'])))
+        return {'totals': totals, 'repositories': repos, 'source': source, 'updated': updated,
+                'page': d['site'] + '/work#open-source', 'allOnGitHub': 'https://github.com/pulls?q=is%3Apr+author%3Ashlokbam+-user%3Ashlokbam'}
+
     @tool('Search the portfolio')
     async def search_portfolio(
         query: Annotated[str, Field(description='One or more words, any case; punctuation is ignored. Each word is matched at the start of words in the text ("eval" finds evaluation), matches in a title count more, and the exact phrase scores extra. Examples: "RAG", "Terraform", "hackathon", "PharmaACE", "patent granted".')],
     ) -> dict:
         """Search everything in Shlok's portfolio (projects, experience, leadership, education, patents,
-        awards, certifications, community work, blog posts and LinkedIn series posts) for a word or topic. Returns up to 8 matches,
+        awards, certifications, community work, blog posts, LinkedIn series posts and open-source pull requests) for a word or topic. Returns up to 8 matches,
         best first, each with its type, title, a snippet and a link; no match returns an empty results list.
         Use it for specific questions the other tools don't answer directly, such as where he used a
         technology or whether he has done something. For a known project use get_project; for the full list of
@@ -284,6 +330,9 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
             docs.append(('community', c['title'], c['summary'][:220], d['site'] + '/community', ' '.join([c['title'], c['role'], c['summary'], ' '.join(c['tags'])]), 1))
         for w in d['writing']:
             docs.append(('post', w['title'], w['summary'], w['url'], ' '.join([w['title'], w['topic'], w['summary']]), 1))
+        for r in (d.get('openSource') or {}).get('repos', []):
+            for p in r['prs']:
+                docs.append(('open-source pull request', f"{p['title']} ({r['name']}, {p['state']})", f"{r['name']}: {r['description']}"[:220], p['url'], ' '.join([p['title'], r['name'], r['description'], 'open source contribution pull request', p['state']]), 1.5))
         for p in (d.get('series') or {}).get('posts', []):
             docs.append(('linkedin post', f"{p['title']} (Not What You Think, part {p['part']})", p['summary'], p['url'], ' '.join([p['title'], p['topic'], p['summary'], 'linkedin series']), 1))
         scored = []

@@ -72,6 +72,11 @@ def _roles(items) -> str:
     return '\n'.join(lines)
 
 
+def _k(n) -> str:
+    """15724 -> '15.7k' (GitHub stars, kept short for the prompt)."""
+    return '?' if n is None else f'{n / 1000:.1f}k' if n >= 1000 else str(n)
+
+
 def facts(data: dict) -> str:
     """The content as the markdown facts sheet the assistant answers from."""
     pr = data['profile']
@@ -153,14 +158,22 @@ def facts(data: dict) -> str:
     out += ['', '## Community — beyond code']
     out += [f"- {c['title']} ({c['when']}, {c['role']}): {c['summary']}" for c in data['community']]
 
-    out += ['', f"## Writing (journal: {links['journal']}) — {len(data['writing'])} published entries, newest first"]
-    out += [f"- \"{w['title']}\" ({w['date']}, {w['topic']})" for w in data['writing']]
+    w = data['writing']
+    topics = ', '.join(dict.fromkeys(x['topic'] for x in w))
+    out += ['', f"## Writing — {len(w)} journal entries ({topics}): {links['journal']}. Newest three:"]
+    out += [f"- \"{x['title']}\" ({x['date']})" for x in w[:3]]
+    oss = data.get('openSource')
+    if oss and oss.get('repos'):
+        out += ['', f"## Open source — pull requests to other projects: {oss['merged']} merged, {oss['inReview']} in review"
+                + (f", {oss['closed']} closed" if oss['closed'] else '') + f" ({oss['page']})"]
+        for r in oss['repos']:
+            st = [p['state'] for p in r['prs']]
+            out += [f"- {r['name']} ({_k(r['stars'])} stars): " + ', '.join(f"{st.count(k)} {label}" for k, label in (('merged', 'merged'), ('open', 'in review'), ('closed', 'closed')) if st.count(k))]
     ser = data.get('series')
     if ser and ser.get('posts'):
-        arcs = {a['number']: a for a in ser['arcs']}
-        out += ['', f"## LinkedIn series: \"{ser['name']}\" ({ser['tag']}) — {ser['about']} All parts: {ser['page']}"]
-        out += [f"- Arc {a['number']}: {a['name']} ({a['status']})" for a in ser['arcs']]
-        out += [f"- Part {p['part']} (arc {p['arc']}, {p['date']}, {p['topic']}): \"{p['title']}\" — {p['summary']} {p['url']}" for p in ser['posts']]
+        out += ['', f"## LinkedIn series \"{ser['name']}\" ({ser['tag']}): his short posts on common LLM misconceptions. {ser['page']}"]
+        out += ['- Arcs: ' + '; '.join(f"{a['number']}. {a['name']} ({a['status']})" for a in ser['arcs'])]
+        out += [f"- Part {p['part']} ({p['date']}, {p['topic']}): \"{p['title']}\"" for p in ser['posts']]
 
     out += ['', SITE_NOTES]
     return '\n'.join(out)

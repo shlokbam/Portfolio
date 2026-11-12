@@ -42,6 +42,7 @@ const TOOLS = [
   ['get_writing', 'His technical blog posts'],
   ['get_resume', 'Résumé links (PDF and web)'],
   ['get_activity', 'What he has committed on GitHub lately (live)'],
+  ['get_open_source', 'His pull requests to other open-source projects, merged and in review (live)'],
   ['search_portfolio', 'Search all of the above for a word or topic']
 ]
 

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-05",
+  "updated": "2026-11-12",
   "site": "https://shlokbam.in",
   "profile": {
     "name": "Shlok Bam",
@@ -1164,6 +1164,176 @@
         "title": "AI reads tokens, not words",
         "summary": "GPT-4o sees “strawberry” as three tokens, and one sentence costs 8 tokens in English but 27 in Hindi.",
         "url": "https://www.linkedin.com/feed/update/urn:li:activity:7520696039679471616/"
+      }
+    ]
+  },
+  "openSource": {
+    "about": "Pull requests to other people's open-source projects, found on GitHub. Live version: the MCP tool get_open_source.",
+    "page": "https://shlokbam.in/work#open-source",
+    "skip": [
+      "emmabostian/developer-portfolios",
+      "punkpeye/awesome-remote-mcp-servers"
+    ],
+    "updated": "2026-11-12T14:58:24.873Z",
+    "merged": 3,
+    "inReview": 7,
+    "closed": 0,
+    "repos": [
+      {
+        "name": "modelscope/evalscope",
+        "url": "https://github.com/modelscope/evalscope",
+        "stars": null,
+        "description": "",
+        "prs": [
+          {
+            "title": "fix(math): normalize thin-space digit groups and currency symbols before Math-Verify parsing",
+            "state": "merged",
+            "number": 2049,
+            "created": "2026-11-10T13:00:41Z",
+            "merged": "2026-11-11T06:40:34Z",
+            "closed": "2026-11-11T06:40:34Z",
+            "url": "https://github.com/modelscope/evalscope/pull/2049",
+            "note": ""
+          },
+          {
+            "title": "fix(multi_choices): drop punctuation after a closing bold answer line",
+            "state": "merged",
+            "number": 2029,
+            "created": "2026-11-09T07:07:18Z",
+            "merged": "2026-11-09T10:19:29Z",
+            "closed": "2026-11-09T10:19:29Z",
+            "url": "https://github.com/modelscope/evalscope/pull/2029",
+            "note": ""
+          },
+          {
+            "title": "fix(tool_bench): report Plan.EM under its declared metric name",
+            "state": "merged",
+            "number": 2028,
+            "created": "2026-11-09T06:56:42Z",
+            "merged": "2026-11-09T09:49:49Z",
+            "closed": "2026-11-09T09:49:49Z",
+            "url": "https://github.com/modelscope/evalscope/pull/2028",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "open-compass/VLMEvalKit",
+        "url": "https://github.com/open-compass/VLMEvalKit",
+        "stars": null,
+        "description": "",
+        "prs": [
+          {
+            "title": "fix(matching): do not let VERBOSE change can_infer_option results",
+            "state": "open",
+            "number": 1862,
+            "created": "2026-11-12T11:22:15Z",
+            "merged": null,
+            "closed": null,
+            "url": "https://github.com/open-compass/VLMEvalKit/pull/1862",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "truera/trulens",
+        "url": "https://github.com/truera/trulens",
+        "stars": null,
+        "description": "",
+        "prs": [
+          {
+            "title": "fix(feedback): prefer a labelled score over other numbers in a judge reply",
+            "state": "open",
+            "number": 3074,
+            "created": "2026-11-12T10:21:51Z",
+            "merged": null,
+            "closed": null,
+            "url": "https://github.com/truera/trulens/pull/3074",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "open-compass/opencompass",
+        "url": "https://github.com/open-compass/opencompass",
+        "stars": null,
+        "description": "",
+        "prs": [
+          {
+            "title": "[Fix] Stop first_option_postprocess from extracting option letters inside words",
+            "state": "open",
+            "number": 2726,
+            "created": "2026-11-11T15:59:01Z",
+            "merged": null,
+            "closed": null,
+            "url": "https://github.com/open-compass/opencompass/pull/2726",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "Unstructured-IO/unstructured",
+        "url": "https://github.com/Unstructured-IO/unstructured",
+        "stars": null,
+        "description": "",
+        "prs": [
+          {
+            "title": "fix: Hindi and Bengali paragraphs misclassified as Title",
+            "state": "open",
+            "number": 4695,
+            "created": "2026-11-11T10:51:38Z",
+            "merged": null,
+            "closed": null,
+            "url": "https://github.com/Unstructured-IO/unstructured/pull/4695",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "docling-project/docling-core",
+        "url": "https://github.com/docling-project/docling-core",
+        "stars": null,
+        "description": "",
+        "prs": [
+          {
+            "title": "feat(markdown): add opt-in escape_markdown_syntax to escape block markers and literal asterisks",
+            "state": "open",
+            "number": 1008,
+            "created": "2026-11-11T05:11:38Z",
+            "merged": null,
+            "closed": null,
+            "url": "https://github.com/docling-project/docling-core/pull/1008",
+            "note": ""
+          },
+          {
+            "title": "fix(markdown): escape all line breaks in table cells and detect the compact-table separator",
+            "state": "open",
+            "number": 1003,
+            "created": "2026-11-10T16:50:39Z",
+            "merged": null,
+            "closed": null,
+            "url": "https://github.com/docling-project/docling-core/pull/1003",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "name": "data-privacy-stack/presidio",
+        "url": "https://github.com/data-privacy-stack/presidio",
+        "stars": null,
+        "description": "",
+        "prs": [
+          {
+            "title": "feat(analyzer): add Indian driving licence recognizer (IN_DRIVING_LICENCE)",
+            "state": "open",
+            "number": 2466,
+            "created": "2026-11-08T18:27:46Z",
+            "merged": null,
+            "closed": null,
+            "url": "https://github.com/data-privacy-stack/presidio/pull/2466",
+            "note": ""
+          }
+        ]
       }
     ]
   },

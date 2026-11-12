@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { api } from './api'
 import { track } from './track'
 
@@ -10,20 +11,72 @@ const BG = { dark: '#0B0B0A', light: '#F2EFE7' }
 
 const CHAT_FAIL = "Sorry, I couldn't reach my brain just now. Please try again in a moment, or email Shlok at shlokbam19103@gmail.com."
 
+function applyTheme(theme) {
+  const d = document.documentElement
+  d.dataset.theme = theme
+  d.style.background = BG[theme]
+  d.style.colorScheme = theme
+  const meta = document.querySelector('meta[name="theme-color"]')
+  if (meta) meta.setAttribute('content', BG[theme])
+  try { localStorage.setItem('sb-theme', theme) } catch (e) { /* storage blocked */ }
+}
+
+// The theme switch, as a View Transition: the new theme is revealed through a clip-path that grows from the
+// button. To light: a sunburst of sharp rays, turning as it grows. To dark: a round blob whose edge ripples,
+// while the old light page dims and blurs. Browsers without View Transitions, and visitors who prefer
+// reduced motion, get an instant switch.
+const RAYS = 16, STEPS = 24
+function themeTransition(next, origin, swap) {
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (reduce || !document.startViewTransition) { swap(); return }
+  const r = origin ? origin.getBoundingClientRect() : null
+  const x = r ? r.left + r.width / 2 : innerWidth - 40, y = r ? r.top + r.height / 2 : 40
+  const R = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
+  if (origin) { origin.classList.remove('tt-spin'); void origin.offsetWidth; origin.classList.add('tt-spin') }
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
+  const frames = []
+  for (let k = 0; k <= STEPS; k++) {
+    const t = ease(k / STEPS), pts = []
+    if (next === 'light') {
+      // a starburst: alternate long and short points; the inner radius passes R, so the last frame covers the page
+      const turn = t * Math.PI * 0.6
+      for (let i = 0; i < RAYS * 2; i++) {
+        const a = (i / (RAYS * 2)) * Math.PI * 2 + turn, rad = t * R * (i % 2 ? 1.25 : 2.1)
+        pts.push((x + Math.cos(a) * rad).toFixed(1) + 'px ' + (y + Math.sin(a) * rad).toFixed(1) + 'px')
+      }
+    } else {
+      // a blob: a circle with a rippling edge that calms down as it grows
+      const n = 48, wob = 0.18 * (1 - t), turn = t * Math.PI
+      for (let i = 0; i < n; i++) {
+        const a = (i / n) * Math.PI * 2, rad = t * R * 1.15 * (1 + wob * Math.sin(a * 5 + turn * 3))
+        pts.push((x + Math.cos(a + turn / 4) * rad).toFixed(1) + 'px ' + (y + Math.sin(a + turn / 4) * rad).toFixed(1) + 'px')
+      }
+    }
+    frames.push({ clipPath: 'polygon(' + pts.join(',') + ')' })
+  }
+  const vt = document.startViewTransition(swap)
+  vt.ready.then(() => {
+    const root = document.documentElement, dur = next === 'light' ? 1100 : 1200
+    root.animate(frames, { duration: dur, easing: 'linear', pseudoElement: '::view-transition-new(root)' })
+    root.animate(next === 'light'
+      ? [{ filter: 'none' }, { filter: 'brightness(1.6) saturate(1.3)' }]
+      : [{ transform: 'none', filter: 'none' }, { transform: 'scale(.94)', filter: 'brightness(.45) blur(3px)' }],
+    { duration: dur, easing: 'cubic-bezier(.7,0,.3,1)', pseudoElement: '::view-transition-old(root)' })
+  }).catch(() => {})
+}
+
 export function SiteProvider({ children }) {
   const [theme, setTheme] = useState(() => (typeof document !== 'undefined' && document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'))
 
-  useEffect(() => {
-    const d = document.documentElement
-    d.dataset.theme = theme
-    d.style.background = BG[theme]
-    d.style.colorScheme = theme
-    const meta = document.querySelector('meta[name="theme-color"]')
-    if (meta) meta.setAttribute('content', BG[theme])
-    try { localStorage.setItem('sb-theme', theme) } catch (e) { /* storage blocked */ }
-  }, [theme])
+  useEffect(() => { applyTheme(theme) }, [theme])
 
-  const toggleTheme = useCallback(() => setTheme((x) => (x === 'dark' ? 'light' : 'dark')), [])
+  // Switching themes is animated (see themeTransition below): a sunburst of light, or a wobbling dark blob,
+  // grows out of the button that was clicked. `e` is that click; without it the switch starts top right.
+  const toggleTheme = useCallback((e) => {
+    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'
+    track('theme_toggle', { to: next })
+    themeTransition(next, e && e.currentTarget, () => flushSync(() => { applyTheme(next); setTheme(next) }))
+  }, [])
 
   // ---- API status. Render's free tier sleeps when idle, so the site pings it on load:
   // 'unknown' until the first answer, 'waking' if that takes over 1.5 s (a cold start),

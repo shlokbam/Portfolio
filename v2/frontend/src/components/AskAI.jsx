@@ -1,6 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import A from './A'
-import AIBackdrop from './AIBackdrop'
 import WakeBoot from './WakeBoot'
 import BotMark from './BotMark'
 import Md from './Md'
@@ -34,7 +32,6 @@ export default function AskAI() {
   const [shown, setShown] = useState({ i: -1, n: 0 }) // the reply being streamed in, and how much of it is shown
   const log = useRef(null)
   const seen = useRef(new Set(chat)) // messages already shown (those present on mount appear in full)
-  const lastAsked = (chat.filter((m) => m.who === 'u').pop() || {}).text || ''
   const tokens = useMemo(() => tokenize(q), [q])
 
   useEffect(() => {
@@ -77,18 +74,16 @@ export default function AskAI() {
   const streaming = shown.i >= 0 && chat[shown.i] && shown.n < chat[shown.i].text.length
 
   return (
-    <section id="ask" className="ai-host askai" style={{ padding: '104px 0', borderBottom: '1px solid var(--line)', background: 'var(--surface)' }}>
-      <AIBackdrop kind="attention" text={q || lastAsked} style={{ height: '420px', bottom: 'auto' }} />
+    <section id="ask" className="ai-host askai" style={{ padding: '72px 0', borderBottom: '1px solid var(--line)', background: 'var(--surface)' }}>
       <div className="wrap">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '24px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
           <div>
             <span className="mono" style={{ color: 'var(--muted)' }}>Quick answers · live model</span>
-            <h2 className="disp rv" style={{ margin: '20px 0 0', fontSize: 'clamp(48px, 6.4vw, 100px)' }}>
+            <h2 className="disp rv" style={{ margin: '16px 0 0', fontSize: 'clamp(40px, 5vw, 76px)' }}>
               Ask my{' '}
               <span className="serif" style={{ textTransform: 'none', fontWeight: '400', color: 'var(--accent)' }}>AI</span>
             </h2>
           </div>
-          <A className="ul mono" href="/ai" style={{ color: 'var(--muted)' }}>Or ask from your own AI (Claude, ChatGPT, Cursor) →</A>
         </div>
 
         <div className={'rv ask-box' + (busy || streaming || waking ? ' working' : '')}>

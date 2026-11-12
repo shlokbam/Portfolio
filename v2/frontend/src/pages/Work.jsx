@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { useAvailability } from '../lib/site'
 import { PROJECTS, slug } from '../content/projects'
 import { demoState, DEMO_NOTE, DEMO_LABEL } from '../lib/demo'
+import { OpenSourceSection } from '../components/OpenSource'
 import './Work.css'
 
 export default function Work() {
@@ -300,6 +301,7 @@ export default function Work() {
           </div>
         </div>
       </section>
+      <OpenSourceSection />
       <A className="next" href="/journey" style={{ borderTop: "1px solid var(--line)" }}>
         <div className="wrap" style={{ paddingTop: "26px", paddingBottom: "26px" }}>
           <div className="mono nmuted" style={{ color: "var(--muted)" }}>Next page</div>

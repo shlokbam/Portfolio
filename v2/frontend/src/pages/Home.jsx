@@ -8,8 +8,8 @@ import Flagships from '../components/Flagships'
 import Hello from '../components/Hello'
 import AskAI from '../components/AskAI'
 import NowRadar from '../components/NowRadar'
-import Shipping from '../components/Shipping'
 import { SeriesStrip } from '../components/Series'
+import { OpenSourceStrip } from '../components/OpenSource'
 import { css } from '../lib/css'
 import { useStats, useAvailability } from '../lib/site'
 import { demoState, DEMO_NOTE, DEMO_LABEL } from '../lib/demo'
@@ -161,7 +161,7 @@ export default function Home() {
       <Flagships />
       <Glance />
       <NowRadar />
-      <Shipping />
+      <OpenSourceStrip />
       <SeriesStrip />
       <AskAI />
       {/* "Built to run" section: hidden for now — remove this comment wrapper to bring it back.

@@ -9,6 +9,7 @@ import { PATENTS, AWARDS, CERTIFICATIONS, MORE_CERTIFICATIONS } from './recognit
 import { STORIES } from './community.js'
 import { POSTS } from './writing.js'
 import { SERIES, ARCS, SERIES_POSTS } from './linkedin.js'
+import { OSS, OSS_SNAPSHOT, ossView } from './opensource.js'
 import { SKILLS } from './skills.js'
 import { NOW, UPDATED } from './now.js'
 
@@ -63,6 +64,13 @@ export function portfolio(site) {
     series: { name: SERIES.name, tag: SERIES.tag, about: SERIES.about, where: 'LinkedIn', follow: SERIES.follow, page: url('/writing#series'),
       arcs: ARCS.map((a) => ({ number: a.n, name: a.name, status: a.status })),
       posts: SERIES_POSTS.map((p) => ({ part: p.part, arc: p.arc, date: p.date, topic: p.topic, title: p.title, summary: p.summary, url: p.url })) },
+    openSource: (() => {
+      const v = ossView(OSS_SNAPSHOT)
+      return { about: 'Pull requests to other people\'s open-source projects, found on GitHub. Live version: the MCP tool get_open_source.',
+        page: url('/work#open-source'), skip: OSS.skip, updated: v.updated, merged: v.merged, inReview: v.open, closed: v.closed,
+        repos: v.repos.map((r) => ({ name: r.name, url: r.url, stars: r.stars, description: r.description,
+          prs: r.prs.map((p) => ({ title: p.title, state: p.state, number: p.number, created: p.created, merged: p.merged, closed: p.closed, url: p.url, note: p.note })) })) }
+    })(),
     skills: SKILLS.map((g) => ({ group: g.name, skills: g.skills.map(([name, lv]) => ({ name, level: LEVEL[lv] || 'working' })) }))
   }
 }
