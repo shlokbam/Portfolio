@@ -6,6 +6,7 @@ import { useSite } from '../lib/site'
 import { css } from '../lib/css'
 import { RESUME_PAGE } from '../lib/links'
 import HeaderClock from './HeaderClock'
+import { siCodechef } from 'simple-icons'
 import { lockScroll, unlockScroll, scrollToTop } from '../lib/smooth'
 import { track } from '../lib/track'
 
@@ -27,6 +28,7 @@ const SOCIAL = [
   ['LinkedIn', 'https://www.linkedin.com/in/shlokbam/', <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z" /></svg>],
   ['X', 'https://x.com/shlok_bam', <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.67l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23Zm-1.16 17.52h1.83L7.08 4.13H5.12l11.96 15.64Z" /></svg>],
   ['LeetCode', 'https://leetcode.com/u/shlokbam05/', <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd" aria-hidden="true"><path d="M13.48 0a1.37 1.37 0 0 0-.96.44L7.12 6.21l-2.8 3.02a5.55 5.55 0 0 0-1.27 2.52 5.62 5.62 0 0 0 .1 2.55c.17.62.45 1.21.83 1.75.22.31.46.6.73.86l4.35 4.4c1.12 1.13 2.66 1.69 4.24 1.69 1.57 0 3.12-.56 4.24-1.69l2.33-2.35a1.37 1.37 0 1 0-1.95-1.93l-2.33 2.35c-.56.57-1.4.88-2.29.88-.9 0-1.73-.31-2.29-.88l-4.35-4.4a2.9 2.9 0 0 1-.83-2.05c0-.78.3-1.52.83-2.05l2.79-3.02 5.4-5.77A1.37 1.37 0 0 0 13.48 0Zm-2.85 13.04a1.37 1.37 0 1 0 0 2.74h9.9a1.37 1.37 0 1 0 0-2.74h-9.9Z" /></svg>],
+  ['CodeChef', 'https://www.codechef.com/users/shlokbam', <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={siCodechef.path} /></svg>],
   ['Email', 'mailto:shlokbam19103@gmail.com', <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" /></svg>]
 ]
 
@@ -270,12 +272,6 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
                 {PAGES.map(([, name, file]) => <A key={file} className="ul" href={file}>{name}</A>)}
               </nav>
               <div className="foot-col">
-                <div className="mono fh">Profiles</div>
-                <A className="ul" href="https://leetcode.com/u/shlokbam05/">LeetCode ↗</A>
-                <A className="ul" href="https://www.codechef.com/users/shlokbam">CodeChef ↗</A>
-                <A className="ul" href="https://github.com/shlokbam">GitHub ↗</A>
-              </div>
-              <div className="foot-col">
                 <div className="mono fh">Contact</div>
                 <A className="ul" href="tel:+917974670370">+91 79746 70370</A>
                 <span style={{ color: 'var(--muted)' }}>Pune, India · open to relocate</span>
@@ -289,8 +285,8 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
           </div>
           {/* the name fills the footer behind everything; a spotlight under the pointer lights it up (CSS) */}
           <div className="foot-big disp" aria-hidden="true">
-            <span className="fb-base">Shlok<br />Bam</span>
-            <span className="fb-lit">Shlok<br />Bam</span>
+            <span className="fb-base">Shlok Bam</span>
+            <span className="fb-lit">Shlok Bam</span>
           </div>
         </footer>
 
