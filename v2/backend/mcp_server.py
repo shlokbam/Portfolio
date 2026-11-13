@@ -278,10 +278,13 @@ def build(get_content: Callable[[], Awaitable[dict]], fetch_activity: Callable[[
         live = await fetch_open_source()
         if live:
             repos = {}
+            known = {r['name']: r for r in saved.get('repos', [])}  # the build's copy, for a star lookup GitHub refused
             for p in live['prs']:
                 if p['repo'].lower() in skip:
                     continue
                 info = live['repos'].get(p['repo'], {})
+                if info.get('stars') is None and p['repo'] in known:
+                    info = {**info, **{k: known[p['repo']].get(k) for k in ('stars', 'description', 'url') if known[p['repo']].get(k)}}
                 r = repos.setdefault(p['repo'], {'name': p['repo'], 'url': info.get('url', ''), 'stars': info.get('stars'), 'description': info.get('description', ''), 'prs': []})
                 r['prs'].append({k: p[k] for k in ('title', 'state', 'number', 'created', 'merged', 'closed', 'url')})
             repos, source, updated = list(repos.values()), 'live', live['updated']

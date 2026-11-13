@@ -15,7 +15,16 @@ function useOpenSource() {
   useEffect(() => {
     let live = true
     api('/api/opensource', { timeout: 65000 })
-      .then((res) => { if (live && res.data && res.data.prs && res.data.prs.length) setData(res.data) })
+      .then((res) => {
+        if (!live || !res.data || !res.data.prs || !res.data.prs.length) return
+        // new PRs and states come from the live list; a repository whose star lookup GitHub refused
+        // (rate limit) keeps the build's details instead of losing its stars and description
+        const repos = { ...res.data.repos }
+        for (const [name, info] of Object.entries(OSS_SNAPSHOT.repos || {})) {
+          if (!repos[name] || repos[name].stars == null) repos[name] = info
+        }
+        setData({ ...res.data, repos })
+      })
       .catch(() => {})
     return () => { live = false }
   }, [])

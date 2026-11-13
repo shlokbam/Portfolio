@@ -60,6 +60,11 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(mess
 GROQ_MODELS = [m.strip() for m in os.getenv('GROQ_MODELS', 'openai/gpt-oss-20b,openai/gpt-oss-120b,qwen/qwen3.8-27b').split(',') if m.strip()]
 HEADERS = {'User-Agent': 'Mozilla/5.0 (compatible; portfolio-stats/2.0)', 'Accept': 'application/json'}
 HTML_HEADERS = {'User-Agent': 'Mozilla/5.0 (compatible; portfolio-stats/2.0)', 'Accept': 'text/html'}
+# GitHub's REST API: 60 calls an hour per IP without a token (shared on Render, so stars and activity ran out),
+# 5,000 with one. GITHUB_TOKEN is optional: a fine-grained token with public, read-only access is enough.
+GH_HEADERS = {**HEADERS, 'Accept': 'application/vnd.github+json'}
+if os.getenv('GITHUB_TOKEN'):
+    GH_HEADERS['Authorization'] = 'Bearer ' + os.getenv('GITHUB_TOKEN')
 STATS_TTL = 2 * 60 * 60
 AVAILABILITY_TTL = 10 * 60
 LIVE_PROJECTS = [
@@ -104,6 +109,16 @@ def client() -> httpx.AsyncClient:
 # ---------------------------------------------------------------- rate limiting
 
 _hits: Dict[str, Deque[float]] = defaultdict(deque)
+
+
+async def gh_get(url: str, **kw) -> httpx.Response:
+    """GET from GitHub's API with GITHUB_TOKEN if set. A token GitHub rejects (expired or revoked) gets one retry
+    without it, so the site falls back to the 60-calls-an-hour limit instead of losing GitHub data altogether."""
+    resp = await client().get(url, headers=GH_HEADERS, **kw)
+    if resp.status_code == 401 and 'Authorization' in GH_HEADERS:
+        log.warning('GITHUB_TOKEN rejected by GitHub (expired?): retrying without it; renew it on Render')
+        resp = await client().get(url, headers={k: v for k, v in GH_HEADERS.items() if k != 'Authorization'}, **kw)
+    return resp
 
 
 def client_ip(request: Request) -> str:
@@ -200,7 +215,7 @@ async def fetch_codechef(handle: str = 'shlokbam') -> Optional[dict]:
 async def fetch_github(username: str = 'shlokbam') -> Optional[dict]:
     try:
         api_resp, cont_resp = await asyncio.gather(
-            client().get(f'https://api.github.com/users/{username}'),
+            gh_get(f'https://api.github.com/users/{username}'),
             client().get(f'https://github.com/users/{username}/contributions', headers=HTML_HEADERS),
         )
         user = api_resp.json() if api_resp.status_code == 200 else {}
@@ -301,10 +316,9 @@ async def fetch_shipping() -> Optional[dict]:
     """One search call for the last 30 days of commits authored by GITHUB_USER (public repos only)."""
     since = datetime.fromtimestamp(time.time() - 30 * 86400, timezone.utc).strftime('%Y-%m-%d')
     try:
-        resp = await client().get(
+        resp = await gh_get(
             'https://api.github.com/search/commits',
             params={'q': f'author:{GITHUB_USER} author-date:>={since}', 'sort': 'author-date', 'order': 'desc', 'per_page': 100},
-            headers={**HEADERS, 'Accept': 'application/vnd.github+json'},
         )
         if resp.status_code != 200:
             log.warning('github commit search: %s', resp.status_code)
@@ -349,10 +363,9 @@ async def github_repos() -> Optional[list]:
     if _repos_cache['data'] is not None and now - _repos_cache['at'] < REPOS_TTL:
         return _repos_cache['data']
     try:
-        resp = await client().get(
+        resp = await gh_get(
             f'https://api.github.com/users/{GITHUB_USER}/repos',
             params={'per_page': 100, 'sort': 'pushed', 'type': 'owner'},
-            headers={**HEADERS, 'Accept': 'application/vnd.github+json'},
         )
         resp.raise_for_status()
         repos = [{
@@ -381,7 +394,7 @@ async def _repo_info(name: str) -> dict:
         return hit[1]
     info = {'stars': None, 'description': '', 'language': '', 'url': f'https://github.com/{name}'}
     try:
-        resp = await client().get(f'https://api.github.com/repos/{name}', headers={**HEADERS, 'Accept': 'application/vnd.github+json'})
+        resp = await gh_get(f'https://api.github.com/repos/{name}')
         if resp.status_code == 200:
             r = resp.json()
             info = {'stars': r.get('stargazers_count'), 'description': r.get('description') or '', 'language': r.get('language') or '', 'url': r['html_url']}
@@ -403,10 +416,9 @@ async def open_source() -> Optional[dict]:
     if _oss_cache['data'] and now - _oss_cache['at'] < OSS_TTL:
         return _oss_cache['data']
     try:
-        resp = await client().get(
+        resp = await gh_get(
             'https://api.github.com/search/issues',
             params={'q': f'author:{GITHUB_USER} type:pr -user:{GITHUB_USER}', 'sort': 'created', 'order': 'desc', 'per_page': 100},
-            headers={**HEADERS, 'Accept': 'application/vnd.github+json'},
         )
         resp.raise_for_status()
         prs = []

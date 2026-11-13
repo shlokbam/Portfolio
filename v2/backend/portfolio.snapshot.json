@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-11-12",
+  "updated": "2026-11-13",
   "site": "https://shlokbam.in",
   "profile": {
     "name": "Shlok Bam",
@@ -1174,7 +1174,7 @@
       "emmabostian/developer-portfolios",
       "punkpeye/awesome-remote-mcp-servers"
     ],
-    "updated": "2026-11-12T15:03:46.788Z",
+    "updated": "2026-11-13T16:13:22.888Z",
     "merged": 3,
     "inReview": 7,
     "closed": 0,
@@ -1182,8 +1182,8 @@
       {
         "name": "modelscope/evalscope",
         "url": "https://github.com/modelscope/evalscope",
-        "stars": null,
-        "description": "",
+        "stars": 3690,
+        "description": "A streamlined and customizable framework for efficient large model (LLM, VLM, AIGC) evaluation and performance benchmarking.",
         "prs": [
           {
             "title": "fix(math): normalize thin-space digit groups and currency symbols before Math-Verify parsing",
@@ -1220,8 +1220,8 @@
       {
         "name": "open-compass/VLMEvalKit",
         "url": "https://github.com/open-compass/VLMEvalKit",
-        "stars": null,
-        "description": "",
+        "stars": 4488,
+        "description": "Open-source evaluation toolkit of large multi-modality models (LMMs), support 220+ LMMs, 80+ benchmarks",
         "prs": [
           {
             "title": "fix(matching): do not let VERBOSE change can_infer_option results",
@@ -1238,8 +1238,8 @@
       {
         "name": "truera/trulens",
         "url": "https://github.com/truera/trulens",
-        "stars": null,
-        "description": "",
+        "stars": 3639,
+        "description": "Evaluation and Tracking for LLM Experiments and AI Agents",
         "prs": [
           {
             "title": "fix(feedback): prefer a labelled score over other numbers in a judge reply",
@@ -1256,8 +1256,8 @@
       {
         "name": "open-compass/opencompass",
         "url": "https://github.com/open-compass/opencompass",
-        "stars": null,
-        "description": "",
+        "stars": 7595,
+        "description": "OpenCompass is an LLM evaluation platform, supporting a wide range of models from OpenAI, Anthropic, Gemini, Qwen, GLM, DeepSeek, etc, across 100+ datasets covering knowledge, reasoning, coding, science, language, long-context, and safety.",
         "prs": [
           {
             "title": "[Fix] Stop first_option_postprocess from extracting option letters inside words",
@@ -1274,8 +1274,8 @@
       {
         "name": "Unstructured-IO/unstructured",
         "url": "https://github.com/Unstructured-IO/unstructured",
-        "stars": null,
-        "description": "",
+        "stars": 15731,
+        "description": "Convert documents to structured data effortlessly. Unstructured is open-source ETL solution for transforming complex documents into clean, structured formats for language models.  Visit our website to learn more about our enterprise grade Platform product for production grade workflows, partitioning, enrichments, chunking and embedding.",
         "prs": [
           {
             "title": "fix: Hindi and Bengali paragraphs misclassified as Title",
@@ -1292,8 +1292,8 @@
       {
         "name": "docling-project/docling-core",
         "url": "https://github.com/docling-project/docling-core",
-        "stars": null,
-        "description": "",
+        "stars": 298,
+        "description": "Docling core data types and transformations",
         "prs": [
           {
             "title": "feat(markdown): add opt-in escape_markdown_syntax to escape block markers and literal asterisks",
@@ -1320,8 +1320,8 @@
       {
         "name": "data-privacy-stack/presidio",
         "url": "https://github.com/data-privacy-stack/presidio",
-        "stars": null,
-        "description": "",
+        "stars": 11873,
+        "description": "An open-source framework for detecting, redacting, masking, and anonymizing sensitive data (PII) across text, images, and structured data. Supports NLP, pattern matching, and customizable pipelines.",
         "prs": [
           {
             "title": "feat(analyzer): add Indian driving licence recognizer (IN_DRIVING_LICENCE)",

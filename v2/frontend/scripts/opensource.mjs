@@ -30,15 +30,21 @@ async function main() {
     merged: (it.pull_request && it.pull_request.merged_at) || null,
     url: it.html_url
   }))
+  // a lookup GitHub refuses (rate limit) keeps that repository's details from the last snapshot
+  let before = {}
+  try { before = JSON.parse(fs.readFileSync(OUT, 'utf8')).repos || {} } catch (e) {}
   const repos = {}
+  let kept = 0
   for (const name of [...new Set(prs.map((p) => p.repo))]) {
     try {
       const r = await get('https://api.github.com/repos/' + name)
       repos[name] = { stars: r.stargazers_count, description: r.description || '', language: r.language || '', url: r.html_url }
     } catch (e) {
-      repos[name] = { stars: null, description: '', language: '', url: 'https://github.com/' + name }
+      kept++
+      repos[name] = before[name] && before[name].stars != null ? before[name] : { stars: null, description: '', language: '', url: 'https://github.com/' + name }
     }
   }
+  if (kept) console.warn(`open source: ${kept} repository lookups refused by GitHub, kept the last details`)
   fs.writeFileSync(OUT, JSON.stringify({ updated: new Date().toISOString(), prs, repos }, null, 2) + '\n')
   console.log(`open source: ${prs.length} pull requests across ${Object.keys(repos).length} repositories`)
 }
