@@ -125,7 +125,7 @@ Anyone can add the portfolio to their AI assistant and ask it about Shlok. The t
   `brew install mcp-publisher`, then in `v2/backend`: `mcp-publisher login github` and `mcp-publisher publish`
   (bump `version` for every update).
 - Listed on Glama: https://glama.ai/mcp/connectors/io.github.shlokbam/portfolio (it picks up new registry versions on
-  its own). Both listings are linked under the address on `/ai` (`LISTED` in `pages/Ai.jsx`, GA event
+  its own). Its "Listed on Glama" link is in the site footer (Glama checks for it). Both listings are linked under the address on `/ai` (`LISTED` in `pages/Ai.jsx`, GA event
   `mcp_listing_click`) and in `llms.txt`.
 - Transport: Streamable HTTP, stateless, JSON responses (`main.py` mounts it). A browser opening `/mcp` gets a short JSON
   note instead. Vercel forwards `shlokbam.in/mcp` to the Render service (`vercel.json` rewrites), so the address
@@ -210,7 +210,7 @@ set `GITHUB_TOKEN` on Vercel for a higher GitHub rate limit during builds.
 - Microsoft Clarity (project `z2u0dv5iv5`, heatmaps and replays) is next to it, also skipped on localhost.
 - Events (`src/lib/track.js`, sent to both): `resume_download`, `resume_view_click`, `contact_submit` (topic),
   `contact_error`, `chat_open`, `chat_question` (quick or typed, never the text), `profile_click` (network),
-  `project_link_click` (domain, URL, link text), `file_open` (certificates, patents, other `/static/` files), `email_click`, `phone_click`, `series_post_click` (part, where), `series_follow_click`, `oss_pr_click` (repo, state, where), `oss_all_click`, `mcp_menu_click`, `mcp_listing_click` (where: glama, registry), `clock_hover` (once per page view), `theme_toggle` (to), `404_view` (path), `404_break`. Every event
+  `project_link_click` (domain, URL, link text), `file_open` (certificates, patents, other `/static/` files), `email_click`, `phone_click`, `series_post_click` (part, where), `series_follow_click`, `oss_pr_click` (repo, state, where), `oss_all_click`, `mcp_menu_click`, `mcp_listing_click` (where: glama, registry, glama-footer), `clock_hover` (once per page view), `theme_toggle` (to), `404_view` (path), `404_break`. Every event
   carries `page`. Links are counted by one document-wide click listener, so new links need no code.
   Key events in GA4 (Admin → Events → star): `resume_download` and `resume_view_click`; star `contact_submit` once it
   shows in "Recent events" (GA lists an event only after it has fired). `home_project_click` (project) counts

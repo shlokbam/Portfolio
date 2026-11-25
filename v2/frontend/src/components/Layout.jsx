@@ -279,7 +279,7 @@ export default function Layout({ page, curtain, chat, greeting = GREETING, foote
               </div>
             </div>
             <div className="mono foot-bar">
-              <span>© {new Date().getFullYear()} Shlok Bam. All rights reserved. · <A className="ul" href="/privacy">Privacy</A></span>
+              <span>© {new Date().getFullYear()} Shlok Bam. All rights reserved. · <A className="ul" href="/privacy">Privacy</A> · <A className="ul" href="https://glama.ai/mcp/connectors/io.github.shlokbam/portfolio" onClick={() => track('mcp_listing_click', { where: 'glama-footer' })}>Listed on Glama</A></span>
               <span>AI / Generative AI Engineer · building agentic &amp; LLM-powered systems</span>
             </div>
           </div>
