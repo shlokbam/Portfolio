@@ -4,6 +4,9 @@
 .ai-copy { min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--text); cursor: pointer; transition: background-color .25s, color .25s; }
 .ai-copy:hover { background: var(--text); color: var(--bg); }
 .ai-url .ai-copy { background: var(--accent); color: var(--onaccent); border-color: var(--accent); }
+.ai-listed { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin: 16px 0 0 22px; font-size: 11px; color: var(--muted); }
+.ai-listed-a { color: var(--text); border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: color .2s, border-color .2s; }
+.ai-listed-a:hover { color: var(--accent); border-color: var(--accent); }
 
 .ai-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .ai-tab { min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--text); cursor: pointer; }
@@ -25,4 +28,4 @@
 .ai-list dd { margin: 0; color: var(--muted); line-height: 1.5; }
 .ai-notes { margin: 16px 0 0; padding-left: 20px; color: var(--muted); line-height: 1.6; }
 .ai-notes li + li { margin-top: 8px; }
-@media (max-width: 560px) { .ai-url { border-radius: 20px; padding: 16px; } }
+@media (max-width: 560px) { .ai-url { border-radius: 20px; padding: 16px; } .ai-listed { margin-left: 4px; } }

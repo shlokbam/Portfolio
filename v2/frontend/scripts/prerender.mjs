@@ -81,6 +81,7 @@ ${ROUTES.filter((r) => r !== '/privacy').map((r) => `- [${PAGES[r].name}](${SITE
 ## Data
 - [portfolio.json](${SITE}/portfolio.json): everything on this site as JSON (profile, projects, experience, patents, awards, certifications, writing, LinkedIn series, open-source contributions, skills)
 - MCP server: ${SITE}/mcp (Streamable HTTP, read-only tools: get_profile, list_projects, get_project, get_experience, get_achievements, get_skills, get_writing, get_resume, get_activity, get_open_source, search_portfolio)
+- MCP server listings: Glama (https://glama.ai/mcp/connectors/io.github.shlokbam/portfolio) and the official MCP Registry (io.github.shlokbam/portfolio, https://registry.modelcontextprotocol.io/v0/servers?search=io.github.shlokbam/portfolio)
 - Open source: ${SITE}/work#open-source (pull requests to other projects, live from GitHub)
 
 ## Optional

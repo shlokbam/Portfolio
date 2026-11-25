@@ -1,14 +1,124 @@
 {
-  "updated": "2026-11-13T16:13:22.888Z",
+  "updated": "2026-11-25T11:58:15.536Z",
   "prs": [
+    {
+      "repo": "vespa-engine/pyvespa",
+      "number": 1414,
+      "title": "fix: escape quotes and backslashes in query builder strings",
+      "state": "open",
+      "created": "2026-11-25T11:50:29Z",
+      "closed": null,
+      "merged": null,
+      "url": "https://github.com/vespa-engine/pyvespa/pull/1414"
+    },
+    {
+      "repo": "evalstate/fast-agent",
+      "number": 1115,
+      "title": "fix: attach UTF-8 files with an unregistered extension as text",
+      "state": "open",
+      "created": "2026-11-25T11:50:08Z",
+      "closed": null,
+      "merged": null,
+      "url": "https://github.com/evalstate/fast-agent/pull/1115"
+    },
+    {
+      "repo": "i-am-bee/beeai-framework",
+      "number": 2012,
+      "title": "fix(tools): support self-referencing component schemas in OpenAPITool",
+      "state": "open",
+      "created": "2026-11-25T11:49:45Z",
+      "closed": null,
+      "merged": null,
+      "url": "https://github.com/i-am-bee/beeai-framework/pull/2012"
+    },
+    {
+      "repo": "oraios/serena",
+      "number": 2299,
+      "title": "Fix nested .gitignore patterns with a slash in the middle matching too deep",
+      "state": "open",
+      "created": "2026-11-24T13:54:38Z",
+      "closed": null,
+      "merged": null,
+      "url": "https://github.com/oraios/serena/pull/2299"
+    },
+    {
+      "repo": "open-webui/mcpo",
+      "number": 332,
+      "title": "fix: explicit null tool arguments are dropped",
+      "state": "open",
+      "created": "2026-11-24T13:10:22Z",
+      "closed": null,
+      "merged": null,
+      "url": "https://github.com/open-webui/mcpo/pull/332"
+    },
+    {
+      "repo": "docling-project/docling",
+      "number": 5545,
+      "title": "fix(html): keep the content of a details tag inside its table cell",
+      "state": "merged",
+      "created": "2026-11-23T16:34:58Z",
+      "closed": "2026-11-24T10:11:15Z",
+      "merged": "2026-11-24T10:11:15Z",
+      "url": "https://github.com/docling-project/docling/pull/5545"
+    },
+    {
+      "repo": "openlit/openlit",
+      "number": 1998,
+      "title": "fix(python-sdk): accept a list of types in the schema guard",
+      "state": "open",
+      "created": "2026-11-23T15:24:59Z",
+      "closed": null,
+      "merged": null,
+      "url": "https://github.com/openlit/openlit/pull/1998"
+    },
+    {
+      "repo": "qdrant/mcp-server-qdrant",
+      "number": 211,
+      "title": "fix(mcp): name the error type when a tool error has no message",
+      "state": "merged",
+      "created": "2026-11-22T05:33:02Z",
+      "closed": "2026-11-23T22:56:52Z",
+      "merged": "2026-11-23T22:56:52Z",
+      "url": "https://github.com/qdrant/mcp-server-qdrant/pull/211"
+    },
+    {
+      "repo": "strands-agents/harness-sdk",
+      "number": 6187,
+      "title": "fix(mcp): replace characters model providers reject in MCP tool names",
+      "state": "open",
+      "created": "2026-11-16T16:10:36Z",
+      "closed": null,
+      "merged": null,
+      "url": "https://github.com/strands-agents/harness-sdk/pull/6187"
+    },
+    {
+      "repo": "isaacus-dev/semchunk",
+      "number": 32,
+      "title": "Treat the danda (। and ॥) as a sentence terminator",
+      "state": "open",
+      "created": "2026-11-16T12:29:49Z",
+      "closed": null,
+      "merged": null,
+      "url": "https://github.com/isaacus-dev/semchunk/pull/32"
+    },
+    {
+      "repo": "run-llama/llama_index",
+      "number": 24267,
+      "title": "fix(core): end punkt sentences on the danda (। and ॥)",
+      "state": "open",
+      "created": "2026-11-16T12:29:38Z",
+      "closed": null,
+      "merged": null,
+      "url": "https://github.com/run-llama/llama_index/pull/24267"
+    },
     {
       "repo": "open-compass/VLMEvalKit",
       "number": 1862,
       "title": "fix(matching): do not let VERBOSE change can_infer_option results",
-      "state": "open",
+      "state": "merged",
       "created": "2026-11-12T11:22:15Z",
-      "closed": null,
-      "merged": null,
+      "closed": "2026-11-23T10:47:37Z",
+      "merged": "2026-11-23T10:47:37Z",
       "url": "https://github.com/open-compass/VLMEvalKit/pull/1862"
     },
     {
@@ -123,56 +233,122 @@
     }
   ],
   "repos": {
+    "vespa-engine/pyvespa": {
+      "stars": 177,
+      "description": "Python API for https://vespa.ai, the open big data serving engine",
+      "language": "Python",
+      "url": "https://github.com/vespa-engine/pyvespa"
+    },
+    "evalstate/fast-agent": {
+      "stars": 3978,
+      "description": "Code, Build and Evaluate agents - excellent Model and Skills/MCP/ACP/A2A Support",
+      "language": "Python",
+      "url": "https://github.com/evalstate/fast-agent"
+    },
+    "i-am-bee/beeai-framework": {
+      "stars": 3459,
+      "description": "Build production-ready AI agents in both Python and Typescript.",
+      "language": "Python",
+      "url": "https://github.com/i-am-bee/beeai-framework"
+    },
+    "oraios/serena": {
+      "stars": 31692,
+      "description": "A powerful MCP toolkit for coding, providing semantic retrieval and editing capabilities  - the IDE for your agent",
+      "language": "Python",
+      "url": "https://github.com/oraios/serena"
+    },
+    "open-webui/mcpo": {
+      "stars": 4431,
+      "description": "A simple, secure MCP-to-OpenAPI proxy server",
+      "language": "Python",
+      "url": "https://github.com/open-webui/mcpo"
+    },
+    "docling-project/docling": {
+      "stars": 71018,
+      "description": "Get your documents ready for gen AI",
+      "language": "Python",
+      "url": "https://github.com/docling-project/docling"
+    },
+    "openlit/openlit": {
+      "stars": 3101,
+      "description": "Same agent, Smaller bill. The tools and infrastructure to get more work from your AI. Fewer tokens. Less compute. Lower cost.",
+      "language": "TypeScript",
+      "url": "https://github.com/openlit/openlit"
+    },
+    "qdrant/mcp-server-qdrant": {
+      "stars": 1577,
+      "description": "An official Qdrant Model Context Protocol (MCP) server implementation",
+      "language": "Python",
+      "url": "https://github.com/qdrant/mcp-server-qdrant"
+    },
+    "strands-agents/harness-sdk": {
+      "stars": 9287,
+      "description": "Build an agent harness and control it end-to-end. Open-source SDK for production AI agents in Python & TypeScript - any model, any cloud.",
+      "language": "TypeScript",
+      "url": "https://github.com/strands-agents/harness-sdk"
+    },
+    "isaacus-dev/semchunk": {
+      "stars": 670,
+      "description": "A fast, lightweight and easy-to-use Python library for splitting text into semantically meaningful chunks.",
+      "language": "Python",
+      "url": "https://github.com/isaacus-dev/semchunk"
+    },
+    "run-llama/llama_index": {
+      "stars": 53001,
+      "description": "LlamaIndex is the document processing platform for AI",
+      "language": "Python",
+      "url": "https://github.com/run-llama/llama_index"
+    },
     "open-compass/VLMEvalKit": {
-      "stars": 4488,
+      "stars": 4504,
       "description": "Open-source evaluation toolkit of large multi-modality models (LMMs), support 220+ LMMs, 80+ benchmarks",
       "language": "Python",
       "url": "https://github.com/open-compass/VLMEvalKit"
     },
     "truera/trulens": {
-      "stars": 3639,
+      "stars": 3669,
       "description": "Evaluation and Tracking for LLM Experiments and AI Agents",
       "language": "Python",
       "url": "https://github.com/truera/trulens"
     },
     "open-compass/opencompass": {
-      "stars": 7595,
+      "stars": 7641,
       "description": "OpenCompass is an LLM evaluation platform, supporting a wide range of models from OpenAI, Anthropic, Gemini, Qwen, GLM, DeepSeek, etc, across 100+ datasets covering knowledge, reasoning, coding, science, language, long-context, and safety.",
       "language": "Python",
       "url": "https://github.com/open-compass/opencompass"
     },
     "Unstructured-IO/unstructured": {
-      "stars": 15731,
+      "stars": 15783,
       "description": "Convert documents to structured data effortlessly. Unstructured is open-source ETL solution for transforming complex documents into clean, structured formats for language models.  Visit our website to learn more about our enterprise grade Platform product for production grade workflows, partitioning, enrichments, chunking and embedding.",
       "language": "HTML",
       "url": "https://github.com/Unstructured-IO/unstructured"
     },
     "docling-project/docling-core": {
-      "stars": 298,
+      "stars": 303,
       "description": "Docling core data types and transformations",
       "language": "Python",
       "url": "https://github.com/docling-project/docling-core"
     },
     "modelscope/evalscope": {
-      "stars": 3690,
+      "stars": 3737,
       "description": "A streamlined and customizable framework for efficient large model (LLM, VLM, AIGC) evaluation and performance benchmarking.",
       "language": "Python",
       "url": "https://github.com/modelscope/evalscope"
     },
     "data-privacy-stack/presidio": {
-      "stars": 11873,
+      "stars": 12049,
       "description": "An open-source framework for detecting, redacting, masking, and anonymizing sensitive data (PII) across text, images, and structured data. Supports NLP, pattern matching, and customizable pipelines.",
       "language": "Python",
       "url": "https://github.com/data-privacy-stack/presidio"
     },
     "punkpeye/awesome-remote-mcp-servers": {
-      "stars": 3129,
+      "stars": 4037,
       "description": "A collection of remote MCP servers.",
       "language": "",
       "url": "https://github.com/punkpeye/awesome-remote-mcp-servers"
     },
     "emmabostian/developer-portfolios": {
-      "stars": 27685,
+      "stars": 27823,
       "description": "A list of developer portfolios for your inspiration",
       "language": "Python",
       "url": "https://github.com/emmabostian/developer-portfolios"

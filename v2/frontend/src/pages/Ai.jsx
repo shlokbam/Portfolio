@@ -11,6 +11,11 @@ import './Ai.css'
 const MCP_URL = 'https://shlokbam.in/mcp'
 const NAME = 'shlok-bam'
 const CURSOR = 'cursor://anysphere.cursor-deeplink/mcp/install?name=' + NAME + '&config=eyJ1cmwiOiJodHRwczovL3NobG9rYmFtLmluL21jcCJ9' // config = base64 of {"url": MCP_URL}
+// public listings of the server: shown under the address on this page (and in llms.txt, scripts/prerender.mjs)
+const LISTED = [
+  ['glama', 'Glama', 'https://glama.ai/mcp/connectors/io.github.shlokbam/portfolio'],
+  ['registry', 'Official MCP Registry', 'https://registry.modelcontextprotocol.io/v0/servers?search=io.github.shlokbam/portfolio']
+]
 const VSCODE = 'vscode:mcp/install?' + encodeURIComponent(JSON.stringify({ name: NAME, type: 'http', url: MCP_URL }))
 
 // [id, app, steps, copyable snippet, one-click install link]
@@ -85,6 +90,12 @@ export default function Ai() {
             <code>{MCP_URL}</code>
             <Copy text={MCP_URL} label="Copy address" what="url" />
           </div>
+          <p className="mono fade ai-listed" style={{ '--d': '.65s' }}>
+            <span>Listed on</span>
+            {LISTED.map(([lid, name, url]) => (
+              <A key={lid} className="ai-listed-a" href={url} onClick={() => track('mcp_listing_click', { where: lid })}>{name} ↗</A>
+            ))}
+          </p>
         </div>
       </section>
 
